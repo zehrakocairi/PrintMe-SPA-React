@@ -23,7 +23,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
       >
         <div className="flex items-stretch md:items-center justify-center h-full text-center md:px-4">
           <Transition.Child
-            as={Fragment}
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -39,7 +39,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
             &#8203;
           </span>
           <Transition.Child
-            as={Fragment}
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"

@@ -1,9 +1,9 @@
 import React from "react";
 import CardCategory2 from "./CardCategories/CardCategory2";
 import Heading from "./Heading/Heading";
-import img1 from "./images/discover-more-1.png";
-import img2 from "./images/discover-more-2.png";
-import img3 from "./images/discover-more-3.png";
+import img1 from "../../data/images/discover-more-1.png";
+import img2 from "../../data/images/discover-more-2.png";
+import img3 from "../../data/images/discover-more-3.png";
 
 const CATS_DISCOVER = [
   {

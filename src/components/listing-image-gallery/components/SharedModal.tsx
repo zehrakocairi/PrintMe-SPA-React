@@ -13,6 +13,7 @@ import { variants } from "../../../utils/animationVariants";
 import { range } from "../utils/range";
 import type { ListingGalleryImage } from "../utils/types";
 import Twitter from "./Icons/Twitter";
+import {useLocation} from 'react-router-dom';
 
 interface SharedModalProps {
   index: number;
@@ -34,7 +35,7 @@ export default function SharedModal({
   direction,
 }: SharedModalProps) {
   const [loaded, setLoaded] = useState(false);
-
+  const location = useLocation();
   let filteredImages = images?.filter((img: ListingGalleryImage) =>
     range(index - 15, index + 15).includes(img.id)
   );
@@ -134,7 +135,7 @@ export default function SharedModal({
                   </a>
                 ) : (
                   <a
-                    href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20pic%20from%20Chisfis%20!%0A%0A${location.href}`}
+                    href={`https://twitter.com/intent/tweet?text=Check%20out%20this%20pic%20from%20Chisfis%20!%0A%0A${location.pathname}`}
                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
                     target="_blank"
                     title="Open fullsize version"

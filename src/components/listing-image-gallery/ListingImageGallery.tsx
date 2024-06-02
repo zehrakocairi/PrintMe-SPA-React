@@ -9,7 +9,7 @@ import { useLastViewedPhoto } from "./utils/useLastViewedPhoto";
 import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import LikeSaveBtns from "../LikeSaveBtns";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const getNewParam = ({
   paramName = "photoId",
@@ -30,6 +30,7 @@ interface Props {
 }
 
 const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
+  const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const photoId = searchParams?.get("photoId");
   const navigate = useNavigate();

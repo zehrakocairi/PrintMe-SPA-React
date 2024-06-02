@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import imgAds from "./images/ads.png";
+import imgAds from "../../data/images/ads.png";
 import Image from "../../shared/Link";
 
 export interface SectionAdsProps {

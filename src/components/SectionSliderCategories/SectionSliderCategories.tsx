@@ -5,10 +5,10 @@ import Heading from "../Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import CardCategory2 from "../CardCategories/CardCategory2";
-import department1Png from "./images/collections/department1.png";
-import department2Png from "./images/collections/department2.png";
-import department3Png from "./images/collections/department3.png";
-import department4Png from "./images/collections/department4.png";
+import department1Png from "../../data/images/collections/department1.png";
+import department2Png from "../../data/images/collections/department2.png";
+import department3Png from "../../data/images/collections/department3.png";
+import department4Png from "../../data/images/collections/department4.png";
 import Link from "../../shared/Link";
 
 export interface CardCategoryData {

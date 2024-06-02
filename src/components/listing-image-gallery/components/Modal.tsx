@@ -18,7 +18,7 @@ export default function Modal({
   let overlayRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const thisPathname = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(thisPathname.search);
   const photoId = searchParams?.get("photoId");
   let index = Number(photoId);
 
