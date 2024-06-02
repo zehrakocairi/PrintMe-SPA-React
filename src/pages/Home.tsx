@@ -57,27 +57,12 @@ const Home: FC<any> = ({ }) => {
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
         </div>
-        {/* <SectionPromo1 /> */}
 
         <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <SectionGridMoreExplore />
         </div>
 
-        {/* <SectionSliderProductCard
-          heading="Best Sellers"
-          subHeading="Best selling of the month"
-        /> */}
-
-        {/* <SectionPromo2 /> */}
-
-        {/* <SectionSliderLargeProduct cardStyle="style2" /> */}
-
-        {/* <SectionSliderCategories /> */}
-
-        {/* <SectionPromo3 /> */}
-
-        {/* TODO : Remove the following component or replace the server-side logic deep in SectionMagazine5 like useing fake data */}
         <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <div>
