@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import facebook from "./images/socials/facebook.svg";
-import twitter from "./images/socials/twitter.svg";
-import telegram from "./images/socials/telegram.svg";
-import youtube from "./images/socials/youtube.svg";
+import facebook from "../../data/images/socials/facebook.svg";
+import twitter from "../../data/images/socials/twitter.svg";
+import telegram from "../../data/images/socials/telegram.svg";
+import youtube from "../../data/images/socials/youtube.svg";
 import Image from "../../shared/Image";
 
 export interface SocialsListProps {

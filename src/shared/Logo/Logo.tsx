@@ -1,6 +1,6 @@
 import React from "react";
-import logoImg from "./images/logo.svg";
-import logoLightImg from "./images/logo-light.svg";
+import logoImg from "../../data/images/logo.svg";
+import logoLightImg from "../../data/images/logo-light.svg";
 import Link from "../../shared/Link";
 import Image from "../Image";
 
