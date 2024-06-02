@@ -1,9 +1,9 @@
 import { SocialType } from "../SocialsShare/SocialsShare";
 import React, { FC } from "react";
-import facebook from "@/images/socials/facebook.svg";
-import twitter from "@/images/socials/twitter.svg";
-import telegram from "@/images/socials/telegram.svg";
-import youtube from "@/images/socials/youtube.svg";
+import facebook from "./images/socials/facebook.svg";
+import twitter from "./images/socials/twitter.svg";
+import telegram from "./images/socials/telegram.svg";
+import youtube from "./images/socials/youtube.svg";
 import Image from "../../shared/Image";
 
 export interface SocialsList1Props {

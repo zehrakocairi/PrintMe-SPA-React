@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import NcImage from "../shared/NcImage/NcImage";
-import rightImgDemo from "@/images/promo3.png";
-import backgroundLineSvg from "@/images/BackgroundLine.svg";
+import rightImgDemo from "./images/promo3.png";
+import backgroundLineSvg from "./images/BackgroundLine.svg";
 import Badge from "../shared/Badge/Badge";
 import Input from "../shared/Input/Input";
 import ButtonCircle from "../shared/Button/ButtonCircle";

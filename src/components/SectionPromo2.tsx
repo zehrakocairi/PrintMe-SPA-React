@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import NcImage from "../shared/NcImage/NcImage";
-import rightImgDemo from "@/images/promo2.png";
+import rightImgDemo from "./images/promo2.png";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import Logo from "../shared/Logo/Logo";
-import backgroundLineSvg from "@/images/Moon.svg";
+import backgroundLineSvg from "./images/Moon.svg";
 import Image from "../shared/Image";
 
 export interface SectionPromo2Props {

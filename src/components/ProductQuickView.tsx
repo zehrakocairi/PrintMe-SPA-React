@@ -14,9 +14,9 @@ import {
 import IconDiscount from "./IconDiscount";
 import Prices from "./Prices";
 import toast from "react-hot-toast";
-import detail1JPG from "@/images/products/detail1.jpg";
-import detail2JPG from "@/images/products/detail2.jpg";
-import detail3JPG from "@/images/products/detail3.jpg";
+import detail1JPG from "../data/images/products/detail1.jpg";
+import detail2JPG from "../data/images/products/detail2.jpg";
+import detail3JPG from "../data/images/products/detail3.jpg";
 import NotifyAddTocart from "./NotifyAddTocart";
 import AccordionInfo from "./AccordionInfo";
 import Image from "../shared/Image";

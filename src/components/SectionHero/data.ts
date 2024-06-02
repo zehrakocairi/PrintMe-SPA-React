@@ -1,6 +1,6 @@
-import imageRightPng from "@/images/hero-right.png";
-import imageRightPng2 from "@/images/hero-right-2.png";
-import imageRightPng3 from "@/images/hero-right-3.png";
+import imageRightPng from "../../data/images/hero-right.png";
+import imageRightPng2 from "../../data/images/hero-right-2.png";
+import imageRightPng3 from "../../data/images/hero-right-3.png";
 
 interface Hero2DataType {
   image: string;
