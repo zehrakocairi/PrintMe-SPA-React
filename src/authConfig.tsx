@@ -1,12 +1,13 @@
 import { LogLevel } from "@azure/msal-browser";
-import { Configuration } from '@azure/msal-browser';
+import { Configuration ,PublicClientApplication, SilentRequest} from '@azure/msal-browser';
+
 
 
 export const msalConfig: Configuration = {
     auth: {
-        clientId: '*****',//process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID as string,
-        authority: "https://login.microsoftonline.com/"+'*****',//process.env.NEXT_PUBLIC_AZURE_AD_TENANT_ID,
-        redirectUri: 'http://localhost:3000'// process.env.NEXT_PUBLIC_AZURE_AD_REDIRECT_URI,
+        clientId: process.env.REACT_APP_AZURE_AD_CLIENT_ID as string,
+        authority: "https://login.microsoftonline.com/"+process.env.REACT_APP_AZURE_AD_TENANT_ID,
+        redirectUri: process.env.REACT_APP_AZURE_AD_REDIRECT_URI,
     },
     cache: {
         cacheLocation: "localStorage",
@@ -44,6 +45,8 @@ export const loginRequest = {
     scopes: ["openid", "profile"],
 };
 
-export const tokenRequest = {
-    scopes: ["api://*****/PrintMe.User"],
+export const tokenRequest : SilentRequest = {
+    scopes:[process.env.REACT_APP_AZURE_USER_SCOPE as string],
 };
+
+export const msalInstance = new PublicClientApplication(msalConfig);

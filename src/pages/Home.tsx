@@ -11,20 +11,22 @@ import ButtonSecondary from "../shared/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "../data/data";
 import SectionGridFeatureItems from "../components/SectionGridFeatureItems";
 import SectionMagazine5 from "../pages/blog/SectionMagazine5";
-import { getFeaturedItems } from "../services/catalogService";
+import { getFeaturedItems, getPaginatedItems } from "../services/catalogService";
 import ProductCard from "../components/ProductCard";
+import { useMsal } from "@azure/msal-react";
 
 const Home: FC<any> = ({ }) => {
 
   const [featuredItems, setFeaturedItems] = useState([]);
+  const [trendingItems, setTrendingItems] = useState([]);
+  const { instance, accounts } = useMsal();
+
   useEffect(() => {
     const fetchItems = async () => {
-      try {
-        const { data } = await getFeaturedItems();
-        setFeaturedItems(data);
-      } catch (err) {
-        alert(err)
-      }
+      let res = await getFeaturedItems(instance, accounts);
+      setFeaturedItems(res.data);
+      res = await getPaginatedItems(instance, accounts);
+      setTrendingItems(res.data);
     };
 
     fetchItems();
@@ -52,7 +54,7 @@ const Home: FC<any> = ({ }) => {
           /> : <></>
         }
 
-        <SectionGridFeatureItems />
+        {trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />

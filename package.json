@@ -45,7 +45,13 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "max-len": ["off", { "code": 400 }]
+    }
+  },
+  "prettier": {
+    "printWidth": 400
   },
   "browserslist": {
     "production": [
