@@ -26,6 +26,7 @@ export interface ExploreType {
   svgBg: string;
   color?: string;
   count?: number;
+  link: string;
 }
 
 export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
@@ -37,6 +38,7 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore9Svg,
     color: "bg-orange-50",
     count: 343,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 5,
@@ -46,6 +48,7 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore5Svg,
     color: "bg-blue-50",
     count: 222,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 6,
@@ -55,6 +58,7 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore6Svg,
     color: "bg-orange-50",
     count: 155,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 7,
@@ -64,6 +68,7 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore7Svg,
     color: "bg-stone-100",
     count: 98,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 8,
@@ -73,6 +78,7 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore8Svg,
     color: "bg-blue-50",
     count: 33,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 9,
@@ -82,61 +88,68 @@ export const DEMO_MORE_EXPLORE_DATA_2: ExploreType[] = [
     svgBg: explore4Svg,
     color: "bg-slate-100/80",
     count: 122,
+    link: "/search?category=nature-prints#root",
   },
 ];
 export const DEMO_MORE_EXPLORE_DATA: ExploreType[] = [
   {
     id: 1,
-    name: "Backpack",
+    name: "Nature Prints",
     desc: "Manufacturar",
     image: explore1Png,
     svgBg: explore1Svg,
     color: "bg-indigo-50",
     count: 155,
+    link: "/search?category=nature-prints#root",
   },
   {
     id: 2,
-    name: "Shoes",
-    desc: "Manufacturar",
+    name: "Botanical",
+    desc: "Nature",
     image: explore2Png,
     svgBg: explore2Svg,
     color: "bg-slate-100/80",
     count: 22,
+    link: "/search?category=botanical#root",
   },
   {
     id: 3,
-    name: "Recycled Blanket",
-    desc: "Manufacturar",
+    name: "Animals",
+    desc: "Nature",
     image: explore3Png,
     svgBg: explore3Svg,
     color: "bg-violet-50",
     count: 144,
+    link: "/search?category=animals#root",
   },
   {
     id: 4,
-    name: "Cycling Shorts",
-    desc: "Manufacturar",
+    name: "Space and Astronomy",
+    desc: "Nature",
     image: explore9Png,
     svgBg: explore9Svg,
     color: "bg-orange-50",
     count: 343,
+    link: "/search?category=space-and-astronomy#root",
   },
   {
     id: 5,
-    name: "Cycling Jersey",
-    desc: "Manufacturar",
+    name: "Maps and Cities",
+    desc: "Nature",
     image: explore5Png,
     svgBg: explore5Svg,
     color: "bg-blue-50",
     count: 222,
+    link: "/search?category=maps-and-cities#root",
   },
   {
     id: 6,
-    name: "Car Coat",
-    desc: "Manufacturar",
+    name: "Maps and Cities",
+    desc: "Nature",
     image: explore6Png,
     svgBg: explore6Svg,
     color: "bg-orange-50",
-    count: 155,
+    count: 222,
+    link: "/search?category=maps-and-cities#root",
   },
 ];

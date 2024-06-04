@@ -35,6 +35,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any
         sizeState: undefined,
         sortOrderStates: "",
     });
+    
     const [filterChanged, setFilterChanged] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [pageSize, setPageSize] = useState<number>(12);

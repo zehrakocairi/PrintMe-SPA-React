@@ -13,6 +13,7 @@ export interface CardCategory4Props {
   desc: string;
   color?: string;
   count?: number;
+  link?: string;
 }
 
 const CardCategory4: FC<CardCategory4Props> = ({
@@ -23,6 +24,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
   desc,
   color = "bg-rose-50",
   count,
+  link
 }) => {
   return (
     <div
@@ -66,7 +68,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
         </div>
       </div>
 
-      <Link href={"/collection"}></Link>
+      <Link href={link ?? "/collection"}></Link>
     </div>
   );
 };

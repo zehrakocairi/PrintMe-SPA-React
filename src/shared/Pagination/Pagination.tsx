@@ -29,7 +29,6 @@ export interface PaginationProps {
 
 const Pagination: FC<PaginationProps> = ({ className = "" }) => {
 
-  const {pageIndex, pageSize, setPageIndex, setPageSize} = useFilter();
   const renderItem = (pag: CustomLink, index: number) => {
     if (index === 0) {
       return (
