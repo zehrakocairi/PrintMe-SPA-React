@@ -11,28 +11,36 @@ import ButtonSecondary from "../shared/Button/ButtonSecondary";
 import { PRODUCTS, SPORT_PRODUCTS } from "../data/data";
 import SectionGridFeatureItems from "../components/SectionGridFeatureItems";
 import SectionMagazine5 from "../pages/blog/SectionMagazine5";
-import { getFeaturedItems, getPaginatedItems } from "../services/catalogService";
+import { getFeaturedItems, getFilteredPaginatedItems, getPaginatedItems } from "../services/catalogService";
 import ProductCard from "../components/ProductCard";
 import { useMsal } from "@azure/msal-react";
+import { useFilter } from "../contexts/FilterContext";
 
 const Home: FC<any> = ({ }) => {
 
   const [featuredItems, setFeaturedItems] = useState([]);
   const [trendingItems, setTrendingItems] = useState([]);
+  const { filter, filterChanged, setIsLoading, pageIndex, pageSize } = useFilter();
   const { instance, accounts } = useMsal();
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      let res = await getFeaturedItems(instance, accounts);
-      setFeaturedItems(res.data);
-      res = await getPaginatedItems(instance, accounts);
-      setTrendingItems(res.data);
-    };
+  const fetchTrendingItems = async () => {
+    setIsLoading(true);
+    const res = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
+    setTrendingItems(res.data);
+    setIsLoading(false);
+  };
+  const fetchFeaturedtems = async () => {
+    const res = await getFeaturedItems(instance, accounts);
+    setFeaturedItems(res.data);
+  };
 
-    fetchItems();
-    return () => {
-    };
+  useEffect(() => {
+    fetchFeaturedtems();
   }, []);
+
+  useEffect(() => {
+    fetchTrendingItems();
+  }, [filterChanged]);
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
@@ -54,7 +62,7 @@ const Home: FC<any> = ({ }) => {
           /> : <></>
         }
 
-        {trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
+        {trendingItems ?? [] ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />

@@ -3,8 +3,8 @@ import HeaderFilterSection from "./HeaderFilterSection";
 import ProductCard from "./ProductCard";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import { Product, PRODUCTS } from "../data/data";
+import { useFilter } from "../contexts/FilterContext";
 
-//
 export interface SectionGridFeatureItemsProps {
   data?: Product[];
 }
@@ -12,6 +12,7 @@ export interface SectionGridFeatureItemsProps {
 const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({
   data = PRODUCTS,
 }) => {
+  const {isLoading, setPageSize, setFilterChanged} = useFilter();
   return (
     <div className="nc-SectionGridFeatureItems relative">
       <HeaderFilterSection />
@@ -23,7 +24,12 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({
         ))}
       </div>
       <div className="flex mt-16 justify-center items-center">
-        <ButtonPrimary loading>Show me more</ButtonPrimary>
+        <ButtonPrimary loading={isLoading} onClick={()=>{
+          setPageSize((prev)=> prev + 10);
+          setFilterChanged((prev)=> !prev);
+        }
+
+        }>Show me more</ButtonPrimary>
       </div>
     </div>
   );

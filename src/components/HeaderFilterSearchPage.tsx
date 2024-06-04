@@ -7,6 +7,8 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import TabFilters from "./TabFilters";
 import { Transition } from "../headlessui";
+import { Category } from "../enums/Category";
+import { useFilter } from "../contexts/FilterContext";
 
 export interface HeaderFilterSearchPageProps {
   className?: string;
@@ -15,8 +17,16 @@ export interface HeaderFilterSearchPageProps {
 const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
   className = "mb-12",
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [tabActive, setTabActive] = useState("All items");
+  const [isOpen, setIsOpen] = useState(true);  
+  
+  const {updatecategoryState, filter, setFilterChanged} = useFilter()
+  const mainCategories: { key: Category, value: string }[] = [
+    { key: Category.None, value: "All Items" },
+    { key: Category.Nature, value: "Nature" },
+    { key: Category.VintageAndRetro, value: "Vintage and Retro" },
+    { key: Category.ArtStyles, value: "Art Styles" },
+    { key: Category.FamousPaintersCategory, value: "Famous Painters" }
+  ];
 
   return (
     <div className={`flex flex-col relative ${className}`}>
@@ -25,14 +35,17 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
           className="sm:space-x-2"
           containerClassName="relative flex w-full overflow-x-auto text-sm md:text-base hiddenScrollbar"
         >
-          {["All items", "Women", "Man", "Jewels", "Kids"].map(
-            (item, index) => (
+          {mainCategories.map(
+            (item) => (
               <NavItem
-                key={index}
-                isActive={tabActive === item}
-                onClick={() => setTabActive(item)}
+                key={item.key}
+                isActive={filter.categoryState === item.key || filter.categoryState === undefined && item.key === Category.None}
+                onClick={() => {
+                  updatecategoryState(item.key);
+                  setFilterChanged(prev=>!prev);
+                }}
               >
-                {item}
+                {item.value}
               </NavItem>
             )
           )}

@@ -2,6 +2,7 @@ import { CustomLink } from "../../data/types";
 import React, { FC } from "react";
 import twFocusClass from "../../utils/twFocusClass";
 import Link from "../Link";
+import { useFilter } from "../../contexts/FilterContext";
 
 const DEMO_PAGINATION: CustomLink[] = [
   {
@@ -27,6 +28,8 @@ export interface PaginationProps {
 }
 
 const Pagination: FC<PaginationProps> = ({ className = "" }) => {
+
+  const {pageIndex, pageSize, setPageIndex, setPageSize} = useFilter();
   const renderItem = (pag: CustomLink, index: number) => {
     if (index === 0) {
       return (
@@ -38,7 +41,6 @@ const Pagination: FC<PaginationProps> = ({ className = "" }) => {
         </span>
       );
     }
-    // RETURN UNACTIVE PAGINATION
     return (
       <Link
         key={index}

@@ -1,8 +1,10 @@
 import { fetchWithAuth } from "../fetch/fetchWrapper";
 import { IPublicClientApplication } from "@azure/msal-browser";
 import { tokenRequest } from "../authConfig";
-import { CatalogTags } from "../enums/CatalogTags";
 import { CatalogType } from "../enums/CatalogType";
+import { Category } from "../enums/Category";
+import { CatalogTags } from "../enums/CatalogTags";
+import { FilterState } from "../models/FilterModels";
 
 const fetchCatalogItems = async (url: string, instance: IPublicClientApplication, accounts: any[]) => {
   try {
@@ -35,10 +37,40 @@ export const getOurPickItems = async (instance: IPublicClientApplication, accoun
   return fetchCatalogItems(url, instance, accounts);
 };
 
-export const getPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], pageSize: number = 12, pageIndex: number = 0) => {
+export const getPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], pageSize: number = 12, pageIndex: number = 0, category?: Category,) => {
   const url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}&catalogType=${CatalogType.Print}`;
   return fetchCatalogItems(url, instance, accounts);
 };
+
+export const getFilteredPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], filter: FilterState, pageSize: number = 12, pageIndex: number = 0) => {
+  const url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}${toQueryString(filter)}`;
+
+  return fetchCatalogItems(url, instance, accounts);
+};
+
+
+function toQueryString(filter: FilterState) {
+  let query = "";
+  if (filter.isOnSale === true) {
+    query += `&tags=${CatalogTags.OnSale}`;
+  }
+  if (filter.rangePrices.length > 0 && filter.rangePrices[0] > 0) {
+    query += `&priceFrom=${filter.rangePrices[0]}`;
+  }
+  if (filter.rangePrices.length > 1 && filter.rangePrices[1] > 0) {
+    query += `&priceTo=${filter.rangePrices[1]}`;
+  }
+  if (filter.categoryState) {
+    query += `&category=${filter.categoryState}`;
+  }
+  if (filter.sizeState) {
+    query += `&size=${filter.sizeState}`;
+  }
+  if (filter.sortOrderStates) {
+    query += `&sortOrderStates=${filter.sortOrderStates}`;
+  }
+  return query;
+}
 
 async function getAccessToken(instance: IPublicClientApplication, accounts: any[]) {
   return null;

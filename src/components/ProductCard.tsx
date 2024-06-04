@@ -77,7 +77,6 @@ const ProductCard: FC<ProductCardProps> = ({
   };
 
   const renderProductCartOnNotify = ({ size }: { size?: string }) => {
-    debugger;
     return (
       <div className="flex ">
         <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">

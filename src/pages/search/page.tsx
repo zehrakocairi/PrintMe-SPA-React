@@ -5,9 +5,59 @@ import HeaderFilterSearchPage from "../../components/HeaderFilterSearchPage";
 import Input from "../../shared/Input/Input";
 import ButtonCircle from "../../shared/Button/ButtonCircle";
 import ProductCard from "../../components/ProductCard";
-import { PRODUCTS } from "../../data/data";
+import { useEffect, useState } from "react";
+import { getFilteredPaginatedItems } from "../../services/catalogService";
+import { useMsal } from "@azure/msal-react";
+import { Category } from "../../enums/Category";
+import { useFilter } from "../../contexts/FilterContext";
+import { useLocation} from "react-router-dom";
+
 
 const PageSearch = ({}) => {
+
+  const [products, setProducts] = useState([]);
+  const { instance, accounts } = useMsal();
+
+  const location = useLocation();
+
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updatecategoryState, isLoading, setPageSize} = useFilter();
+
+  const fetchItems = async () => {
+    setIsLoading(true);
+
+    const categoryFromUrl = getCategoryFromUrl();
+    const categoryState = filter.categoryState == undefined 
+      ? categoryFromUrl 
+      : filter.categoryState;
+
+    updatecategoryState(categoryState);
+
+    const res = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex);
+    setProducts(res.data);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchItems();
+  }, [filterChanged]);
+
+  function getCategoryFromUrl(): Category {
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = getCategoryKeyInsensitive(urlParams.get('category') ?? "") ;
+    let newCategory = Category.None;
+    if (category && category in Category) {
+      newCategory = Category[category as keyof typeof Category];
+    }
+    return newCategory;
+  }
+
+  function getCategoryKeyInsensitive(category: string): string | undefined {
+    const lowerCaseCategory = category.toLowerCase();
+    const categoryKeys = Object.keys(Category).filter(key => isNaN(Number(key))); // Get only string keys
+    return categoryKeys.find(key => key.toLowerCase() === lowerCaseCategory);
+}
+
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
       <div
@@ -71,7 +121,7 @@ const PageSearch = ({}) => {
 
           {/* LOOP ITEMS */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10 mt-8 lg:mt-10">
-            {PRODUCTS.map((item, index) => (
+            {products.map((item, index) => (
               <ProductCard data={item} key={index} />
             ))}
           </div>
@@ -79,7 +129,12 @@ const PageSearch = ({}) => {
           {/* PAGINATION */}
           <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
             <Pagination />
-            <ButtonPrimary loading>Show me more</ButtonPrimary>
+            <ButtonPrimary loading={isLoading} onClick={()=>{
+              setPageSize((prev)=> prev + 10);
+              setFilterChanged((prev)=> !prev);
+            }
+
+        }>Show me more</ButtonPrimary>
           </div>
         </main>
 

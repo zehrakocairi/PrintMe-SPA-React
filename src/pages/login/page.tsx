@@ -30,7 +30,6 @@ const PageLogin = () => {
 
 
   const callApiWithToken = async () => {
-    debugger;
     if (isAuthenticated) {
       const request = {
         ...tokenRequest,
@@ -38,14 +37,13 @@ const PageLogin = () => {
       };
       try {
         const response = await instance.acquireTokenSilent(request);
-        debugger;
         const token = response.accessToken;
         const apiResponse = await fetch('https://localhost:7183/test', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        debugger;
+
         console.log(apiResponse);
       } catch (e) {
         console.error(e);

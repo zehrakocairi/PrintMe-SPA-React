@@ -58,16 +58,16 @@ const SidebarFilters = () => {
   //
   const [isOnSale, setIsIsOnSale] = useState(true);
   const [rangePrices, setRangePrices] = useState([100, 500]);
-  const [categoriesState, setCategoriesState] = useState<string[]>([]);
+  const [categoryState, setcategoryState] = useState<string[]>([]);
   const [colorsState, setColorsState] = useState<string[]>([]);
-  const [sizesState, setSizesState] = useState<string[]>([]);
+  const [sizeState, setsizeState] = useState<string[]>([]);
   const [sortOrderStates, setSortOrderStates] = useState<string>("");
 
   //
   const handleChangeCategories = (checked: boolean, name: string) => {
     checked
-      ? setCategoriesState([...categoriesState, name])
-      : setCategoriesState(categoriesState.filter((i) => i !== name));
+      ? setcategoryState([...categoryState, name])
+      : setcategoryState(categoryState.filter((i) => i !== name));
   };
 
   const handleChangeColors = (checked: boolean, name: string) => {
@@ -78,8 +78,8 @@ const SidebarFilters = () => {
 
   const handleChangeSizes = (checked: boolean, name: string) => {
     checked
-      ? setSizesState([...sizesState, name])
-      : setSizesState(sizesState.filter((i) => i !== name));
+      ? setsizeState([...sizeState, name])
+      : setsizeState(sizeState.filter((i) => i !== name));
   };
 
   //
@@ -94,7 +94,7 @@ const SidebarFilters = () => {
             <Checkbox
               name={item.name}
               label={item.name}
-              defaultChecked={categoriesState.includes(item.name)}
+              defaultChecked={categoryState.includes(item.name)}
               sizeClassName="w-5 h-5"
               labelClassName="text-sm font-normal"
               onChange={(checked) => handleChangeCategories(checked, item.name)}
@@ -136,7 +136,7 @@ const SidebarFilters = () => {
             <Checkbox
               name={item.name}
               label={item.name}
-              defaultChecked={sizesState.includes(item.name)}
+              defaultChecked={sizeState.includes(item.name)}
               onChange={(checked) => handleChangeSizes(checked, item.name)}
               sizeClassName="w-5 h-5"
               labelClassName="text-sm font-normal"
