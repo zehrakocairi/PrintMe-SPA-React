@@ -25,18 +25,21 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             try {
                 // Fetch cart from localStorage
                 const localCart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
-                setCart(localCart);
+                setCart(localCart ?? []);
 
                 if (account || true) {
                     const backendCart = await getCart(instance, accounts);
-                    const mergedCart = mergeCarts(localCart, backendCart);
-                    setCart(mergedCart);
+                    const {mergedCart, isUpdated} = mergeCarts(localCart, backendCart);
+                    if(isUpdated) {
+                        setCart(mergedCart ?? []);
 
-                    // Update localStorage with merged cart
-                    localStorage.setItem('cart', JSON.stringify(mergedCart));
-
-                    // Persist merged cart to backend
-                    await updateCart(instance, accounts, mergedCart);
+                        // Update localStorage with merged cart
+                        localStorage.setItem('cart', JSON.stringify(mergedCart));
+    
+                        // Persist merged cart to backend
+                        await updateCart(instance, accounts, mergedCart);
+                    }
+                    
 
                 }
             } catch (error) {
@@ -45,19 +48,20 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         };
 
         fetchCart();
-    }, [account, instance]);
+    }, []);
 
-    const mergeCarts = (localCart: CartItem[], backendCart: CartItem[]): CartItem[] => {
+    const mergeCarts = (localCart: CartItem[], backendCart: CartItem[]): {mergedCart: CartItem[], isUpdated:boolean} => {
         const mergedCart = [...localCart];
-
+        let isUpdated = false;
         backendCart.forEach(backendItem => {
             const localItem = mergedCart.find(item => item.productId === backendItem.productId);
             if (!localItem) {
+                isUpdated = true;
                 mergedCart.push(backendItem);
             }
         });
 
-        return mergedCart;
+        return {mergedCart, isUpdated};
     };
 
     const addItemToCart = async (item: CartItem) => {
@@ -69,8 +73,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         } else {
             updatedCart = [...cart, item];
         }
-       
-        setCart(updatedCart);
+
+        setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
         if (account || true) {
@@ -80,7 +84,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
     const removeItemFromCart = async (productId: number) => {
         const updatedCart = cart.filter(item => item.productId !== productId);
-        setCart(updatedCart);
+        setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
         if (account || true) {

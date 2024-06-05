@@ -11,9 +11,15 @@ import { msalInstance } from "./authConfig";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  <React.StrictMode>
-      <MsalProvider instance={msalInstance}>
-          <App></App>
-        </MsalProvider>
-  </React.StrictMode>
+  <MsalProvider instance={msalInstance}>
+    <App></App>
+  </MsalProvider>
 );
+
+// root.render(
+//   <React.StrictMode>
+//       <MsalProvider instance={msalInstance}>
+//           <App></App>
+//         </MsalProvider>
+//   </React.StrictMode>
+// );

@@ -147,7 +147,8 @@ export default function CartDropdown() {
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
                     <h3 className="text-xl font-semibold">Shopping cart</h3>
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
-                      {cart?.map(
+                      {
+                      cart?.map(
                         (item, index) => renderProduct(item, index, close)
                       )}
                     </div>

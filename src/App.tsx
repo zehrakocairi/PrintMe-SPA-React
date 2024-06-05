@@ -15,8 +15,8 @@ import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   return (
-    <Router>
-      <CartProvider>
+    <CartProvider>
+      <Router>
         <SiteHeader />
         <FilterProvider>
           <Routes>
@@ -31,9 +31,10 @@ function App() {
           </Routes>
           <Footer />
         </FilterProvider>
-      </CartProvider>
 
-    </Router>
+      </Router>
+    </CartProvider>
+
   );
 }
 
