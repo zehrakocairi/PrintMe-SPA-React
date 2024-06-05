@@ -17,6 +17,8 @@ import Image from "../shared/Image";
 import Link from "../shared/Link";
 import NcImage from "../shared/NcImage/NcImage";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../contexts/CartContext";
+import { CartItem } from "../models/CartItem";
 
 export interface ProductCardProps {
   className?: string;
@@ -46,8 +48,10 @@ const ProductCard: FC<ProductCardProps> = ({
   const [variantActive, setVariantActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const navigate = useNavigate();
+  const {addItemToCart, cart} = useCart();
 
   const notifyAddTocart = ({ size }: { size?: string }) => {
+    addItemToCart(new CartItem(id, name, price, 1, image));
     toast.custom(
       (t) => (
         <Transition

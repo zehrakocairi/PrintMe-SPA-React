@@ -16,7 +16,8 @@ export const fetchWithAuth = async (url: string, token: string|null, options: an
 
   const fetchResponse = await fetch(url, {
     ...options,
-    headers
+    headers,
+    credentials: "include"
   });
 
   if (fetchResponse.status >= 300) {
@@ -25,3 +26,25 @@ export const fetchWithAuth = async (url: string, token: string|null, options: an
 
   return await fetchResponse.json();
 };
+
+export const getPostOptions = (body: any):any => {
+  return {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+}
+
+export const getPutOptions = (body: any):any => {
+  return {
+    method: "PUT",
+    body: JSON.stringify(body),
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+}

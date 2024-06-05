@@ -11,24 +11,27 @@ import ProductDetailPage from "./pages/product-detail/page";
 import PageContact from "./pages/contact/page";
 import PageLogin from "./pages/login/page";
 import { FilterProvider } from "./contexts/FilterContext";
+import { CartProvider } from "./contexts/CartContext";
 
 function App() {
   return (
     <Router>
-      <SiteHeader />
-      <FilterProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<PageAbout />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/search" element={<PageSearch />} />
-          <Route path="/product-detail" element={<ProductDetailPage />} />
-          <Route path="/contact" element={<PageContact />} />
-          <Route path="/login" element={<PageLogin />} />
-        </Routes>
-        <Footer />
-      </FilterProvider>
+      <CartProvider>
+        <SiteHeader />
+        <FilterProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<PageAbout />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/search" element={<PageSearch />} />
+            <Route path="/product-detail" element={<ProductDetailPage />} />
+            <Route path="/contact" element={<PageContact />} />
+            <Route path="/login" element={<PageLogin />} />
+          </Routes>
+          <Footer />
+        </FilterProvider>
+      </CartProvider>
 
     </Router>
   );
