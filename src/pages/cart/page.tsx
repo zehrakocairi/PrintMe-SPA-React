@@ -1,7 +1,8 @@
 import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
 import NcInputNumber from "../../components/NcInputNumber";
 import Prices from "../../components/Prices";
-import { Product, PRODUCTS } from "../..//data/data";
+import { PRODUCTS } from "../..//data/data";
+import { Product } from "../../models/ProductModels";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";

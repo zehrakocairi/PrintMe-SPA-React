@@ -5,7 +5,8 @@ import Heading from "./Heading/Heading";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard from "./ProductCard";
-import { Product, PRODUCTS } from "../data/data";
+import { PRODUCTS } from "../data/data";
+import { Product } from "../models/ProductModels";
 
 export interface SectionSliderProductCardProps {
   className?: string;
