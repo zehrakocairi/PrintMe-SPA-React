@@ -13,34 +13,8 @@ import productSport5 from "../data/images/products/sport-5.png";
 import productSport6 from "../data/images/products/sport-6.png";
 import productSport7 from "../data/images/products/sport-7.png";
 import productSport8 from "../data/images/products/sport-8.png";
+import { Product, ProductVariant } from "../models/ProductModels";
 
-//
-
-export interface ProductVariant {
-  id: number;
-  name: string;
-  thumbnail?: string;
-  color?: string;
-  featuredImage:string;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image: string;
-  description: string;
-  category: string;
-  tags: string[];
-  link: "/product-detail/";
-  variants?: ProductVariant[];
-  variantType?: "color" | "image";
-  sizes?: string[];
-  allOfSizes?: string[];
-  status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
-  rating?: string;
-  numberOfReviews?: number;
-}
 
 const DEMO_VARIANTS: ProductVariant[] = [
   {
@@ -114,6 +88,12 @@ export const PRODUCTS: Product[] = [
     description: "Brown cockroach wings",
     price: 74,
     image: productImgs[16],
+    images: {
+      thumbnail: productImgs[16],
+      thumbnailAlternate: productImgs[16],
+      image: productImgs[16],
+      imageAlternate: productImgs[16],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -131,6 +111,12 @@ export const PRODUCTS: Product[] = [
     description: "Classic green",
     price: 68,
     image: productImgs[1],
+    images: {
+      thumbnail: productImgs[1],
+      thumbnailAlternate: productImgs[1],
+      image: productImgs[1],
+      imageAlternate: productImgs[1],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -146,6 +132,12 @@ export const PRODUCTS: Product[] = [
     description: "New blue aqua",
     price: 132,
     image: productImgs[15],
+    images: {
+      thumbnail: productImgs[15],
+      thumbnailAlternate: productImgs[15],
+      image: productImgs[15],
+      imageAlternate: productImgs[15],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -162,6 +154,12 @@ export const PRODUCTS: Product[] = [
     description: "Dark pink 2023",
     price: 28,
     image: productImgs[3],
+    images: {
+      thumbnail: productImgs[3],
+      thumbnailAlternate: productImgs[3],
+      image: productImgs[3],
+      imageAlternate: productImgs[3],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANT_COLORS,
@@ -177,6 +175,12 @@ export const PRODUCTS: Product[] = [
     description: "Perfect mint green",
     price: 42,
     image: productImgs[4],
+    images: {
+      thumbnail: productImgs[4],
+      thumbnailAlternate: productImgs[4],
+      image: productImgs[4],
+      imageAlternate: productImgs[4],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANTS,
@@ -193,6 +197,12 @@ export const PRODUCTS: Product[] = [
     description: "New design 2023",
     price: 30,
     image: productImgs[5],
+    images: {
+      thumbnail: productImgs[5],
+      thumbnailAlternate: productImgs[5],
+      image: productImgs[5],
+      imageAlternate: productImgs[5],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variantType: "color",
@@ -207,6 +217,12 @@ export const PRODUCTS: Product[] = [
     description: "Matte black",
     price: 12,
     image: productImgs[8],
+    images: {
+      thumbnail: productImgs[8],
+      thumbnailAlternate: productImgs[8],
+      image: productImgs[8],
+      imageAlternate: productImgs[8],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANTS,
@@ -222,6 +238,12 @@ export const PRODUCTS: Product[] = [
     description: "Cream pink",
     price: 145,
     image: productImgs[7],
+    images: {
+      thumbnail: productImgs[7],
+      thumbnailAlternate: productImgs[7],
+      image: productImgs[7],
+      imageAlternate: productImgs[7],
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANTS,
@@ -242,6 +264,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Brown cockroach wings",
     price: 74,
     image: productSport1,
+    images: {
+      thumbnail: productSport1,
+      thumbnailAlternate: productSport1,
+      image: productSport1,
+      imageAlternate: productSport1,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -259,6 +287,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Classic green",
     price: 68,
     image: productSport2,
+    images:{
+      thumbnail: productSport2,
+      thumbnailAlternate: productSport2,
+      image: productSport2,
+      imageAlternate: productSport2,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -274,6 +308,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "New blue aqua",
     price: 132,
     image: productSport3,
+    images:{
+      thumbnail: productSport7,
+      thumbnailAlternate: productSport7,
+      image: productSport7,
+      imageAlternate: productSport7,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     link: "/product-detail/",
@@ -290,6 +330,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Dark pink 2023",
     price: 28,
     image: productSport4,
+    images:{
+      thumbnail: productSport7,
+      thumbnailAlternate: productSport7,
+      image: productSport7,
+      imageAlternate: productSport7,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANT_COLORS,
@@ -305,6 +351,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Perfect mint green",
     price: 42,
     image: productSport5,
+    images:{
+      thumbnail: productSport7,
+      thumbnailAlternate: productSport7,
+      image: productSport7,
+      imageAlternate: productSport7,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANTS,
@@ -321,6 +373,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "New design 2023",
     price: 30,
     image: productSport6,
+    images:{
+      thumbnail: productSport7,
+      thumbnailAlternate: productSport7,
+      image: productSport7,
+      imageAlternate: productSport7,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variantType: "color",
@@ -335,6 +393,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Matte black",
     price: 12,
     image: productSport7,
+    images:{
+      thumbnail: productSport7,
+      thumbnailAlternate: productSport7,
+      image: productSport7,
+      imageAlternate: productSport7,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANTS,
@@ -350,6 +414,12 @@ export const SPORT_PRODUCTS: Product[] = [
     description: "Cream pink",
     price: 145,
     image: productSport8,
+    images: {
+      thumbnail: productSport8,
+      thumbnailAlternate: productSport8,
+      image: productSport8,
+      imageAlternate: productSport8,
+    },
     category: "Category 1",
     tags: ["tag1", "tag2"],
     variants: DEMO_VARIANT_COLORS,

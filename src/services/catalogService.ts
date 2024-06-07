@@ -6,10 +6,22 @@ import { Category } from "../enums/Category";
 import { CatalogTags } from "../enums/CatalogTags";
 import { FilterState } from "../models/FilterModels";
 
+
 const fetchCatalogItems = async (url: string, instance: IPublicClientApplication, accounts: any[]) => {
   try {
     const accessToken = await getAccessToken(instance, accounts);
     const response = await fetchWithAuth(url, accessToken);
+    return response;
+  } catch (error) {
+    console.error(`Error fetching catalog items:`, error);
+    throw error;
+  }
+};
+
+export const getCatalogItem = async (id: number, instance: IPublicClientApplication, accounts: any[]) => {
+  try {
+    const accessToken = await getAccessToken(instance, accounts);
+    const response = await fetchWithAuth(`/catalog/${id}`, accessToken);
     return response;
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);

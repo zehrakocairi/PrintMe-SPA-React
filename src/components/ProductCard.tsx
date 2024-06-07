@@ -4,7 +4,7 @@ import React, { FC, useState } from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import { Product, PRODUCTS } from "../data/data";
+import { PRODUCTS } from "../data/data";
 import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
@@ -19,6 +19,9 @@ import NcImage from "../shared/NcImage/NcImage";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { CartItem } from "../models/CartItem";
+import { Sizes } from "../data/types";
+import { Product } from "../models/ProductModels";
+import { title } from "process";
 
 export interface ProductCardProps {
   className?: string;
@@ -34,12 +37,13 @@ const ProductCard: FC<ProductCardProps> = ({
   const {
     name,
     price,
+    motto,
     description,
     sizes,
     variants,
     variantType,
     status,
-    image,
+    images,
     rating,
     id,
     numberOfReviews,
@@ -49,9 +53,10 @@ const ProductCard: FC<ProductCardProps> = ({
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const navigate = useNavigate();
   const {addItemToCart, cart} = useCart();
+  const thumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
 
   const notifyAddTocart = ({ size }: { size?: string }) => {
-    addItemToCart(new CartItem(id, name, price, 1, image));
+    addItemToCart(new CartItem(id, name, price, 1, thumbnail));
     toast.custom(
       (t) => (
         <Transition
@@ -87,7 +92,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             width={80}
             height={96}
-            src={image}
+            src={thumbnail}
             alt={name}
             className="absolute object-cover object-center"
           />
@@ -248,7 +253,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
     return (
       <div className="absolute bottom-0 inset-x-1 space-x-1.5 rtl:space-x-reverse flex justify-center opacity-0 invisible group-hover:bottom-4 group-hover:opacity-100 group-hover:visible transition-all">
-        {sizes.map((size, index) => {
+        {Sizes.map((size, index) => {
           return (
             <div
               key={index}
@@ -268,13 +273,13 @@ const ProductCard: FC<ProductCardProps> = ({
       <div
         className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
       >
-        <Link href={"/product-detail"} className="absolute inset-0"></Link>
+        <Link href={`/product-detail/${id}`} className="absolute inset-0"></Link>
 
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-          <Link href={"/product-detail"} className="block">
+          <Link href={`/product-detail/${id}`} className="block">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-              src={image}
+              src={thumbnail}
               className="object-cover w-full h-full drop-shadow-xl"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
@@ -294,7 +299,7 @@ const ProductCard: FC<ProductCardProps> = ({
               {name}
             </h2>
             <p className={`text-sm text-slate-500 dark:text-slate-400 mt-1 `}>
-              {description}
+              { motto || description}
             </p>
           </div>
 

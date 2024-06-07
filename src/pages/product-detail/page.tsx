@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -14,7 +14,6 @@ import detail21JPG from "../../data/images/products/detail3-1.webp";
 import detail22JPG from "../../data/images/products/detail3-2.webp";
 import detail23JPG from "../../data/images/products/detail3-3.webp";
 import detail24JPG from "../../data/images/products/detail3-4.webp";
-import { PRODUCTS } from "../../data/data";
 import IconDiscount from "../../components/IconDiscount";
 import NcInputNumber from "../../components/NcInputNumber";
 import BagIcon from "../../components/BagIcon";
@@ -27,7 +26,12 @@ import AccordionInfo from "../../components/AccordionInfo";
 import Policy from "./Policy";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ListingImageGallery from "../../components/listing-image-gallery/ListingImageGallery";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useMsal } from "@azure/msal-react";
+import { getCatalogItem } from "../../services/catalogService";
+import { Product, ImagesDto } from "../../models/ProductModels";
+import {Sizes} from '../../data/types';
+import {getFeaturedItems} from '../../services/catalogService';
 
 const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
   detail21JPG,
@@ -42,20 +46,48 @@ const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
   "https://images.pexels.com/photos/871494/pexels-photo-871494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   "https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
-const PRICE = 108;
 
-const ProductDetailPage = ({}) => {
-  const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
-  
+const ProductDetailPage = ({ }) => {
+
+  const { id } = useParams();
 
   const navigate = useNavigate();
   const thisPathname = useLocation();
   const searchParams = new URLSearchParams(thisPathname.search);
-
   const modal = searchParams?.get("modal");
-  //
-  const [variantActive, setVariantActive] = useState(0);
-  const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
+
+
+  const { instance, accounts } = useMsal();
+
+  const fetchFeaturedtems = async () => {
+    const res = await getFeaturedItems(instance, accounts);
+    setCustomersAlsoPurchesed(res.data);
+  };
+
+  const fetchProduct = async () => {
+    const product = await getCatalogItem(+(id ?? "0"), instance, accounts);
+    setProduct(product);
+  };
+
+  useEffect(() => {
+    fetchProduct();
+    fetchFeaturedtems();
+  }, []);
+
+
+  const status = "New in"; // TODO : Complete here by the category of the product
+  // const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
+  const [product, setProduct] = useState({} as Product);
+  const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
+
+
+  function getAllImages() : string[] {
+    return [product?.images?.image, product?.images?.imageAlternate].concat(LIST_IMAGES_GALLERY_DEMO);
+  }
+
+
+  
+  const [sizeSelected, setSizeSelected] = useState(Sizes ? Sizes[0] : "");
   const [qualitySelected, setQualitySelected] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
@@ -64,69 +96,20 @@ const ProductDetailPage = ({}) => {
   const handleCloseModalImageGallery = () => {
     let params = new URLSearchParams(document.location.search);
     params.delete("modal");
-    navigate(`${thisPathname}/?${params.toString()}`);
+    navigate(`${thisPathname.pathname}?${params.toString()}`);
   };
   const handleOpenModalImageGallery = () => {
-    navigate(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE`);
-  };
-
-  //
-  const renderVariants = () => {
-    if (!variants || !variants.length) {
-      return null;
-    }
-
-    return (
-      <div>
-        <label htmlFor="">
-          <span className="text-sm font-medium">
-            Color:
-            <span className="ml-1 font-semibold">
-              {variants[variantActive].name}
-            </span>
-          </span>
-        </label>
-        <div className="flex mt-3">
-          {variants.map((variant, index) => (
-            <div
-              key={index}
-              onClick={() => setVariantActive(index)}
-              className={`relative flex-1 max-w-[75px] h-10 sm:h-11 rounded-full border-2 cursor-pointer ${
-                variantActive === index
-                  ? "border-primary-6000 dark:border-primary-500"
-                  : "border-transparent"
-              }`}
-            >
-              <div
-                className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
-                style={{
-                  backgroundImage: `url(${
-                    // @ts-ignore
-                    typeof variant.thumbnail?.src === "string"
-                      ? // @ts-ignore
-                        variant.thumbnail?.src
-                      : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
-                  })`,
-                }}
-              ></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    navigate(`${thisPathname.pathname}?modal=PHOTO_TOUR_SCROLLABLE`);
   };
 
   const notifyAddTocart = () => {
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          productImage={image}
+          productImage={product?.images?.thumbnailAlternate}
           qualitySelected={qualitySelected}
           show={t.visible}
           sizeSelected={sizeSelected}
-          variantActive={variantActive}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
@@ -134,7 +117,7 @@ const ProductDetailPage = ({}) => {
   };
 
   const renderSizeList = () => {
-    if (!allOfSizes || !sizes || !sizes.length) {
+    if (!Sizes || !Sizes.length) {
       return null;
     }
     return (
@@ -149,29 +132,27 @@ const ProductDetailPage = ({}) => {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="##"
+            // href=""
             className="text-primary-6000 hover:text-primary-500"
           >
             See sizing chart
           </a>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-3">
-          {allOfSizes.map((size, index) => {
+          {Sizes.map((size, index) => {
             const isActive = size === sizeSelected;
-            const sizeOutStock = !sizes.includes(size);
+            const sizeOutStock = !Sizes.includes(size);
             return (
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
-                  sizeOutStock
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${sizeOutStock
                     ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
                     : "cursor-pointer"
-                } ${
-                  isActive
+                  } ${isActive
                     ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
                     : "border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
-                }`}
+                  }`}
                 onClick={() => {
                   if (sizeOutStock) {
                     return;
@@ -238,7 +219,7 @@ const ProductDetailPage = ({}) => {
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
               <div className="flex text-2xl font-semibold">
-                ${PRICE.toFixed(2)}
+                ${product.price?.toFixed(2)}
               </div>
 
               <a
@@ -249,10 +230,10 @@ const ProductDetailPage = ({}) => {
                   <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
                 </div>
                 <span className="ml-1.5 flex">
-                  <span>4.9 </span>
+                  <span>{5} </span>
                   <span className="mx-1.5">·</span>
                   <span className="text-slate-700 dark:text-slate-400 underline">
-                    142 reviews
+                    {product.numberOfReviews} reviews
                   </span>
                 </span>
               </a>
@@ -260,7 +241,6 @@ const ProductDetailPage = ({}) => {
 
             {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
             <div className="mt-6 space-y-7 lg:space-y-8">
-              <div className="">{renderVariants()}</div>
               <div className="">{renderSizeList()}</div>
             </div>
           </div>
@@ -286,12 +266,12 @@ const ProductDetailPage = ({}) => {
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">
-                  <span>{`$${PRICE.toFixed(2)}  `}</span>
+                  <span>{`$${product.price?.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
                   <span>{`${qualitySelected} `}</span>
                 </span>
 
-                <span>{`$${(PRICE * qualitySelected).toFixed(2)}`}</span>
+                <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
@@ -301,7 +281,7 @@ const ProductDetailPage = ({}) => {
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{`$${(PRICE * qualitySelected).toFixed(2)}`}</span>
+              <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
             </div>
           </div>
         </div>
@@ -314,7 +294,7 @@ const ProductDetailPage = ({}) => {
       <div className="listingSection__wrap !space-y-6">
         <div>
           <h2 className="text-2xl md:text-3xl font-semibold">
-            Heavy Weight Hoodie
+            {product?.name}
           </h2>
           <div className="flex items-center mt-4 sm:mt-5">
             <a
@@ -325,10 +305,10 @@ const ProductDetailPage = ({}) => {
                 <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200" />
               </div>
               <span className="ml-1.5">
-                <span>4.9</span>
+                <span>5</span>
                 <span className="mx-1.5">·</span>
                 <span className="text-slate-700 dark:text-slate-400 underline">
-                  142 reviews
+                {product?.numberOfReviews} reviews
                 </span>
               </span>
             </a>
@@ -346,7 +326,7 @@ const ProductDetailPage = ({}) => {
         {/*  */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/*  */}
-        <AccordionInfo panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
+        <AccordionInfo data={[{name: "Title", content: product.motto ?? ""}, {name: "Description", content: product.description}]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
       </div>
     );
   };
@@ -441,7 +421,7 @@ const ProductDetailPage = ({}) => {
     <div className={`ListingDetailPage nc-ProductDetailPage2`}>
       <>
         <header className="container mt-8 sm:mt-10">
-          <div className="relative ">
+          <div className="relative overflow-hidden">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
               <div
                 className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"
@@ -450,8 +430,8 @@ const ProductDetailPage = ({}) => {
                 <NcImage
                   alt="firt"
                   containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
-                  className="object-cover rounded-md sm:rounded-xl"
-                  src={LIST_IMAGES_GALLERY_DEMO[0]}
+                  className="object-cover rounded-md sm:rounded-xl max-h-full"
+                  src={product?.images?.image || ""}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   priority
@@ -470,19 +450,18 @@ const ProductDetailPage = ({}) => {
                   sizes="(max-width: 640px) 100vw, 50vw"
                   containerClassName="absolute inset-0"
                   className="object-cover w-full h-full rounded-md sm:rounded-xl"
-                  src={LIST_IMAGES_GALLERY_DEMO[1]}
+                  src={product?.images?.imageAlternate || ""}
                 />
                 <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
               </div>
 
               {/*  */}
-              {[LIST_IMAGES_GALLERY_DEMO[2], LIST_IMAGES_GALLERY_DEMO[3]].map(
+              {[product?.images?.image, product?.images?.imageAlternate].map(
                 (item, index) => (
                   <div
                     key={index}
-                    className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${
-                      index >= 2 ? "block" : ""
-                    }`}
+                    className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${index >= 2 ? "block" : ""
+                      }`}
                   >
                     <NcImage
                       alt=""
@@ -552,12 +531,15 @@ const ProductDetailPage = ({}) => {
 
         <hr className="border-slate-200 dark:border-slate-700" />
 
-        <SectionSliderProductCard
-          heading="Customers also purchased"
-          subHeading=""
-          headingFontClassName="text-2xl font-semibold"
-          headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
-        />
+        {
+          customerAlsoPurchased.length > 0 ? <SectionSliderProductCard
+            heading="Customers also purchased"
+            subHeading=""
+            headingFontClassName="text-2xl font-semibold"
+            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
+            data={customerAlsoPurchased}
+          /> : <></>
+        }
       </div>
 
       {/* MODAL VIEW ALL REVIEW */}
@@ -569,7 +551,7 @@ const ProductDetailPage = ({}) => {
       <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}
-        images={LIST_IMAGES_GALLERY_DEMO.map((item, index) => {
+        images={getAllImages().map((item, index) => {
           return {
             id: index,
             url: item,

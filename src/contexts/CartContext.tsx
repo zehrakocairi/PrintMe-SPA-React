@@ -49,8 +49,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                         // Persist merged cart to backend
                         await updateCart(instance, accounts, mergedCart);
                     }
-                    
-
                 }
             } catch (error) {
                 console.error('Failed to fetch cart:', error);

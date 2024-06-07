@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import HeaderFilterSection from "./HeaderFilterSection";
 import ProductCard from "./ProductCard";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
-import { Product, PRODUCTS } from "../data/data";
+import { PRODUCTS } from "../data/data";
+import { Product } from "../models/ProductModels";
 import { useFilter } from "../contexts/FilterContext";
 
 export interface SectionGridFeatureItemsProps {

@@ -4,12 +4,7 @@ import { Disclosure } from "../headlessui";
 import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
 
-const DEMO_DATA = [
-  {
-    name: "Description",
-    content:
-      "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
-  },
+const DEFAULT_DATA = [
   {
     name: "Fabric + Care",
     content: `<ul class="list-disc list-inside leading-7">
@@ -52,17 +47,17 @@ const DEMO_DATA = [
 
 interface Props {
   panelClassName?: string;
-  data?: typeof DEMO_DATA;
+  data?: typeof DEFAULT_DATA;
 }
 
 const AccordionInfo: FC<Props> = ({
   panelClassName = "p-4 pt-3 last:pb-0 text-slate-600 text-sm dark:text-slate-300 leading-6",
-  data = DEMO_DATA,
+  data = [],
 }) => {
   return (
     <div className="w-full rounded-2xl space-y-2.5">
       {/* ============ */}
-      {data.map((item, index) => {
+      {data.concat(DEFAULT_DATA).map((item, index) => {
         return (
           <Disclosure key={index} defaultOpen={index < 2}>
             {({ open }) => (
