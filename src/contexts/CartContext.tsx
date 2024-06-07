@@ -7,6 +7,8 @@ interface CartContextProps {
     cart: CartItem[];
     addItemToCart: (item: CartItem) => Promise<void>;
     removeItemFromCart: (productId: number) => Promise<void>;
+    cartTotal:  number;
+    taxTotal:  number;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -17,8 +19,16 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
+    const [cartTotal, setCartTotal] = useState<number>(0);
+    const [taxTotal, setTaxTotal] = useState<number>(0);
     const { instance, accounts } = useMsal();
     const account = accounts[0];
+
+    useEffect(() => {
+        const newCartTotal = cart.reduce((acc, item) => acc + item.unitPrice * item.quantity, 0);
+        setCartTotal(newCartTotal);
+        setTaxTotal(newCartTotal * 0.08);
+    }, [cart]);
 
     useEffect(() => {
         const fetchCart = async () => {
@@ -65,7 +75,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     };
 
     const addItemToCart = async (item: CartItem) => {
-        let updatedCart = cart;
+        let updatedCart = [...cart ];
+        
         const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId);
 
         if (existingItem) {
@@ -93,7 +104,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addItemToCart, removeItemFromCart }}>
+        <CartContext.Provider value={{ cart, addItemToCart, removeItemFromCart, cartTotal, taxTotal }}>
             {children}
         </CartContext.Provider>
     );
