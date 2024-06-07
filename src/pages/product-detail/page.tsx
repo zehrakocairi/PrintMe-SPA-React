@@ -72,7 +72,7 @@ const ProductDetailPage = ({ }) => {
   useEffect(() => {
     fetchProduct();
     fetchFeaturedtems();
-  }, []);
+  }, [id]);
 
 
   const status = "New in"; // TODO : Complete here by the category of the product
@@ -85,8 +85,6 @@ const ProductDetailPage = ({ }) => {
     return [product?.images?.image, product?.images?.imageAlternate].concat(LIST_IMAGES_GALLERY_DEMO);
   }
 
-
-  
   const [sizeSelected, setSizeSelected] = useState(Sizes ? Sizes[0] : "");
   const [qualitySelected, setQualitySelected] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
