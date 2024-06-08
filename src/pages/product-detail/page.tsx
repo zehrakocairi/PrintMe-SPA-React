@@ -220,7 +220,7 @@ const ProductDetailPage = ({ }) => {
                 ${product.price?.toFixed(2)}
               </div>
 
-              <a
+              {/* <a
                 href="#reviews"
                 className="flex items-center text-sm font-medium"
               >
@@ -234,7 +234,7 @@ const ProductDetailPage = ({ }) => {
                     {product.numberOfReviews} reviews
                   </span>
                 </span>
-              </a>
+              </a> */}
             </div>
 
             {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
@@ -295,7 +295,7 @@ const ProductDetailPage = ({ }) => {
             {product?.name}
           </h2>
           <div className="flex items-center mt-4 sm:mt-5">
-            <a
+            {/* <a
               href="#reviews"
               className="hidden sm:flex items-center text-sm font-medium "
             >
@@ -309,7 +309,7 @@ const ProductDetailPage = ({ }) => {
                 {product?.numberOfReviews} reviews
                 </span>
               </span>
-            </a>
+            </a> */}
             <span className="hidden sm:block mx-2.5">·</span>
             {renderStatus()}
 

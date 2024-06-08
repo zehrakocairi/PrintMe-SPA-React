@@ -84,7 +84,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             <h3 className="text-lg font-semibold">Contact infomation</h3>
             <span className="block text-sm my-1 md:my-0">
               Do not have an account?{` `}
-              <a href="##" className="text-primary-500 font-medium">
+              <a href="/login" className="text-primary-500 font-medium">
                 Log in
               </a>
             </span>

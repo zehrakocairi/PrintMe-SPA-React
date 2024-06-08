@@ -187,11 +187,15 @@ const ShippingAddress: FC<Props> = ({
           <div className="flex flex-col sm:flex-row pt-6">
             <ButtonPrimary
               className="sm:!px-7 shadow-none"
-              onClick={onCloseActive}
+              onClick={ ()=>{
+                alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
+                // onCloseActive();
+              }}
             >
               Save and next to Payment
             </ButtonPrimary>
             <ButtonSecondary
+            disabled
               className="mt-3 sm:mt-0 sm:ml-3"
               onClick={onCloseActive}
             >

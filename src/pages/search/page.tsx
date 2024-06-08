@@ -16,23 +16,35 @@ import { useLocation} from "react-router-dom";
 const PageSearch = ({}) => {
 
   const [products, setProducts] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const { instance, accounts } = useMsal();
 
   const location = useLocation();
 
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updatecategoryState, isLoading, setPageSize} = useFilter();
 
-  const fetchItems = async () => {
+  const fetchItems = async (searchTerm:string = "") => {
     setIsLoading(true);
 
     const categoryFromUrl = getCategoryFromUrl();
-    const categoryState = filter.categoryState == undefined 
-      ? categoryFromUrl 
-      : filter.categoryState;
+    // searchTerm = searchTerm.trim() === "" 
+    // ? new URLSearchParams(location.search).get('searchTerm') ?? ""
+    // : searchTerm;
+    
+    setSearchText(searchTerm);
 
-    updatecategoryState(categoryState);
+    let categoryState = filter.categoryState == undefined
+        ? categoryFromUrl
+        : filter.categoryState;
 
-    const res = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex);
+    if (searchTerm.trim() !== "") {
+      categoryState = Category.None;
+    }
+    else {
+      updatecategoryState(categoryState);
+    }
+
+    const res = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex, searchTerm);
     setProducts(res.data);
 
     setIsLoading(false);
@@ -40,12 +52,16 @@ const PageSearch = ({}) => {
 
   useEffect(() => {
     fetchItems();
-  }, [filterChanged]);
+  }, [filterChanged, pageIndex, pageSize]);
 
   useEffect(() => {
-    updatecategoryState(getCategoryFromUrl());
-    setFilterChanged((prev)=> !prev);
+    fetchItems(new URLSearchParams(location.search).get('searchTerm') ?? "");
   }, [location.search]);
+
+
+  useEffect(() => {
+    setSearchText(new URLSearchParams(location.search).get('searchTerm') ?? "");
+  }, []);
 
   function getCategoryFromUrl(): Category {
     let newCategory = Category.None;
@@ -63,6 +79,11 @@ const PageSearch = ({}) => {
     return categoryKeys.find(key => key.toLowerCase() === lowerCaseCategory);
 }
 
+function search(){
+  updatecategoryState(Category.None);
+  fetchItems(searchText)
+}
+
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
       <div
@@ -70,7 +91,7 @@ const PageSearch = ({}) => {
       />
       <div className="container">
         <header className="max-w-2xl mx-auto -mt-10 flex flex-col lg:-mt-7">
-          <form className="relative w-full " method="post">
+          <div className="relative w-full ">
             <label
               htmlFor="search-input"
               className="text-neutral-500 dark:text-neutral-300"
@@ -83,11 +104,14 @@ const PageSearch = ({}) => {
                 placeholder="Type your keywords"
                 sizeClass="pl-14 py-5 pr-5 md:pl-16"
                 rounded="rounded-full"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
               />
               <ButtonCircle
                 className="absolute right-2.5 top-1/2 transform -translate-y-1/2"
                 size=" w-11 h-11"
-                type="submit"
+                onClick={search}
+                type="button"
               >
                 <i className="las la-arrow-right text-xl"></i>
               </ButtonCircle>
@@ -115,7 +139,7 @@ const PageSearch = ({}) => {
                 </svg>
               </span>
             </label>
-          </form>
+          </div>
         </header>
       </div>
 

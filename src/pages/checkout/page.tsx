@@ -13,11 +13,13 @@ import PaymentMethod from "./PaymentMethod";
 import ShippingAddress from "./ShippingAddress";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
+import { useCart } from "../../contexts/CartContext";
+import { CartItem } from "../../models/CartItem";
 
 const CheckoutPage = () => {
-  const [tabActive, setTabActive] = useState<
-    "ContactInfo" | "ShippingAddress" | "PaymentMethod"
-  >("ShippingAddress");
+  const [tabActive, setTabActive] = useState<"ContactInfo" | "ShippingAddress" | "PaymentMethod">("ShippingAddress");
+  const { cart, cartTotal, taxTotal, addItemToCart} = useCart();
+  const [shippingPrice] = useState(5);
 
   const handleScrollToEl = (id: string) => {
     const element = document.getElementById(id);
@@ -26,16 +28,21 @@ const CheckoutPage = () => {
     }, 80);
   };
 
-  const renderProduct = (item: Product, index: number) => {
-    const { image, price, name } = item;
+  const renderProduct = (item: CartItem, index: number) => {
+    let { pictureUrl, unitPrice, quantity, productName } = item;
+
+    const setQuantity = (value: number) => {
+      addItemToCart({...item, quantity: (value - quantity)});
+      quantity = value;
+    };
 
     return (
       <div key={index} className="relative flex py-7 first:pt-0 last:pb-0">
         <div className="relative h-36 w-24 sm:w-28 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
           <Image
-            src={image}
+            src={pictureUrl}
             fill
-            alt={name}
+            alt={productName}
             className="h-full w-full object-contain object-center"
             sizes="150px"
           />
@@ -47,7 +54,7 @@ const CheckoutPage = () => {
             <div className="flex justify-between ">
               <div className="flex-[1.5] ">
                 <h3 className="text-base font-semibold">
-                  <Link href="/product-detail">{name}</Link>
+                  <Link href="/product-detail">{productName}</Link>
                 </h3>
                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center space-x-1.5">
@@ -133,35 +140,25 @@ const CheckoutPage = () => {
                 </div>
 
                 <div className="mt-3 flex justify-between w-full sm:hidden relative">
-                  <select
-                    name="qty"
-                    id="qty"
-                    className="form-select text-sm rounded-md py-1 border-slate-200 dark:border-slate-700 relative z-10 dark:bg-slate-800 "
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                  </select>
                   <Prices
                     contentClass="py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium h-full"
-                    price={price}
+                    price={unitPrice * quantity}
                   />
                 </div>
               </div>
 
               <div className="hidden flex-1 sm:flex justify-end">
-                <Prices price={price} className="mt-0.5" />
+                <Prices price={unitPrice * quantity} className="mt-0.5" />
               </div>
             </div>
           </div>
 
           <div className="flex mt-auto pt-4 items-end justify-between text-sm">
             <div className="hidden sm:block text-center relative">
-              <NcInputNumber className="relative z-10" />
+              <NcInputNumber
+                defaultValue={quantity}
+                onChange={setQuantity}
+                className="relative z-10" />
             </div>
 
             <a
@@ -211,8 +208,9 @@ const CheckoutPage = () => {
           <PaymentMethod
             isActive={tabActive === "PaymentMethod"}
             onOpenActive={() => {
-              setTabActive("PaymentMethod");
-              handleScrollToEl("PaymentMethod");
+              alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
+              // setTabActive("PaymentMethod");
+              // handleScrollToEl("PaymentMethod");
             }}
             onCloseActive={() => setTabActive("PaymentMethod")}
           />
@@ -249,7 +247,7 @@ const CheckoutPage = () => {
           <div className="w-full lg:w-[36%] ">
             <h3 className="text-lg font-semibold">Order summary</h3>
             <div className="mt-8 divide-y divide-slate-200/70 dark:divide-slate-700 ">
-              {[PRODUCTS[0], PRODUCTS[2], PRODUCTS[3]].map(renderProduct)}
+              {cart.map(renderProduct)}
             </div>
 
             <div className="mt-10 pt-6 text-sm text-slate-500 dark:text-slate-400 border-t border-slate-200/70 dark:border-slate-700 ">
@@ -266,27 +264,27 @@ const CheckoutPage = () => {
               <div className="mt-4 flex justify-between py-2.5">
                 <span>Subtotal</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  $249.00
+                  ${cartTotal}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Shipping estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  $5.00
+                  ${shippingPrice}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Tax estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  $24.90
+                  ${taxTotal}
                 </span>
               </div>
               <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                 <span>Order total</span>
-                <span>$276.00</span>
+                <span>${(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
               </div>
             </div>
-            <ButtonPrimary className="mt-8 w-full">Confirm order</ButtonPrimary>
+            <ButtonPrimary disabled className="mt-8 w-full">Confirm order</ButtonPrimary>
             <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
               <p className="block relative pl-5">
                 <svg
