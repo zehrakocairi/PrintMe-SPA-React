@@ -15,24 +15,26 @@ import { PrintSize } from "../enums/PrintSize";
 
 // DEMO DATA
 const DATA_categories = [
-  {
-    name: "Abstract Art",
-    value: Category.AbstractArt
-  },
-  {
-    name: "Animals",
-    value: Category.Animals
-  },
-  {
-    name: "ArtPrints",
-    value: Category.ArtPrints
-  },{
-    name: "ArtStyles",
-    value: Category.ArtStyles
-  },{
-    name: "BlackAndWhite",
-    value: Category.BlackAndWhite
-  },
+  { name: "Abstract Art", value: Category.AbstractArt },
+  { name: "Animals", value: Category.Animals },
+  { name: "Art Prints", value: Category.ArtPrints },
+  { name: "Black And White", value: Category.BlackAndWhite },
+  { name: "Botanical", value: Category.Botanical },
+  { name: "Classic Posters", value: Category.ClassicPosters },
+  { name: "Famous Painters", value: Category.FamousPainters },
+  { name: "Gold And Silver", value: Category.GoldAndSilver },
+  { name: "Graphical", value: Category.Graphical },
+  { name: "Historical Prints", value: Category.HistoricalPrints },
+  { name: "Iconic Photos", value: Category.IconicPhotos },
+  { name: "Illustrations", value: Category.Illustrations },
+  { name: "Maps And Cities", value: Category.MapsAndCities },
+  { name: "Modern Artists", value: Category.ModernArtists },
+  { name: "Nature Prints", value: Category.NaturePrints },
+  { name: "Photographs", value: Category.Photographs },
+  { name: "Retro And Vintage", value: Category.RetroAndVintage },
+  { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
+  { name: "Studio Collections", value: Category.StudioCollections },
+  { name: "Text Posters", value: Category.TextPosters },
 ];
 
 // const DATA_sizes = [
@@ -205,7 +207,7 @@ const TabFilters = () => {
                         <Checkbox
                           name={item.name}
                           label={item.name}
-                          defaultChecked={  (filter.categoryState ?? Category.None & item.value) == item.value }
+                          defaultChecked={  ((filter.categoryState ?? Category.None) & item.value) === item.value }
                           onChange={(checked) =>
                             handleChangeCategories(checked, item.value)
                           }
@@ -218,6 +220,7 @@ const TabFilters = () => {
                       onClick={() => {
                         close();
                         updatecategoryState(Category.None);
+                        setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
@@ -342,10 +345,11 @@ const TabFilters = () => {
                       onClick={() => {
                         close();
                         updateSortOrderStates("");
+                        setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      Clear1
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -600,6 +604,7 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         updateRangePrices(PRICE_RANGE);
+                        setFilterChanged(!filterChanged);
                         close();
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
@@ -965,6 +970,7 @@ const TabFilters = () => {
                         // updatesizeState(undefined);
                         updateSortOrderStates("");
                         closeModalMoreFilter();
+                        setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >

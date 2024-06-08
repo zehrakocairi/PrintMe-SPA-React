@@ -6,9 +6,16 @@ import { Product } from "../../models/ProductModels";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
+import { useCart } from "../../contexts/CartContext";
+import { CartItem } from "../../models/CartItem";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CartPage = () => {
-  const renderStatusSoldout = () => {
+  const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
+  const [shippingPrice, setShippingPrice] = useState(5);
+
+ const renderStatusSoldout = () => {
     return (
       <div className="rounded-full flex items-center justify-center px-2.5 py-1.5 text-xs text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
         <NoSymbolIcon className="w-3.5 h-3.5" />
@@ -26,9 +33,13 @@ const CartPage = () => {
     );
   };
 
-  const renderProduct = (item: Product, index: number) => {
-    const { image, price, name } = item;
-
+  const renderProduct = (item: CartItem, index: number) => {
+    let { productId, pictureUrl, unitPrice, productName, quantity } = item;
+    
+  const setQuantity = (value: number) => {
+    addItemToCart({...item, quantity: (value - quantity)});
+    quantity = value;
+  };
     return (
       <div
         key={index}
@@ -37,12 +48,12 @@ const CartPage = () => {
         <div className="relative h-36 w-24 sm:w-32 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
           <Image
             fill
-            src={image}
-            alt={name}
+            src={pictureUrl}
+            alt={productName}
             sizes="300px"
             className="h-full w-full object-contain object-center"
           />
-          <Link href="/product-detail" className="absolute inset-0"></Link>
+          <Link href={`/product-detail/${productId}`} className="absolute inset-0"></Link>
         </div>
 
         <div className="ml-3 sm:ml-6 flex flex-1 flex-col">
@@ -50,7 +61,7 @@ const CartPage = () => {
             <div className="flex justify-between ">
               <div className="flex-[1.5] ">
                 <h3 className="text-base font-semibold">
-                  <Link href="/product-detail">{name}</Link>
+                  <Link href={`/product-detail/${productId}`}>{productName}</Link>
                 </h3>
                 <div className="mt-1.5 sm:mt-2.5 flex text-sm text-slate-600 dark:text-slate-300">
                   <div className="flex items-center space-x-1.5">
@@ -136,32 +147,23 @@ const CartPage = () => {
                 </div>
 
                 <div className="mt-3 flex justify-between w-full sm:hidden relative">
-                  <select
-                    name="qty"
-                    id="qty"
-                    className="form-select text-sm rounded-md py-1 border-slate-200 dark:border-slate-700 relative z-10 dark:bg-slate-800 "
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                  </select>
                   <Prices
                     contentClass="py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium h-full"
-                    price={price}
+                    price={unitPrice * quantity}
                   />
                 </div>
               </div>
 
               <div className="hidden sm:block text-center relative">
-                <NcInputNumber className="relative z-10" />
+                <NcInputNumber 
+                defaultValue={quantity} 
+                onChange={setQuantity} 
+                className="relative z-10" />
+                
               </div>
 
               <div className="hidden flex-1 sm:flex justify-end">
-                <Prices price={price} className="mt-0.5" />
+                <Prices price={unitPrice * quantity} className="mt-0.5" />
               </div>
             </div>
           </div>
@@ -175,7 +177,7 @@ const CartPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span>Remove</span>
+              <span  onClick={() => {removeItemFromCart(productId)}}>Remove</span>
             </a>
           </div>
         </div>
@@ -207,13 +209,7 @@ const CartPage = () => {
 
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:w-[60%] xl:w-[55%] divide-y divide-slate-200 dark:divide-slate-700 ">
-            {[
-              PRODUCTS[0],
-              PRODUCTS[1],
-              PRODUCTS[2],
-              PRODUCTS[3],
-              PRODUCTS[4],
-            ].map(renderProduct)}
+            {cart?.map((item, index) => renderProduct(item, index))}
           </div>
           <div className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
           <div className="flex-1">
@@ -223,24 +219,24 @@ const CartPage = () => {
                 <div className="flex justify-between pb-4">
                   <span>Subtotal</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    $249.00
+                  {cartTotal}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
-                  <span>Shpping estimate</span>
+                  <span>Shipping estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    $5.00
+                    ${shippingPrice}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Tax estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    $24.90
+                    ${taxTotal}
                   </span>
                 </div>
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                   <span>Order total</span>
-                  <span>$276.00</span>
+                  <span>{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
                 </div>
               </div>
               <ButtonPrimary href="/checkout" className="mt-8 w-full">

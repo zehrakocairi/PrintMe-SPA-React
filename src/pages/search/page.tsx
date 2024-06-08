@@ -42,10 +42,15 @@ const PageSearch = ({}) => {
     fetchItems();
   }, [filterChanged]);
 
+  useEffect(() => {
+    updatecategoryState(getCategoryFromUrl());
+    setFilterChanged((prev)=> !prev);
+  }, [location.search]);
+
   function getCategoryFromUrl(): Category {
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = getCategoryKeyInsensitive(urlParams.get('category') ?? "") ;
     let newCategory = Category.None;
+    const urlParams = new URLSearchParams(location.search);
+    const category = getCategoryKeyInsensitive(urlParams.get('category') ?? "");
     if (category && category in Category) {
       newCategory = Category[category as keyof typeof Category];
     }
@@ -53,7 +58,7 @@ const PageSearch = ({}) => {
   }
 
   function getCategoryKeyInsensitive(category: string): string | undefined {
-    const lowerCaseCategory = category.toLowerCase();
+    const lowerCaseCategory = category.toLowerCase().replaceAll("-", "");
     const categoryKeys = Object.keys(Category).filter(key => isNaN(Number(key))); // Get only string keys
     return categoryKeys.find(key => key.toLowerCase() === lowerCaseCategory);
 }
