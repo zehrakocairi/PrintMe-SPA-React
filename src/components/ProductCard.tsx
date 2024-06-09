@@ -9,7 +9,7 @@ import { StarIcon } from "@heroicons/react/24/solid";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
 import BagIcon from "./BagIcon";
-import toast from "react-hot-toast";
+import { Toaster, toast } from 'react-hot-toast';
 import { Transition } from "../headlessui";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
@@ -52,8 +52,9 @@ const ProductCard: FC<ProductCardProps> = ({
   const [variantActive, setVariantActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const navigate = useNavigate();
-  const {addItemToCart, cart} = useCart();
-  const thumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
+  const {addItemToCart} = useCart();
+  const thumbnail = images?.thumbnail || images?.image;
+  const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
 
   const notifyAddTocart = ({ size }: { size?: string }) => {
     addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image));
@@ -62,7 +63,6 @@ const ProductCard: FC<ProductCardProps> = ({
         <Transition
           appear
           show={t.visible}
-          // className="p-4 max-w-md w-full bg-white dark:bg-slate-800 shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 dark:ring-white/10 text-slate-900 dark:text-slate-200"
           enter="transition-all duration-150"
           enterFrom="opacity-0 translate-x-20"
           enterTo="opacity-100 translate-x-0"
@@ -70,11 +70,15 @@ const ProductCard: FC<ProductCardProps> = ({
           leaveFrom="opacity-100 translate-x-0"
           leaveTo="opacity-0 translate-x-20"
         >
-          <p className="block text-base font-semibold leading-none">
-            Added to cart!
-          </p>
-          <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
-          {renderProductCartOnNotify({ size })}
+          <div
+            className="p-4 max-w-md w-full bg-white dark:bg-slate-800 shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 dark:ring-white/10 text-slate-900 dark:text-slate-200"
+          >
+            <p className="block text-base font-semibold leading-none">
+              Added to cart!
+            </p>
+            <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
+            {renderProductCartOnNotify({ size })}
+          </div>
         </Transition>
       ),
       {
@@ -92,7 +96,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             width={80}
             height={96}
-            src={thumbnail}
+            src={alternateThumbnail}
             alt={name}
             className="absolute object-cover object-center"
           />
@@ -276,11 +280,21 @@ const ProductCard: FC<ProductCardProps> = ({
         <Link href={`/product-detail/${id}`} className="absolute inset-0"></Link>
 
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
-          <Link href={`/product-detail/${id}`} className="block">
+          <Link href={`/product-detail/${id}`} className="block block group relative">
             <NcImage
               containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
+              src={alternateThumbnail}
+              className="object-cover w-full h-full drop-shadow-xl group-hover:hidden"
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
+              alt="product"
+            />
+
+            {/* Hover View Image */}
+            <NcImage
+              containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 absolute inset-0"
               src={thumbnail}
-              className="object-cover w-full h-full drop-shadow-xl"
+              className="object-cover w-full h-full drop-shadow-xl hidden group-hover:block"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
@@ -306,10 +320,10 @@ const ProductCard: FC<ProductCardProps> = ({
           <div className="flex justify-between items-end ">
             <Prices price={price} />
             <div className="flex items-center mb-0.5">
-              {/* <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
+              <StarIcon className="w-5 h-5 pb-[1px] text-amber-400" />
               <span className="text-sm ms-1 text-slate-500 dark:text-slate-400">
                 {rating || ""} ({numberOfReviews || 0} reviews)
-              </span> */}
+              </span>
             </div>
           </div>
         </div>
@@ -317,6 +331,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
       {/* QUICKVIEW */}
       <ModalQuickView
+        item={data}
         show={showModalQuickView}
         onCloseModalQuickView={() => setShowModalQuickView(false)}
       />

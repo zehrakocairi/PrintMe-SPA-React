@@ -338,6 +338,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   }
 }
 
+
 @media (min-aspect-ratio: 3/2) {
   .wide\:h-full {
     height: 100%;
@@ -351,3 +352,16 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     }
   }
 }
+
+
+.promo-image{
+  border-top-left-radius: 30%;
+}
+@media (min-width: 1280px) {
+  @media (min-height: 854px) {
+    .promo-image{
+      transform: translateX(20%);
+    }
+  }
+}
+

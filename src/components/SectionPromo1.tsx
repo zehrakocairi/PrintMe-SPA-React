@@ -1,7 +1,5 @@
 import { FC } from "react";
 import NcImage from "../shared/NcImage/NcImage";
-import rightImgDemo from "../data/images/rightLargeImg.png";
-import rightLargeImgDark from "../data/images/rightLargeImgDark.png";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import Logo from "../shared/Logo/Logo";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
@@ -18,37 +16,37 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
       <div className="relative flex-shrink-0 mb-16 lg:mb-0 lg:mr-10 lg:w-2/5">
         <Logo className="w-28" />
         <h2 className="font-semibold text-3xl sm:text-4xl xl:text-5xl 2xl:text-6xl mt-6 sm:mt-10 !leading-[1.2] tracking-tight">
-          Earn free money <br /> with Ciseco
+        Visit Us <br />in Den Bosch 
         </h2>
-        <span className="block mt-6 text-slate-500 dark:text-slate-400 ">
-          With Ciseco you will get freeship & savings combo...
+        <span className="block mt-6 text-slate-500 dark:text-slate-400 text-xl">
+        Experience our craftsmanship firsthand. Pick up your prints, enjoy a coffee, and see where the magic happens.
         </span>
         <div className="flex space-x-2 sm:space-x-5 mt-6 sm:mt-12">
           <ButtonPrimary href="/collection" className="">
-            Savings combo
+          Plan Your Visit
           </ButtonPrimary>
           <ButtonSecondary
             href="/search"
             className="border border-slate-100 dark:border-slate-700"
           >
-            Discover more
+            Learn More
           </ButtonSecondary>
         </div>
       </div>
-      <div className="relative flex-1 max-w-xl lg:max-w-none">
+      <div className="relative flex-1 max-w-xl lg:max-w-none object-right-bottom">
         <NcImage
           alt=""
           containerClassName="block dark:hidden"
-          src={rightImgDemo}
+          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.jpg'
           sizes="(max-width: 768px) 100vw, 50vw"
-          className=""
+          className="promo-image"
         />
         <NcImage
           alt=""
           containerClassName="hidden dark:block"
-          src={rightLargeImgDark}
+          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.jpg'
           sizes="(max-width: 768px) 100vw, 50vw"
-          className=""
+          className="promo-image"
         />
       </div>
     </div>

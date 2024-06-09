@@ -10,20 +10,20 @@ export interface Statistic {
 const FOUNDER_DEMO: Statistic[] = [
   {
     id: "1",
-    heading: "10 million",
+    heading: "High-Quality Prints",
     subHeading:
-      "Articles have been public around the world (as of Sept. 30, 2021)",
+      "Crafted with care and top-notch Giclée technology",
   },
   {
     id: "2",
-    heading: "100,000",
-    subHeading: "Registered users account (as of Sept. 30, 2021)",
+    heading: "Engineers Turned Artists",
+    subHeading: "Family-owned business led by two passionate engineers",
   },
   {
     id: "3",
-    heading: "220+",
+    heading: "Custom Options",
     subHeading:
-      "Countries and regions have our presence (as of Sept. 30, 2021)",
+      "Choose from a variety of sizes, frames, and finishes",
   },
 ];
 

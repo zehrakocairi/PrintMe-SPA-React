@@ -6,39 +6,48 @@ import { FC } from "react";
 
 const DEFAULT_DATA = [
   {
-    name: "Fabric + Care",
+    name: "Print Quality & Care",
     content: `<ul class="list-disc list-inside leading-7">
-    <li>Made from a sheer Belgian power micromesh.</li>
+    <li>Giclée printed on 180 g/m² fine art paper (matte).</li>
     <li>
-    74% Polyamide (Nylon) 26% Elastane (Spandex)
+    Archival quality for long-lasting color and durability
     </li>
     <li>
-    Adjustable hook & eye closure and straps
+    3.0 cm blank borders for easy framing
     </li>
     <li>
-    Hand wash in cold water, dry flat
+    Wipe clean with a soft, dry cloth to maintain its pristine condition
     </li>
   </ul>`,
   },
-
   {
-    name: "How it Fits",
+    name: "Sympathize with Our Service",
     content:
-      "Use this as a guide. Preference is a huge factor — if you're near the top of a size range and/or prefer more coverage, you may want to size up.",
+      "We are a family-run business in Den Bosch, dedicated to bringing you the best in art prints. Each piece is printed and framed with love and care, ensuring that you receive a product that is not only beautiful but also crafted with attention to detail. Visit us, enjoy a coffee, and see where the magic happens.",
+  },
+  {
+    name: "Vibrant Colors & Versatile Sizes",
+    content:
+      "Our printing process utilizes cutting-edge technology and the Giclée printmaking method for exceptional quality. Colors are independently verified to last over decades. Available in multiple sizes, our prints fit perfectly in any space. Personalize your artwork with various paper types to suit your style and decor needs. Each piece is crafted to meet your specifications, ensuring a unique addition to your home or office.",
   },
   {
     name: "FAQ",
     content: `
     <ul class="list-disc list-inside leading-7">
-    <li>All full-priced, unworn items, with tags attached and in their original packaging are eligible for return or exchange within 30 days of placing your order.</li>
-    <li>
-    Please note, packs must be returned in full. We do not accept partial returns of packs.
+    <li><b>Can I return or exchange my order?</b> 
+      </br>Yes, returns and exchanges are accepted within 30 days of purchase if the item is in its original condition.
     </li>
     <li>
-    Want to know our full returns policies? Here you go.
+    <b>How long does shipping take?</b>
+    </br>Unframed prints ship within 2-4 days. Framed prints require an additional 7-8 days for processing.
     </li>
     <li>
-    Want more info about shipping, materials or care instructions? Here!
+    <b>Do you offer custom prints?</b>
+    </br>Yes, we offer custom printing services. Contact us for more details.
+    </li>
+    <li>
+    <b>What kind of frames do you offer?</b>
+    </br>We provide a wide selection of wood and polystyrene frames in various styles and finishes.
     </li>
   </ul>
     `,

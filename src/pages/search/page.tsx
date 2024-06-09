@@ -50,12 +50,24 @@ const PageSearch = ({}) => {
     setIsLoading(false);
   };
 
+  const handleScrollToEl = (id: string) => {
+    const element = document.getElementById(id);
+    setTimeout(() => {
+      element?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
+  };
+
   useEffect(() => {
     fetchItems();
   }, [filterChanged, pageIndex, pageSize]);
 
   useEffect(() => {
     fetchItems(new URLSearchParams(location.search).get('searchTerm') ?? "");
+    if(location.hash !== ""){
+      handleScrollToEl(location.hash.split("#")[1])
+    }else{
+      handleScrollToEl('root')
+    }
   }, [location.search]);
 
 

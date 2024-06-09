@@ -122,7 +122,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
         />
 
         {/* BG */}
-        <div className="absolute inset-0 bg-[#E3FFE6]">
+        <div className="absolute inset-0 bg-[#F7FFE8]">
           <Image
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
@@ -174,7 +174,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
             <Image
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="w-full h-full object-contain object-right-bottom nc-SectionHero2Item__image"
+              className="w-full h-full object-contain object-right-bottom pr-16 nc-SectionHero2Item__image carousel-image-container"
               src={item.image}
               alt={item.heading}
               priority

@@ -336,24 +336,15 @@ const ProductDetailPage = ({ }) => {
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
           <p>
-            The patented eighteen-inch hardwood Arrowhead deck --- finely
-            mortised in, makes this the strongest and most rigid canoe ever
-            built. You cannot buy a canoe that will afford greater satisfaction.
-          </p>
-          <p>
-            The St. Louis Meramec Canoe Company was founded by Alfred Wickett in
-            1922. Wickett had previously worked for the Old Town Canoe Co from
-            1900 to 1914. Manufacturing of the classic wooden canoes in Valley
-            Park, Missouri ceased in 1978.
+          Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 180 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
           </p>
           <ul>
-            <li>Regular fit, mid-weight t-shirt</li>
-            <li>Natural color, 100% premium combed organic cotton</li>
+            <li>High-quality 180 g/m² fine art paper (matte)</li>
+            <li>Giclée printing for vibrant, accurate colors</li>
             <li>
-              Quality cotton grown without the use of herbicides or pesticides -
-              GOTS certified
+            3.0 cm blank borders for easy framing
             </li>
-            <li>Soft touch water based printed in the USA</li>
+            <li>50+ year color guarantee</li>
           </ul>
         </div>
         {/* ---------- 6 ----------  */}

@@ -11,7 +11,7 @@ export interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({
-  img = logoImg,
+  img = "https://genstorageaccount3116.blob.core.windows.net/printme-images/logo.png",
   imgLight = logoLightImg,
   className = "flex-shrink-0",
 }) => {

@@ -30,26 +30,25 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
             {`Don't miss out on special offers`}
           </h2>
           <span className="block mt-5 text-neutral-500 dark:text-neutral-400">
-            Register to receive news about the latest, savings combos, discount
-            codes...
+          Register to receive news about our latest deals, exclusive offers, and discount codes!
           </span>
           <ul className="space-y-4 mt-10">
             <li className="flex items-center space-x-4">
               <Badge color="purple" name="01" />
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
-                Savings combos
+              Exclusive Discounts
               </span>
             </li>
             <li className="flex items-center space-x-4">
               <Badge name="02" />
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
-                Freeship
+              Free Shipping
               </span>
             </li>
             <li className="flex items-center space-x-4">
               <Badge color="red" name="03" />
               <span className="font-medium text-neutral-700 dark:text-neutral-300">
-                Premium magazines
+              Premium Quality
               </span>
             </li>
           </ul>
@@ -72,8 +71,8 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
 
         <NcImage
           alt=""
-          containerClassName="relative block lg:absolute lg:right-0 lg:bottom-0 mt-10 lg:mt-0 max-w-lg lg:max-w-[calc(50%-40px)]"
-          src={rightImgDemo}
+          containerClassName="relative block lg:absolute lg:right-0 lg:bottom-0 mt-10 lg:mt-0 max-w-lg lg:max-w-[calc(42%-40px)]"
+          src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/painting-girl.png'}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""
         />

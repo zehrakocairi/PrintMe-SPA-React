@@ -15,21 +15,21 @@ const DiscoverMoreSlider = () => {
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
       // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
-      perView: 2.8,
+      perView: 3.2,
       gap: 32,
       bound: true,
       breakpoints: {
         1280: {
           gap: 28,
-          perView: 2.5,
+          perView: 2.7,
         },
         1279: {
           gap: 20,
-          perView: 2.15,
+          perView: 2.35,
         },
         1023: {
           gap: 20,
-          perView: 1.6,
+          perView: 1.8,
         },
         768: {
           gap: 20,
@@ -61,10 +61,10 @@ const DiscoverMoreSlider = () => {
       <Heading
         className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
         desc=""
-        rightDescText="Good things are waiting for you"
+        rightDescText="Handcrafted art, beautiful and unique"
         hasNextPrev
       >
-        Discover more
+        Prints with Passion
       </Heading>
       <div className="" data-glide-el="track">
         <ul className="glide__slides">
@@ -75,6 +75,7 @@ const DiscoverMoreSlider = () => {
                 desc={item.desc}
                 featuredImage={item.featuredImage}
                 color={item.color}
+                className={item.className}
               />
             </li>
           ))}

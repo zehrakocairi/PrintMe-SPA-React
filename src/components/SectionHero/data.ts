@@ -1,7 +1,3 @@
-import imageRightPng from "../../data/images/hero-right.png";
-import imageRightPng2 from "../../data/images/hero-right-2.png";
-import imageRightPng3 from "../../data/images/hero-right-3.png";
-
 interface Hero2DataType {
   image: string;
   heading: string;
@@ -9,27 +5,31 @@ interface Hero2DataType {
   btnText: string;
   btnLink: string;
 }
+const image1 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-2.png' 
+// const image1 = 'https://wallpapers.com/images/high/bouquet-of-flowers-famous-painting-se4ude7nwqzjp7uf.webp'
+const image2 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/pexels-axp-photography-500641970-17377188.jpg' 
+const image3 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/pexels-ekrulila-18879508.jpg' 
 
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
-    image: imageRightPng2,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
+    image: image1,
+    heading: "High-Quality Art Prints for Your Home",
+    subHeading: "Stunning prints with various frames.",
     btnText: "Explore now",
-    btnLink: "/",
+    btnLink: "/search",
   },
   {
-    image: imageRightPng3,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
-    btnText: "Explore now",
-    btnLink: "/",
+    image: image2,
+    heading: "Custom Prints Made Just for You",
+    subHeading: "Print, frame, and ship with care. 🚀",
+    btnText: "Customize Now",
+    btnLink: "/search",
   },
   {
-    image: imageRightPng,
-    heading: "Exclusive collection for everyone",
-    subHeading: "In this season, find the best 🔥",
-    btnText: "Explore now",
+    image: image3,
+    heading: "Expert Giclée Printing Service",
+    subHeading: "Superior reproduction for art and photos.",
+    btnText: "Learn More",
     btnLink: "/",
   },
 ];

@@ -12,6 +12,7 @@ import PageContact from "./pages/contact/page";
 import PageLogin from "./pages/login/page";
 import { FilterProvider } from "./contexts/FilterContext";
 import { CartProvider } from "./contexts/CartContext";
+import CommonClient from "./pages/CommonClient";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/contact" element={<PageContact />} />
             <Route path="/login" element={<PageLogin />} />
           </Routes>
+          <CommonClient />
           <Footer />
         </FilterProvider>
 

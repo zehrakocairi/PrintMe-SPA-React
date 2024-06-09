@@ -16,7 +16,7 @@ import productSport8 from "../data/images/products/sport-8.png";
 import { Product, ProductVariant } from "../models/ProductModels";
 
 
-const DEMO_VARIANTS: ProductVariant[] = [
+export const DEMO_VARIANTS: ProductVariant[] = [
   {
     id: 1,
     name: "Black",

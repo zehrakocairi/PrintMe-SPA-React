@@ -1,20 +1,16 @@
 
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import SectionHowItWork from "../components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "../components/BackgroundSection/BackgroundSection";
 import SectionHero2 from "../components/SectionHero/SectionHero2";
 import SectionSliderProductCard from "../components/SectionSliderProductCard";
 import DiscoverMoreSlider from "../components/DiscoverMoreSlider";
 import SectionGridMoreExplore from "../components/SectionGridMoreExplore/SectionGridMoreExplore";
-import Heading from "../components/Heading/Heading";
-import ButtonSecondary from "../shared/Button/ButtonSecondary";
-import { PRODUCTS, SPORT_PRODUCTS } from "../data/data";
 import SectionGridFeatureItems from "../components/SectionGridFeatureItems";
-import SectionMagazine5 from "../pages/blog/SectionMagazine5";
-import { getFeaturedItems, getFilteredPaginatedItems, getPaginatedItems } from "../services/catalogService";
-import ProductCard from "../components/ProductCard";
+import { getFeaturedItems, getFilteredPaginatedItems } from "../services/catalogService";
 import { useMsal } from "@azure/msal-react";
 import { useFilter } from "../contexts/FilterContext";
+import SectionPromo1 from "../components/SectionPromo1";
 
 const Home: FC<any> = ({ }) => {
 
@@ -54,8 +50,8 @@ const Home: FC<any> = ({ }) => {
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
         {
           featuredItems.length > 0 ? <SectionSliderProductCard
-            heading="Customers also purchased"
-            subHeading=""
+            heading="Art Lovers Also Bought"
+            subHeading="Popular Picks for You"
             headingFontClassName="text-2xl font-semibold"
             headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
             data={featuredItems}
@@ -73,7 +69,7 @@ const Home: FC<any> = ({ }) => {
           <SectionGridMoreExplore />
         </div>
 
-        <div className="relative py-24 lg:py-32">
+        {/* <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <div>
             <Heading rightDescText="From the Ciseco blog">
@@ -84,8 +80,9 @@ const Home: FC<any> = ({ }) => {
               <ButtonSecondary>Show all blog articles</ButtonSecondary>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* <SectionClientSay /> */}
+        <SectionPromo1 />
       </div>
     </div>
   );

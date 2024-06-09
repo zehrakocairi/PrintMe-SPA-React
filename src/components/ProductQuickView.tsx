@@ -14,31 +14,54 @@ import {
 import IconDiscount from "./IconDiscount";
 import Prices from "./Prices";
 import toast from "react-hot-toast";
-import detail1JPG from "../data/images/products/detail1.jpg";
-import detail2JPG from "../data/images/products/detail2.jpg";
-import detail3JPG from "../data/images/products/detail3.jpg";
 import NotifyAddTocart from "./NotifyAddTocart";
 import AccordionInfo from "./AccordionInfo";
 import Image from "../shared/Image";
 import Link from "../shared/Link";
+import { Product } from "../models/ProductModels";
+import { CartItem } from "../models/CartItem";
+import { useCart } from "../contexts/CartContext";
+import { useNavigate } from "react-router-dom";
+import  { DEMO_VARIANTS } from "../data/data";
 
 export interface ProductQuickViewProps {
   className?: string;
+  item: Product;
 }
 
-const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
-  const { sizes, variants, status, allOfSizes } = PRODUCTS[0];
-  const LIST_IMAGES_DEMO = [detail1JPG, detail2JPG, detail3JPG];
+const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) => {
+  let {
+    name,
+    price,
+    motto,
+    description,
+    sizes,
+    variants,
+    status,
+    images,
+    rating,
+    id,
+    numberOfReviews,
+  } = item;
 
   const [variantActive, setVariantActive] = useState(0);
+  const [showModalQuickView, setShowModalQuickView] = useState(false);
+  const navigate = useNavigate();
+  const {addItemToCart} = useCart();
+  const image = images?.image || images?.thumbnail;
+  const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
+  
+  const { allOfSizes } = item;
+
   const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
   const [qualitySelected, setQualitySelected] = useState(1);
 
   const notifyAddTocart = () => {
+    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image));
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          productImage={LIST_IMAGES_DEMO[0]}
+          productImage={images?.image}
           qualitySelected={qualitySelected}
           show={t.visible}
           sizeSelected={sizeSelected}
@@ -49,6 +72,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
   };
 
   const renderVariants = () => {
+    variants = variants || DEMO_VARIANTS;
     if (!variants || !variants.length) {
       return null;
     }
@@ -111,7 +135,6 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="##"
             className="text-primary-6000 hover:text-primary-500"
           >
             See sizing chart
@@ -120,7 +143,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         <div className="grid grid-cols-5 sm:grid-cols-7 gap-2 mt-2.5">
           {allOfSizes.map((size, index) => {
             const isActive = size === sizeSelected;
-            const sizeOutStock = !sizes.includes(size);
+            const sizeOutStock = !sizes?.includes(size);
             return (
               <div
                 key={index}
@@ -197,29 +220,28 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
         {/* ---------- 1 HEADING ----------  */}
         <div>
           <h2 className="text-2xl font-semibold hover:text-primary-6000 transition-colors">
-            <Link href="/product-detail">Heavy Weight Shoes</Link>
+            <Link href={`/product-detail/${id}`}>{name}</Link>
           </h2>
 
           <div className="flex justify-start rtl:justify-end items-center mt-5 space-x-4 sm:space-x-5 rtl:space-x-reverse">
             {/* <div className="flex text-xl font-semibold">$112.00</div> */}
             <Prices
               contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
-              price={112}
+              price={price}
             />
-
             <div className="h-6 border-s border-slate-300 dark:border-slate-700"></div>
 
             <div className="flex items-center">
               <Link
-                href="/product-detail"
+                href={`/product-detail/${id}`}
                 className="flex items-center text-sm font-medium"
               >
                 <StarIcon className="w-5 h-5 pb-[1px] text-yellow-400" />
                 <div className="ms-1.5 flex">
-                  <span>4.9</span>
+                {rating || ""}
                   <span className="block mx-2">·</span>
                   <span className="text-slate-600 dark:text-slate-400 underline">
-                    142 reviews
+                    {numberOfReviews} reviews
                   </span>
                 </div>
               </Link>
@@ -259,28 +281,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
 
         {/* ---------- 5 ----------  */}
         <AccordionInfo
-          data={[
-            {
-              name: "Description",
-              content:
-                "Fashion is a form of self-expression and autonomy at a particular period and place and in a specific context, of clothing, footwear, lifestyle, accessories, makeup, hairstyle, and body posture.",
-            },
-            {
-              name: "Features",
-              content: `<ul class="list-disc list-inside leading-7">
-            <li>Material: 43% Sorona Yarn + 57% Stretch Polyester</li>
-            <li>
-             Casual pants waist with elastic elastic inside
-            </li>
-            <li>
-              The pants are a bit tight so you always feel comfortable
-            </li>
-            <li>
-              Excool technology application 4-way stretch
-            </li>
-          </ul>`,
-            },
-          ]}
+          data={[{name: "Title", content: motto ?? ""}, {name: "Description", content: description}]} 
         />
       </div>
     );
@@ -296,7 +297,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
           <div className="relative">
             <div className="aspect-w-16 aspect-h-16">
               <Image
-                src={LIST_IMAGES_DEMO[0]}
+                src={image}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full rounded-xl object-cover"
@@ -310,7 +311,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ className = "" }) => {
             <LikeButton className="absolute end-3 top-3 " />
           </div>
           <div className="hidden lg:grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-5 xl:mt-5">
-            {[LIST_IMAGES_DEMO[1], LIST_IMAGES_DEMO[2]].map((item, index) => {
+            {[alternateThumbnail, alternateThumbnail].map((item, index) => {
               return (
                 <div key={index} className="aspect-w-3 aspect-h-4">
                   <Image
