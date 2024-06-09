@@ -97,10 +97,10 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
 
   return (
     <>
-      <Transition appear show={isShowModal} as={Fragment}>
+      <Transition appear show={isShowModal} as="div">
         <Dialog as="div" className="relative z-40" onClose={handleClose}>
           <Transition.Child
-            as={Fragment}
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -124,7 +124,7 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">
               <Transition.Child
-                as={Fragment}
+                as="div"
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 translate-y-5"
                 enterTo="opacity-100 translate-y-0"

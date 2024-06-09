@@ -15,7 +15,7 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
   onCloseModalViewAllReviews,
 }) => {
   return (
-    <Transition appear show={show} as={Fragment}>
+    <Transition appear show={show} as="div">
       <Dialog
         as="div"
         className="fixed inset-0 z-50 overflow-y-auto"
@@ -23,7 +23,7 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
       >
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
-            as={Fragment}
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -42,7 +42,7 @@ const ModalViewAllReviews: FC<ModalViewAllReviewsProps> = ({
             &#8203;
           </span>
           <Transition.Child
-            as={Fragment}
+            as="div"
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"

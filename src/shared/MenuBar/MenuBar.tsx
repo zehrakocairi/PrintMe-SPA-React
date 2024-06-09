@@ -13,7 +13,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
 
   const renderContent = () => {
     return (
-      <Transition appear show={isVisable} as={Fragment}>
+      <Transition appear show={isVisable} as="div">
         <Dialog
           as="div"
           className="fixed inset-0 z-50 overflow-y-auto"
@@ -22,7 +22,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
           <div className="fixed left-0 top-0 bottom-0 w-full max-w-md md:w-auto z-max outline-none focus:outline-none">
             <React.Fragment>
               <Transition.Child
-                as={Fragment}
+                as="div"
                 enter="transition duration-100 transform"
                 enterFrom="opacity-0 -translate-x-14"
                 enterTo="opacity-100 translate-x-0"
@@ -36,7 +36,7 @@ const MenuBar: React.FC<MenuBarProps> = () => {
               </Transition.Child>
 
               <Transition.Child
-                as={Fragment}
+                as="div"
                 enter=" duration-300"
                 enterFrom="opacity-0"
                 enterTo="opacity-100"

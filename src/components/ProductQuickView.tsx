@@ -5,7 +5,6 @@ import LikeButton from "./LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
 import BagIcon from "./BagIcon";
 import NcInputNumber from "./NcInputNumber";
-import { PRODUCTS } from "../data/data";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -22,7 +21,7 @@ import { Product } from "../models/ProductModels";
 import { CartItem } from "../models/CartItem";
 import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
-import  { DEMO_VARIANTS } from "../data/data";
+import { useApplication } from "../contexts/ApplicationContext";
 
 export interface ProductQuickViewProps {
   className?: string;
@@ -35,8 +34,6 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
     price,
     motto,
     description,
-    sizes,
-    variants,
     status,
     images,
     rating,
@@ -44,36 +41,36 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
     numberOfReviews,
   } = item;
 
-  const [variantActive, setVariantActive] = useState(0);
+  const [frameActive, setFrameActive] = useState(0);
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const navigate = useNavigate();
+
+  const {frames, sizes} = useApplication();
+
   const {addItemToCart} = useCart();
   const image = images?.image || images?.thumbnail;
   const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
-  
-  const { allOfSizes } = item;
 
-  const [sizeSelected, setSizeSelected] = useState(sizes ? sizes[0] : "");
+  const [selectedSizeIndex, setsSelectedSizeIndex] = useState(0);
   const [qualitySelected, setQualitySelected] = useState(1);
 
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image));
+    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image, undefined, sizes[selectedSizeIndex]?.id, frames[frameActive]?.id, frames[frameActive]?.name));
     toast.custom(
       (t) => (
         <NotifyAddTocart
           productImage={images?.image}
           qualitySelected={qualitySelected}
           show={t.visible}
-          sizeSelected={sizeSelected}
+          sizeSelected={sizes[selectedSizeIndex]}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
     );
   };
 
-  const renderVariants = () => {
-    variants = variants || DEMO_VARIANTS;
-    if (!variants || !variants.length) {
+  const renderFrames = () => {
+    if (!frames || !frames.length) {
       return null;
     }
 
@@ -83,17 +80,17 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           <span className="text-sm font-medium">
             Color:
             <span className="ms-1 font-semibold">
-              {variants[variantActive].name}
+              {frames[frameActive].name}
             </span>
           </span>
         </label>
         <div className="flex mt-2.5">
-          {variants.map((variant, index) => (
+          {frames.map((frame, index) => (
             <div
               key={index}
-              onClick={() => setVariantActive(index)}
+              onClick={() => setFrameActive(index)}
               className={`relative flex-1 max-w-[75px] h-10 rounded-full border-2 cursor-pointer ${
-                variantActive === index
+                frameActive === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
               }`}
@@ -101,15 +98,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
               <div
                 className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
                 style={{
-                  backgroundImage: `url(${
-                    // @ts-ignore
-                    typeof variant.thumbnail?.src === "string"
-                      ? // @ts-ignore
-                        variant.thumbnail?.src
-                      : typeof variant.thumbnail === "string"
-                      ? variant.thumbnail
-                      : ""
-                  })`,
+                  backgroundImage: `url(${frame.thumbnail || ""})`,
                 }}
               ></div>
             </div>
@@ -120,7 +109,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
   };
 
   const renderSizeList = () => {
-    if (!allOfSizes || !sizes || !sizes.length) {
+    if ( !sizes || !sizes.length) {
       return null;
     }
     return (
@@ -129,7 +118,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           <label htmlFor="">
             <span className="">
               Size:
-              <span className="ms-1 font-semibold">{sizeSelected}</span>
+              <span className="ms-1 font-semibold">{sizes[selectedSizeIndex]?.name}</span>
             </span>
           </label>
           <a
@@ -141,30 +130,22 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           </a>
         </div>
         <div className="grid grid-cols-5 sm:grid-cols-7 gap-2 mt-2.5">
-          {allOfSizes.map((size, index) => {
-            const isActive = size === sizeSelected;
-            const sizeOutStock = !sizes?.includes(size);
+          {sizes.map((size, index) => {
+            const isActive = index === selectedSizeIndex;
             return (
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${
-                  sizeOutStock
-                    ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
-                    : "cursor-pointer"
-                } ${
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 cursor-pointer ${
                   isActive
                     ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
                     : "border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
                 }`}
                 onClick={() => {
-                  if (sizeOutStock) {
-                    return;
-                  }
-                  setSizeSelected(size);
+                  setsSelectedSizeIndex(index);
                 }}
               >
-                {size}
+                {size.name}
               </div>
             );
           })}
@@ -255,7 +236,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
         </div>
 
         {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
-        <div className="">{renderVariants()}</div>
+        <div className="">{renderFrames()}</div>
         <div className="">{renderSizeList()}</div>
 
         {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}

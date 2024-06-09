@@ -788,7 +788,7 @@ const TabFilters = () => {
           {renderXClear()}
         </div>
 
-        <Transition appear show={isOpenMoreFilter} as={Fragment}>
+        <Transition appear show={isOpenMoreFilter} as="div">
           <Dialog
             as="div"
             className="fixed inset-0 z-50 overflow-y-auto"

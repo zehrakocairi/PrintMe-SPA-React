@@ -29,9 +29,12 @@ import ListingImageGallery from "../../components/listing-image-gallery/ListingI
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMsal } from "@azure/msal-react";
 import { getCatalogItem } from "../../services/catalogService";
-import { Product, ImagesDto } from "../../models/ProductModels";
+import { Product, Size } from "../../models/ProductModels";
 import {Sizes} from '../../data/types';
 import {getFeaturedItems} from '../../services/catalogService';
+import { useCart } from "../../contexts/CartContext";
+import {CartItem} from '../../models/CartItem';
+import { useApplication } from "../../contexts/ApplicationContext";
 
 const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
   detail21JPG,
@@ -69,6 +72,9 @@ const ProductDetailPage = ({ }) => {
     setProduct(product);
   };
 
+  const {addItemToCart} = useCart();
+  const {sizes} = useApplication();
+
   useEffect(() => {
     fetchProduct();
     fetchFeaturedtems();
@@ -76,7 +82,6 @@ const ProductDetailPage = ({ }) => {
 
 
   const status = "New in"; // TODO : Complete here by the category of the product
-  // const { sizes, variants, status, allOfSizes, image } = PRODUCTS[0];
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
 
@@ -85,8 +90,8 @@ const ProductDetailPage = ({ }) => {
     return [product?.images?.image, product?.images?.imageAlternate].concat(LIST_IMAGES_GALLERY_DEMO);
   }
 
-  const [sizeSelected, setSizeSelected] = useState(Sizes ? Sizes[0] : "");
-  const [qualitySelected, setQualitySelected] = useState(1);
+  const [sizeSelected, setSizeSelected] = useState(sizes[0]);
+  const [quantity, setQuantity] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
 
@@ -101,13 +106,14 @@ const ProductDetailPage = ({ }) => {
   };
 
   const notifyAddTocart = () => {
+    addItemToCart(new CartItem(product.id, product.name, product.price, quantity, product.images?.thumbnail || product.images?.thumbnailAlternate || product.images?.image, undefined, sizeSelected?.id, 0, "No Frame"));
     toast.custom(
       (t) => (
         <NotifyAddTocart
           productImage={product?.images?.thumbnailAlternate}
-          qualitySelected={qualitySelected}
+          qualitySelected={quantity}
           show={t.visible}
-          sizeSelected={sizeSelected}
+          sizeSelected={{} as Size}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
@@ -124,7 +130,7 @@ const ProductDetailPage = ({ }) => {
           <label htmlFor="">
             <span className="">
               Size:
-              <span className="ml-1 font-semibold">{sizeSelected}</span>
+              <span className="ml-1 font-semibold">{sizeSelected?.name}</span>
             </span>
           </label>
           <a
@@ -137,28 +143,22 @@ const ProductDetailPage = ({ }) => {
           </a>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-3">
-          {Sizes.map((size, index) => {
-            const isActive = size === sizeSelected;
-            const sizeOutStock = !Sizes.includes(size);
+          {sizes.map((size, index) => {
+            const isActive = size.id === sizeSelected?.id;
             return (
               <div
                 key={index}
                 className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 ${sizeOutStock
-                    ? "text-opacity-20 dark:text-opacity-20 cursor-not-allowed"
-                    : "cursor-pointer"
+                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 "cursor-pointer"
                   } ${isActive
                     ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
                     : "border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
                   }`}
                 onClick={() => {
-                  if (sizeOutStock) {
-                    return;
-                  }
                   setSizeSelected(size);
                 }}
               >
-                {size}
+                {size?.name}
               </div>
             );
           })}
@@ -220,7 +220,7 @@ const ProductDetailPage = ({ }) => {
                 ${product.price?.toFixed(2)}
               </div>
 
-              {/* <a
+              <a
                 href="#reviews"
                 className="flex items-center text-sm font-medium"
               >
@@ -228,13 +228,13 @@ const ProductDetailPage = ({ }) => {
                   <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
                 </div>
                 <span className="ml-1.5 flex">
-                  <span>{5} </span>
+                  <span>{'New'} </span>
                   <span className="mx-1.5">·</span>
                   <span className="text-slate-700 dark:text-slate-400 underline">
                     {product.numberOfReviews} reviews
                   </span>
                 </span>
-              </a> */}
+              </a>
             </div>
 
             {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
@@ -246,8 +246,8 @@ const ProductDetailPage = ({ }) => {
           <div className="flex space-x-3.5">
             <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
               <NcInputNumber
-                defaultValue={qualitySelected}
-                onChange={setQualitySelected}
+                defaultValue={quantity}
+                onChange={setQuantity}
               />
             </div>
             <ButtonPrimary
@@ -266,10 +266,10 @@ const ProductDetailPage = ({ }) => {
                 <span className="flex">
                   <span>{`$${product.price?.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
-                  <span>{`${qualitySelected} `}</span>
+                  <span>{`${quantity} `}</span>
                 </span>
 
-                <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
+                <span>{`$${(product.price * quantity).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
@@ -279,7 +279,7 @@ const ProductDetailPage = ({ }) => {
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{`$${(product.price * qualitySelected).toFixed(2)}`}</span>
+              <span>{`$${(product.price * quantity).toFixed(2)}`}</span>
             </div>
           </div>
         </div>
@@ -295,7 +295,7 @@ const ProductDetailPage = ({ }) => {
             {product?.name}
           </h2>
           <div className="flex items-center mt-4 sm:mt-5">
-            {/* <a
+            <a
               href="#reviews"
               className="hidden sm:flex items-center text-sm font-medium "
             >
@@ -303,13 +303,13 @@ const ProductDetailPage = ({ }) => {
                 <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200" />
               </div>
               <span className="ml-1.5">
-                <span>5</span>
+                <span>New</span>
                 <span className="mx-1.5">·</span>
                 <span className="text-slate-700 dark:text-slate-400 underline">
                 {product?.numberOfReviews} reviews
                 </span>
               </span>
-            </a> */}
+            </a>
             <span className="hidden sm:block mx-2.5">·</span>
             {renderStatus()}
 

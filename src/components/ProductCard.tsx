@@ -19,9 +19,10 @@ import NcImage from "../shared/NcImage/NcImage";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { CartItem } from "../models/CartItem";
-import { Sizes } from "../data/types";
 import { Product } from "../models/ProductModels";
-import { title } from "process";
+import NotifyAddTocart from "./NotifyAddTocart";
+import { Size } from "../models/ProductModels";
+import { useApplication } from "../contexts/ApplicationContext";
 
 export interface ProductCardProps {
   className?: string;
@@ -39,8 +40,6 @@ const ProductCard: FC<ProductCardProps> = ({
     price,
     motto,
     description,
-    sizes,
-    variants,
     variantType,
     status,
     images,
@@ -55,41 +54,24 @@ const ProductCard: FC<ProductCardProps> = ({
   const {addItemToCart} = useCart();
   const thumbnail = images?.thumbnail || images?.image;
   const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
+  const {sizes, frames} = useApplication();
 
-  const notifyAddTocart = ({ size }: { size?: string }) => {
-    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image));
+  const notifyAddTocart = (sizeIndex: number = 0) => {
+    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image, undefined, sizes[sizeIndex]?.id, 0, "No Frame"));
     toast.custom(
       (t) => (
-        <Transition
-          appear
+        <NotifyAddTocart
+          productImage={images?.image}
+          qualitySelected={1}
           show={t.visible}
-          enter="transition-all duration-150"
-          enterFrom="opacity-0 translate-x-20"
-          enterTo="opacity-100 translate-x-0"
-          leave="transition-all duration-150"
-          leaveFrom="opacity-100 translate-x-0"
-          leaveTo="opacity-0 translate-x-20"
-        >
-          <div
-            className="p-4 max-w-md w-full bg-white dark:bg-slate-800 shadow-lg rounded-2xl pointer-events-auto ring-1 ring-black/5 dark:ring-white/10 text-slate-900 dark:text-slate-200"
-          >
-            <p className="block text-base font-semibold leading-none">
-              Added to cart!
-            </p>
-            <div className="border-t border-slate-200 dark:border-slate-700 my-4" />
-            {renderProductCartOnNotify({ size })}
-          </div>
-        </Transition>
+          sizeSelected={sizes[0]}
+        />
       ),
-      {
-        position: "top-right",
-        id: String(id) || "product-detail",
-        duration: 3000,
-      }
+      { position: "top-right", id: "nc-product-notify", duration: 3000 }
     );
   };
 
-  const renderProductCartOnNotify = ({ size }: { size?: string }) => {
+  const renderProductCartOnNotify = ({ size }: { size?: Size }) => {
     return (
       <div className="flex ">
         <div className="h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -109,10 +91,10 @@ const ProductCard: FC<ProductCardProps> = ({
                 <h3 className="text-base font-medium ">{name}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   <span>
-                    {variants ? variants[variantActive].name : `Natural`}
+                    {frames ? frames[variantActive].name : `Natural`}
                   </span>
                   <span className="mx-2 border-s border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{size || "XL"}</span>
+                  <span>{size?.name }</span>
                 </p>
               </div>
               <Prices price={price} className="mt-0.5" />
@@ -139,52 +121,52 @@ const ProductCard: FC<ProductCardProps> = ({
     );
   };
 
-  const getBorderClass = (Bgclass = "") => {
-    if (Bgclass.includes("red")) {
+  const getBorderClass = (Bgclass:number) => {
+    if (Bgclass === 0) {
       return "border-red-500";
     }
-    if (Bgclass.includes("violet")) {
+    if (Bgclass === 1) {
       return "border-violet-500";
     }
-    if (Bgclass.includes("orange")) {
+    if (Bgclass === 2) {
       return "border-orange-500";
     }
-    if (Bgclass.includes("green")) {
+    if (Bgclass === 3) {
       return "border-green-500";
     }
-    if (Bgclass.includes("blue")) {
+    if (Bgclass === 4) {
       return "border-blue-500";
     }
-    if (Bgclass.includes("sky")) {
+    if (Bgclass === 5) {
       return "border-sky-500";
     }
-    if (Bgclass.includes("yellow")) {
+    if (Bgclass === 6) {
       return "border-yellow-500";
     }
     return "border-transparent";
   };
 
   const renderVariants = () => {
-    if (!variants || !variants.length || !variantType) {
+    if (!frames || !frames.length || !variantType) {
       return null;
     }
 
     if (variantType === "color") {
       return (
         <div className="flex space-x-1">
-          {variants.map((variant, index) => (
+          {frames.map((frame, index) => (
             <div
               key={index}
               onClick={() => setVariantActive(index)}
               className={`relative w-6 h-6 rounded-full overflow-hidden z-10 border cursor-pointer ${
                 variantActive === index
-                  ? getBorderClass(variant.color)
+                  ? getBorderClass(frame.id)
                   : "border-transparent"
               }`}
-              title={variant.name}
+              title={frame.name}
             >
               <div
-                className={`absolute inset-0.5 rounded-full z-0 ${variant.color}`}
+                className={`absolute inset-0.5 rounded-full z-0`}
               ></div>
             </div>
           ))}
@@ -194,7 +176,7 @@ const ProductCard: FC<ProductCardProps> = ({
 
     return (
       <div className="flex ">
-        {variants.map((variant, index) => (
+        {frames.map((frame, index) => (
           <div
             key={index}
             onClick={() => setVariantActive(index)}
@@ -203,20 +185,12 @@ const ProductCard: FC<ProductCardProps> = ({
                 ? "border-black dark:border-slate-300"
                 : "border-transparent"
             }`}
-            title={variant.name}
+            title={frame.name}
           >
             <div
               className="absolute inset-0.5 rounded-full overflow-hidden z-0 bg-cover"
               style={{
-                backgroundImage: `url(${
-                  // @ts-ignore
-                  typeof variant.thumbnail?.src === "string"
-                    ? // @ts-ignore
-                      variant.thumbnail?.src
-                    : typeof variant.thumbnail === "string"
-                    ? variant.thumbnail
-                    : ""
-                })`,
+                backgroundImage: `url(${frame.thumbnail || ""})`,
               }}
             ></div>
           </div>
@@ -232,7 +206,7 @@ const ProductCard: FC<ProductCardProps> = ({
           className="shadow-lg"
           fontSize="text-xs"
           sizeClass="py-2 px-4"
-          onClick={() => notifyAddTocart({ size: "XL" })}
+          onClick={() => notifyAddTocart()}
         >
           <BagIcon className="w-3.5 h-3.5 mb-0.5" />
           <span className="ms-1">Add to bag</span>
@@ -257,14 +231,14 @@ const ProductCard: FC<ProductCardProps> = ({
 
     return (
       <div className="absolute bottom-0 inset-x-1 space-x-1.5 rtl:space-x-reverse flex justify-center opacity-0 invisible group-hover:bottom-4 group-hover:opacity-100 group-hover:visible transition-all">
-        {Sizes.map((size, index) => {
+        {sizes.map((size, index) => {
           return (
             <div
               key={index}
               className="nc-shadow-lg w-10 h-10 rounded-xl bg-white hover:bg-slate-900 hover:text-white transition-colors cursor-pointer flex items-center justify-center uppercase font-semibold tracking-tight text-sm text-slate-900"
-              onClick={() => notifyAddTocart({ size })}
+              onClick={() => notifyAddTocart(size.id)}
             >
-              {size}
+              {size.name}
             </div>
           );
         })}

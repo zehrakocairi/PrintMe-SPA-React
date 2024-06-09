@@ -1,3 +1,4 @@
+
 export interface ProductVariant {
     id: number;
     name: string;
@@ -24,11 +25,25 @@ export interface ProductVariant {
     rating?: string;
     numberOfReviews?: number;
   }
-  
+
   export interface ImagesDto {
     thumbnail: string;
     thumbnailAlternate: string;
     image: string;
     imageAlternate: string;
+  }
+  
+  export interface Frame {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    thumbnail: string;
+  }
+  export interface Size {
+    id: number;
+    name: string;
+    description: string;
+    multiplier: number;
   }
   
