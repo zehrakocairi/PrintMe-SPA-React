@@ -11,7 +11,6 @@ export interface ProductVariant {
     name: string;
     motto?: string;
     price: number;
-    image: string;
     images: ImagesDto;
     description: string;
     category: string;

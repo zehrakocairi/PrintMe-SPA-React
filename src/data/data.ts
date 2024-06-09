@@ -7,10 +7,6 @@ import productVariantImg6 from "../data/images/products/v6.jpg";
 //
 import productSport1 from "../data/images/products/sport-1.png";
 import productSport2 from "../data/images/products/sport-2.png";
-import productSport3 from "../data/images/products/sport-3.png";
-import productSport4 from "../data/images/products/sport-4.png";
-import productSport5 from "../data/images/products/sport-5.png";
-import productSport6 from "../data/images/products/sport-6.png";
 import productSport7 from "../data/images/products/sport-7.png";
 import productSport8 from "../data/images/products/sport-8.png";
 import { Product, ProductVariant } from "../models/ProductModels";
@@ -87,7 +83,6 @@ export const PRODUCTS: Product[] = [
     name: "Rey Nylon Backpack",
     description: "Brown cockroach wings",
     price: 74,
-    image: productImgs[16],
     images: {
       thumbnail: productImgs[16],
       thumbnailAlternate: productImgs[16],
@@ -110,7 +105,6 @@ export const PRODUCTS: Product[] = [
     name: 'Round Buckle 1" Belt',
     description: "Classic green",
     price: 68,
-    image: productImgs[1],
     images: {
       thumbnail: productImgs[1],
       thumbnailAlternate: productImgs[1],
@@ -131,7 +125,6 @@ export const PRODUCTS: Product[] = [
     name: "Waffle Knit Beanie",
     description: "New blue aqua",
     price: 132,
-    image: productImgs[15],
     images: {
       thumbnail: productImgs[15],
       thumbnailAlternate: productImgs[15],
@@ -153,7 +146,6 @@ export const PRODUCTS: Product[] = [
     name: "Travel Pet Carrier",
     description: "Dark pink 2023",
     price: 28,
-    image: productImgs[3],
     images: {
       thumbnail: productImgs[3],
       thumbnailAlternate: productImgs[3],
@@ -174,7 +166,6 @@ export const PRODUCTS: Product[] = [
     name: "Leather Gloves",
     description: "Perfect mint green",
     price: 42,
-    image: productImgs[4],
     images: {
       thumbnail: productImgs[4],
       thumbnailAlternate: productImgs[4],
@@ -196,7 +187,6 @@ export const PRODUCTS: Product[] = [
     name: "Hoodie Sweatshirt",
     description: "New design 2023",
     price: 30,
-    image: productImgs[5],
     images: {
       thumbnail: productImgs[5],
       thumbnailAlternate: productImgs[5],
@@ -216,7 +206,6 @@ export const PRODUCTS: Product[] = [
     name: "Wool Cashmere Jacket",
     description: "Matte black",
     price: 12,
-    image: productImgs[8],
     images: {
       thumbnail: productImgs[8],
       thumbnailAlternate: productImgs[8],
@@ -237,7 +226,6 @@ export const PRODUCTS: Product[] = [
     name: "Ella Leather Tote",
     description: "Cream pink",
     price: 145,
-    image: productImgs[7],
     images: {
       thumbnail: productImgs[7],
       thumbnailAlternate: productImgs[7],
@@ -263,7 +251,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Mastermind Toys",
     description: "Brown cockroach wings",
     price: 74,
-    image: productSport1,
     images: {
       thumbnail: productSport1,
       thumbnailAlternate: productSport1,
@@ -286,7 +273,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Jump Rope Kids",
     description: "Classic green",
     price: 68,
-    image: productSport2,
     images:{
       thumbnail: productSport2,
       thumbnailAlternate: productSport2,
@@ -307,7 +293,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Tee Ball Beanie",
     description: "New blue aqua",
     price: 132,
-    image: productSport3,
     images:{
       thumbnail: productSport7,
       thumbnailAlternate: productSport7,
@@ -329,7 +314,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Rubber Table Tennis",
     description: "Dark pink 2023",
     price: 28,
-    image: productSport4,
     images:{
       thumbnail: productSport7,
       thumbnailAlternate: productSport7,
@@ -350,7 +334,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Classic Blue Rugby",
     description: "Perfect mint green",
     price: 42,
-    image: productSport5,
     images:{
       thumbnail: productSport7,
       thumbnailAlternate: productSport7,
@@ -372,7 +355,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Manhattan Toy WRT",
     description: "New design 2023",
     price: 30,
-    image: productSport6,
     images:{
       thumbnail: productSport7,
       thumbnailAlternate: productSport7,
@@ -392,7 +374,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Tabletop Football ",
     description: "Matte black",
     price: 12,
-    image: productSport7,
     images:{
       thumbnail: productSport7,
       thumbnailAlternate: productSport7,
@@ -413,7 +394,6 @@ export const SPORT_PRODUCTS: Product[] = [
     name: "Pvc Catching Toy",
     description: "Cream pink",
     price: 145,
-    image: productSport8,
     images: {
       thumbnail: productSport8,
       thumbnailAlternate: productSport8,
