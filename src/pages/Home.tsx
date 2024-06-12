@@ -21,13 +21,13 @@ const Home: FC<any> = ({ }) => {
 
   const fetchTrendingItems = async () => {
     setIsLoading(true);
-    const res = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
-    setTrendingItems(res.data);
+    const data = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
+    setTrendingItems(data);
     setIsLoading(false);
   };
   const fetchFeaturedtems = async () => {
-    const res = await getFeaturedItems(instance, accounts);
-    setFeaturedItems(res.data);
+    const data = await getFeaturedItems(instance, accounts);
+    setFeaturedItems(data);
   };
 
   useEffect(() => {

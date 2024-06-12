@@ -1,6 +1,4 @@
 import React from "react";
-import logoImg from "../../data/images/logo.svg";
-import logoLightImg from "../../data/images/logo-light.svg";
 import Link from "../../shared/Link";
 import Image from "../Image";
 
@@ -11,8 +9,8 @@ export interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({
-  img = "https://genstorageaccount3116.blob.core.windows.net/printme-images/logo.png",
-  imgLight = logoLightImg,
+  img = "https://genstorageaccount3116.blob.core.windows.net/printme-images/logo.svg",
+  imgLight = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/logo.svg',
   className = "flex-shrink-0",
 }) => {
   return (
@@ -24,7 +22,7 @@ const Logo: React.FC<LogoProps> = ({
       {/* PLEASE UN COMMENT BELLOW CODE AND USE IT */}
       {img ? (
         <Image
-          className={`block h-8 sm:h-10 w-auto ${
+          className={`block h-28 sm:h-24 w-auto main-logo ${
             imgLight ? "dark:hidden" : ""
           }`}
           src={img}

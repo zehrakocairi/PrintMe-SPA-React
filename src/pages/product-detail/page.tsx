@@ -37,9 +37,6 @@ import {CartItem} from '../../models/CartItem';
 import { useApplication } from "../../contexts/ApplicationContext";
 
 const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
-  detail21JPG,
-  detail22JPG,
-  detail23JPG,
   detail24JPG,
   "https://images.pexels.com/photos/3812433/pexels-photo-3812433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -63,8 +60,8 @@ const ProductDetailPage = ({ }) => {
   const { instance, accounts } = useMsal();
 
   const fetchFeaturedtems = async () => {
-    const res = await getFeaturedItems(instance, accounts);
-    setCustomersAlsoPurchesed(res.data);
+    const data = await getFeaturedItems(instance, accounts);
+    setCustomersAlsoPurchesed(data);
   };
 
   const fetchProduct = async () => {
@@ -87,7 +84,8 @@ const ProductDetailPage = ({ }) => {
 
 
   function getAllImages() : string[] {
-    return [product?.images?.image, product?.images?.imageAlternate].concat(LIST_IMAGES_GALLERY_DEMO);
+    return [product?.image, product?.image2,  product?.image3, product?.image4, detail21JPG, 
+      detail23JPG, detail22JPG];
   }
 
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
@@ -106,11 +104,11 @@ const ProductDetailPage = ({ }) => {
   };
 
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(product.id, product.name, product.price, quantity, product.images?.thumbnail || product.images?.thumbnailAlternate || product.images?.image, undefined, sizeSelected?.id, 0, "No Frame"));
+    addItemToCart(new CartItem(product.id, product.name, product.price, quantity, product.imageThumbnail, undefined, sizeSelected?.id, 0, "No Frame"));
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          productImage={product?.images?.thumbnailAlternate}
+          product={product}
           qualitySelected={quantity}
           show={t.visible}
           sizeSelected={{} as Size}
@@ -420,7 +418,7 @@ const ProductDetailPage = ({ }) => {
                   alt="firt"
                   containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
                   className="object-cover rounded-md sm:rounded-xl max-h-full"
-                  src={product?.images?.image || ""}
+                  src={product?.image}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
                   priority
@@ -439,13 +437,13 @@ const ProductDetailPage = ({ }) => {
                   sizes="(max-width: 640px) 100vw, 50vw"
                   containerClassName="absolute inset-0"
                   className="object-cover w-full h-full rounded-md sm:rounded-xl"
-                  src={product?.images?.imageAlternate || ""}
+                  src={product?.image2}
                 />
                 <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
               </div>
 
               {/*  */}
-              {[product?.images?.image, product?.images?.imageAlternate].map(
+              {[product?.image3, product?.image4].map(
                 (item, index) => (
                   <div
                     key={index}

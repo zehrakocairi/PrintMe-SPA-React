@@ -44,8 +44,8 @@ const PageSearch = ({}) => {
       updatecategoryState(categoryState);
     }
 
-    const res = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex, searchTerm);
-    setProducts(res.data);
+    const data = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    setProducts(data);
 
     setIsLoading(false);
   };

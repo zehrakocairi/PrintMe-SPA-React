@@ -48,18 +48,16 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
   const {frames, sizes} = useApplication();
 
   const {addItemToCart} = useCart();
-  const image = images?.image || images?.thumbnail;
-  const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
 
   const [selectedSizeIndex, setsSelectedSizeIndex] = useState(0);
   const [qualitySelected, setQualitySelected] = useState(1);
 
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image, undefined, sizes[selectedSizeIndex]?.id, frames[frameActive]?.id, frames[frameActive]?.name));
+    addItemToCart(new CartItem(id, name, price, 1, item.imageThumbnail, undefined, sizes[selectedSizeIndex]?.id, frames[frameActive]?.id, frames[frameActive]?.name));
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          productImage={images?.image}
+          product={item}
           qualitySelected={qualitySelected}
           show={t.visible}
           sizeSelected={sizes[selectedSizeIndex]}
@@ -278,7 +276,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           <div className="relative">
             <div className="aspect-w-16 aspect-h-16">
               <Image
-                src={image}
+                src={item.image}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full rounded-xl object-cover"
@@ -292,7 +290,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             <LikeButton className="absolute end-3 top-3 " />
           </div>
           <div className="hidden lg:grid grid-cols-2 gap-3 mt-3 sm:gap-6 sm:mt-6 xl:gap-5 xl:mt-5">
-            {[alternateThumbnail, alternateThumbnail].map((item, index) => {
+            {[item.image2, item.image3].map((item, index) => {
               return (
                 <div key={index} className="aspect-w-3 aspect-h-4">
                   <Image

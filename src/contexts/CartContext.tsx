@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState, ReactNode } from
 import { useMsal } from '@azure/msal-react';
 import { getCart, updateCart } from '../services/cartService';
 import { CartItem } from '../models/CartItem';
+import { useApplication } from './ApplicationContext';
 
 interface CartContextProps {
     cart: CartItem[];
@@ -21,7 +22,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState<number>(0);
     const [taxTotal, setTaxTotal] = useState<number>(0);
-    const { instance, accounts } = useMsal();
+    const { accounts } = useMsal();
+    const {getToken} = useApplication();
     const account = accounts[0];
 
     useEffect(() => {
@@ -38,7 +40,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                 setCart(localCart ?? []);
 
                 if (account || true) {
-                    const backendCart = await getCart(instance, accounts);
+                    const backendCart = await getCart(await getToken());
                     const {mergedCart, isUpdated} = mergeCarts(localCart, backendCart);
                     if(isUpdated) {
                         setCart(mergedCart ?? []);
@@ -47,7 +49,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                         localStorage.setItem('cart', JSON.stringify(mergedCart));
     
                         // Persist merged cart to backend
-                        await updateCart(instance, accounts, mergedCart);
+                        await updateCart(await getToken(), mergedCart);
                     }
                 }
             } catch (error) {
@@ -87,7 +89,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
         if (account || true) {
-            await updateCart(instance, accounts, updatedCart);
+            await updateCart(await getToken(), updatedCart);
         }
     };
 
@@ -97,7 +99,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
         if (account || true) {
-            await updateCart(instance, accounts, updatedCart);
+            await updateCart(await getToken(), updatedCart);
         }
     };
 

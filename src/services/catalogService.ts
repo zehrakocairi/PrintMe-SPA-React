@@ -5,13 +5,14 @@ import { CatalogType } from "../enums/CatalogType";
 import { Category } from "../enums/Category";
 import { CatalogTags } from "../enums/CatalogTags";
 import { FilterState } from "../models/FilterModels";
+import { Product } from "../models/ProductModels";
 
 
 const fetchCatalogItems = async (url: string, instance: IPublicClientApplication, accounts: any[]) => {
   try {
     const accessToken = await getAccessToken(instance, accounts);
     const response = await fetchWithAuth(url, accessToken);
-    return response;
+    return response.data.map((item:Product)=> new Product(item));
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;
@@ -21,8 +22,8 @@ const fetchCatalogItems = async (url: string, instance: IPublicClientApplication
 export const getCatalogItem = async (id: number, instance: IPublicClientApplication, accounts: any[]) => {
   try {
     const accessToken = await getAccessToken(instance, accounts);
-    const response = await fetchWithAuth(`/catalog/${id}`, accessToken);
-    return response;
+    const data = await fetchWithAuth(`/catalog/${id}`, accessToken);
+    return new Product(data)
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;

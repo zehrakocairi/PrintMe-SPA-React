@@ -52,16 +52,14 @@ const ProductCard: FC<ProductCardProps> = ({
   const [showModalQuickView, setShowModalQuickView] = useState(false);
   const navigate = useNavigate();
   const {addItemToCart} = useCart();
-  const thumbnail = images?.thumbnail || images?.image;
-  const alternateThumbnail = images?.thumbnailAlternate || images?.thumbnail || images?.image;
   const {sizes, frames} = useApplication();
 
   const notifyAddTocart = (sizeIndex: number = 0) => {
-    addItemToCart(new CartItem(id, name, price, 1, images?.thumbnail || images?.thumbnailAlternate || images?.image, undefined, sizes[sizeIndex]?.id, 0, "No Frame"));
+    addItemToCart(new CartItem(id, name, price, 1, data.imageThumbnail, undefined, sizes[sizeIndex]?.id, 0, "No Frame"));
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          productImage={images?.image}
+          product={data}
           qualitySelected={1}
           show={t.visible}
           sizeSelected={sizes[0]}
@@ -78,7 +76,7 @@ const ProductCard: FC<ProductCardProps> = ({
           <Image
             width={80}
             height={96}
-            src={alternateThumbnail}
+            src={data.image2}
             alt={name}
             className="absolute object-cover object-center"
           />
@@ -253,11 +251,11 @@ const ProductCard: FC<ProductCardProps> = ({
       >
         <Link href={`/product-detail/${id}`} className="absolute inset-0"></Link>
 
-        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-3xl overflow-hidden z-1 group">
+        <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-md overflow-hidden z-1 group product-card">
           <Link href={`/product-detail/${id}`} className="block block group relative">
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0"
-              src={alternateThumbnail}
+              containerClassName="flex aspect-w-3 aspect-h-4 w-full h-0"
+              src={data.imageThumbnail} //data.imageThumbnail
               className="object-cover w-full h-full drop-shadow-xl group-hover:hidden"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
@@ -266,8 +264,8 @@ const ProductCard: FC<ProductCardProps> = ({
 
             {/* Hover View Image */}
             <NcImage
-              containerClassName="flex aspect-w-11 aspect-h-12 w-full h-0 absolute inset-0"
-              src={thumbnail}
+              containerClassName="flex aspect-w-3 aspect-h-4 w-full h-0 absolute inset-0 product-card"
+              src={data.image2Thumbnail} //data.image2Thumbnail
               className="object-cover w-full h-full drop-shadow-xl hidden group-hover:block"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"

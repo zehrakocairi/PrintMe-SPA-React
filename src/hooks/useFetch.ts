@@ -32,7 +32,11 @@ const useFetch = (route:string, onReceived:any) => {
       
 
       if (accounts.length > 0) {
-        const response = await instance.acquireTokenSilent(tokenRequest);
+        const request = {
+          ...tokenRequest,
+          account: accounts[0],
+        };
+        const response = await instance.acquireTokenSilent(request);
 
         if (response.accessToken) {
           baseOptions.headers["Authorization"] = `Bearer ${response.accessToken}`;

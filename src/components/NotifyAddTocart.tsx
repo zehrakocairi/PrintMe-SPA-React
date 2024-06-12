@@ -1,32 +1,31 @@
 import React, { FC } from "react";
 import { Transition } from "../headlessui";
 import Prices from "./Prices";
-import { PRODUCTS } from "../data/data";
 import Image from "../shared/Image";
 import { Size } from "../models/ProductModels";
+import { Product } from "../models/ProductModels";
 
 interface Props {
   show: boolean;
-  productImage: string;
+  product: Product;
   sizeSelected: Size;
   qualitySelected: number;
 }
 
 const NotifyAddTocart: FC<Props> = ({
   show,
-  productImage,
+  product,
   qualitySelected,
   sizeSelected,
 }) => {
-  const { name, price } = PRODUCTS[0];
-
+const { name: productName, price, imageThumbnail: productImage, motto } = product;
   const renderProductCartOnNotify = () => {
     return (
       <div className="flex ">
         <div className="h-24 w-20 relative flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
           <Image
             src={productImage}
-            alt={name}
+            alt={productName}
             fill
             sizes="100px"
             className="h-full w-full object-contain object-center"
@@ -37,7 +36,7 @@ const NotifyAddTocart: FC<Props> = ({
           <div>
             <div className="flex justify-between ">
               <div>
-                <h3 className="text-base font-medium ">{name}</h3>
+                <h3 className="text-base font-medium ">{productName}</h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
                   <span>{sizeSelected?.name || "NO SIZE"}</span>

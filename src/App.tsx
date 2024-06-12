@@ -17,10 +17,10 @@ import CommonClient from "./pages/CommonClient";
 
 function App() {
   return (
-    <CartProvider>
-      <Router>
-        <SiteHeader />
-        <ApplicationProvider>
+    <ApplicationProvider>
+      <CartProvider>
+        <Router>
+          <SiteHeader />
           <FilterProvider>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -35,9 +35,9 @@ function App() {
             <CommonClient />
             <Footer />
           </FilterProvider>
-        </ApplicationProvider>
-      </Router>
-    </CartProvider>
+        </Router>
+      </CartProvider>
+    </ApplicationProvider>
 
   );
 }

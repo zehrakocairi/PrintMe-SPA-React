@@ -10,7 +10,7 @@ import { loginRequest, tokenRequest } from '../../authConfig';
 
 export default function AvatarDropdown() {
 
-  const { instance, accounts } = useMsal();
+  const { instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
   const handleLogout = () => {

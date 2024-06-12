@@ -365,3 +365,16 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   }
 }
 
+.main-logo{
+  transform: translateY(31px);
+}
+
+.object-fit-none {
+  object-fit: none;
+}
+.product-card{
+  border-radius: 4px;
+    box-shadow: 1px 2px 9px 3px rgb(137 146 170 / 55%);
+
+}
+
