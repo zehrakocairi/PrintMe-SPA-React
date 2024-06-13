@@ -216,7 +216,7 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/our-services",
+    href: "/",
     name: "We Design",
   },
   {
