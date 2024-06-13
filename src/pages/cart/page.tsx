@@ -1,15 +1,12 @@
 import { NoSymbolIcon, CheckIcon } from "@heroicons/react/24/outline";
 import NcInputNumber from "../../components/NcInputNumber";
 import Prices from "../../components/Prices";
-import { PRODUCTS } from "../..//data/data";
-import { Product } from "../../models/ProductModels";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
 import { useState } from "react";
-import { useEffect } from "react";
 
 const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();

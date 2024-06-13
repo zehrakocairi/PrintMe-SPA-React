@@ -38,7 +38,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
             alt=""
             sizes="150px"
           />
-          <NcImage
+         <NcImage
             containerClassName="w-full h-24 sm:h-28"
             className="object-cover w-full h-full rounded-2xl"
             src={imgs[2]}
