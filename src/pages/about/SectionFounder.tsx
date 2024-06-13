@@ -15,14 +15,14 @@ const FOUNDER_DEMO: People[] = [
     name: `Zek Kocairi`,
     job: "Co-founder and Chief Executive",
     avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://media.licdn.com/dms/image/D4D03AQGcbdIjeBSQNA/profile-displayphoto-shrink_800_800/0/1691422539894?e=1723680000&v=beta&t=R_xWPoA5ptMIqrIQrkbzvkAwFXPJrepupyyUBdKu5Ls",
   },
   {
     id: "2",
     name: `Zehra Kocairi`,
     job: "Co-founder and Chief Executive",
     avatar:
-      "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80",
+      "https://media.licdn.com/dms/image/D4E03AQE51Bz3AodpvA/profile-displayphoto-shrink_400_400/0/1703157304140?e=1723680000&v=beta&t=3nIDfz9DRJ9F9w4gIjfuZK4IIOp3FqzYkzZpuuaoXHA",
   }
 ];
 

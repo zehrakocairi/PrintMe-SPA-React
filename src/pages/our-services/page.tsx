@@ -9,7 +9,7 @@ import SectionClientSay from "../../components/SectionClientSay/SectionClientSay
 import SectionPromo3 from "../../components/SectionPromo3";
 import FramesCatalog from "../../components/FramesCatalog";
 
-const PageOurServices = ({}) => {
+const PageOurServices = ({ }) => {
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
       {/* ======== BG GLASS ======== */}
@@ -27,7 +27,9 @@ const PageOurServices = ({}) => {
           Join our PrintMeArt family and let us help you create something special. Your masterpiece awaits!"
         />
 
-        <FramesCatalog />
+        <div id="frames">
+          <FramesCatalog />
+        </div>
         <div className="relative py-16">
           <BackgroundSection />
           <SectionClientSay />
