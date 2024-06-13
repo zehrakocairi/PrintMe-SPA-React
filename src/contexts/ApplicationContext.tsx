@@ -9,6 +9,7 @@ interface ApplicationContextProps {
     frames: Frame[];
     sizes: Size[];
     getToken: () => Promise<string | null>;
+    handleGoogleSuccess: (credential: any) => void;
 }
 
 const ApplicationContext = createContext<ApplicationContextProps | undefined>(undefined);
@@ -48,6 +49,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         await instance.initialize();
         instance.setActiveAccount(instance.getAllAccounts()[0] ?? {});
         setInitialized(true);
+        setAuthenticationMethod('microsoft');
     };
 
     useEffect(() => {
@@ -55,7 +57,27 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         fetchSizes();
     }, []);
 
+    const setAuthenticationMethod = (method: 'google' | 'microsoft') => {
+        sessionStorage.setItem("authenticationMethod", 'google');
+    };
+    const isAuthenticatedWith = (method: 'google' | 'microsoft'):boolean => {
+        return sessionStorage.getItem("authenticationMethod") === method;
+    };
+
+    const handleGoogleSuccess = ({credential}:any) => {
+        console.log("Google login successful:", credential);
+        sessionStorage.setItem("accessToken", credential);
+        setAuthenticationMethod('google');
+    };
+
     const getToken = async () => {
+        const cachedToken = sessionStorage.getItem("accessToken");
+        const tokenExpiry = sessionStorage.getItem("tokenExpiry");
+        
+        if ((cachedToken && isAuthenticatedWith('google')) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
+            return cachedToken;
+        }
+
         if(!initialized)
             await initializeAuthentication();
 
@@ -65,12 +87,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         }
     
         // Check for cached token
-        const cachedToken = sessionStorage.getItem("accessToken");
-        const tokenExpiry = sessionStorage.getItem("tokenExpiry");
     
-        if (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry) {
-            return cachedToken;
-        }
     
         try {
             const response = await instance.acquireTokenSilent(tokenRequest);
@@ -94,7 +111,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     
 
     return (
-        <ApplicationContext.Provider value={{ frames, sizes, getToken }}>
+        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess }}>
             {children}
         </ApplicationContext.Provider>
     );

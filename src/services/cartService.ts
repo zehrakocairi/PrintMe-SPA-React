@@ -8,6 +8,9 @@ import { CartItem } from "../models/CartItem";
 export const getCart = async (accessToken: string|null) => {
   const url = `/basket`;
   try {
+    if(accessToken!==null && accessToken !== ''){
+      const res=await fetchWithAuth('/catalog/test', accessToken);
+    }
     const response = await fetchWithAuth(url, accessToken);
     return response;
   } catch (error) {

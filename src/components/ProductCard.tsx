@@ -247,7 +247,7 @@ const ProductCard: FC<ProductCardProps> = ({
   return (
     <>
       <div
-        className={`nc-ProductCard relative flex flex-col bg-transparent ${className}`}
+        className={`nc-ProductCard relative flex flex-col bg-transparent ${className} mx-2`}
       >
         <Link href={`/product-detail/${id}`} className="absolute inset-0"></Link>
 

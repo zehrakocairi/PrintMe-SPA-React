@@ -7,14 +7,16 @@ import Input from "../../shared/Input/Input";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
-import { useMsal, useIsAuthenticated } from '@azure/msal-react';
-import { loginRequest, tokenRequest } from '../../authConfig';
+import { useMsal } from '@azure/msal-react';
+import { loginRequest } from '../../authConfig';
+import { GoogleLogin } from '@react-oauth/google';
+import { useApplication } from "../../contexts/ApplicationContext";
 
 
 const PageLogin = () => {
 
-  const { instance, accounts } = useMsal(); 
-   const isAuthenticated = useIsAuthenticated();
+  const { instance } = useMsal();
+  const { handleGoogleSuccess } = useApplication();
 
 
   const handleMicrosoftLogin = () => {
@@ -24,31 +26,8 @@ const PageLogin = () => {
     return true;
   };
 
-  const test = () => {
-    callApiWithToken();
-  };
-
-
-  const callApiWithToken = async () => {
-    if (isAuthenticated) {
-      const request = {
-        ...tokenRequest,
-        account: accounts[0],
-      };
-      try {
-        const response = await instance.acquireTokenSilent(request);
-        const token = response.accessToken;
-        const apiResponse = await fetch('https://localhost:7183/test', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        console.log(apiResponse);
-      } catch (e) {
-        console.error(e);
-      }
-    }
+  const handleGoogleFailure = () => {
+    console.log("Google login failed:");
   };
 
   const loginSocials = [
@@ -56,14 +35,8 @@ const PageLogin = () => {
       name: "Continue with Microsoft",
       href: "#",
       icon: twitterSvg,
-      handleClick:handleMicrosoftLogin
-    },
-    {
-      name: "Continue with Google",
-      href: "#",
-      icon: googleSvg,
-      handleClick:()=>{test()}
-    },
+      handleClick: handleMicrosoftLogin
+    }
   ];
 
   return (
@@ -76,7 +49,7 @@ const PageLogin = () => {
           <div className="grid gap-3">
             {loginSocials?.map((item, index) => (
               <a
-              onClick={item.handleClick}
+                onClick={item.handleClick}
                 key={index}
                 href={item.href}
                 className="flex w-full rounded-lg bg-primary-50 dark:bg-neutral-800 px-4 py-3 transform transition-transform sm:px-6 hover:translate-y-[-2px]"
@@ -92,6 +65,10 @@ const PageLogin = () => {
                 </h3>
               </a>
             ))}
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={handleGoogleFailure}
+            />
           </div>
           {/* OR */}
           <div className="relative text-center">

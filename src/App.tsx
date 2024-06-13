@@ -14,6 +14,7 @@ import { FilterProvider } from "./contexts/FilterContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import { CartProvider } from "./contexts/CartContext";
 import CommonClient from "./pages/CommonClient";
+import PageOurServices from "./pages/our-services/page";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path="/search" element={<PageSearch />} />
               <Route path="/product-detail/:id" element={<ProductDetailPage />} />
               <Route path="/contact" element={<PageContact />} />
+              <Route path="/our-services" element={<PageOurServices />} />
               <Route path="/login" element={<PageLogin />} />
             </Routes>
             <CommonClient />
