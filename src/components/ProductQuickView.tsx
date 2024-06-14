@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import LikeButton from "./LikeButton";
 import { StarIcon } from "@heroicons/react/24/solid";
@@ -41,9 +41,8 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
     numberOfReviews,
   } = item;
 
-  const [frameActive, setFrameActive] = useState(0);
-  const [showModalQuickView, setShowModalQuickView] = useState(false);
-  const navigate = useNavigate();
+  const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
+  const [calculatedPrice, setCalculatedPrice] = useState(price);
 
   const {frames, sizes} = useApplication();
 
@@ -52,8 +51,15 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
   const [selectedSizeIndex, setsSelectedSizeIndex] = useState(0);
   const [qualitySelected, setQualitySelected] = useState(1);
 
+  useEffect(() => {
+    const newPrice = (price + frames[selectedFrameIndex]?.price) * sizes[selectedSizeIndex]?.multiplier;
+    setCalculatedPrice(Math.floor(newPrice));
+  }, [
+    selectedSizeIndex,
+    selectedFrameIndex,
+  ]);
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(id, name, price, 1, item.imageThumbnail, undefined, sizes[selectedSizeIndex]?.id, frames[frameActive]?.id, frames[frameActive]?.name));
+    addItemToCart(new CartItem(id, name, price, 1, item.imageThumbnail, undefined, sizes[selectedSizeIndex]?.id, frames[selectedFrameIndex]?.id, frames[selectedFrameIndex]?.name));
     toast.custom(
       (t) => (
         <NotifyAddTocart
@@ -79,7 +85,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           <span className="text-sm font-medium">
             Color:
             <span className="ms-1 font-semibold">
-              {frames[frameActive].name}
+              {frames[selectedFrameIndex].name}
             </span>
           </span>
         </label>
@@ -97,9 +103,9 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             <div
               title= {frame.name}
               key={index}
-              onClick={() => setFrameActive(index)}
+              onClick={() => setSelectedFrameIndex(index)}
               className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${
-                frameActive === index
+                selectedFrameIndex === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
               }`}
@@ -217,7 +223,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             {/* <div className="flex text-xl font-semibold">$112.00</div> */}
             <Prices
               contentClass="py-1 px-2 md:py-1.5 md:px-3 text-lg font-semibold"
-              price={price}
+              price={calculatedPrice}
             />
             <div className="h-6 border-s border-slate-300 dark:border-slate-700"></div>
 

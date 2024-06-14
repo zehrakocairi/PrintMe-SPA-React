@@ -76,6 +76,7 @@ const DiscoverMoreSlider = () => {
                 featuredImage={item.featuredImage}
                 color={item.color}
                 className={item.className}
+                href={item.href}
               />
             </li>
           ))}

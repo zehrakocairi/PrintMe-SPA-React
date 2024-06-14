@@ -18,6 +18,7 @@ export const CATS_DISCOVER: CardCategory3Props[] = [
     desc: "Pick up prints,<br />enjoy coffee.",
     featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.png',
     color: "bg-blue-50",
+    href: "/about",
   },
   {
     name: "Exclusive Discounts",

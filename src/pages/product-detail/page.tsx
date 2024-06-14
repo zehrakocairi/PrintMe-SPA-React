@@ -70,7 +70,7 @@ const ProductDetailPage = ({ }) => {
   };
 
   const {addItemToCart} = useCart();
-  const {sizes} = useApplication();
+  const {frames,sizes} = useApplication();
 
   useEffect(() => {
     fetchProduct();
@@ -82,18 +82,35 @@ const ProductDetailPage = ({ }) => {
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
 
-
   function getAllImages() : string[] {
     return [product?.image, product?.image2,  product?.image3, product?.image4, detail21JPG, 
       detail23JPG, detail22JPG];
   }
 
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
+  const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
+  const [calculatedPrice, setCalculatedPrice] = useState(product?.price ?? 0);
   const [quantity, setQuantity] = useState(1);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
 
-  //
+  useEffect(() => {
+    if (product?.price && frames && sizes) {
+      const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (sizeSelected?.multiplier ?? 1);
+      setCalculatedPrice(Math.floor(newPrice));
+    }
+  }, [
+    product,
+    sizeSelected,
+    selectedFrameIndex,
+  ]);
+
+  useEffect(() => {
+    setSizeSelected(sizes[0]);
+  }, [
+    sizes,
+  ]);
+
   const handleCloseModalImageGallery = () => {
     let params = new URLSearchParams(document.location.search);
     params.delete("modal");
@@ -206,6 +223,56 @@ const ProductDetailPage = ({ }) => {
     return null;
   };
 
+  const renderFrames = () => {
+    if (!frames || !frames.length) {
+      return null;
+    }
+
+    return (
+      <div>
+       <div className="flex justify-between font-medium text-sm">
+        <label className="rtl:text-right block" htmlFor="">
+          <span className="text-sm font-medium">
+            Color:
+            <span className="ms-1 font-semibold">
+              {frames[selectedFrameIndex].name}
+            </span>
+          </span>
+        </label>
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-6000 hover:text-primary-500"
+            href="/our-services"
+          >
+            See frame details
+          </a>
+        </div>
+        <div className="grid grid-cols-6 gap-2 mt-3">
+          {frames.map((frame, index) => (
+            <div
+              title= {frame.name}
+              key={index}
+              onClick={() => setSelectedFrameIndex(index)}
+              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${
+                selectedFrameIndex === index
+                  ? "border-primary-6000 dark:border-primary-500"
+                  : "border-transparent"
+              }`}
+            >
+              <div
+                className="absolute inset-0.5 rounded-lg overflow-hidden z-0 bg-no-repeat bg-center bg-cover"
+                style={{
+                  backgroundImage: `url(${frame.thumbnail || ""})`,
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const renderSectionSidebar = () => {
     return (
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
@@ -215,7 +282,7 @@ const ProductDetailPage = ({ }) => {
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
               <div className="flex text-2xl font-semibold">
-                ${product.price?.toFixed(2)}
+                ${calculatedPrice?.toFixed(0)}
               </div>
 
               <a
@@ -234,8 +301,11 @@ const ProductDetailPage = ({ }) => {
                 </span>
               </a>
             </div>
-
-            {/* ---------- 3 VARIANTS AND SIZE LIST ----------  */}
+            {/* ---------- FRAMES ----------  */}
+            <div className="mt-6 space-y-7 lg:space-y-8">
+              <div className="">{renderFrames()}</div>
+            </div>
+            {/* ---------- SIZE LIST ----------  */}
             <div className="mt-6 space-y-7 lg:space-y-8">
               <div className="">{renderSizeList()}</div>
             </div>
@@ -262,12 +332,12 @@ const ProductDetailPage = ({ }) => {
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">
-                  <span>{`$${product.price?.toFixed(2)}  `}</span>
+                  <span>{`$${calculatedPrice?.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
                   <span>{`${quantity} `}</span>
                 </span>
 
-                <span>{`$${(product.price * quantity).toFixed(2)}`}</span>
+                <span>{`$${(calculatedPrice * quantity).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
@@ -277,7 +347,7 @@ const ProductDetailPage = ({ }) => {
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{`$${(product.price * quantity).toFixed(2)}`}</span>
+              <span>{`$${(calculatedPrice * quantity).toFixed(2)}`}</span>
             </div>
           </div>
         </div>
@@ -391,7 +461,7 @@ const ProductDetailPage = ({ }) => {
                 starPoint: 5,
               }}
             />
-          </div>
+          </div> 
 
           <ButtonSecondary
             onClick={() => setIsOpenModalViewAllReviews(true)}

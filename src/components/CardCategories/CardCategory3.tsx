@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Link from "../../shared/Link";
 import Image from "../../shared/Image";
-import { CATS_DISCOVER } from "./data";
 
 export interface CardCategory3Props {
   className?: string;
@@ -10,18 +9,20 @@ export interface CardCategory3Props {
   name?: string;
   desc?: string;
   color?: string;
+  href?: string;
 }
 
 const CardCategory3: FC<CardCategory3Props> = ({
   className = "",
-  featuredImage = CATS_DISCOVER[2].featuredImage,
-  name = CATS_DISCOVER[2].name,
-  desc = CATS_DISCOVER[2].desc,
-  color = CATS_DISCOVER[2].color,
+  featuredImage,
+  name,
+  desc ,
+  color,
+  href = '/search'
 }) => {
   return (
     <Link
-      href={"/collection"}
+      href={href}
       className={`nc-CardCategory3 block ${className}`}
     >
       <div

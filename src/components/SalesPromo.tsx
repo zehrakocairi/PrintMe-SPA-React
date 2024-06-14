@@ -15,9 +15,9 @@ export default function SalesPromo() {
                 <div className="absolute grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 lg:w-1/2 p-6 right-0">
                     <div className="rounded-lg overflow-hidden bg-white -translate-y-4">
                         <img
-                            src="https://images.unsplash.com/photo-1593642532973-d31b6557fa68?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyNjU3MDB8MHwxfGFsbHwyfHx8fHx8fHwxNjQ3NTQyOTc0&ixlib=rb-1.2.1&q=80&w=400"
+                            src="https://tailwindui.com/img/ecommerce-images/home-page-03-favorite-01.jpg"
                             alt="Sale item 1"
-                            className="w-full h-full object-cover"
+                            className="w-full h-full object-cover max-h-72"
                         />
                     </div>
                     <div className="rounded-lg overflow-hidden bg-white -translate-y-32 ">
