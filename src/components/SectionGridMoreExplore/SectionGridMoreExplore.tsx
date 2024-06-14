@@ -1,30 +1,33 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import CardCategory1 from "../CardCategories/CardCategory1";
 import CardCategory4 from "../CardCategories/CardCategory4";
 import Heading from "../Heading/Heading";
 import NavItem2 from "../NavItem2";
 import Nav from "../../shared/Nav/Nav";
 import CardCategory6 from "../CardCategories/CardCategory6";
-import { DEMO_MORE_EXPLORE_DATA, ExploreType } from "./data";
+import MENU_TREE_DATA, { MenuType, MenuItemType } from "./data";
 
 export interface SectionGridMoreExploreProps {
   className?: string;
   gridClassName?: string;
   boxCard?: "box1" | "box4" | "box6";
-  data?: ExploreType[];
 }
 
 const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   className = "",
   boxCard = "box4",
   gridClassName = "grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
-  data = DEMO_MORE_EXPLORE_DATA.filter((_, i) => i < 6),
 }) => {
-  const [tabActive, setTabActive] = useState("Man");
+  const [tabActive, setTabActive] = useState("Nature");
+  const [data, setData] = useState(MENU_TREE_DATA.get("Nature"));
 
-  const renderCard = (item: ExploreType) => {
+  useEffect(() => {
+    setData(MENU_TREE_DATA.get(tabActive));
+  }, [tabActive]);
+
+  const renderCard = (item: MenuItemType) => {
     switch (boxCard) {
       case "box1":
         return (
@@ -90,15 +93,6 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
               </svg>
               `,
             },
-            // {
-            //   name: "Vintage and Retro",
-            //   icon: `<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            //   <path d="M10.25 21.5C14.5302 21.5 18 18.0302 18 13.75C18 9.46979 14.5302 6 10.25 6C5.96979 6 2.5 9.46979 2.5 13.75C2.5 18.0302 5.96979 21.5 10.25 21.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M21.5 2.5L16 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M15 2.5H21.5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   </svg>
-            //   `,
-            // },
             {
               name: "Vintage and Retro",
               icon: `<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -108,18 +102,6 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
               </svg>
                `,
             },
-            // {
-            //   name: "Famous Painters",
-            //   icon: `<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            //   <path d="M17.1801 18C19.5801 18 20.1801 16.65 20.1801 15V9C20.1801 7.35 19.5801 6 17.1801 6C14.7801 6 14.1801 7.35 14.1801 9V15C14.1801 16.65 14.7801 18 17.1801 18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M6.81995 18C4.41995 18 3.81995 16.65 3.81995 15V9C3.81995 7.35 4.41995 6 6.81995 6C9.21995 6 9.81995 7.35 9.81995 9V15C9.81995 16.65 9.21995 18 6.81995 18Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M9.81995 12H14.1799" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M22.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   <path d="M1.5 14.5V9.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            //   </svg>
-              
-            //    `,
-            // },
             {
               name: "Famous Painters",
               icon: `<svg class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +143,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
     <div className={`nc-SectionGridMoreExplore relative ${className}`}>
       {renderHeading()}
       <div className={`grid gap-4 md:gap-7 ${gridClassName}`}>
-        {data.map((item) => renderCard(item))}
+        {data?.map((item) => renderCard(item))}
       </div>
     </div>
   );
