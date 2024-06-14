@@ -8,6 +8,8 @@ import SectionHero from "./SectionHero";
 import SectionClientSay from "../../components/SectionClientSay/SectionClientSay";
 import SectionPromo3 from "../../components/SectionPromo3";
 import FramesCatalog from "../../components/FramesCatalog";
+import FrameFeatures from "../../components/FrameFeatures";
+import SalesPromo from "../../components/SalesPromo";
 
 const PageOurServices = ({ }) => {
   return (
@@ -31,13 +33,12 @@ const PageOurServices = ({ }) => {
           <FramesCatalog />
         </div>
         <div className="relative py-16">
-          <BackgroundSection />
-          <SectionClientSay />
+          <FrameFeatures />
+          <BackgroundSection zIndex={-1} />
         </div>
-
-        <SectionStatistic />
-
-        <SectionPromo3 />
+        <div className="relative py-32">
+        <SalesPromo />
+        </div>
       </div>
     </div>
   );
