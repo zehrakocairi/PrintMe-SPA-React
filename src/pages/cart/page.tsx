@@ -31,7 +31,7 @@ const CartPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { productId, pictureUrl, unitPrice, productName, quantity } = item;
+    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId } = item;
     
   const setQuantity = (value: number) => {
     addItemToCart({...item, quantity: (value - quantity)});
@@ -174,7 +174,7 @@ const CartPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span  onClick={() => {removeItemFromCart(productId)}}>Remove</span>
+              <span  onClick={() => {removeItemFromCart(productId, frameId, size)}}>Remove</span>
             </a>
           </div>
         </div>
@@ -228,7 +228,7 @@ const CartPage = () => {
                 <div className="flex justify-between py-4">
                   <span>Tax estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${taxTotal}
+                    ${taxTotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">

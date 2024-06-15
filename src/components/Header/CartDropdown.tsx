@@ -23,7 +23,7 @@ export default function CartDropdown() {
   }, [cart]);
 
   const renderProduct = (item: CartItem, index: number, close: () => void) => {
-    const { productName, unitPrice, pictureUrl, quantity } = item;
+    const { productName, unitPrice, pictureUrl, quantity, size, frameId } = item;
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -66,7 +66,7 @@ export default function CartDropdown() {
                 type="button"
                 className="font-medium text-primary-6000 dark:text-primary-500 "
                 onClick={() => {
-                  removeItemFromCart(item.productId);
+                  removeItemFromCart(item.productId, frameId, size);
                 }}
               >
                 Remove

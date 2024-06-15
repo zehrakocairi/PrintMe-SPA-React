@@ -54,8 +54,8 @@ const ProductCard: FC<ProductCardProps> = ({
   const {addItemToCart} = useCart();
   const {sizes, frames} = useApplication();
 
-  const notifyAddTocart = (sizeIndex: number = 0) => {
-    addItemToCart(new CartItem(id, name, price, 1, data.imageThumbnail, undefined, sizes[sizeIndex]?.id, 0, "No Frame"));
+  const notifyAddTocart = (sizeIndex: number, frameId: number) => {
+    addItemToCart(new CartItem(id, name, price, 1, data.imageThumbnail, sizes[sizeIndex].id, frameId, 0, "No Frame"));
     toast.custom(
       (t) => (
         <NotifyAddTocart
@@ -234,7 +234,7 @@ const ProductCard: FC<ProductCardProps> = ({
             <div
               key={index}
               className="nc-shadow-lg w-10 h-10 rounded-xl bg-white hover:bg-slate-900 hover:text-white transition-colors cursor-pointer flex items-center justify-center uppercase font-semibold tracking-tight text-sm text-slate-900"
-              onClick={() => notifyAddTocart(size.id)}
+              // onClick={() => notifyAddTocart(size.id)}
             >
               {size.name}
             </div>

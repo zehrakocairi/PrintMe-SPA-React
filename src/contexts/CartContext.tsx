@@ -3,11 +3,12 @@ import { useMsal } from '@azure/msal-react';
 import { getCart, updateCart } from '../services/cartService';
 import { CartItem } from '../models/CartItem';
 import { useApplication } from './ApplicationContext';
+import { PrintSize } from '../enums/PrintSize';
 
 interface CartContextProps {
     cart: CartItem[];
     addItemToCart: (item: CartItem) => Promise<void>;
-    removeItemFromCart: (productId: number) => Promise<void>;
+    removeItemFromCart: (productId: number, frameId: number, size: PrintSize) => Promise<void>;
     cartTotal:  number;
     taxTotal:  number;
 }
@@ -77,7 +78,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const addItemToCart = async (item: CartItem) => {
         let updatedCart = [...cart ];
         
-        const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId);
+        const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId && cartItem.size === item.size && cartItem.frameId === item.frameId);
 
         if (existingItem) {
             existingItem.quantity += item.quantity;
@@ -93,8 +94,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         }
     };
 
-    const removeItemFromCart = async (productId: number) => {
-        const updatedCart = cart.filter(item => item.productId !== productId);
+    const removeItemFromCart = async (productId: number, frameId: number, size: PrintSize) => {
+        const updatedCart = cart.filter(item => item.productId !== productId || item.size !== size || item.frameId !== frameId);
         setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 

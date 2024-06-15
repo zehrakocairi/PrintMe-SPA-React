@@ -63,7 +63,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                   ))}
                 </div>
                 <div className="w-[40%] xl:w-[35%]">
-                  <CardCategory3 />
+                  <CardCategory3 featuredImage="https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.png"/>
                 </div>
               </div>
             </div>

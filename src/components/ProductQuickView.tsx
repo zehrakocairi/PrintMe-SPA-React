@@ -59,7 +59,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
     selectedFrameIndex,
   ]);
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(id, name, price, 1, item.imageThumbnail, undefined, sizes[selectedSizeIndex]?.id, frames[selectedFrameIndex]?.id, frames[selectedFrameIndex]?.name));
+    addItemToCart(new CartItem(id, name, calculatedPrice, qualitySelected, item.imageThumbnail, sizes[selectedSizeIndex]?.id, frames[selectedFrameIndex]?.id, undefined, frames[selectedFrameIndex]?.name));
     toast.custom(
       (t) => (
         <NotifyAddTocart

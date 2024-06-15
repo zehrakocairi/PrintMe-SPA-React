@@ -121,7 +121,7 @@ const ProductDetailPage = ({ }) => {
   };
 
   const notifyAddTocart = () => {
-    addItemToCart(new CartItem(product.id, product.name, product.price, quantity, product.imageThumbnail, undefined, sizeSelected?.id, 0, "No Frame"));
+    addItemToCart(new CartItem(product.id, product.name, calculatedPrice, quantity, product.imageThumbnail, sizeSelected?.id, frames[selectedFrameIndex].id, undefined, frames[selectedFrameIndex].name));
     toast.custom(
       (t) => (
         <NotifyAddTocart
