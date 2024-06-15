@@ -19,7 +19,7 @@ const PageOurServices = ({ }) => {
 
       <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
         <SectionHero
-          rightImg={'https://genstorageaccount3116.blob.core.windows.net/printme-images/pexels-ervis-topollaj-830132475-20487281.jpg'}
+          rightImg={'https://images.unsplash.com/photo-1465161191540-aac346fcbaff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
           heading="👋 Test."
           btnText=""
           subHeading="Welcome to PrintMeArt! We're a family-run business turning your favorite memories and artworks into stunning prints. Using top-notch Giclée printing, we ensure vibrant colors and fine detail in every piece.</br>

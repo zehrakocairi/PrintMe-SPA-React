@@ -23,7 +23,7 @@ export const CATS_DISCOVER: CardCategory3Props[] = [
   {
     name: "Exclusive Discounts",
     desc: "Up to <br /> 80% off selected art",
-    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/illustaration-hang-picture-in-frame.jpg',
+    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/sales-1.jpg',
     color: "bg-green-50",
   },
 ];
