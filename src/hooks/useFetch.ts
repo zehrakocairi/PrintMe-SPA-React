@@ -44,7 +44,7 @@ const useFetch = (route:string, onReceived:any) => {
       }
       let url = route;
       if (route.startsWith("/")) {
-        url = "https://localhost:7183/api" + route;
+        url =  process.env.REACT_APP_BACKEND_URL +"/api" + route;
       }
 
       const res = await fetch(url, { ...baseOptions, ...options, signal });

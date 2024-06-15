@@ -11,7 +11,7 @@ export const fetchWithAuth = async (url: string, token: string|null, options: an
   }
 
   if (url.startsWith("/")) {
-    url = "http://localhost:5187/api" + url;
+    url = process.env.REACT_APP_BACKEND_URL + "/api" + url;
   }
 
   const fetchResponse = await fetch(url, {
