@@ -264,24 +264,24 @@ const CheckoutPage = () => {
               <div className="mt-4 flex justify-between py-2.5">
                 <span>Subtotal</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${cartTotal}
+                  €{cartTotal}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Shipping estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${shippingPrice}
+                  €{shippingPrice}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Tax estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${taxTotal}
+                  €{taxTotal}
                 </span>
               </div>
               <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                 <span>Order total</span>
-                <span>${(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
+                <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
               </div>
             </div>
             <ButtonPrimary disabled className="mt-8 w-full">Confirm order</ButtonPrimary>

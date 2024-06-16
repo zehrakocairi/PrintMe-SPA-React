@@ -216,24 +216,24 @@ const CartPage = () => {
                 <div className="flex justify-between pb-4">
                   <span>Subtotal</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {cartTotal}
+                  €{cartTotal}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Shipping estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${shippingPrice}
+                    €{shippingPrice}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Tax estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${taxTotal.toFixed(2)}
+                    €{taxTotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                   <span>Order total</span>
-                  <span>{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
+                  <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
                 </div>
               </div>
               <ButtonPrimary href="/checkout" className="mt-8 w-full">
