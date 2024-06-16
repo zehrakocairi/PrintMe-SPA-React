@@ -10,40 +10,31 @@ import { getFilteredPaginatedItems } from "../../services/catalogService";
 import { useMsal } from "@azure/msal-react";
 import { Category } from "../../enums/Category";
 import { useFilter } from "../../contexts/FilterContext";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
 
 
-const PageSearch = ({}) => {
+const PageSearch = ({ }) => {
 
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const { instance, accounts } = useMsal();
 
   const location = useLocation();
+  const pageInitiated = useRef(false);
 
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updatecategoryState, isLoading, setPageSize} = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, isLoading, setPageSize } = useFilter();
 
-  const fetchItems = async (searchTerm:string = "", ignoreCategoryOnUrl:boolean = false) => {
+  const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
     setIsLoading(true);
 
-    const categoryFromUrl = getCategoryFromUrl();
-
-    // searchTerm = searchTerm.trim() === "" 
-    // ? new URLSearchParams(location.search).get('searchTerm') ?? ""
-    // : searchTerm;
-    
-    setSearchText(searchTerm);
-
-    let categoryState = ignoreCategoryOnUrl ? filter.categoryState : categoryFromUrl;
+    let categoryState = category;
 
     if (searchTerm.trim() !== "") {
       categoryState = Category.None;
     }
-    else {
-      updatecategoryState(categoryState);
-    }
 
-    const data = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    const data = await getFilteredPaginatedItems(instance, accounts, { ...filter, categoryState }, pageSize, pageIndex, searchTerm);
     setProducts(data);
 
     setIsLoading(false);
@@ -56,23 +47,34 @@ const PageSearch = ({}) => {
     }, 80);
   };
 
-  useEffect(() => {
-    fetchItems("",true);
-  }, [filterChanged, pageIndex, pageSize]);
 
   useEffect(() => {
-    fetchItems(new URLSearchParams(location.search).get('searchTerm') ?? "");
-    if(location.hash !== ""){
+    if(!pageInitiated.current) {
+      return;
+    }
+    if (location.hash !== "") {
       handleScrollToEl(location.hash.split("#")[1])
-    }else{
+    } else {
       handleScrollToEl('root')
     }
-  }, [location.search]);
+    
+    fetchItems(filter.categoryState, filter.searchTerm);
+
+  }, [filterChanged, pageIndex, pageSize]);
 
 
   useEffect(() => {
-    setSearchText(new URLSearchParams(location.search).get('searchTerm') ?? "");
-  }, []);
+    const searchTerm = getSearchTermFromUrl();
+    const newCategory = getCategoryFromUrl() ?? Category.None;
+    if (searchTerm !== "") {
+      updateSearchTextState(searchTerm);
+    }
+    else if (newCategory !== Category.None) {
+      updateCategoryState(newCategory);
+    }
+    pageInitiated.current = true;
+    setFilterChanged((prev) => !prev);
+  }, [location.search]);
 
   function getCategoryFromUrl(): Category {
     let newCategory = Category.None;
@@ -84,16 +86,21 @@ const PageSearch = ({}) => {
     return newCategory;
   }
 
+  function getSearchTermFromUrl(): string {
+    return new URLSearchParams(location.search).get('searchTerm') ?? "";
+  }
+
   function getCategoryKeyInsensitive(category: string): string | undefined {
     const lowerCaseCategory = category.toLowerCase().replaceAll("-", "");
     const categoryKeys = Object.keys(Category).filter(key => isNaN(Number(key))); // Get only string keys
     return categoryKeys.find(key => key.toLowerCase() === lowerCaseCategory);
-}
+  }
 
-function search(){
-  updatecategoryState(Category.None);
-  fetchItems(searchText)
-}
+  function search() {
+    updateCategoryState(Category.None);
+    setSearchText(searchText.trim());
+    fetchItems(Category.None, searchText);
+  }
 
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
@@ -169,16 +176,16 @@ function search(){
           {/* PAGINATION */}
           <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
             <Pagination />
-            <ButtonPrimary loading={isLoading} onClick={()=>{
-              setPageSize((prev)=> prev + 10);
-              setFilterChanged((prev)=> !prev);
+            <ButtonPrimary loading={isLoading} onClick={() => {
+              setPageSize((prev) => prev + 10);
+              setFilterChanged((prev) => !prev);
             }
 
-        }>Show me more</ButtonPrimary>
+            }>Show me more</ButtonPrimary>
           </div>
         </main>
 
-  
+
         <hr className="border-slate-200 dark:border-slate-700" />
 
         {/* SUBCRIBES */}

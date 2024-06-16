@@ -7,4 +7,5 @@ export interface FilterState {
     categoryState?: Category;
     sizeState?: PrintSize;
     sortOrderStates: string;
+    searchTerm: string;
   }

@@ -8,9 +8,10 @@ interface FilterContextProps {
     filter: FilterState;
     updateIsOnSale: (isOnSale: boolean) => void;
     updateRangePrices: (rangePrices: number[]) => void;
-    updatecategoryState: (categoryState?: Category) => void;
-    updatesizeState: (sizeState?: PrintSize) => void;
+    updateCategoryState: (categoryState?: Category) => void;
+    updateSizeState: (sizeState?: PrintSize) => void;
     updateSortOrderStates: (sortOrderStates: string) => void;
+    updateSearchTextState: (searchTerm: string) => void;
     setFilterChanged:  React.Dispatch<React.SetStateAction<boolean>>;
     filterChanged: boolean;
     isLoading: boolean;
@@ -34,6 +35,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any
         categoryState: undefined,
         sizeState: undefined,
         sortOrderStates: "",
+        searchTerm: "",
     });
     
     const [filterChanged, setFilterChanged] = useState<boolean>(false);
@@ -47,23 +49,27 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any
     };
 
     const updateRangePrices = (rangePrices: number[]) => {
-        setFilter((prevState) => ({ ...prevState, rangePrices }));
+        setFilter((prevState) => ({ ...prevState, rangePrices, searchTerm: "" }));
     };
 
-    const updatecategoryState = (categoryState?: Category) => {
-        setFilter((prevState) => ({ ...prevState, categoryState}));
+    const updateCategoryState = (categoryState?: Category) => {
+        setFilter((prevState) => ({ ...prevState, categoryState, searchTerm: ""}));
     };
 
-    const updatesizeState = (sizeState?: PrintSize) => {
-        setFilter((prevState) => ({ ...prevState, sizeState }));
+    const updateSizeState = (sizeState?: PrintSize) => {
+        setFilter((prevState) => ({ ...prevState, sizeState , searchTerm: ""}));
     };
 
     const updateSortOrderStates = (sortOrderStates: string) => {
-        setFilter((prevState) => ({ ...prevState, sortOrderStates }));
+        setFilter((prevState) => ({ ...prevState, sortOrderStates, searchTerm: "" }));
+    };
+
+    const updateSearchTextState = (searchTerm: string) => {
+        setFilter((prevState) => ({ ...prevState, searchTerm }));
     };
 
     return (
-        <FilterContext.Provider value={{ filter, updateIsOnSale, updateRangePrices, updatecategoryState, updatesizeState, updateSortOrderStates, setFilterChanged , filterChanged, isLoading, setIsLoading, pageSize, setPageSize, pageIndex, setPageIndex}}>
+        <FilterContext.Provider value={{ filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSizeState, updateSortOrderStates, updateSearchTextState, setFilterChanged , filterChanged, isLoading, setIsLoading, pageSize, setPageSize, pageIndex, setPageIndex}}>
             {children}
         </FilterContext.Provider>
     );

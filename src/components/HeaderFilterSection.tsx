@@ -21,7 +21,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   
-  const {updatecategoryState, filter, setFilterChanged} = useFilter()
+  const {updateCategoryState, filter, setFilterChanged} = useFilter()
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: "All Items" },
     { key: Category.Nature, value: "Nature" },
@@ -44,7 +44,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
                 key={item.key}
                 isActive={filter.categoryState === item.key || filter.categoryState === undefined && item.key === Category.None}
                 onClick={() => {
-                  updatecategoryState(item.key);
+                  updateCategoryState(item.key);
                   setFilterChanged(prev=>!prev);
                 }}
               >

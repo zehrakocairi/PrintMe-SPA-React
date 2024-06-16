@@ -11,12 +11,14 @@ import { getFeaturedItems, getFilteredPaginatedItems } from "../services/catalog
 import { useMsal } from "@azure/msal-react";
 import { useFilter } from "../contexts/FilterContext";
 import SectionPromo1 from "../components/SectionPromo1";
+import { Category } from "../enums/Category";
 
 const Home: FC<any> = ({ }) => {
 
   const [featuredItems, setFeaturedItems] = useState([]);
   const [trendingItems, setTrendingItems] = useState([]);
-  const { filter, filterChanged, setIsLoading, pageIndex, pageSize } = useFilter();
+  const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState } = useFilter();
   const { instance, accounts } = useMsal();
 
   const fetchTrendingItems = async () => {
@@ -31,11 +33,16 @@ const Home: FC<any> = ({ }) => {
   };
 
   useEffect(() => {
+    updateCategoryState(Category.None);
+    setInitialRenderCompleted(true);
+    setFilterChanged(prev=>!prev);
     fetchFeaturedtems();
   }, []);
 
   useEffect(() => {
-    fetchTrendingItems();
+    if(initialRenderCompleted){
+      fetchTrendingItems();
+    }
   }, [filterChanged]);
 
   return (

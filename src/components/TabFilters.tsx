@@ -77,7 +77,7 @@ const PRICE_RANGE = [1, 500];
 const TabFilters = () => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
-  const { filter, updateIsOnSale, updateRangePrices, updatecategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
 
   const closeModalMoreFilter = () => setisOpenMoreFilter(false);
   const openModalMoreFilter = () => setisOpenMoreFilter(true);
@@ -86,14 +86,14 @@ const TabFilters = () => {
     let newState = checked
       ? (filter.categoryState ?? cat) | cat
       : (filter.categoryState ?? cat) & ~cat;
-    updatecategoryState(newState);
+    updateCategoryState(newState);
   };
 
   // const handleChangeSizes = (checked: boolean, size: PrintSize) => {
   //   let newState = checked
   //     ? (filter.sizeState ?? size) | size
   //     : (filter.sizeState ?? size) & ~size;
-  //   updatesizeState(newState);
+  //   updateSizeState(newState);
   // };
 
   const renderXClear = () => {
@@ -219,7 +219,7 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         close();
-                        updatecategoryState(Category.None);
+                        updateCategoryState(Category.None);
                         setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
@@ -425,7 +425,7 @@ const TabFilters = () => {
   //             {(filter.sizeState ?? PrintSize.None) === PrintSize.None  ? (
   //               <ChevronDownIcon className="w-4 h-4 ml-3" />
   //             ) : (
-  //               <span onClick={() => updatesizeState(undefined)}>{renderXClear()}</span>
+  //               <span onClick={() => updateSizeState(undefined)}>{renderXClear()}</span>
   //             )}
   //           </Popover.Button>
   //           {/* <Transition
@@ -457,7 +457,7 @@ const TabFilters = () => {
   //                   <ButtonThird
   //                     onClick={() => {
   //                       close();
-  //                       updatesizeState(undefined);
+  //                       updateSizeState(undefined);
   //                     }}
   //                     sizeClass="px-4 py-2 sm:px-5"
   //                   >
@@ -966,8 +966,8 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         updateRangePrices(PRICE_RANGE);
-                        updatecategoryState(undefined);
-                        // updatesizeState(undefined);
+                        updateCategoryState(undefined);
+                        // updateSizeState(undefined);
                         updateSortOrderStates("");
                         closeModalMoreFilter();
                         setFilterChanged(!filterChanged);
