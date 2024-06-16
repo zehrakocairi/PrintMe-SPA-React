@@ -23,19 +23,18 @@ const PageSearch = ({}) => {
 
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updatecategoryState, isLoading, setPageSize} = useFilter();
 
-  const fetchItems = async (searchTerm:string = "") => {
+  const fetchItems = async (searchTerm:string = "", ignoreCategoryOnUrl:boolean = false) => {
     setIsLoading(true);
 
     const categoryFromUrl = getCategoryFromUrl();
+
     // searchTerm = searchTerm.trim() === "" 
     // ? new URLSearchParams(location.search).get('searchTerm') ?? ""
     // : searchTerm;
     
     setSearchText(searchTerm);
 
-    let categoryState = filter.categoryState == undefined
-        ? categoryFromUrl
-        : filter.categoryState;
+    let categoryState = ignoreCategoryOnUrl ? filter.categoryState : categoryFromUrl;
 
     if (searchTerm.trim() !== "") {
       categoryState = Category.None;
@@ -58,7 +57,7 @@ const PageSearch = ({}) => {
   };
 
   useEffect(() => {
-    fetchItems();
+    fetchItems("",true);
   }, [filterChanged, pageIndex, pageSize]);
 
   useEffect(() => {
