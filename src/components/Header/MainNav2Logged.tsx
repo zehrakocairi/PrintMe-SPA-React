@@ -8,6 +8,7 @@ import Navigation from "../../shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
+import LangDropdown from "./LangDropdown";
 
 
 export interface MainNav2LoggedProps {}
@@ -96,6 +97,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
               {renderMagnifyingGlassIcon()}
             </button>
           )}
+          <LangDropdown />
           <AvatarDropdown />
           <CartDropdown />
         </div>
