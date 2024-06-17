@@ -194,13 +194,15 @@ const CheckoutPage = () => {
           <ShippingAddress
             isActive={tabActive === "ShippingAddress"}
             onOpenActive={() => {
+              trackEvent("GoToShippmentPayment", "Go to Payment Section");
               setTabActive("ShippingAddress");
               handleScrollToEl("ShippingAddress");
             }}
             onCloseActive={() => {
-              trackEvent("GoToShippmentPayment", "Go to Payment Section");
-              setTabActive("PaymentMethod");
-              handleScrollToEl("PaymentMethod");
+              trackEvent("GoToPayment", "Go to Payment Section");
+              alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
+              // setTabActive("PaymentMethod");
+              // handleScrollToEl("PaymentMethod");
             }}
           />
         </div>
@@ -209,6 +211,7 @@ const CheckoutPage = () => {
           <PaymentMethod
             isActive={tabActive === "PaymentMethod"}
             onOpenActive={() => {
+              trackEvent("GoToPayment", "Go to Payment Section");
               alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
               // setTabActive("PaymentMethod");
               // handleScrollToEl("PaymentMethod");
