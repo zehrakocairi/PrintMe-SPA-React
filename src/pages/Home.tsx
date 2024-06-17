@@ -53,7 +53,7 @@ const Home: FC<any> = ({ }) => {
           observer.disconnect();
         }
       },
-      { rootMargin: "20px 0px 0px 0px" } 
+      { rootMargin: "-150px" } 
     );
 
     if (sliderRef.current) {
@@ -73,7 +73,7 @@ const Home: FC<any> = ({ }) => {
           observer.disconnect();
         }
       },
-      { rootMargin: "20px 0px 0px 0px" } 
+      { rootMargin: "-300px" } 
     );
 
     if (catalogRef.current) {
