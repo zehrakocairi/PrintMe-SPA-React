@@ -11,7 +11,8 @@ import { useMsal } from "@azure/msal-react";
 import { useFilter } from "../contexts/FilterContext";
 import SectionPromo1 from "../components/SectionPromo1";
 import { Category } from "../enums/Category";
-import { useTranslation } from "react-i18next"; // Import useTranslation hook
+import { useTranslation } from "react-i18next";
+import { useRef } from "react";
 
 const Home: FC<any> = ({ }) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
@@ -20,6 +21,10 @@ const Home: FC<any> = ({ }) => {
   const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState } = useFilter();
   const { instance, accounts } = useMsal();
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const catalogRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isCatalogVisible, setIsCatalogVisible] = useState(false);
 
   const fetchTrendingItems = async () => {
     setIsLoading(true);
@@ -41,6 +46,46 @@ const Home: FC<any> = ({ }) => {
   }, []);
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "20px 0px 0px 0px" } 
+    );
+
+    if (sliderRef.current) {
+      observer.observe(sliderRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [sliderRef]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsCatalogVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "20px 0px 0px 0px" } 
+    );
+
+    if (catalogRef.current) {
+      observer.observe(catalogRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [catalogRef]);
+
+  useEffect(() => {
     if (initialRenderCompleted) {
       fetchTrendingItems();
     }
@@ -53,9 +98,9 @@ const Home: FC<any> = ({ }) => {
         <DiscoverMoreSlider />
       </div>
 
-      <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
+      <div ref={sliderRef} className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32" >
         {
-          featuredItems.length > 0 ? <SectionSliderProductCard
+          featuredItems.length > 0  && isVisible? <SectionSliderProductCard
             heading={t("Art Lovers Also Bought")}
             subHeading={t("Popular Picks for You")}
             headingFontClassName="text-2xl font-semibold"
@@ -64,7 +109,10 @@ const Home: FC<any> = ({ }) => {
           /> : <></>
         }
 
-        {trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
+        <div ref={catalogRef}>
+          {isCatalogVisible && trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
+        </div>
+        
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
