@@ -177,6 +177,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               className="w-full h-full object-contain object-right-bottom pr-16 nc-SectionHero2Item__image carousel-image-container"
               src={item.image}
               alt={item.heading}
+              showMobileImage={true}
               priority
             />
           </div>

@@ -6,10 +6,25 @@ export interface ImageProps {
   [key: string]: any; 
   priority?: boolean;
   fill?: boolean;
+  showMobileImage?: boolean;
 }
 
-const Image = ({ sizes, src, alt, priority, fill, ...props }: ImageProps) => {
-  return <img src={src} alt={alt} sizes={sizes} {...props} />;
+const Image = ({ sizes, src, alt, priority, fill, showMobileImage, ...props }: ImageProps) => {
+  const getMobileSrc = (src: string): string => {
+    const parts = src.split('.');
+    if (parts.length > 1) {
+      parts[parts.length - 2] += '-m';
+      return parts.join('.');
+    }
+    return src;
+  };
+  return (
+    <picture>
+    { showMobileImage && <source media="(max-width: 767px)" srcSet={getMobileSrc(src)} />}
+    {!showMobileImage && <source media="(min-width: 768px)" srcSet={src} />}
+    <img src={src} alt={alt} sizes={sizes} {...props} />
+  </picture>
+  )
 };
 export default Image;
 
