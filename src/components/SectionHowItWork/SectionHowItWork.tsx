@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import NcImage from "../../shared/NcImage/NcImage";
-import HIW1img from "../../data/images/HIW1img.png";
-import HIW2img from "../../data/images/HIW2img.png";
-import HIW3img from "../../data/images/HIW3img.png";
-import HIW4img from "../../data/images/HIW4img.png";
+import HIW1img from "../../data/images/HIW1img.jpeg";
+import HIW2img from "../../data/images/HIW2img.jpeg";
+import HIW3img from "../../data/images/HIW3img.jpeg";
+import HIW4img from "../../data/images/HIW4img.jpeg";
 import VectorImg from "../../data/images/VectorHIW.svg";
 import Badge from "../../shared/Badge/Badge";
 import Image from "../../shared/Image";
