@@ -17,13 +17,13 @@ import { trackEvent } from "../../services/applicationInsightService";
 
 const CheckoutPage = () => {
   const [tabActive, setTabActive] = useState<"ContactInfo" | "ShippingAddress" | "PaymentMethod">("ShippingAddress");
-  const { cart, cartTotal, taxTotal, addItemToCart} = useCart();
+  const { cart, cartTotal, taxTotal, addItemToCart, removeItemFromCart} = useCart();
   const [shippingPrice] = useState(5);
 
   useEffect(() => {
     trackEvent("ViewCheckoutPage", "View Checkout Page");
   }, []);
-  
+
   const handleScrollToEl = (id: string) => {
     const element = document.getElementById(id);
     setTimeout(() => {
@@ -32,7 +32,7 @@ const CheckoutPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { pictureUrl, unitPrice, quantity, productName } = item;
+    let { pictureUrl, unitPrice, quantity, productName , productId, frameId, size} = item;
 
     const setQuantity = (value: number) => {
       addItemToCart({...item, quantity: (value - quantity)});
@@ -168,7 +168,7 @@ const CheckoutPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span>Remove</span>
+              <span onClick={() => { removeItemFromCart(productId, frameId, size) }}>Remove</span>
             </a>
           </div>
         </div>
