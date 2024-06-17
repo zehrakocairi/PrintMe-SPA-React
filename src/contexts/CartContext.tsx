@@ -4,6 +4,8 @@ import { getCart, updateCart } from '../services/cartService';
 import { CartItem } from '../models/CartItem';
 import { useApplication } from './ApplicationContext';
 import { PrintSize } from '../enums/PrintSize';
+import { trackEvent} from '../services/applicationInsightService';
+
 
 interface CartContextProps {
     cart: CartItem[];
@@ -76,6 +78,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     };
 
     const addItemToCart = async (item: CartItem) => {
+
+        trackEvent('Add to Cart', `Product: ${item.productName}, Size: ${item.size}, Frame: ${item.frameName}, Quantity: ${item.quantity}`);
         let updatedCart = [...cart ];
         
         const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId && cartItem.size === item.size && cartItem.frameId === item.frameId);
