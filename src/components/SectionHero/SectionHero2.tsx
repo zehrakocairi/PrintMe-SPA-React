@@ -19,13 +19,14 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
   const [indexActive, setIndexActive] = useState(0);
-  const [isRunning, toggleIsRunning] = useBoolean(true);
+  const [isRunning, toggleIsRunning] = useBoolean(false);
 
   useInterval(
     () => {
+      toggleIsRunning(true);
       handleAutoNext();
     },
-    isRunning ? 5500 : null
+    isRunning ? 5500 : 10000
   );
   //
 
