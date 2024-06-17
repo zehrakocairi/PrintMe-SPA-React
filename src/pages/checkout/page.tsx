@@ -3,8 +3,6 @@
 import Label from "../../components/Label/Label";
 import NcInputNumber from "../../components/NcInputNumber";
 import Prices from "../../components/Prices";
-import { PRODUCTS } from "../../data/data";
-import { Product } from "../../models/ProductModels";
 import { useState } from "react";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Input from "../../shared/Input/Input";
@@ -15,6 +13,7 @@ import Image from "../../shared/Image";
 import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
+import { trackEvent } from "../../services/applicationInsightService";
 
 const CheckoutPage = () => {
   const [tabActive, setTabActive] = useState<"ContactInfo" | "ShippingAddress" | "PaymentMethod">("ShippingAddress");
@@ -184,6 +183,7 @@ const CheckoutPage = () => {
               handleScrollToEl("ContactInfo");
             }}
             onCloseActive={() => {
+              trackEvent("GoToShippmentSection", "Go to Shippment Section");
               setTabActive("ShippingAddress");
               handleScrollToEl("ShippingAddress");
             }}
@@ -198,6 +198,7 @@ const CheckoutPage = () => {
               handleScrollToEl("ShippingAddress");
             }}
             onCloseActive={() => {
+              trackEvent("GoToShippmentPayment", "Go to Payment Section");
               setTabActive("PaymentMethod");
               handleScrollToEl("PaymentMethod");
             }}

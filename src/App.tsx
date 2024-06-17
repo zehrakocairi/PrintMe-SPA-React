@@ -15,9 +15,13 @@ import { ApplicationProvider } from "./contexts/ApplicationContext";
 import { CartProvider } from "./contexts/CartContext";
 import CommonClient from "./pages/CommonClient";
 import PageOurServices from "./pages/our-services/page";
+import { AppInsightsContext } from "@microsoft/applicationinsights-react-js";
+import { reactPlugin } from "./services/applicationInsightService";
 
 function App() {
   return (
+
+    <AppInsightsContext.Provider value={reactPlugin}>
     <ApplicationProvider>
       <CartProvider>
         <Router>
@@ -40,6 +44,7 @@ function App() {
         </Router>
       </CartProvider>
     </ApplicationProvider>
+  </AppInsightsContext.Provider>
 
   );
 }
