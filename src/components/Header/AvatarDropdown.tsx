@@ -6,7 +6,6 @@ import { Fragment } from "react";
 import Avatar from "../../shared/Avatar/Avatar";
 import Link from "../../shared/Link";
 import { useMsal, useIsAuthenticated } from '@azure/msal-react';
-import { loginRequest, tokenRequest } from '../../authConfig';
 
 export default function AvatarDropdown() {
 

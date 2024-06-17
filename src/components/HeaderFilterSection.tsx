@@ -11,6 +11,7 @@ import { Transition } from "../headlessui";
 import { Category } from "../enums/Category";
 import { useFilter } from "../contexts/FilterContext";
 import { hasFlag } from "../utils/enumHelper";
+import { useTranslation } from "react-i18next"; // Import useTranslation
 
 export interface HeaderFilterSectionProps {
   className?: string;
@@ -19,20 +20,22 @@ export interface HeaderFilterSectionProps {
 const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
   className = "mb-12",
 }) => {
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(true);
   
-  const {updateCategoryState, filter, setFilterChanged} = useFilter()
+  const { updateCategoryState, filter, setFilterChanged } = useFilter();
   const mainCategories: { key: Category, value: string }[] = [
-    { key: Category.None, value: "All Items" },
-    { key: Category.Nature, value: "Nature" },
-    { key: Category.VintageAndRetro, value: "Vintage and Retro" },
-    { key: Category.ArtStyles, value: "Art Styles" },
-    { key: Category.FamousPaintersCategory, value: "Famous Painters" }
+    { key: Category.None, value: t('All Items') },
+    { key: Category.Nature, value: t('Nature') },
+    { key: Category.VintageAndRetro, value: t('Vintage and Retro') },
+    { key: Category.ArtStyles, value: t('Art Styles') },
+    { key: Category.FamousPaintersCategory, value: t('Famous Painters') }
   ];
 
   return (
     <div className={`flex flex-col relative ${className}`}>
-      <Heading>{`Trending Art Pieces`}</Heading>
+      <Heading>{t('Trending Art Pieces')}</Heading>
       <div className="flex flex-col lg:flex-row lg:items-center justify-between space-y-6 lg:space-y-0 lg:space-x-2 ">
         <Nav
           className="sm:space-x-2"
@@ -42,7 +45,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
             (item) => (
               <NavItem
                 key={item.key}
-                isActive={filter.categoryState === item.key || filter.categoryState === undefined && item.key === Category.None}
+                isActive={(filter.categoryState === item.key || filter.categoryState === undefined) && item.key === Category.None}
                 onClick={() => {
                   updateCategoryState(item.key);
                   setFilterChanged(prev=>!prev);
@@ -86,7 +89,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
               />
             </svg>
 
-            <span className="block truncate ml-2.5">Filter</span>
+            <span className="block truncate ml-2.5">{t('Filter')}</span>
             <span className="absolute top-1/2 -translate-y-1/2 right-5">
               <ChevronDownIcon
                 className={`w-5 h-5 ${isOpen ? "rotate-180" : ""}`}

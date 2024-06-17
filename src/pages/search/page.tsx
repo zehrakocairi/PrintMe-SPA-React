@@ -14,7 +14,7 @@ import { useLocation } from "react-router-dom";
 import { useRef } from "react";
 
 
-const PageSearch = ({ }) => {
+const PageSearch = () => {
 
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");

@@ -52,54 +52,6 @@ export const MEGAMENU_PRINTS: NavItemType[] = [
   },
 ];
 
-export const MEGAMENU_TEMPLATES: NavItemType[] = [
-  {
-    id: ncNanoId(),
-    href: "/#",
-    name: "Home Page",
-    children: [
-      { id: ncNanoId(), href: "/", name: "Home" },
-      { id: ncNanoId(), href: "/", name: "Header" },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/#",
-    name: "Shop Pages",
-    children: [
-      { id: ncNanoId(), href: "/collection", name: "Category Page" },
-      { id: ncNanoId(), href: "/product-detail", name: "Product Page" },
-      { id: ncNanoId(), href: "/cart", name: "Cart Page" },
-      { id: ncNanoId(), href: "/checkout", name: "Checkout Page" },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/#",
-    name: "Other Pages",
-    children: [
-      { id: ncNanoId(), href: "/checkout", name: "Checkout Page" },
-      { id: ncNanoId(), href: "/search", name: "Search Page" },
-      { id: ncNanoId(), href: "/cart", name: "Cart Page" },
-      { id: ncNanoId(), href: "/account", name: "Accout Page" },
-      { id: ncNanoId(), href: "/account-order", name: "Order Page" },
-    ],
-  },
-  {
-    id: ncNanoId(),
-    href: "/#",
-    name: "Blog Page",
-    children: [
-      { id: ncNanoId(), href: "/blog", name: "Blog Page" },
-      { id: ncNanoId(), href: "/blog-single", name: "Blog Single" },
-      { id: ncNanoId(), href: "/about", name: "About Page" },
-      { id: ncNanoId(), href: "/contact", name: "Contact Page" },
-      { id: ncNanoId(), href: "/login", name: "Login" },
-      { id: ncNanoId(), href: "/forgot-pass", name: "Forgot Password" },
-    ],
-  },
-];
-
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),

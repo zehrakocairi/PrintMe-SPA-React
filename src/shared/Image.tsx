@@ -1,5 +1,3 @@
-import React, { FC } from 'react';
-
 export interface ImageProps {
   sizes?: string;
   src: string;

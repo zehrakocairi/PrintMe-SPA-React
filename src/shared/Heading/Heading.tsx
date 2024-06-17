@@ -1,5 +1,6 @@
 import NextPrev from "../NextPrev/NextPrev";
 import React, { HTMLAttributes, ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface HeadingProps extends HTMLAttributes<HTMLHeadingElement> {
   fontClass?: string;
@@ -16,6 +17,7 @@ const Heading: React.FC<HeadingProps> = ({
   hasNextPrev = false,
   ...args
 }) => {
+  const {t} = useTranslation();
   return (
     <div
       className={`nc-Section-Heading relative flex flex-col sm:flex-row sm:items-end justify-between ${className}`}
@@ -30,7 +32,7 @@ const Heading: React.FC<HeadingProps> = ({
         </h2>
         {desc && (
           <span className="mt-2 md:mt-4 font-normal block text-base sm:text-lg text-neutral-500 dark:text-neutral-400">
-            {desc}
+            {t(desc as string)}
           </span>
         )}
       </div>

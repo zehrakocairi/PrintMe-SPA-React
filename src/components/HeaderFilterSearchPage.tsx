@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import Nav from "../shared/Nav/Nav";
 import NavItem from "../shared/NavItem/NavItem";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
@@ -39,7 +39,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
             (item) => (
               <NavItem
                 key={item.key}
-                isActive={filter.categoryState === item.key || filter.categoryState === undefined && item.key === Category.None}
+                isActive={(filter.categoryState === item.key || filter.categoryState === undefined) && item.key === Category.None}
                 onClick={() => {
                   updateCategoryState(item.key);
                   setFilterChanged(prev=>!prev);

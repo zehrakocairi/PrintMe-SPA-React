@@ -57,7 +57,7 @@ export const getPaginatedItems = async (instance: IPublicClientApplication, acco
 
 export const getFilteredPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], filter: FilterState, pageSize: number = 12, pageIndex: number = 0, searchText = "") => {
   let url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}${toQueryString(filter)}`;
-  if(searchText != ""){
+  if(searchText !== ""){
     url += `&searchTerm=${searchText}`;
   }
   return fetchCatalogItems(url, instance, accounts);

@@ -1,8 +1,7 @@
 import { CustomLink } from "../../data/types";
-import React, { FC } from "react";
+import { FC } from "react";
 import twFocusClass from "../../utils/twFocusClass";
 import Link from "../Link";
-import { useFilter } from "../../contexts/FilterContext";
 
 const DEMO_PAGINATION: CustomLink[] = [
   {

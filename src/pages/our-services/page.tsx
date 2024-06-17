@@ -1,12 +1,6 @@
-import rightImg from "../../data/images/hero-right1.png";
-import React, { FC } from "react";
-import SectionFounder from "./SectionFounder";
-import SectionStatistic from "./SectionStatistic";
 import BgGlassmorphism from "../../components/BgGlassmorphism/BgGlassmorphism";
 import BackgroundSection from "../../components/BackgroundSection/BackgroundSection";
 import SectionHero from "./SectionHero";
-import SectionClientSay from "../../components/SectionClientSay/SectionClientSay";
-import SectionPromo3 from "../../components/SectionPromo3";
 import FramesCatalog from "../../components/FramesCatalog";
 import FrameFeatures from "../../components/FrameFeatures";
 import SalesPromo from "../../components/SalesPromo";

@@ -5,12 +5,8 @@ import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
 import { PRODUCTS } from "../data/data";
-import { StarIcon } from "@heroicons/react/24/solid";
-import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
-import BagIcon from "./BagIcon";
-import { Toaster, toast } from 'react-hot-toast';
-import { Transition } from "../headlessui";
+import { toast } from 'react-hot-toast';
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
 import Image from "../shared/Image";
@@ -42,10 +38,7 @@ const ProductCard: FC<ProductCardProps> = ({
     description,
     variantType,
     status,
-    images,
-    rating,
     id,
-    numberOfReviews,
   } = data;
 
   const [variantActive, setVariantActive] = useState(0);

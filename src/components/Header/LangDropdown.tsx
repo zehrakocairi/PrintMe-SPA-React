@@ -3,21 +3,25 @@
 import { Popover, Tab, Transition } from "../../headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 export const headerLanguage = [
   {
     id: "English",
     name: "English",
     description: "United State",
+    languageCode: 'en',
     href: "##",
     active: true,
   },
   {
     id: "Nederlands",
     name: "Nederlands",
+    languageCode: 'nl',
     description: "Nederlands",
     href: "##",
+    active: false,
   },
 ];
 
@@ -30,6 +34,24 @@ function classNames(...classes: any) {
 }
 
 const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
+  
+  useEffect(() => {
+    const lang = localStorage.getItem("lang") ?? 'en';
+    setLanguage(headerLanguage.find((item) => item.languageCode === lang));
+  }, []);
+
+  const { i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  const setLanguage = (item: any) => {
+    headerLanguage.forEach((item) => {
+      item.active = false;
+    });
+    item.active = true;
+    localStorage.setItem("lang", item.languageCode);
+    i18n.changeLanguage(item.languageCode);
+  }
+
   const renderLang = (close: () => void) => {
     return (
       <div className="grid gap-8 lg:grid-cols-2">
@@ -37,7 +59,14 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
           <a
             key={index}
             href={item.href}
-            onClick={() => close()}
+            onClick={() => 
+            {
+              if (!item.active) {
+                setLanguage(item);
+                close();
+              }
+            }
+            }
             className={`flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50 ${
               item.active ? "bg-gray-100 dark:bg-gray-700" : "opacity-80"
             }`}
@@ -65,7 +94,7 @@ const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
              group h-10 sm:h-12 px-3 py-1.5 inline-flex items-center text-sm text-gray-800 dark:text-neutral-200 font-medium hover:text-opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <GlobeAltIcon className="w-[18px] h-[18px] opacity-80" />
-              <span className="ml-2">Language</span>
+              <span className="ml-2">{t('language')}</span>
               <ChevronDownIcon
                 className={`${open ? "-rotate-180" : "text-opacity-70"}
                   ml-1 h-4 w-4  group-hover:text-opacity-80 transition ease-in-out duration-150`}

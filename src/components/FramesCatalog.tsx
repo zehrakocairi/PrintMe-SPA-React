@@ -2,7 +2,7 @@ import Heading from "../components/Heading/Heading";
 import { useLocation, useNavigate } from "react-router-dom";
 import NcImage from "../shared/NcImage/NcImage";
 import ListingImageGallery from "../components/listing-image-gallery/ListingImageGallery";
-import { FC, useState } from "react";
+import { useState } from "react";
 
 export interface Frame {
   id: string;

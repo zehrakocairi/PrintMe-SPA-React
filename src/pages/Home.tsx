@@ -1,5 +1,4 @@
-
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import SectionHowItWork from "../components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "../components/BackgroundSection/BackgroundSection";
 import SectionHero2 from "../components/SectionHero/SectionHero2";
@@ -12,11 +11,12 @@ import { useMsal } from "@azure/msal-react";
 import { useFilter } from "../contexts/FilterContext";
 import SectionPromo1 from "../components/SectionPromo1";
 import { Category } from "../enums/Category";
+import { useTranslation } from "react-i18next"; // Import useTranslation hook
 
 const Home: FC<any> = ({ }) => {
-
-  const [featuredItems, setFeaturedItems] = useState([]);
-  const [trendingItems, setTrendingItems] = useState([]);
+  const { t } = useTranslation(); // Initialize useTranslation hook
+  const [featuredItems, setFeaturedItems] = useState<any[]>([]); // Adjust type if necessary
+  const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
   const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState } = useFilter();
   const { instance, accounts } = useMsal();
@@ -27,7 +27,8 @@ const Home: FC<any> = ({ }) => {
     setTrendingItems(data);
     setIsLoading(false);
   };
-  const fetchFeaturedtems = async () => {
+
+  const fetchFeaturedItems = async () => {
     const data = await getFeaturedItems(instance, accounts);
     setFeaturedItems(data);
   };
@@ -35,12 +36,12 @@ const Home: FC<any> = ({ }) => {
   useEffect(() => {
     updateCategoryState(Category.None);
     setInitialRenderCompleted(true);
-    setFilterChanged(prev=>!prev);
-    fetchFeaturedtems();
+    setFilterChanged(prev => !prev);
+    fetchFeaturedItems();
   }, []);
 
   useEffect(() => {
-    if(initialRenderCompleted){
+    if (initialRenderCompleted) {
       fetchTrendingItems();
     }
   }, [filterChanged]);
@@ -51,21 +52,19 @@ const Home: FC<any> = ({ }) => {
       <div className="mt-24 lg:mt-32">
         <DiscoverMoreSlider />
       </div>
-      <div>
-      </div>
 
       <div className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32">
         {
           featuredItems.length > 0 ? <SectionSliderProductCard
-            heading="Art Lovers Also Bought"
-            subHeading="Popular Picks for You"
+            heading={t("Art Lovers Also Bought")}
+            subHeading={t("Popular Picks for You")}
             headingFontClassName="text-2xl font-semibold"
             headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
             data={featuredItems}
           /> : <></>
         }
 
-        {trendingItems ?? [] ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
+        {trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
@@ -76,15 +75,16 @@ const Home: FC<any> = ({ }) => {
           <SectionGridMoreExplore />
         </div>
 
+        {/* Uncomment and localize as needed */}
         {/* <div className="relative py-24 lg:py-32">
           <BackgroundSection />
           <div>
-            <Heading rightDescText="From the Ciseco blog">
-              The latest news
+            <Heading rightDescText={t("From the Ciseco blog")}>
+              {t("The latest news")}
             </Heading>
             <SectionMagazine5 />
             <div className="flex mt-16 justify-center">
-              <ButtonSecondary>Show all blog articles</ButtonSecondary>
+              <ButtonSecondary>{t("Show all blog articles")}</ButtonSecondary>
             </div>
           </div>
         </div> */}
