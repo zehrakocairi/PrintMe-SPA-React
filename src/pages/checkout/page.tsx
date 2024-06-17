@@ -3,7 +3,7 @@
 import Label from "../../components/Label/Label";
 import NcInputNumber from "../../components/NcInputNumber";
 import Prices from "../../components/Prices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Input from "../../shared/Input/Input";
 import ContactInfo from "./ContactInfo";
@@ -20,6 +20,10 @@ const CheckoutPage = () => {
   const { cart, cartTotal, taxTotal, addItemToCart} = useCart();
   const [shippingPrice] = useState(5);
 
+  useEffect(() => {
+    trackEvent("ViewCheckoutPage", "View Checkout Page");
+  }, []);
+  
   const handleScrollToEl = (id: string) => {
     const element = document.getElementById(id);
     setTimeout(() => {
@@ -235,8 +239,8 @@ const CheckoutPage = () => {
               Homepage
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
-            <Link href={"/collection"} className="">
-              Clothing Categories
+            <Link href={"/search"} className="">
+              Prints
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
             <span className="underline">Checkout</span>

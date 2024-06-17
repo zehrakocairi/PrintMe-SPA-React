@@ -59,16 +59,16 @@ const CardCategory4: FC<CardCategory4Props> = ({
           </div>
 
           <Link
-            href={"/collection"}
+            href={"/search"}
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
-            <span>See Collection</span>
+            <span>See Prints</span>
             <ArrowRightIcon className="w-4 h-4 ml-2.5" />
           </Link>
         </div>
       </div>
 
-      <Link href={link ?? "/collection"}></Link>
+      <Link href={link ?? "/search"}></Link>
     </div>
   );
 };
