@@ -53,7 +53,7 @@ const Home: FC<any> = ({ }) => {
           observer.disconnect();
         }
       },
-      { rootMargin: "-150px" } 
+      { rootMargin: "-150px" }
     );
 
     if (sliderRef.current) {
@@ -73,7 +73,7 @@ const Home: FC<any> = ({ }) => {
           observer.disconnect();
         }
       },
-      { rootMargin: "-300px" } 
+      { rootMargin: "-300px" }
     );
 
     if (catalogRef.current) {
@@ -100,7 +100,7 @@ const Home: FC<any> = ({ }) => {
 
       <div ref={sliderRef} className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32" >
         {
-          featuredItems.length > 0  && isVisible? <SectionSliderProductCard
+          featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
             heading={t("Art Lovers Also Bought")}
             subHeading={t("Popular Picks for You")}
             headingFontClassName="text-2xl font-semibold"
@@ -110,9 +110,9 @@ const Home: FC<any> = ({ }) => {
         }
 
         <div ref={catalogRef}>
-          {isCatalogVisible && trendingItems.length > 0 ? <SectionGridFeatureItems data={trendingItems} /> : <></>}
+          {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}
         </div>
-        
+
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
