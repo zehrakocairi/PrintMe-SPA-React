@@ -37,20 +37,6 @@
     "start": "react-scripts start",
     "build": "cross-env CI=false react-scripts build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "max-len": [
-        "off",
-        {
-          "code": 400
-        }
-      ]
-    }
-  },
   "prettier": {
     "printWidth": 400
   },
@@ -67,11 +53,9 @@
     ]
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^6.0.0",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
-    "postcss": "^8.4.38",
     "tailwindcss": "^3.4.4"
   }
 }
