@@ -2,7 +2,6 @@
 
 import React, { FC } from "react";
 import twitterSvg from "../../data/images/Twitter.svg";
-import googleSvg from "../../data/images/Google.svg";
 import Input from "../../shared/Input/Input";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
