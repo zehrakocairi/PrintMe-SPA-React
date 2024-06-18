@@ -380,3 +380,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .box-with-shadow{
   filter: drop-shadow(2px 4px 6px black) brightness(0.9);
 }
+.contain-size{
+  contain:size;
+  object-fit: contain;
+}

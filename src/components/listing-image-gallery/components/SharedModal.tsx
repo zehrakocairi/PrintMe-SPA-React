@@ -88,7 +88,7 @@ export default function SharedModal({
                   alt="Chisfis listing gallery"
                   onLoadingComplete={() => setLoaded(true)}
                   sizes="(max-width: 1025px) 100vw, 1280px"
-                  className="object-fit-none"
+                  className="contain-size"
                 />
               </motion.div>
             </AnimatePresence>

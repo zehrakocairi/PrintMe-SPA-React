@@ -14,7 +14,7 @@ const pages: {
 }[] = [
   {
     name: "Account info",
-    link: "/account",
+    link: "/",
   },
   {
     name: "Save lists",
@@ -22,7 +22,7 @@ const pages: {
   },
   {
     name: " My order",
-    link: "/account-order",
+    link: "/",
   },
   {
     name: "Change password",

@@ -2,11 +2,13 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { Frame, Size } from "../models/ProductModels";
 import { fetchWithAuth } from "../fetch/fetchWrapper";
 
+
 interface ApplicationContextProps {
     frames: Frame[];
     sizes: Size[];
     getToken: () => Promise<string | undefined>;
     handleGoogleSuccess: (credential: any) => void;
+    currentUser:any;
 }
 
 const ApplicationContext = createContext<ApplicationContextProps | undefined>(undefined);
@@ -19,6 +21,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
 
     const [frames, setFrames] = useState<Frame[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
+    const [currentUser, setcCurrentUser] = useState<any>([]);
 
     const fetchFrames = async () => {
         const url = `/bootstrap/frames`;
@@ -40,10 +43,21 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
             throw error;
         }
     };
+    const fetchCurrentUser = async () => {
+        const url = `/bootstrap/currentUser`;
+        try {
+            const response = await fetchWithAuth(url, await getToken());
+            setcCurrentUser(response);
+        } catch (error) {
+            console.error(`Error fetching frames:`, error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         fetchFrames();
         fetchSizes();
+        fetchCurrentUser()
     }, []);
 
     const setAuthenticationMethod = (method: 'google') => {
@@ -57,6 +71,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         console.log("Google login successful:", credential);
         sessionStorage.setItem("accessToken", credential);
         setAuthenticationMethod('google');
+        fetchCurrentUser();
     };
 
     const getToken = async () => {
@@ -70,7 +85,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     
 
     return (
-        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess }}>
+        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser }}>
             {children}
         </ApplicationContext.Provider>
     );
