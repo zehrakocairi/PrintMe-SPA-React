@@ -28,7 +28,7 @@ export const HERO2_DEMO_DATA: Hero2DataType[] = [
     image: image3,
     heading: "Expert Giclée Printing Service",
     subHeading: "Superior reproduction for art and photos.",
-    btnText: "Learn More",
+    btnText: "What is Giclée?",
     btnLink: "/",
   },
 ];

@@ -131,7 +131,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/cart"} />
+            <Link className="block md:hidden absolute inset-0" aria-label="Go To Cart" href={"/cart"} />
           </Popover.Button>
           <Transition
             as={Fragment}
