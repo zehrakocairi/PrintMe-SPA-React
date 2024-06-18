@@ -12,7 +12,8 @@ const fetchCatalogItems = async (url: string, instance: IPublicClientApplication
   try {
     const accessToken = await getAccessToken(instance, accounts);
     const response = await fetchWithAuth(url, accessToken);
-    return response.data.map((item:Product)=> new Product(item));
+    
+    return {data : response.data.map((item:Product)=> new Product(item)), totalPages: response.totalPage};
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;

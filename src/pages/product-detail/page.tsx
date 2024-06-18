@@ -60,7 +60,7 @@ const ProductDetailPage = ({ }) => {
   const { instance, accounts } = useMsal();
 
   const fetchFeaturedtems = async () => {
-    const data = await getFeaturedItems(instance, accounts);
+    const {data} = await getFeaturedItems(instance, accounts);
     setCustomersAlsoPurchesed(data);
   };
 

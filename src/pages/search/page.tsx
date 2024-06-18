@@ -23,7 +23,7 @@ const PageSearch = () => {
   const location = useLocation();
   const pageInitiated = useRef(false);
 
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, isLoading, setPageSize } = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, isLoading, setPageSize, setTotalPages } = useFilter();
 
   const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
     setIsLoading(true);
@@ -34,7 +34,8 @@ const PageSearch = () => {
       categoryState = Category.None;
     }
 
-    const data = await getFilteredPaginatedItems(instance, accounts, { ...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    const {data, totalPages} = await getFilteredPaginatedItems(instance, accounts, { ...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    setTotalPages(totalPages ?? 1);
     setProducts(data);
 
     setIsLoading(false);
@@ -176,12 +177,6 @@ const PageSearch = () => {
           {/* PAGINATION */}
           <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
             <Pagination />
-            <ButtonPrimary loading={isLoading} onClick={() => {
-              setPageSize((prev) => prev + 10);
-              setFilterChanged((prev) => !prev);
-            }
-
-            }>Show me more</ButtonPrimary>
           </div>
         </main>
 

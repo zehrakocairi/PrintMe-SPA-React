@@ -28,13 +28,13 @@ const Home: FC<any> = ({ }) => {
 
   const fetchTrendingItems = async () => {
     setIsLoading(true);
-    const data = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
+    const {data} = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
     setTrendingItems(data);
     setIsLoading(false);
   };
 
   const fetchFeaturedItems = async () => {
-    const data = await getFeaturedItems(instance, accounts);
+    const {data} = await getFeaturedItems(instance, accounts);
     setFeaturedItems(data);
   };
 

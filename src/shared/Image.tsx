@@ -19,7 +19,7 @@ const Image = ({ sizes, src, alt, priority, fill, showMobileImage, ...props }: I
     return src;
   };
   return (
-    <picture>
+    <picture className="flex h-full">
     { showMobileImage && <source media="(max-width: 767px)" srcSet={getMobileSrc(src)} />}
     {!showMobileImage && <source media="(min-width: 768px)" srcSet={src} />}
     <img src={src} alt={alt} sizes={sizes} {...props} />
