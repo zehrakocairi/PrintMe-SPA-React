@@ -14,6 +14,7 @@ import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
 import { trackEvent } from "../../services/applicationInsightService";
+import { Sizes } from "../../data/types";
 
 const CheckoutPage = () => {
   const [tabActive, setTabActive] = useState<"ContactInfo" | "ShippingAddress" | "PaymentMethod">("ShippingAddress");
@@ -32,7 +33,7 @@ const CheckoutPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { pictureUrl, unitPrice, quantity, productName , productId, frameId, size} = item;
+    let { pictureUrl, unitPrice, quantity, productName , productId, frameId, size, frameName} = item;
 
     const setQuantity = (value: number) => {
       addItemToCart({...item, quantity: (value - quantity)});
@@ -103,7 +104,7 @@ const CheckoutPage = () => {
                       />
                     </svg>
 
-                    <span>{`Black`}</span>
+                    <span>{frameName}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
                   <div className="flex items-center space-x-1.5">
@@ -138,7 +139,7 @@ const CheckoutPage = () => {
                       />
                     </svg>
 
-                    <span>{`2XL`}</span>
+                    <span>{Sizes[size]}</span>
                   </div>
                 </div>
 

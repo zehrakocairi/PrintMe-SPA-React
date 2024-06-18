@@ -7,6 +7,7 @@ import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
 import { useState } from "react";
+import { Sizes } from "../../data/types";
 
 const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
@@ -31,7 +32,7 @@ const CartPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId } = item;
+    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId, frameName } = item;
     
   const setQuantity = (value: number) => {
     addItemToCart({...item, quantity: (value - quantity)});
@@ -104,7 +105,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`Black`}</span>
+                    <span>{frameName}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
                   <div className="flex items-center space-x-1.5">
@@ -139,7 +140,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`2XL`}</span>
+                    <span>{Sizes[size]}</span>
                   </div>
                 </div>
 

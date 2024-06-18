@@ -16,7 +16,8 @@ const AccountBilling = () => {
           To get paid, you need to set up a payout method releases payouts about
           24 hours after a guest’s scheduled time. The time it takes for the
           funds to appear in your account depends on your payout method.{` `}
-          <a href="##">Learn more</a>
+          <a href="##" 
+          aria-label="Learn More about PrintMe">Learn more</a>
         </span>
         <div className="pt-10">
           <ButtonPrimary>Add payout mothod</ButtonPrimary>

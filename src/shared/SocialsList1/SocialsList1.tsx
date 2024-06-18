@@ -15,6 +15,7 @@ const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {
   const renderItem = (item: SocialType, index: number) => {
     return (
       <a
+        aria-label={item.name}
         href={item.href}
         className="flex items-center text-2xl text-neutral-700 hover:text-black dark:text-neutral-300 dark:hover:text-white leading-none space-x-2 group"
         key={index}
