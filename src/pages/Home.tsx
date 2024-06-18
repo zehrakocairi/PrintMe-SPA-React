@@ -7,7 +7,6 @@ import DiscoverMoreSlider from "../components/DiscoverMoreSlider";
 import SectionGridMoreExplore from "../components/SectionGridMoreExplore/SectionGridMoreExplore";
 import SectionGridFeatureItems from "../components/SectionGridFeatureItems";
 import { getFeaturedItems, getFilteredPaginatedItems } from "../services/catalogService";
-import { useMsal } from "@azure/msal-react";
 import { useFilter } from "../contexts/FilterContext";
 import SectionPromo1 from "../components/SectionPromo1";
 import { Category } from "../enums/Category";
@@ -20,7 +19,6 @@ const Home: FC<any> = ({ }) => {
   const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
   const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState } = useFilter();
-  const { instance, accounts } = useMsal();
   const sliderRef = useRef<HTMLDivElement>(null);
   const catalogRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -28,13 +26,13 @@ const Home: FC<any> = ({ }) => {
 
   const fetchTrendingItems = async () => {
     setIsLoading(true);
-    const {data} = await getFilteredPaginatedItems(instance, accounts, filter, pageSize, pageIndex);
+    const {data} = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
     setTrendingItems(data);
     setIsLoading(false);
   };
 
   const fetchFeaturedItems = async () => {
-    const {data} = await getFeaturedItems(instance, accounts);
+    const {data} = await getFeaturedItems();
     setFeaturedItems(data);
   };
 

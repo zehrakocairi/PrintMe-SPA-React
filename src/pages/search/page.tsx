@@ -1,5 +1,4 @@
 import Pagination from "../../shared/Pagination/Pagination";
-import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import SectionPromo1 from "../../components/SectionPromo1";
 import HeaderFilterSearchPage from "../../components/HeaderFilterSearchPage";
 import Input from "../../shared/Input/Input";
@@ -7,7 +6,6 @@ import ButtonCircle from "../../shared/Button/ButtonCircle";
 import ProductCard from "../../components/ProductCard";
 import { useEffect, useState } from "react";
 import { getFilteredPaginatedItems } from "../../services/catalogService";
-import { useMsal } from "@azure/msal-react";
 import { Category } from "../../enums/Category";
 import { useFilter } from "../../contexts/FilterContext";
 import { useLocation } from "react-router-dom";
@@ -18,7 +16,6 @@ const PageSearch = () => {
 
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const { instance, accounts } = useMsal();
 
   const location = useLocation();
   const pageInitiated = useRef(false);
@@ -34,7 +31,7 @@ const PageSearch = () => {
       categoryState = Category.None;
     }
 
-    const {data, totalPages} = await getFilteredPaginatedItems(instance, accounts, { ...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    const {data, totalPages} = await getFilteredPaginatedItems({ ...filter, categoryState }, pageSize, pageIndex, searchTerm);
     setTotalPages(totalPages ?? 1);
     setProducts(data);
 

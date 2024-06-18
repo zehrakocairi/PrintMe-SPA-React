@@ -1,18 +1,17 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { useMsal } from '@azure/msal-react';
 import { getCart, updateCart } from '../services/cartService';
 import { CartItem } from '../models/CartItem';
 import { useApplication } from './ApplicationContext';
 import { PrintSize } from '../enums/PrintSize';
-import { trackEvent} from '../services/applicationInsightService';
+import { trackEvent } from '../services/applicationInsightService';
 
 
 interface CartContextProps {
     cart: CartItem[];
     addItemToCart: (item: CartItem) => Promise<void>;
     removeItemFromCart: (productId: number, frameId: number, size: PrintSize) => Promise<void>;
-    cartTotal:  number;
-    taxTotal:  number;
+    cartTotal: number;
+    taxTotal: number;
 }
 
 const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -25,9 +24,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [cartTotal, setCartTotal] = useState<number>(0);
     const [taxTotal, setTaxTotal] = useState<number>(0);
-    const { accounts } = useMsal();
-    const {getToken} = useApplication();
-    const account = accounts[0];
+    const { getToken, } = useApplication();
 
     useEffect(() => {
         const newCartTotal = cart.reduce((acc, item) => acc + item.unitPrice * item.quantity, 0);
@@ -42,18 +39,16 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
                 const localCart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
                 setCart(localCart ?? []);
 
-                if (account || true) {
-                    const backendCart = await getCart(await getToken());
-                    const {mergedCart, isUpdated} = mergeCarts(localCart, backendCart);
-                    if(isUpdated) {
-                        setCart(mergedCart ?? []);
+                const backendCart = await getCart(await getToken());
+                const { mergedCart, isUpdated } = mergeCarts(localCart, backendCart);
+                if (isUpdated) {
+                    setCart(mergedCart ?? []);
 
-                        // Update localStorage with merged cart
-                        localStorage.setItem('cart', JSON.stringify(mergedCart));
-    
-                        // Persist merged cart to backend
-                        await updateCart(await getToken(), mergedCart);
-                    }
+                    // Update localStorage with merged cart
+                    localStorage.setItem('cart', JSON.stringify(mergedCart));
+
+                    // Persist merged cart to backend
+                    await updateCart(await getToken(), mergedCart);
                 }
             } catch (error) {
                 console.error('Failed to fetch cart:', error);
@@ -63,7 +58,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         fetchCart();
     }, []);
 
-    const mergeCarts = (localCart: CartItem[], backendCart: CartItem[]): {mergedCart: CartItem[], isUpdated:boolean} => {
+    const mergeCarts = (localCart: CartItem[], backendCart: CartItem[]): { mergedCart: CartItem[], isUpdated: boolean } => {
         const mergedCart = [...localCart];
         let isUpdated = false;
         backendCart.forEach(backendItem => {
@@ -74,14 +69,14 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
             }
         });
 
-        return {mergedCart, isUpdated};
+        return { mergedCart, isUpdated };
     };
 
     const addItemToCart = async (item: CartItem) => {
 
         trackEvent('Add to Cart', `Product: ${item.productName}, Size: ${item.size}, Frame: ${item.frameName}, Quantity: ${item.quantity}`);
-        let updatedCart = [...cart ];
-        
+        let updatedCart = [...cart];
+
         const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId && cartItem.size === item.size && cartItem.frameId === item.frameId);
 
         if (existingItem) {
@@ -93,9 +88,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
-        if (account || true) {
-            await updateCart(await getToken(), updatedCart);
-        }
+        await updateCart(await getToken(), updatedCart);
     };
 
     const removeItemFromCart = async (productId: number, frameId: number, size: PrintSize) => {
@@ -103,9 +96,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
-        if (account || true) {
-            await updateCart(await getToken(), updatedCart);
-        }
+        await updateCart(await getToken(), updatedCart);
     };
 
     return (

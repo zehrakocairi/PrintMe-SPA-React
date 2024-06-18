@@ -2,20 +2,17 @@
 
 import { Popover, Transition } from "../../headlessui";
 import { avatarImgs } from "../../contains/fakeData";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import Avatar from "../../shared/Avatar/Avatar";
 import Link from "../../shared/Link";
-import { useMsal, useIsAuthenticated } from '@azure/msal-react';
 
 export default function AvatarDropdown() {
 
-  const { instance } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
-
+  const isAuthenticated = useState(false);
   const handleLogout = () => {
-    instance.logout().catch((e) => {
-      console.error(e);
-    });
+    // instance.logout().catch((e) => {
+    //   console.error(e);
+    // });
     return true;
   };
 

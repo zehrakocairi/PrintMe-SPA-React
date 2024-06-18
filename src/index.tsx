@@ -14,11 +14,3 @@ root.render(
       <App></App>
     </GoogleOAuthProvider>
 );
-
-// root.render(
-//   <React.StrictMode>
-//       <MsalProvider instance={msalInstance}>
-//           <App></App>
-//         </MsalProvider>
-//   </React.StrictMode>
-// );

@@ -1,6 +1,5 @@
-import { tokenRequest, msalInstance } from "../authConfig";
 
-export const fetchWithAuth = async (url: string, token: string|null, options: any = {}) => {
+export const fetchWithAuth = async (url: string, token: string|null|undefined, options: any = {}) => {
   const headers = {
     "Content-Type": "application/json",
     ...(options.headers || {})
