@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import NcImage from "../shared/NcImage/NcImage";
-import rightImgDemo from "../data/images/promo3.png";
 import backgroundLineSvg from "../data/images/BackgroundLine.svg";
 import Badge from "../shared/Badge/Badge";
 import Input from "../shared/Input/Input";

@@ -6,8 +6,8 @@ interface Hero2DataType {
   btnLink: string; 
 }
 const image1 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-1.webp'
-const image2 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-3.jpg'
-const image3 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-4.jpg' 
+const image2 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-3.webp'
+const image3 = 'https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-4.webp' 
 
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {

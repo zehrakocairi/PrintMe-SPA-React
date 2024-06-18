@@ -22,6 +22,9 @@ const CheckoutPage = lazy(() => import('./pages/checkout/page'));
 const PageContact = lazy(() => import('./pages/contact/page'));
 const PageOurServices = lazy(() => import('./pages/our-services/page'));
 const PageLogin = lazy(() => import('./pages/login/page'));
+// const Home =lazy(() => import( "./pages/Home"));
+// const PageSearch =lazy(() => import( "./pages/search/page"));
+// const ProductDetailPage =lazy(() => import( "./pages/product-detail/page"));
 
 function App() {
   return (

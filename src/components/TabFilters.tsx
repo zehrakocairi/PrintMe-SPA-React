@@ -11,9 +11,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
-import { PrintSize } from "../enums/PrintSize";
 
-// DEMO DATA
 const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
   { name: "Animals", value: Category.Animals },
@@ -36,33 +34,6 @@ const DATA_categories = [
   { name: "Studio Collections", value: Category.StudioCollections },
   { name: "Text Posters", value: Category.TextPosters },
 ];
-
-// const DATA_sizes = [
-//   {
-//     name: "Size13x18",
-//     value: PrintSize.Size13x18
-//   },
-//   {
-//     name: "Size21x30",
-//     value: PrintSize.Size21x30
-//   },
-//   {
-//     name: "Size30x40",
-//     value: PrintSize.Size30x40
-//   },
-//   {
-//     name: "Size40x50",
-//     value: PrintSize.Size40x50
-//   },
-//   {
-//     name: "Size50x50",
-//     value: PrintSize.Size50x50
-//   },
-//   {
-//     name: "Size70x100",
-//     value: PrintSize.Size70x100
-//   },
-// ];
 
 const DATA_sortOrderRadios = [
   { name: "Most Popular", id: "Most-Popular" },
@@ -88,13 +59,6 @@ const TabFilters = () => {
       : (filter.categoryState ?? cat) & ~cat;
     updateCategoryState(newState);
   };
-
-  // const handleChangeSizes = (checked: boolean, size: PrintSize) => {
-  //   let newState = checked
-  //     ? (filter.sizeState ?? size) | size
-  //     : (filter.sizeState ?? size) & ~size;
-  //   updateSizeState(newState);
-  // };
 
   const renderXClear = () => {
     return (

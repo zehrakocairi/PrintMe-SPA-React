@@ -26,6 +26,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
           Plan Your Visit
           </ButtonPrimary>
           <ButtonSecondary
+            aria-label="Learn More about PrintMe"
             href="/search"
             className="border border-slate-100 dark:border-slate-700"
           >

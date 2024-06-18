@@ -68,7 +68,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
         </div>
       </div>
 
-      <Link href={link ?? "/search"}></Link>
+      <Link href={link ?? "/search"} aria-label="Show All Categories"></Link>
     </div>
   );
 };
