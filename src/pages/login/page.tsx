@@ -18,13 +18,13 @@ const PageLogin = () => {
   };
 
   const loginSocials = [
-    {
-      name: "Continue with Google",
-      href: "#",
-      icon: twitterSvg,
-      handleClick: ()=>{}
-    }
-  ];
+    // {
+    //   name: "Continue with Google",
+    //   href: "#",
+    //   icon: twitterSvg,
+    //   handleClick: ()=>{}
+    // }
+  ] as any[];
 
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">
