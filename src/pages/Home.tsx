@@ -18,7 +18,7 @@ const Home: FC<any> = ({ }) => {
   const [featuredItems, setFeaturedItems] = useState<any[]>([]); // Adjust type if necessary
   const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
   const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState } = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateTagState } = useFilter();
   const sliderRef = useRef<HTMLDivElement>(null);
   const catalogRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -38,6 +38,7 @@ const Home: FC<any> = ({ }) => {
 
   useEffect(() => {
     updateCategoryState(Category.None);
+    updateTagState(undefined);
     setInitialRenderCompleted(true);
     setFilterChanged(prev => !prev);
     fetchFeaturedItems();

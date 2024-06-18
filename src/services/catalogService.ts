@@ -65,6 +65,8 @@ function toQueryString(filter: FilterState) {
   let query = "";
   if (filter.isOnSale === true) {
     query += `&tags=${CatalogTags.OnSale}`;
+  } else if (filter.tag) {
+    query += `&tags=${filter.tag}`;
   }
   if (filter.rangePrices.length > 0 && filter.rangePrices[0] > 0) {
     query += `&priceFrom=${filter.rangePrices[0]}`;

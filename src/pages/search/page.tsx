@@ -10,6 +10,7 @@ import { Category } from "../../enums/Category";
 import { useFilter } from "../../contexts/FilterContext";
 import { useLocation } from "react-router-dom";
 import { useRef } from "react";
+import { CatalogTags } from "../../enums/CatalogTags";
 
 
 const PageSearch = () => {
@@ -20,7 +21,7 @@ const PageSearch = () => {
   const location = useLocation();
   const pageInitiated = useRef(false);
 
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, isLoading, setPageSize, setTotalPages } = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, updateTagState, isLoading, setPageSize, setTotalPages } = useFilter();
 
   const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
     setIsLoading(true);
@@ -29,6 +30,9 @@ const PageSearch = () => {
 
     if (searchTerm.trim() !== "") {
       categoryState = Category.None;
+    }
+    if (categoryState != Category.None) {
+      updateTagState(undefined);
     }
 
     const {data, totalPages} = await getFilteredPaginatedItems({ ...filter, categoryState }, pageSize, pageIndex, searchTerm);
@@ -63,12 +67,21 @@ const PageSearch = () => {
 
   useEffect(() => {
     const searchTerm = getSearchTermFromUrl();
+    const tag = getCatalogTagFromUrl();
     const newCategory = getCategoryFromUrl() ?? Category.None;
+
     if (searchTerm !== "") {
       updateSearchTextState(searchTerm);
+      updateTagState(undefined);
+    }
+    else if (tag !== "") {
+      updateCategoryState(Category.None);
+      updateTagState(tag ===  '4' ? CatalogTags.TopSellers : tag === '8' ? CatalogTags.OurPick : undefined);
+      
     }
     else if (newCategory !== Category.None) {
       updateCategoryState(newCategory);
+      updateTagState(undefined);
     }
     pageInitiated.current = true;
     setFilterChanged((prev) => !prev);
@@ -87,6 +100,9 @@ const PageSearch = () => {
   function getSearchTermFromUrl(): string {
     return new URLSearchParams(location.search).get('searchTerm') ?? "";
   }
+  function getCatalogTagFromUrl(): string {
+    return new URLSearchParams(location.search).get('tag') ?? "";
+  }
 
   function getCategoryKeyInsensitive(category: string): string | undefined {
     const lowerCaseCategory = category.toLowerCase().replaceAll("-", "");
@@ -96,6 +112,7 @@ const PageSearch = () => {
 
   function search() {
     updateCategoryState(Category.None);
+    updateTagState(undefined);
     setSearchText(searchText.trim());
     fetchItems(Category.None, searchText);
   }

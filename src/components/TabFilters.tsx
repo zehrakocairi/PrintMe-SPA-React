@@ -149,7 +149,12 @@ const TabFilters = () => {
               {(filter.categoryState ?? Category.None) == Category.None  ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
               ) : (
-                <span onClick={() => handleChangeCategories(false, Category.None)}>
+                <span onClick={(e) => {
+                  e.preventDefault();
+                  updateCategoryState(Category.None);
+                  setFilterChanged(!filterChanged);
+                  e.preventDefault();
+                  }}>
                   {renderXClear()}
                 </span>
               )}

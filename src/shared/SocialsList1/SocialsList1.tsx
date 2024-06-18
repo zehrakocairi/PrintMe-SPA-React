@@ -8,7 +8,7 @@ export interface SocialsList1Props {
 }
 
 const socials: SocialType[] = [
-  { name: "Twitter", icon: twitter, href: "#" },
+  // { name: "Twitter", icon: twitter, href: "#" },
 ];
 
 const SocialsList1: FC<SocialsList1Props> = ({ className = "space-y-3" }) => {

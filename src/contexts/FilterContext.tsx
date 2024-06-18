@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { FilterState } from "../models/FilterModels";
 import { Category } from "../enums/Category";
 import { PrintSize } from "../enums/PrintSize";
+import { CatalogTags } from "../enums/CatalogTags";
 
 interface FilterContextProps {
     filter: FilterState;
@@ -13,6 +14,7 @@ interface FilterContextProps {
     updateSortOrderStates: (sortOrderStates: string) => void;
     updateSearchTextState: (searchTerm: string) => void;
     updatePageIndexState: (pageIndex: number) => void;
+    updateTagState: (tag: CatalogTags | undefined) => void;
     setFilterChanged:  React.Dispatch<React.SetStateAction<boolean>>;
     filterChanged: boolean;
     isLoading: boolean;
@@ -39,6 +41,7 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any
         sizeState: undefined,
         sortOrderStates: "",
         searchTerm: "",
+        tag: undefined
     });
     
     const [filterChanged, setFilterChanged] = useState<boolean>(false);
@@ -75,9 +78,12 @@ export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any
     const updatePageIndexState = (pageIndex: number) => {
         setFilter((prevState) => ({ ...prevState, pageIndex }));
     };
+    const updateTagState = (tag: CatalogTags | undefined) => {
+        setFilter((prevState) => ({ ...prevState, tag }));
+    };
 
     return (
-        <FilterContext.Provider value={{ filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSizeState, updateSortOrderStates, updateSearchTextState, updatePageIndexState, setFilterChanged , filterChanged, isLoading, setIsLoading, pageSize, setPageSize, pageIndex, setPageIndex, totalPages, setTotalPages}}>
+        <FilterContext.Provider value={{ filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSizeState, updateSortOrderStates, updateSearchTextState, updatePageIndexState, updateTagState, setFilterChanged , filterChanged, isLoading, setIsLoading, pageSize, setPageSize, pageIndex, setPageIndex, totalPages, setTotalPages}}>
             {children}
         </FilterContext.Provider>
     );
