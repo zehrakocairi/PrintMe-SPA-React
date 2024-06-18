@@ -5,14 +5,17 @@ import { avatarImgs } from "../../contains/fakeData";
 import { Fragment, useState } from "react";
 import Avatar from "../../shared/Avatar/Avatar";
 import Link from "../../shared/Link";
+import { googleLogout } from "@react-oauth/google";
 
 export default function AvatarDropdown() {
 
-  const isAuthenticated = useState(false);
+  const isAuthenticated = ()=>{
+    return sessionStorage.getItem("accessToken") !== null;
+  }
+
   const handleLogout = () => {
-    // instance.logout().catch((e) => {
-    //   console.error(e);
-    // });
+    googleLogout();
+    sessionStorage.removeItem("accessToken");
     return true;
   };
 
@@ -59,7 +62,7 @@ export default function AvatarDropdown() {
               <Popover.Panel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -right-10 sm:right-0 sm:px-0">
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   {
-                    !isAuthenticated ?
+                    !isAuthenticated() ?
                       <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                         {/* Unauthenticated User */}
                         {/* ------------------ 2 --------------------- */}

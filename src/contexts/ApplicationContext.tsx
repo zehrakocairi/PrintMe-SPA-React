@@ -19,7 +19,6 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
 
     const [frames, setFrames] = useState<Frame[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
-    const [initialized, setInitialized] = useState(false);
 
     const fetchFrames = async () => {
         const url = `/bootstrap/frames`;
