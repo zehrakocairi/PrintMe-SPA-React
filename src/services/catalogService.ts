@@ -32,7 +32,7 @@ export const getCatalogItem = async (id: number, instance: IPublicClientApplicat
 };
 
 export const getFeaturedItems = async (instance: IPublicClientApplication, accounts: any[]) => {
-  const url = `/catalog/search?pageSize=4&catalogType=1&tags=2`;
+  const url = `/catalog/search?pageSize=6&catalogType=1&tags=2`;
   return fetchCatalogItems(url, instance, accounts);
 };
 
