@@ -7,7 +7,19 @@ import Textarea from "../../../shared/Textarea/Textarea";
 import { avatarImgs } from "../../../contains/fakeData";
 import Image from "../../../shared/Image";
 
+// TODOS:
+// 1. Fetch user data
+// 2. Update user data
+// 3. Handle user data (Client side validation)
+// 4. Centralize the form (UI)
 const AccountPage = () => {
+  // TODO : Keep data in state
+
+  // TODO : fetch user data
+  // GET user/:id
+
+  // TODO : update user data
+  //POST user/:id
   return (
     <div className={`nc-AccountPage `}>
       <div className="space-y-10 sm:space-y-12">

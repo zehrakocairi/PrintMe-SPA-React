@@ -14,6 +14,10 @@ import { Suspense, lazy } from "react";
 import Home from "./pages/Home";
 import PageSearch from "./pages/search/page";
 import ProductDetailPage from "./pages/product-detail/page";
+import AccountPage from "./pages/(accounts)/account/page";
+import AccountBilling from "./pages/(accounts)/account-billing/page";
+import AccountOrder from "./pages/(accounts)/account-order/page";
+import AccountSavelists from "./pages/(accounts)/account-savelists/page";
 
 // Lazy load route components
 const PageAbout = lazy(() => import("./pages/about/page"));
@@ -45,6 +49,10 @@ function App() {
                     <Route path="/product-detail/:id" element={<ProductDetailPage />} />
                     <Route path="/contact" element={<PageContact />} />
                     <Route path="/our-services" element={<PageOurServices />} />
+                    <Route path="/account" element={<AccountPage />} />
+                    <Route path="/account-billing" element={<AccountBilling />} />
+                    <Route path="/account-order" element={<AccountOrder />} />
+                    <Route path="/account-savelist" element={<AccountSavelists />} />
                     <Route path="/login" element={<PageLogin />} />
                   </Routes>
                 </Suspense>
