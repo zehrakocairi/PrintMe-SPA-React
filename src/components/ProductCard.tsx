@@ -253,6 +253,7 @@ const ProductCard: FC<ProductCardProps> = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
+              showMobileImage={true}
             />
 
             {/* Hover View Image */}
@@ -263,6 +264,7 @@ const ProductCard: FC<ProductCardProps> = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
+              showMobileImage={true}
             />
           </Link>
           <ProductStatus status={status} />

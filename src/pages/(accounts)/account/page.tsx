@@ -11,7 +11,6 @@ import Image from "../../../shared/Image";
 // 1. Fetch user data
 // 2. Update user data
 // 3. Handle user data (Client side validation)
-// 4. Centralize the form (UI)
 const AccountPage = () => {
   // TODO : Keep data in state
 

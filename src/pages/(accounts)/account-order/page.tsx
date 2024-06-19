@@ -5,7 +5,7 @@ import Image from "../../../shared/Image";
 
 const AccountOrder = () => {
   const renderProductItem = (product: any, index: number) => {
-    const { image, name } = product;
+    const { image, name } = product ?? {image: 'https://genstorageaccount3116.blob.core.windows.ne…9aa9b4-badf-4bb8-961b-ae03042d5666-thumbnail.jpeg', name: 'test name'};
     return (
       <div key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
         <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">

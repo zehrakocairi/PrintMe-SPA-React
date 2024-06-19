@@ -1,5 +1,4 @@
-
-import { useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
 import Link from "../../shared/Link";
 import React from "react";
 import { FC } from "react";
@@ -14,23 +13,15 @@ const pages: {
 }[] = [
   {
     name: "Account info",
-    link: "/",
-  },
-  {
-    name: "Save lists",
-    link: "/account-savelists",
+    link: "/account/account-details",
   },
   {
     name: " My order",
-    link: "/",
-  },
-  {
-    name: "Change password",
-    link: "/account-password",
+    link: "/account/account-order",
   },
   {
     name: "Change Billing",
-    link: "/account-billing",
+    link: "/account/account-billing",
   },
 ];
 
@@ -73,7 +64,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
         </div>
       </div>
       <div className="max-w-4xl mx-auto pt-14 sm:pt-26 pb-24 lg:pb-32">
-        {children}
+      <Outlet />
       </div>
     </div>
   );
