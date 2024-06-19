@@ -1,11 +1,14 @@
 import Label from "../../../components/Label/Label";
-import React, { FC } from "react";
+import React, { FC,useState, useEffect, ChangeEvent, FormEvent } from "react";
 import ButtonPrimary from "../../../shared/Button/ButtonPrimary";
 import Input from "../../../shared/Input/Input";
 import Select from "../../../shared/Select/Select";
 import Textarea from "../../../shared/Textarea/Textarea";
 import { avatarImgs } from "../../../contains/fakeData";
 import Image from "../../../shared/Image";
+import { useApplication } from "../../../contexts/ApplicationContext";
+
+
 
 // TODOS:
 // 1. Fetch user data
@@ -19,6 +22,60 @@ const AccountPage = () => {
 
   // TODO : update user data
   //POST user/:id
+  const {currentUser} = useApplication();
+  const [userData, setUserData] = useState({
+    fullName: "",
+    email: "",
+    dateOfBirth: "",
+    address: "",
+    gender: "Male",
+    phoneNumber: "",
+    about: "",
+  });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`/user/${currentUser.id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setUserData(data);
+      } catch (error) {
+        console.error("Failed to fetch user data", error);
+      }
+    };
+
+    fetchUserData();
+  }, [currentUser.id]);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    debugger
+    e.preventDefault();
+    try {
+      const response = await fetch(`/user/${currentUser.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      alert("User data updated successfully");
+    } catch (error) {
+      console.error("Failed to update user data", error);
+    }
+  };
+
+
   return (
     <div className={`nc-AccountPage `}>
       <div className="space-y-10 sm:space-y-12">
@@ -63,9 +120,16 @@ const AccountPage = () => {
             </div>
           </div>
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+          <form onSubmit={handleSubmit}>
             <div>
               <Label>Full name</Label>
-              <Input className="mt-1.5" defaultValue="Enrico Cole" />
+              <Input className="mt-1.5" 
+                  name="fullName"
+                  value={userData.fullName}
+                  onChange={handleChange}
+                  placeholder="Full Name" 
+                  required
+                  />
             </div>
 
             {/* ---- */}
@@ -78,8 +142,12 @@ const AccountPage = () => {
                   <i className="text-2xl las la-envelope"></i>
                 </span>
                 <Input
-                  className="!rounded-l-none"
-                  placeholder="example@email.com"
+                 className="!rounded-l-none"
+                 name="email"
+                 value={userData.email}
+                 onChange={handleChange}
+                 placeholder="example@gmail.com"
+                 required
                 />
               </div>
             </div>
@@ -94,7 +162,10 @@ const AccountPage = () => {
                 <Input
                   className="!rounded-l-none"
                   type="date"
-                  defaultValue="1990-07-22"
+                  name="dateOfBirth"
+                  value={userData.dateOfBirth}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -107,7 +178,11 @@ const AccountPage = () => {
                 </span>
                 <Input
                   className="!rounded-l-none"
-                  defaultValue="New york, USA"
+                  name="address"
+                  value={userData.address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                  required
                 />
               </div>
             </div>
@@ -115,7 +190,10 @@ const AccountPage = () => {
             {/* ---- */}
             <div>
               <Label>Gender</Label>
-              <Select className="mt-1.5">
+              <Select className="mt-1.5"
+                  name="gender"
+                  value={userData.gender}
+                  onChange={handleChange}>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -129,17 +207,27 @@ const AccountPage = () => {
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" defaultValue="003 888 232" />
+                <Input className="!rounded-l-none"
+                    name="phoneNumber"
+                    value={userData.phoneNumber}
+                    onChange={handleChange}
+                    placeholder="Phone Number" 
+                    required/>
               </div>
             </div>
             {/* ---- */}
             <div>
               <Label>About you</Label>
-              <Textarea className="mt-1.5" defaultValue="..." />
+              <Textarea className="mt-1.5"
+                  name="about"
+                  value={userData.about}
+                  onChange={handleChange}
+                  placeholder="About you" />
             </div>
             <div className="pt-2">
               <ButtonPrimary>Update account</ButtonPrimary>
             </div>
+            </form>
           </div>
         </div>
       </div>
