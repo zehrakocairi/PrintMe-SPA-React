@@ -71,6 +71,7 @@ const ProductCard: FC<ProductCardProps> = ({
             height={96}
             src={data.image2}
             alt={name}
+            showMobileImage={true}
             className="absolute object-cover object-center"
           />
         </div>
