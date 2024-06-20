@@ -4,6 +4,7 @@ import explore1Svg from "../../data/images/collections/explore1.svg";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
+import { useTranslation } from "react-i18next";
 
 export interface CardCategory4Props {
   className?: string;
@@ -26,6 +27,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
   count,
   link
 }) => {
+  const {t} = useTranslation();
   return (
     <div
       className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
@@ -45,7 +47,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
               height={80}
             />
             <span className="text-xs text-slate-700 dark:text-neutral-300 font-medium">
-              {count} products
+              {count} {t('products')} 
             </span>
           </div>
 
@@ -62,7 +64,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
             href={"/search"}
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
-            <span>See Prints</span>
+            <span>{t('See Prints')}</span>
             <ArrowRightIcon className="w-4 h-4 ml-2.5" />
           </Link>
         </div>

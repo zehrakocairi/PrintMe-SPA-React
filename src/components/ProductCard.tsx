@@ -19,6 +19,7 @@ import { Product } from "../models/ProductModels";
 import NotifyAddTocart from "./NotifyAddTocart";
 import { Size } from "../models/ProductModels";
 import { useApplication } from "../contexts/ApplicationContext";
+import { useTranslation } from "react-i18next";
 
 export interface ProductCardProps {
   className?: string;
@@ -46,6 +47,8 @@ const ProductCard: FC<ProductCardProps> = ({
   const navigate = useNavigate();
   const {addItemToCart} = useCart();
   const {sizes, frames} = useApplication();
+
+  const { t } = useTranslation();
 
   const notifyAddTocart = (sizeIndex: number, frameId: number) => {
     addItemToCart(new CartItem(id, name, price, 1, data.imageThumbnail, sizes[sizeIndex].id, frameId, 0, "No Frame"));
@@ -210,7 +213,7 @@ const ProductCard: FC<ProductCardProps> = ({
           onClick={() => setShowModalQuickView(true)}
         >
           <ArrowsPointingOutIcon className="w-3.5 h-3.5" />
-          <span className="ms-1">Quick view</span>
+          <span className="ms-1">{t('Quick view')}</span>
         </ButtonSecondary>
       </div>
     );

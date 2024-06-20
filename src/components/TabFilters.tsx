@@ -11,6 +11,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
+import { useTranslation } from "react-i18next";
 
 const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
@@ -49,6 +50,7 @@ const TabFilters = () => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
   const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const {t} = useTranslation();
 
   const closeModalMoreFilter = () => setisOpenMoreFilter(false);
   const openModalMoreFilter = () => setisOpenMoreFilter(true);
@@ -145,7 +147,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">Categories</span>
+              <span className="ml-2">{t('Categories')}</span>
               {(filter.categoryState ?? Category.None) == Category.None  ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
               ) : (
@@ -193,7 +195,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -202,7 +204,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -276,7 +278,7 @@ const TabFilters = () => {
                   ? DATA_sortOrderRadios.filter(
                     (i) => i.id === filter.sortOrderStates
                   )[0].name
-                  : "Sort order"}
+                  : t('Sort order')}
               </span>
               {!filter.sortOrderStates.length ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
@@ -318,7 +320,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear1
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -327,7 +329,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -530,11 +532,11 @@ const TabFilters = () => {
                           htmlFor="minPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Min price
+                          {t('Min price')}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
-                            $
+                            €
                           </span>
                           <input
                             type="text"
@@ -551,11 +553,11 @@ const TabFilters = () => {
                           htmlFor="maxPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Max price
+                          {t('Max price')}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
-                            $
+                            €
                           </span>
                           <input
                             type="text"
@@ -578,7 +580,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -587,7 +589,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -645,7 +647,7 @@ const TabFilters = () => {
           />
         </svg>
 
-        <span className="line-clamp-1 ml-2">On sale</span>
+        <span className="line-clamp-1 ml-2">{t('On sale')}</span>
         {filter.isOnSale && renderXClear()}
       </div>
     );
@@ -753,7 +755,7 @@ const TabFilters = () => {
             />
           </svg>
 
-          <span className="ml-2">Products filters (3)</span>
+          <span className="ml-2">{t('Products filters')} (3)</span>
           {renderXClear()}
         </div>
 
@@ -798,7 +800,7 @@ const TabFilters = () => {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Products filters
+                      {t('Products filters')}
                     </Dialog.Title>
                     <span className="absolute left-3 top-3">
                       <ButtonClose onClick={closeModalMoreFilter} />
@@ -849,12 +851,12 @@ const TabFilters = () => {
                                   htmlFor="minPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Min price
+                                  {t('Min price')}
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      $
+                                      €
                                     </span>
                                   </div>
                                   <input
@@ -872,12 +874,12 @@ const TabFilters = () => {
                                   htmlFor="maxPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Max price
+                                  {t('Max price')}
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      $
+                                      €
                                     </span>
                                   </div>
                                   <input
@@ -898,7 +900,7 @@ const TabFilters = () => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">Sort Order</h3>
+                        <h3 className="text-xl font-medium">{t('Sort order')}</h3>
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-5">
                             {DATA_sortOrderRadios.map((item) => (
@@ -918,11 +920,11 @@ const TabFilters = () => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">On sale!</h3>
+                        <h3 className="text-xl font-medium">{t('On sale')+"!"}</h3>
                         <div className="mt-6 relative ">
                           <MySwitch
-                            label="On sale!"
-                            desc="Products currently on sale"
+                            label={t('On sale')+"!"}
+                            desc={t('Products currently on sale')}
                             enabled={filter.isOnSale}
                             onChange={updateIsOnSale}
                           />
@@ -943,13 +945,13 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>

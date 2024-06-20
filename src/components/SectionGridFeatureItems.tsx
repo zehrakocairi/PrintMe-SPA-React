@@ -5,6 +5,7 @@ import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import { PRODUCTS } from "../data/data";
 import { Product } from "../models/ProductModels";
 import { useFilter } from "../contexts/FilterContext";
+import { useTranslation } from "react-i18next";
 
 export interface SectionGridFeatureItemsProps {
   data?: Product[];
@@ -14,6 +15,7 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({
   data = PRODUCTS,
 }) => {
   const {isLoading, setPageSize, setFilterChanged} = useFilter();
+  const { t } = useTranslation();
   return (
     <div className="nc-SectionGridFeatureItems relative">
       <HeaderFilterSection />
@@ -30,7 +32,7 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({
           setFilterChanged((prev)=> !prev);
         }
 
-        }>Show me more</ButtonPrimary>
+        }>{t('Show me more')}</ButtonPrimary>
       </div>
     </div>
   );

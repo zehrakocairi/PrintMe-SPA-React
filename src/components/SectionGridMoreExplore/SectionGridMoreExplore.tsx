@@ -6,6 +6,7 @@ import Heading from "../Heading/Heading";
 import NavItem2 from "../NavItem2";
 import Nav from "../../shared/Nav/Nav";
 import MENU_TREE_DATA, { MenuType, MenuItemType } from "./data";
+import { useTranslation } from "react-i18next";
 
 export interface SectionGridMoreExploreProps {
   className?: string;
@@ -20,6 +21,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
 }) => {
   const [tabActive, setTabActive] = useState("Nature");
   const [data, setData] = useState(MENU_TREE_DATA.get("Nature"));
+  const {t} = useTranslation();
 
   useEffect(() => {
     setData(MENU_TREE_DATA.get(tabActive));
@@ -46,7 +48,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
           isCenter
           desc=""
         >
-          Start exploring.
+         {t('Start exploring')}.
         </Heading>
         <Nav
           className="p-1 bg-white dark:bg-neutral-800 rounded-full shadow-lg overflow-x-auto hiddenScrollbar"

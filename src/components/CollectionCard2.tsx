@@ -11,6 +11,7 @@ export interface CollectionCard2Props {
   name?: string;
   price?: number;
   description?: string;
+  id: number;
 }
 
 const CollectionCard2: FC<CollectionCard2Props> = ({
@@ -19,6 +20,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
   name = "Product Name",
   description = "Product Description",
   price,
+  id,
 }) => {
   return (
     <div className={`CollectionCard2 group relative ${className}`}>
@@ -73,7 +75,7 @@ const CollectionCard2: FC<CollectionCard2Props> = ({
         </div>
         <Prices className="mt-0.5 sm:mt-1 ml-4" price={price} />
       </div>
-      <Link href={"/product-detail"} className="absolute inset-0 "></Link>
+      <Link href={`/product-detail/${id}`} className="absolute inset-0 "></Link>
     </div>
   );
 };
