@@ -101,7 +101,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
                   className="inline-block"
                   dangerouslySetInnerHTML={{ __html: item.icon }}
                 ></span>
-                <span>{item.name}</span>
+                <span>{t(item.name)}</span>
               </div>
             </NavItem2>
           ))}

@@ -17,6 +17,7 @@ import quotationImg2 from "../../data/images/quotation2.png";
 import { StarIcon } from "@heroicons/react/24/solid";
 import Image from "../../shared/Image";
 import { DEMO_DATA } from "./data";
+import { useTranslation } from "react-i18next";
 
 export interface SectionClientSayProps {
   className?: string;
@@ -24,6 +25,7 @@ export interface SectionClientSayProps {
 
 const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
   const sliderRef = useRef(null);
+  const { t } = useTranslation();
 
   const [isShow, setIsShow] = useState(false);
 
@@ -90,8 +92,8 @@ const SectionClientSay: FC<SectionClientSayProps> = ({ className = "" }) => {
       className={`nc-SectionClientSay relative flow-root ${className} `}
       data-nc-id="SectionClientSay"
     >
-      <Heading desc="Let's see what people think of PrintMe Art" isCenter>
-        Good news from far away 🥇
+      <Heading desc={t("Let's see what people think of PrintMe Art")} isCenter>
+        {t("Good news from far away")}🥇
       </Heading>
       <div className="relative md:mb-16 max-w-2xl mx-auto">
         {renderBg()}
