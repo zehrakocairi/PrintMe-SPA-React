@@ -5,6 +5,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import CardCategory3 from "../../components/CardCategories/CardCategory3";
 import React, { FC, Fragment, useState } from "react";
 import Link from "../../shared/Link";
+import { useTranslation } from "react-i18next";
 
 export interface NavItemType {
   id: string;
@@ -22,6 +23,8 @@ export interface NavigationItemProps {
 
 const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
   const [menuCurrentHovers, setMenuCurrentHovers] = useState<string[]>([]);
+  const { t } = useTranslation();
+
 
   const onMouseEnterMenu = (id: string) => {
     setMenuCurrentHovers((state) => [...state, id]);
@@ -45,7 +48,6 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
         className={`menu-item flex-shrink-0 menu-megamenu menu-megamenu--large`}
       >
         {renderMainItem(menu)}
-
         <div className="invisible sub-menu absolute top-full inset-x-0 transform z-50">
           <div className="bg-white dark:bg-neutral-900 shadow-lg">
             <div className="container">
@@ -54,7 +56,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                   {menu.children.map((item, index) => (
                     <div key={index}>
                       <p className="font-medium text-slate-900 dark:text-neutral-200">
-                        {item.name}
+                        {t(item.name)}
                       </p>
                       <ul className="grid space-y-4 mt-4">
                         {item.children?.map(renderMegaMenuNavlink)}
@@ -63,7 +65,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                   ))}
                 </div>
                 <div className="w-[40%] xl:w-[35%]">
-                  <CardCategory3 featuredImage="https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.png"/>
+                  <CardCategory3 featuredImage="https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.webp"/>
                 </div>
               </div>
             </div>
@@ -80,7 +82,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
           className="font-normal text-slate-600 hover:text-black dark:text-slate-400 dark:hover:text-white "
           href={ item.href}
         >
-          {item.name}
+          {t(item.name)}
         </Link>
       </li>
     );
@@ -210,8 +212,9 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
         <Link
           className="inline-flex items-center text-sm lg:text-[15px] font-medium text-slate-700 dark:text-slate-300 py-2.5 px-4 xl:px-5 rounded-full hover:text-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 dark:hover:text-slate-200"
           href={item.href}
+          aria-label={t(item.name)}
         >
-          {item.name}
+          {t(item.name)}
           {item.type && (
             <ChevronDownIcon
               className="ml-1 -mr-1 h-4 w-4 text-slate-400"

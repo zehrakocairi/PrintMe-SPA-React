@@ -9,6 +9,7 @@ import Image from "../../shared/Image";
 import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
+import { Sizes } from "../../data/types";
 
 export default function CartDropdown() {
 
@@ -23,7 +24,7 @@ export default function CartDropdown() {
   }, [cart]);
 
   const renderProduct = (item: CartItem, index: number, close: () => void) => {
-    const { productName, unitPrice, pictureUrl, quantity, size, frameId } = item;
+    const { productName, unitPrice, pictureUrl, quantity, size, frameId, frameName } = item;
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -50,9 +51,9 @@ export default function CartDropdown() {
                   </Link>
                 </h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>{`Natural`}</span>
+                  <span>{frameName}</span>
                   <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{"XL"}</span>
+                  <span>{Sizes[size]}</span>
                 </p>
               </div>
               <Prices price={unitPrice * quantity} className="mt-0.5" />
@@ -130,7 +131,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/cart"} />
+            <Link className="block md:hidden absolute inset-0" aria-label="Go To Cart" href={"/cart"} />
           </Popover.Button>
           <Transition
             as={Fragment}
@@ -161,13 +162,14 @@ export default function CartDropdown() {
                           Shipping and taxes calculated at checkout.
                         </span>
                       </span>
-                      <span className="">${cartSum}</span>
+                      <span className="">€{cartSum}</span>
                     </p>
                     <div className="flex space-x-2 mt-5">
                       <ButtonSecondary
                         href="/cart"
                         className="flex-1 border border-slate-200 dark:border-slate-700"
                         onClick={close}
+                        aria-label="View cart quick action"
                       >
                         View cart
                       </ButtonSecondary>

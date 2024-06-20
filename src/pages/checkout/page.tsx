@@ -3,9 +3,7 @@
 import Label from "../../components/Label/Label";
 import NcInputNumber from "../../components/NcInputNumber";
 import Prices from "../../components/Prices";
-import { PRODUCTS } from "../../data/data";
-import { Product } from "../../models/ProductModels";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Input from "../../shared/Input/Input";
 import ContactInfo from "./ContactInfo";
@@ -15,11 +13,17 @@ import Image from "../../shared/Image";
 import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
+import { trackEvent } from "../../services/applicationInsightService";
+import { Sizes } from "../../data/types";
 
 const CheckoutPage = () => {
   const [tabActive, setTabActive] = useState<"ContactInfo" | "ShippingAddress" | "PaymentMethod">("ShippingAddress");
-  const { cart, cartTotal, taxTotal, addItemToCart} = useCart();
+  const { cart, cartTotal, taxTotal, addItemToCart, removeItemFromCart} = useCart();
   const [shippingPrice] = useState(5);
+
+  useEffect(() => {
+    trackEvent("ViewCheckoutPage", "View Checkout Page");
+  }, []);
 
   const handleScrollToEl = (id: string) => {
     const element = document.getElementById(id);
@@ -29,7 +33,7 @@ const CheckoutPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { pictureUrl, unitPrice, quantity, productName } = item;
+    let { pictureUrl, unitPrice, quantity, productName , productId, frameId, size, frameName} = item;
 
     const setQuantity = (value: number) => {
       addItemToCart({...item, quantity: (value - quantity)});
@@ -100,7 +104,7 @@ const CheckoutPage = () => {
                       />
                     </svg>
 
-                    <span>{`Black`}</span>
+                    <span>{frameName}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
                   <div className="flex items-center space-x-1.5">
@@ -135,7 +139,7 @@ const CheckoutPage = () => {
                       />
                     </svg>
 
-                    <span>{`2XL`}</span>
+                    <span>{Sizes[size]}</span>
                   </div>
                 </div>
 
@@ -165,7 +169,7 @@ const CheckoutPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span>Remove</span>
+              <span onClick={() => { removeItemFromCart(productId, frameId, size) }}>Remove</span>
             </a>
           </div>
         </div>
@@ -184,6 +188,7 @@ const CheckoutPage = () => {
               handleScrollToEl("ContactInfo");
             }}
             onCloseActive={() => {
+              trackEvent("GoToShippmentSection", "Go to Shippment Section");
               setTabActive("ShippingAddress");
               handleScrollToEl("ShippingAddress");
             }}
@@ -194,12 +199,15 @@ const CheckoutPage = () => {
           <ShippingAddress
             isActive={tabActive === "ShippingAddress"}
             onOpenActive={() => {
+              trackEvent("GoToShippmentPayment", "Go to Payment Section");
               setTabActive("ShippingAddress");
               handleScrollToEl("ShippingAddress");
             }}
             onCloseActive={() => {
-              setTabActive("PaymentMethod");
-              handleScrollToEl("PaymentMethod");
+              trackEvent("GoToPayment", "Go to Payment Section");
+              alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
+              // setTabActive("PaymentMethod");
+              // handleScrollToEl("PaymentMethod");
             }}
           />
         </div>
@@ -208,6 +216,7 @@ const CheckoutPage = () => {
           <PaymentMethod
             isActive={tabActive === "PaymentMethod"}
             onOpenActive={() => {
+              trackEvent("GoToPayment", "Go to Payment Section");
               alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
               // setTabActive("PaymentMethod");
               // handleScrollToEl("PaymentMethod");
@@ -231,8 +240,8 @@ const CheckoutPage = () => {
               Homepage
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
-            <Link href={"/collection"} className="">
-              Clothing Categories
+            <Link href={"/search"} className="">
+              Prints
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
             <span className="underline">Checkout</span>
@@ -264,24 +273,24 @@ const CheckoutPage = () => {
               <div className="mt-4 flex justify-between py-2.5">
                 <span>Subtotal</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${cartTotal}
+                  €{cartTotal}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Shipping estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${shippingPrice}
+                  €{shippingPrice}
                 </span>
               </div>
               <div className="flex justify-between py-2.5">
                 <span>Tax estimate</span>
                 <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  ${taxTotal}
+                  €{taxTotal}
                 </span>
               </div>
               <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                 <span>Order total</span>
-                <span>${(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
+                <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
               </div>
             </div>
             <ButtonPrimary disabled className="mt-8 w-full">Confirm order</ButtonPrimary>

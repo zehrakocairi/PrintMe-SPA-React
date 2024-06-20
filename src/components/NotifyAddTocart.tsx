@@ -4,6 +4,7 @@ import Prices from "./Prices";
 import Image from "../shared/Image";
 import { Size } from "../models/ProductModels";
 import { Product } from "../models/ProductModels";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   show: boolean;
@@ -18,7 +19,8 @@ const NotifyAddTocart: FC<Props> = ({
   qualitySelected,
   sizeSelected,
 }) => {
-const { name: productName, price, imageThumbnail: productImage, motto } = product;
+  const navigate = useNavigate();
+  const { name: productName, price, imageThumbnail: productImage, motto } = product;
   const renderProductCartOnNotify = () => {
     return (
       <div className="flex ">
@@ -52,6 +54,10 @@ const { name: productName, price, imageThumbnail: productImage, motto } = produc
               <button
                 type="button"
                 className="font-medium text-primary-6000 dark:text-primary-500 "
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/cart");
+                }}
               >
                 View cart
               </button>

@@ -1,15 +1,14 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { Frame, Size } from "../models/ProductModels";
-import { fetchWithAuth } from "../fetch/fetchWrapper";
-import { useMsal } from "@azure/msal-react";
-import { tokenRequest } from "../authConfig";
-import * as msal from "@azure/msal-browser"; // Import the 'msal' module
+import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
+
 
 interface ApplicationContextProps {
     frames: Frame[];
     sizes: Size[];
-    getToken: () => Promise<string | null>;
+    getToken: () => Promise<string | undefined>;
     handleGoogleSuccess: (credential: any) => void;
+    currentUser:any;
 }
 
 const ApplicationContext = createContext<ApplicationContextProps | undefined>(undefined);
@@ -22,8 +21,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
 
     const [frames, setFrames] = useState<Frame[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
-    const { instance } = useMsal();
-    const [initialized, setInitialized] = useState(false);
+    const [currentUser, setcCurrentUser] = useState<any>([]);
 
     const fetchFrames = async () => {
         const url = `/bootstrap/frames`;
@@ -45,22 +43,36 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
             throw error;
         }
     };
-    const initializeAuthentication = async () => {
-        await instance.initialize();
-        instance.setActiveAccount(instance.getAllAccounts()[0] ?? {});
-        setInitialized(true);
-        setAuthenticationMethod('microsoft');
+    const fetchCurrentUser = async () => {
+        const url = `/bootstrap/currentUser`;
+        try {
+            const response = await fetchWithAuth(url, await getToken());
+            setcCurrentUser(response);
+        } catch (error) {
+            console.error(`Error fetching frames:`, error);
+            throw error;
+        }
+    };
+    const tryCreateUser = async () => {
+        const url = `/customer`;
+        try {
+            const response = await fetchWithAuth(url, await getToken(), getPostOptions({}));
+        } catch (error) {
+            console.error(`Error fetching frames:`, error);
+            throw error;
+        }
     };
 
     useEffect(() => {
         fetchFrames();
         fetchSizes();
+        fetchCurrentUser()
     }, []);
 
-    const setAuthenticationMethod = (method: 'google' | 'microsoft') => {
+    const setAuthenticationMethod = (method: 'google') => {
         sessionStorage.setItem("authenticationMethod", 'google');
     };
-    const isAuthenticatedWith = (method: 'google' | 'microsoft'):boolean => {
+    const isAuthenticatedWith = (method: 'google'):boolean => {
         return sessionStorage.getItem("authenticationMethod") === method;
     };
 
@@ -68,6 +80,9 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         console.log("Google login successful:", credential);
         sessionStorage.setItem("accessToken", credential);
         setAuthenticationMethod('google');
+        fetchCurrentUser();
+        tryCreateUser();
+        
     };
 
     const getToken = async () => {
@@ -77,41 +92,11 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         if ((cachedToken && isAuthenticatedWith('google')) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
             return cachedToken;
         }
-
-        if(!initialized)
-            await initializeAuthentication();
-
-        const accounts = instance.getAllAccounts();
-        if (accounts.length === 0) {
-            return null;
-        }
-    
-        // Check for cached token
-    
-    
-        try {
-            const response = await instance.acquireTokenSilent(tokenRequest);
-            // Cache the token and its expiry time
-            sessionStorage.setItem("accessToken", response.accessToken);
-            sessionStorage.setItem("tokenExpiry", (response.expiresOn ?? new Date().getTime() * 1000).toString());    
-            return response.accessToken;
-        } catch (error) {
-            // If acquireTokenSilent fails, fallback to acquireTokenPopup
-            if (error instanceof msal.InteractionRequiredAuthError) {
-                const response = await instance.acquireTokenPopup(tokenRequest);
-                // Cache the token and its expiry time
-                sessionStorage.setItem("accessToken", response.accessToken);
-                sessionStorage.setItem("tokenExpiry", (response.expiresOn ?? new Date().getTime() * 1000).toString());    
-                return response.accessToken;
-            } else {
-                throw error;
-            }
-        }
     };
     
 
     return (
-        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess }}>
+        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser }}>
             {children}
         </ApplicationContext.Provider>
     );

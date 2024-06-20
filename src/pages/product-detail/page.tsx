@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -13,7 +13,6 @@ import ReviewItem from "../../components/ReviewItem";
 import detail21JPG from "../../data/images/products/detail3-1.webp";
 import detail22JPG from "../../data/images/products/detail3-2.webp";
 import detail23JPG from "../../data/images/products/detail3-3.webp";
-import detail24JPG from "../../data/images/products/detail3-4.webp";
 import IconDiscount from "../../components/IconDiscount";
 import NcInputNumber from "../../components/NcInputNumber";
 import BagIcon from "../../components/BagIcon";
@@ -27,7 +26,6 @@ import Policy from "./Policy";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ListingImageGallery from "../../components/listing-image-gallery/ListingImageGallery";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMsal } from "@azure/msal-react";
 import { getCatalogItem } from "../../services/catalogService";
 import { Product, Size } from "../../models/ProductModels";
 import {Sizes} from '../../data/types';
@@ -35,17 +33,6 @@ import {getFeaturedItems} from '../../services/catalogService';
 import { useCart } from "../../contexts/CartContext";
 import {CartItem} from '../../models/CartItem';
 import { useApplication } from "../../contexts/ApplicationContext";
-
-const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
-  detail24JPG,
-  "https://images.pexels.com/photos/3812433/pexels-photo-3812433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1127000/pexels-photo-1127000.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/292999/pexels-photo-292999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1778412/pexels-photo-1778412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/871494/pexels-photo-871494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-];
 
 const ProductDetailPage = ({ }) => {
 
@@ -56,16 +43,13 @@ const ProductDetailPage = ({ }) => {
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
 
-
-  const { instance, accounts } = useMsal();
-
   const fetchFeaturedtems = async () => {
-    const data = await getFeaturedItems(instance, accounts);
+    const {data} = await getFeaturedItems();
     setCustomersAlsoPurchesed(data);
   };
 
   const fetchProduct = async () => {
-    const product = await getCatalogItem(+(id ?? "0"), instance, accounts);
+    const product = await getCatalogItem(+(id ?? "0"), );
     setProduct(product);
   };
 

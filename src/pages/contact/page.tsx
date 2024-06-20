@@ -10,15 +10,15 @@ import SectionPromo1 from "../../components/SectionPromo1";
 const info = [
   {
     title: "🗺 ADDRESS",
-    desc: "Photo booth tattooed prism, portland taiyaki hoodie neutra typewriter",
+    desc: "Troelstradreef, 's-Hertogenbosch, Nederland",
   },
   {
     title: "💌 EMAIL",
-    desc: "nc.example@example.com",
+    desc: "contact@printmeart.nl",
   },
   {
     title: "☎ PHONE",
-    desc: "000-123-456-7890",
+    desc: "+31 6 38223568",
   },
 ];
 
@@ -75,7 +75,7 @@ const PageContact = ({}) => {
                   <Textarea className="mt-1" rows={6} />
                 </label>
                 <div>
-                  <ButtonPrimary type="submit">Send Message</ButtonPrimary>
+                  <ButtonPrimary disabled type="submit">Send Message</ButtonPrimary>
                 </div>
               </form>
             </div>

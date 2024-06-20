@@ -26,7 +26,7 @@ const SectionGridFeatureItems: FC<SectionGridFeatureItemsProps> = ({
       </div>
       <div className="flex mt-16 justify-center items-center">
         <ButtonPrimary loading={isLoading} onClick={()=>{
-          setPageSize((prev)=> prev + 10);
+          setPageSize((prev)=> (prev + 10));
           setFilterChanged((prev)=> !prev);
         }
 

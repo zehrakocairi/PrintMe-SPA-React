@@ -1,18 +1,16 @@
 "use client";
 
 import React, { FC, useEffect, useState } from "react";
-import CardCategory1 from "../CardCategories/CardCategory1";
 import CardCategory4 from "../CardCategories/CardCategory4";
 import Heading from "../Heading/Heading";
 import NavItem2 from "../NavItem2";
 import Nav from "../../shared/Nav/Nav";
-import CardCategory6 from "../CardCategories/CardCategory6";
 import MENU_TREE_DATA, { MenuType, MenuItemType } from "./data";
 
 export interface SectionGridMoreExploreProps {
   className?: string;
   gridClassName?: string;
-  boxCard?: "box1" | "box4" | "box6";
+  boxCard?: "box4";
 }
 
 const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
@@ -28,44 +26,15 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   }, [tabActive]);
 
   const renderCard = (item: MenuItemType) => {
-    switch (boxCard) {
-      case "box1":
-        return (
-          <CardCategory1 key={item.id} featuredImage={item.image} {...item} />
-        );
-
-      case "box4":
-        return (
-          <CardCategory4
-            bgSVG={item.svgBg}
-            featuredImage={item.image}
-            key={item.id}
-            color={item.color}
-            {...item}
-          />
-        );
-      case "box6":
-        return (
-          <CardCategory6
-            bgSVG={item.svgBg}
-            featuredImage={item.image}
-            key={item.id}
-            color={item.color}
-            {...item}
-          />
-        );
-
-      default:
-        return (
-          <CardCategory4
-            bgSVG={item.svgBg}
-            featuredImage={item.image}
-            key={item.id}
-            color={item.color}
-            {...item}
-          />
-        );
-    }
+    return (
+      <CardCategory4
+        bgSVG={item.svgBg}
+        featuredImage={item.image}
+        key={item.id}
+        color={item.color}
+        {...item}
+      />
+    );
   };
 
   const renderHeading = () => {

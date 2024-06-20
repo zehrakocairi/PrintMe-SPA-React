@@ -11,9 +11,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
-import { PrintSize } from "../enums/PrintSize";
 
-// DEMO DATA
 const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
   { name: "Animals", value: Category.Animals },
@@ -37,33 +35,6 @@ const DATA_categories = [
   { name: "Text Posters", value: Category.TextPosters },
 ];
 
-// const DATA_sizes = [
-//   {
-//     name: "Size13x18",
-//     value: PrintSize.Size13x18
-//   },
-//   {
-//     name: "Size21x30",
-//     value: PrintSize.Size21x30
-//   },
-//   {
-//     name: "Size30x40",
-//     value: PrintSize.Size30x40
-//   },
-//   {
-//     name: "Size40x50",
-//     value: PrintSize.Size40x50
-//   },
-//   {
-//     name: "Size50x50",
-//     value: PrintSize.Size50x50
-//   },
-//   {
-//     name: "Size70x100",
-//     value: PrintSize.Size70x100
-//   },
-// ];
-
 const DATA_sortOrderRadios = [
   { name: "Most Popular", id: "Most-Popular" },
   { name: "Best Rating", id: "Best-Rating" },
@@ -77,7 +48,7 @@ const PRICE_RANGE = [1, 500];
 const TabFilters = () => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
-  const { filter, updateIsOnSale, updateRangePrices, updatecategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
 
   const closeModalMoreFilter = () => setisOpenMoreFilter(false);
   const openModalMoreFilter = () => setisOpenMoreFilter(true);
@@ -86,15 +57,8 @@ const TabFilters = () => {
     let newState = checked
       ? (filter.categoryState ?? cat) | cat
       : (filter.categoryState ?? cat) & ~cat;
-    updatecategoryState(newState);
+    updateCategoryState(newState);
   };
-
-  // const handleChangeSizes = (checked: boolean, size: PrintSize) => {
-  //   let newState = checked
-  //     ? (filter.sizeState ?? size) | size
-  //     : (filter.sizeState ?? size) & ~size;
-  //   updatesizeState(newState);
-  // };
 
   const renderXClear = () => {
     return (
@@ -185,7 +149,12 @@ const TabFilters = () => {
               {(filter.categoryState ?? Category.None) == Category.None  ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
               ) : (
-                <span onClick={() => handleChangeCategories(false, Category.None)}>
+                <span onClick={(e) => {
+                  e.preventDefault();
+                  updateCategoryState(Category.None);
+                  setFilterChanged(!filterChanged);
+                  e.preventDefault();
+                  }}>
                   {renderXClear()}
                 </span>
               )}
@@ -219,7 +188,7 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         close();
-                        updatecategoryState(Category.None);
+                        updateCategoryState(Category.None);
                         setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
@@ -425,7 +394,7 @@ const TabFilters = () => {
   //             {(filter.sizeState ?? PrintSize.None) === PrintSize.None  ? (
   //               <ChevronDownIcon className="w-4 h-4 ml-3" />
   //             ) : (
-  //               <span onClick={() => updatesizeState(undefined)}>{renderXClear()}</span>
+  //               <span onClick={() => updateSizeState(undefined)}>{renderXClear()}</span>
   //             )}
   //           </Popover.Button>
   //           {/* <Transition
@@ -457,7 +426,7 @@ const TabFilters = () => {
   //                   <ButtonThird
   //                     onClick={() => {
   //                       close();
-  //                       updatesizeState(undefined);
+  //                       updateSizeState(undefined);
   //                     }}
   //                     sizeClass="px-4 py-2 sm:px-5"
   //                   >
@@ -966,8 +935,8 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         updateRangePrices(PRICE_RANGE);
-                        updatecategoryState(undefined);
-                        // updatesizeState(undefined);
+                        updateCategoryState(undefined);
+                        // updateSizeState(undefined);
                         updateSortOrderStates("");
                         closeModalMoreFilter();
                         setFilterChanged(!filterChanged);

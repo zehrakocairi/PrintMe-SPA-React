@@ -11,43 +11,43 @@ export interface WidgetFooterMenu {
 
 const widgetMenus: WidgetFooterMenu[] = [
   {
-    id: "5",
-    title: "Getting started",
-    menus: [
-      { href: "/", label: "Release Notes" },
-      { href: "/", label: "Upgrade Guide" },
-      { href: "/", label: "Browser Support" },
-      { href: "/", label: "Dark Mode" },
-    ],
-  },
-  {
     id: "1",
-    title: "Explore",
+    title: "Navigation",
     menus: [
-      { href: "/", label: "Prototyping" },
-      { href: "/", label: "Design systems" },
-      { href: "/", label: "Pricing" },
-      { href: "/", label: "Security" },
+      { href: "/search", label: "Prints" },
+      { href: "/our-services", label: "Frames" },
+      { href: "/about", label: "About Us" },
+      { href: "/search?tags=1", label: "Bestsellers" },
     ],
   },
   {
     id: "2",
-    title: "Resources",
+    title: "Nature & Art",
     menus: [
-      { href: "/", label: "Best practices" },
-      { href: "/", label: "Support" },
-      { href: "/", label: "Developers" },
-      { href: "/", label: "Learn design" },
+      { href: "/search?category=nature-prints", label: "Nature prints" },
+      { href: "/search?category=botanical", label: "Botanical" },
+      { href: "/search?category=animals", label: "Animals" },
+      { href: "/search?category=space-and-astronomy", label: "Space and astronomy" },
+    ],
+  },
+  {
+    id: "3",
+    title: "Vintage & Retro",
+    menus: [
+      { href: "/search?category=retro-and-vintage", label: "Retro and vintage" },
+      { href: "/search?category=black-and-white", label: "Black and white" },
+      { href: "/search?category=gold-and-silver", label: "Gold and silver" },
+      { href: "/search?category=historical-prints", label: "Historical prints" },
     ],
   },
   {
     id: "4",
-    title: "Community",
+    title: "Art Styles",
     menus: [
-      { href: "/", label: "Discussion Forums" },
-      { href: "/", label: "Code of Conduct" },
-      { href: "/", label: "Contributing" },
-      { href: "/", label: "API Reference" },
+      { href: "/search?category=illustrations", label: "Illustrations" },
+      { href: "/search?category=photographs", label: "Photographs" },
+      { href: "/search?category=art-prints", label: "Art prints" },
+      { href: "/search?category=text-posters", label: "Text posters" },
     ],
   },
 ];
@@ -66,7 +66,6 @@ const Footer: React.FC = () => {
                 key={index}
                 className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
                 href={item.href}
-                target="_blank"
                 rel="noopener noreferrer"
               >
                 {item.label}

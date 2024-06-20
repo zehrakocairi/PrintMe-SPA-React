@@ -188,8 +188,7 @@ const ShippingAddress: FC<Props> = ({
             <ButtonPrimary
               className="sm:!px-7 shadow-none"
               onClick={ ()=>{
-                alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
-                // onCloseActive();
+                onCloseActive();
               }}
             >
               Save and next to Payment

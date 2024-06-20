@@ -30,7 +30,7 @@ export const FRAMES: CardCategory3Props[] = [
   {
     name: "Visit Our Space",
     desc: "Pick up prints,<br />enjoy coffee.",
-    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.png',
+    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.webp',
     color: "bg-blue-50",
   },
   {

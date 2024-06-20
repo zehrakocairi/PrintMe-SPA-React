@@ -19,13 +19,14 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
   const [indexActive, setIndexActive] = useState(0);
-  const [isRunning, toggleIsRunning] = useBoolean(true);
+  const [isRunning, toggleIsRunning] = useBoolean(false);
 
   useInterval(
     () => {
+      toggleIsRunning(true);
       handleAutoNext();
     },
-    isRunning ? 5500 : null
+    isRunning ? 5500 : 10000
   );
   //
 
@@ -177,6 +178,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               className="w-full h-full object-contain object-right-bottom pr-16 nc-SectionHero2Item__image carousel-image-container"
               src={item.image}
               alt={item.heading}
+              showMobileImage={true}
               priority
             />
           </div>

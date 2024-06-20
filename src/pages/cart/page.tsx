@@ -7,6 +7,7 @@ import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
 import { useState } from "react";
+import { Sizes } from "../../data/types";
 
 const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
@@ -31,7 +32,7 @@ const CartPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId } = item;
+    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId, frameName } = item;
     
   const setQuantity = (value: number) => {
     addItemToCart({...item, quantity: (value - quantity)});
@@ -104,7 +105,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`Black`}</span>
+                    <span>{frameName}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
                   <div className="flex items-center space-x-1.5">
@@ -139,7 +140,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`2XL`}</span>
+                    <span>{Sizes[size]}</span>
                   </div>
                 </div>
 
@@ -216,24 +217,24 @@ const CartPage = () => {
                 <div className="flex justify-between pb-4">
                   <span>Subtotal</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {cartTotal}
+                  €{cartTotal}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Shipping estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${shippingPrice}
+                    €{shippingPrice}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Tax estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${taxTotal.toFixed(2)}
+                    €{taxTotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                   <span>Order total</span>
-                  <span>{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
+                  <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
                 </div>
               </div>
               <ButtonPrimary href="/checkout" className="mt-8 w-full">
@@ -272,7 +273,6 @@ const CartPage = () => {
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="##"
                     className="text-slate-900 dark:text-slate-200 underline font-medium"
                   >
                     Taxes
@@ -283,7 +283,6 @@ const CartPage = () => {
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="##"
                     className="text-slate-900 dark:text-slate-200 underline font-medium"
                   >
                     Shipping

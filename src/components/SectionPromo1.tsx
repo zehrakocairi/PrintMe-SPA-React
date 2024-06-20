@@ -26,6 +26,7 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
           Plan Your Visit
           </ButtonPrimary>
           <ButtonSecondary
+            aria-label="Learn More about PrintMe"
             href="/search"
             className="border border-slate-100 dark:border-slate-700"
           >
@@ -37,16 +38,18 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
         <NcImage
           alt=""
           containerClassName="block dark:hidden"
-          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.jpg'
+          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.webp'
           sizes="(max-width: 768px) 100vw, 50vw"
           className="promo-image"
+          showMobileImage={true}
         />
         <NcImage
           alt=""
           containerClassName="hidden dark:block"
-          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.jpg'
+          src='https://genstorageaccount3116.blob.core.windows.net/printme-images/alone-painter.webp'
           sizes="(max-width: 768px) 100vw, 50vw"
           className="promo-image"
+          showMobileImage={true}
         />
       </div>
     </div>

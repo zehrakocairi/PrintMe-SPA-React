@@ -1,43 +1,30 @@
 "use client"
 
-import React, { FC } from "react";
 import twitterSvg from "../../data/images/Twitter.svg";
-import googleSvg from "../../data/images/Google.svg";
 import Input from "../../shared/Input/Input";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Image from "../../shared/Image";
 import Link from "../../shared/Link";
-import { useMsal } from '@azure/msal-react';
-import { loginRequest } from '../../authConfig';
 import { GoogleLogin } from '@react-oauth/google';
 import { useApplication } from "../../contexts/ApplicationContext";
 
 
 const PageLogin = () => {
 
-  const { instance } = useMsal();
   const { handleGoogleSuccess } = useApplication();
-
-
-  const handleMicrosoftLogin = () => {
-    instance.loginPopup(loginRequest).catch((e) => {
-      console.error(e);
-    });
-    return true;
-  };
 
   const handleGoogleFailure = () => {
     console.log("Google login failed:");
   };
 
   const loginSocials = [
-    {
-      name: "Continue with Microsoft",
-      href: "#",
-      icon: twitterSvg,
-      handleClick: handleMicrosoftLogin
-    }
-  ];
+    // {
+    //   name: "Continue with Google",
+    //   href: "#",
+    //   icon: twitterSvg,
+    //   handleClick: ()=>{}
+    // }
+  ] as any[];
 
   return (
     <div className={`nc-PageLogin`} data-nc-id="PageLogin">

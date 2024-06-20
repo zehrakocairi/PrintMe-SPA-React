@@ -1,6 +1,4 @@
 import { fetchWithAuth } from "../fetch/fetchWrapper";
-import { IPublicClientApplication } from "@azure/msal-browser";
-import { tokenRequest } from "../authConfig";
 import { CatalogType } from "../enums/CatalogType";
 import { Category } from "../enums/Category";
 import { CatalogTags } from "../enums/CatalogTags";
@@ -8,21 +6,20 @@ import { FilterState } from "../models/FilterModels";
 import { Product } from "../models/ProductModels";
 
 
-const fetchCatalogItems = async (url: string, instance: IPublicClientApplication, accounts: any[]) => {
+const fetchCatalogItems = async (url: string) => {
   try {
-    const accessToken = await getAccessToken(instance, accounts);
-    const response = await fetchWithAuth(url, accessToken);
-    return response.data.map((item:Product)=> new Product(item));
+    const response = await fetchWithAuth(url, localStorage.getItem("accessToken"));
+    
+    return {data : response.data.map((item:Product)=> new Product(item)), totalPages: response.totalPage};
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;
   }
 };
 
-export const getCatalogItem = async (id: number, instance: IPublicClientApplication, accounts: any[]) => {
+export const getCatalogItem = async (id: number) => {
   try {
-    const accessToken = await getAccessToken(instance, accounts);
-    const data = await fetchWithAuth(`/catalog/${id}`, accessToken);
+    const data = await fetchWithAuth(`/catalog/${id}`, localStorage.getItem("accessToken"));
     return new Product(data)
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
@@ -30,37 +27,37 @@ export const getCatalogItem = async (id: number, instance: IPublicClientApplicat
   }
 };
 
-export const getFeaturedItems = async (instance: IPublicClientApplication, accounts: any[]) => {
-  const url = `/catalog/search?pageSize=4&catalogType=1&tags=2`;
-  return fetchCatalogItems(url, instance, accounts);
+export const getFeaturedItems = async () => {
+  const url = `/catalog/search?pageSize=6&catalogType=1&tags=2`;
+  return fetchCatalogItems(url);
 };
 
-export const getTrendingItems = async (instance: IPublicClientApplication, accounts: any[]) => {
+export const getTrendingItems = async () => {
   const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.TopSellers}`;
-  return fetchCatalogItems(url, instance, accounts);
+  return fetchCatalogItems(url);
 };
 
-export const getOnSaleItems = async (instance: IPublicClientApplication, accounts: any[]) => {
+export const getOnSaleItems = async (accessToken:string) => {
   const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.OnSale}`;
-  return fetchCatalogItems(url, instance, accounts);
+  return fetchCatalogItems(url);
 };
 
-export const getOurPickItems = async (instance: IPublicClientApplication, accounts: any[]) => {
+export const getOurPickItems = async () => {
   const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.OurPick}`;
-  return fetchCatalogItems(url, instance, accounts);
+  return fetchCatalogItems(url);
 };
 
-export const getPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], pageSize: number = 12, pageIndex: number = 0, category?: Category,) => {
+export const getPaginatedItems = async (pageSize: number = 12, pageIndex: number = 0, category?: Category,) => {
   const url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}&catalogType=${CatalogType.Print}`;
-  return fetchCatalogItems(url, instance, accounts);
+  return fetchCatalogItems(url);
 };
 
-export const getFilteredPaginatedItems = async (instance: IPublicClientApplication, accounts: any[], filter: FilterState, pageSize: number = 12, pageIndex: number = 0, searchText = "") => {
+export const getFilteredPaginatedItems = async (filter: FilterState, pageSize: number = 12, pageIndex: number = 0, searchText = "") => {
   let url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}${toQueryString(filter)}`;
-  if(searchText != ""){
+  if(searchText !== ""){
     url += `&searchTerm=${searchText}`;
   }
-  return fetchCatalogItems(url, instance, accounts);
+  return fetchCatalogItems(url);
 };
 
 
@@ -68,6 +65,8 @@ function toQueryString(filter: FilterState) {
   let query = "";
   if (filter.isOnSale === true) {
     query += `&tags=${CatalogTags.OnSale}`;
+  } else if (filter.tag) {
+    query += `&tags=${filter.tag}`;
   }
   if (filter.rangePrices.length > 0 && filter.rangePrices[0] > 0) {
     query += `&priceFrom=${filter.rangePrices[0]}`;
@@ -85,16 +84,4 @@ function toQueryString(filter: FilterState) {
     query += `&sortOrderStates=${filter.sortOrderStates}`;
   }
   return query;
-}
-
-async function getAccessToken(instance: IPublicClientApplication, accounts: any[]) {
-  return null;
-  let token: string | null = null;
-  if (accounts.length > 0) {
-    const response = await instance.acquireTokenSilent(tokenRequest);
-    if (response.accessToken) {
-      token = response.accessToken;
-    }
-  }
-  return token;
 }

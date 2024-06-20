@@ -32,7 +32,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
     >
       <div>
         <div className="absolute bottom-0 right-0 max-w-[280px] opacity-80">
-          <Image src={bgSVG} alt="" />
+          <Image width="200" height="200" src={bgSVG} alt="" />
         </div>
 
         <div className="absolute inset-5 sm:inset-8 flex flex-col justify-between">
@@ -59,16 +59,16 @@ const CardCategory4: FC<CardCategory4Props> = ({
           </div>
 
           <Link
-            href={"/collection"}
+            href={"/search"}
             className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
           >
-            <span>See Collection</span>
+            <span>See Prints</span>
             <ArrowRightIcon className="w-4 h-4 ml-2.5" />
           </Link>
         </div>
       </div>
 
-      <Link href={link ?? "/collection"}></Link>
+      <Link href={link ?? "/search"} aria-label="Show All Categories"></Link>
     </div>
   );
 };

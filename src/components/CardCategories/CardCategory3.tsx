@@ -24,6 +24,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
     <Link
       href={href}
       className={`nc-CardCategory3 block ${className}`}
+      aria-label={name}
     >
       <div
         className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group ${color}`}

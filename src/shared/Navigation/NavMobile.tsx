@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import ButtonClose from "../ButtonClose/ButtonClose";
 import Logo from "../Logo/Logo";
@@ -7,7 +5,6 @@ import { Disclosure } from "../../headlessui";
 import { NavItemType } from "./NavigationItem";
 import { NAVIGATION_DEMO_2 } from "../../data/navigation";
 import ButtonPrimary from "../Button/ButtonPrimary";
-import SocialsList from "../SocialsList/SocialsList";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import Link from "../../shared/Link";
 

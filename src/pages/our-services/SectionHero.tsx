@@ -31,7 +31,7 @@ const SectionHero: FC<SectionHeroProps> = ({
         {!!btnText && <ButtonPrimary href="/login">{btnText}</ButtonPrimary>}
       </div>
       <div className="w-full lg:w-1/2">
-        <Image className="w-full h-auto object-cover rounded-lg" src={rightImg} alt="" priority />
+        <Image className="w-full h-auto object-cover rounded-lg box-with-shadow" src={rightImg} alt="" priority />
       </div>
     </div>
   </div>
