@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { Frame, Size } from "../models/ProductModels";
 import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
 
-
 interface ApplicationContextProps {
     frames: Frame[];
     sizes: Size[];
@@ -82,7 +81,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         setAuthenticationMethod('google');
         fetchCurrentUser();
         tryCreateUser();
-        
+        window.location.href = "/";
     };
 
     const getToken = async () => {
