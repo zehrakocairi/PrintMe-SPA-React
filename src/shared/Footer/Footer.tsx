@@ -8,7 +8,6 @@ export interface WidgetFooterMenu {
   title: string;
   menus: CustomLink[];
 }
-
 const widgetMenus: WidgetFooterMenu[] = [
   {
     id: "1",
@@ -22,35 +21,54 @@ const widgetMenus: WidgetFooterMenu[] = [
   },
   {
     id: "2",
-    title: "Nature & Art",
+    title: "Nature & Landscapes",
     menus: [
       { href: "/search?category=nature-prints", label: "Nature prints" },
-      { href: "/search?category=botanical", label: "Botanical" },
-      { href: "/search?category=animals", label: "Animals" },
+      { href: "/search?category=botanical-art", label: "Botanical art" },
+      { href: "/search?category=animal-art", label: "Animal art" },
       { href: "/search?category=space-and-astronomy", label: "Space and astronomy" },
+      { href: "/search?category=maps-and-cities", label: "Maps and cities" },
+      { href: "/search?category=landscapes", label: "Landscapes" },
     ],
   },
   {
     id: "3",
-    title: "Vintage & Retro",
+    title: "Famous Painters",
     menus: [
-      { href: "/search?category=retro-and-vintage", label: "Retro and vintage" },
-      { href: "/search?category=black-and-white", label: "Black and white" },
-      { href: "/search?category=gold-and-silver", label: "Gold and silver" },
-      { href: "/search?category=historical-prints", label: "Historical prints" },
+      { href: "/search?category=art-prints", label: "Art prints" },
+      { href: "/search?category=renaissance-masters", label: "Renaissance Masters" },
+      { href: "/search?category=dutch-masters", label: "Dutch masters" },
+      { href: "/search?category=modern-masters", label: "Modern masters" },
+      { href: "/search?category=abstract-art", label: "Abstract art" },
     ],
   },
   {
     id: "4",
+    title: "Posters",
+    menus: [
+      { href: "/search?category=retro-and-vintage", label: "Retro and vintage" },
+      { href: "/search?category=black-and-white", label: "Black and white" },
+      { href: "/search?category=historical-posters", label: "Historical posters" },
+      { href: "/search?category=classic-posters", label: "Classic posters" },
+      { href: "/search?category=text-posters", label: "Text posters" },
+      { href: "/search?category=movies-and-games-posters", label: "Movies & Games posters" },
+      { href: "/search?category=music-posters", label: "Music posters" },
+      { href: "/search?category=sports-posters", label: "Sports posters" },
+    ],
+  },
+  {
+    id: "5",
     title: "Art Styles",
     menus: [
       { href: "/search?category=illustrations", label: "Illustrations" },
       { href: "/search?category=photographs", label: "Photographs" },
-      { href: "/search?category=art-prints", label: "Art prints" },
-      { href: "/search?category=text-posters", label: "Text posters" },
+      { href: "/search?category=iconic-photos", label: "Iconic photos" },
+      { href: "/search?category=general-posters", label: "General posters" },
+      { href: "/search?category=kids-wall-art", label: "Kids' Wall Art" },
     ],
   },
 ];
+
 
 const Footer: React.FC = () => {
   const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {

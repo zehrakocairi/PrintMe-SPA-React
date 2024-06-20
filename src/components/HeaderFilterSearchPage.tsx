@@ -22,10 +22,10 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
   const {updateCategoryState, filter, setFilterChanged} = useFilter()
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: "All Items" },
-    { key: Category.Nature, value: "Nature" },
-    { key: Category.VintageAndRetro, value: "Vintage and Retro" },
+    { key: Category.NatureAndLandscapes, value: "Nature and Landscapes" },
+    { key: Category.Posters, value: "Posters" },
     { key: Category.ArtStyles, value: "Art Styles" },
-    { key: Category.FamousPaintersCategory, value: "Famous Painters" }
+    { key: Category.FamousPainters, value: "Famous Painters" }
   ];
 
   return (

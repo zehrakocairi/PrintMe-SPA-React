@@ -27,10 +27,10 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
   const { updateCategoryState, filter, setFilterChanged } = useFilter();
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: t('All Items') },
-    { key: Category.Nature, value: t('Nature') },
-    { key: Category.VintageAndRetro, value: t('Vintage and Retro') },
+    { key: Category.NatureAndLandscapes, value: t('Nature and Landscapes') },
+    { key: Category.Posters, value: t('Posters') },
     { key: Category.ArtStyles, value: t('Art Styles') },
-    { key: Category.FamousPaintersCategory, value: t('Famous Painters') }
+    { key: Category.FamousPainters, value: t('Famous Painters') }
   ];
 
   return (

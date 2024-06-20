@@ -15,26 +15,31 @@ import { useTranslation } from "react-i18next";
 
 const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
-  { name: "Animals", value: Category.Animals },
+  { name: "Animal Art", value: Category.AnimalArt },
   { name: "Art Prints", value: Category.ArtPrints },
   { name: "Black And White", value: Category.BlackAndWhite },
-  { name: "Botanical", value: Category.Botanical },
+  { name: "Botanical Art", value: Category.BotanicalArt },
   { name: "Classic Posters", value: Category.ClassicPosters },
+  { name: "Dutch Masters", value: Category.DutchMasters },
   { name: "Famous Painters", value: Category.FamousPainters },
-  { name: "Gold And Silver", value: Category.GoldAndSilver },
-  { name: "Graphical", value: Category.Graphical },
-  { name: "Historical Prints", value: Category.HistoricalPrints },
+  { name: "Historical Posters", value: Category.HistoricalPosters },
   { name: "Iconic Photos", value: Category.IconicPhotos },
   { name: "Illustrations", value: Category.Illustrations },
+  { name: "Landscapes", value: Category.Landscapes },
   { name: "Maps And Cities", value: Category.MapsAndCities },
-  { name: "Modern Artists", value: Category.ModernArtists },
+  { name: "Modern Masters", value: Category.ModernMasters },
+  { name: "Movies & Games Posters", value: Category.MoviesAndGamesPosters },
+  { name: "Music Posters", value: Category.MusicPosters },
   { name: "Nature Prints", value: Category.NaturePrints },
   { name: "Photographs", value: Category.Photographs },
+  { name: "Renaissance Masters", value: Category.RenaissanceMasters },
   { name: "Retro And Vintage", value: Category.RetroAndVintage },
   { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
-  { name: "Studio Collections", value: Category.StudioCollections },
+  { name: "Sports Posters", value: Category.SportsPosters },
   { name: "Text Posters", value: Category.TextPosters },
+  { name: "Kids' Wall Art", value: Category.KidsWallArt },
 ];
+
 
 const DATA_sortOrderRadios = [
   { name: "Most Popular", id: "Most-Popular" },
