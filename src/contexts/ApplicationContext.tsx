@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { Frame, Size } from "../models/ProductModels";
-import { fetchWithAuth } from "../fetch/fetchWrapper";
+import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
 
 
 interface ApplicationContextProps {
@@ -53,6 +53,15 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
             throw error;
         }
     };
+    const tryCreateUser = async () => {
+        const url = `/customer`;
+        try {
+            const response = await fetchWithAuth(url, await getToken(), getPostOptions({}));
+        } catch (error) {
+            console.error(`Error fetching frames:`, error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         fetchFrames();
@@ -72,6 +81,8 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         sessionStorage.setItem("accessToken", credential);
         setAuthenticationMethod('google');
         fetchCurrentUser();
+        tryCreateUser();
+        
     };
 
     const getToken = async () => {

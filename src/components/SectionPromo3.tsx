@@ -71,7 +71,7 @@ const SectionPromo3: FC<SectionPromo3Props> = ({ className = "lg:pt-10" }) => {
         <NcImage
           alt=""
           containerClassName="relative block lg:absolute lg:right-0 lg:bottom-0 mt-10 lg:mt-0 max-w-lg lg:max-w-[calc(42%-40px)]"
-          src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/painting-girl.png'}
+          src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/painting-girl.webp'}
           sizes="(max-width: 768px) 100vw, 50vw"
           className=""
         />
