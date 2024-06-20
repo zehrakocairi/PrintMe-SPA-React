@@ -85,8 +85,15 @@ const AccountOrder = () => {
     <div className="space-y-10 sm:space-y-12">
       {/* HEADING */}
       <h2 className="text-2xl sm:text-3xl font-semibold">Order History</h2>
-      {renderOrder()}
-      {renderOrder()}
+      {/* {renderOrder()}
+      {renderOrder()} */}
+       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
+          <div>
+            <p className="text-lg font-semibold">You don't have any order yet</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

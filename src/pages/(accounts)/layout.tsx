@@ -2,6 +2,7 @@ import { useLocation, Outlet } from 'react-router-dom';
 import Link from "../../shared/Link";
 import React from "react";
 import { FC } from "react";
+import { useApplication } from '../../contexts/ApplicationContext';
 
 export interface CommonLayoutProps {
   children?: React.ReactNode;
@@ -28,6 +29,7 @@ const pages: {
 const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
   const pathname = useLocation().pathname;
 
+  const {currentUser} = useApplication();
   return (
     <div className="nc-AccountCommonLayout container">
       <div className="mt-14 sm:mt-20">
@@ -35,10 +37,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
           <div className="max-w-2xl">
             <h2 className="text-3xl xl:text-4xl font-semibold">Account</h2>
             <span className="block mt-4 text-neutral-500 dark:text-neutral-400 text-base sm:text-lg">
-              <span className="text-slate-900 dark:text-slate-200 font-semibold">
-                Enrico Cole,
-              </span>{" "}
-              ciseco@gmail.com · Los Angeles, CA
+              {currentUser.email}
             </span>
           </div>
           <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>

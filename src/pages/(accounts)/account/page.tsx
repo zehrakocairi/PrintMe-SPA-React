@@ -1,78 +1,48 @@
 import Label from "../../../components/Label/Label";
-import React, { FC,useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import ButtonPrimary from "../../../shared/Button/ButtonPrimary";
 import Input from "../../../shared/Input/Input";
 import Select from "../../../shared/Select/Select";
 import Textarea from "../../../shared/Textarea/Textarea";
-import { avatarImgs } from "../../../contains/fakeData";
 import Image from "../../../shared/Image";
 import { useApplication } from "../../../contexts/ApplicationContext";
+import { fetchWithAuth, getPostOptions, getPutOptions } from "../../../fetch/fetchWrapper";
+
 
 
 
 // TODOS:
-// 1. Fetch user data
-// 2. Update user data
 // 3. Handle user data (Client side validation)
 const AccountPage = () => {
-  // TODO : Keep data in state
-
-  // TODO : fetch user data
-  // GET user/:id
-
-  // TODO : update user data
-  //POST user/:id
-  const {currentUser} = useApplication();
+  const {currentUser, getToken} = useApplication();
   const [userData, setUserData] = useState({
+    id: "",
     fullName: "",
     email: "",
-    dateOfBirth: "",
+    dateOfBirth: undefined,
     address: "",
-    gender: "Male",
     phoneNumber: "",
-    about: "",
+    profilePictureUrl: "https://genstorageaccount3116.blob.core.windows.net/printme-images/profile.svg",
   });
 
+  const fetchUserData = async () => {
+    var data = await fetchWithAuth(`/customer`, await getToken());
+    setUserData(data);
+  };
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`/user/${currentUser.id}`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error("Failed to fetch user data", error);
-      }
-    };
-
     fetchUserData();
-  }, [currentUser.id]);
+  }, []);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: ChangeEvent<any>) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
   const handleSubmit = async (e: FormEvent) => {
-    debugger
     e.preventDefault();
-    try {
-      const response = await fetch(`/user/${currentUser.id}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      alert("User data updated successfully");
-    } catch (error) {
-      console.error("Failed to update user data", error);
-    }
+    await fetchWithAuth(`/customer/${currentUser.id}`, await getToken(),  getPutOptions(userData));
+    await fetchUserData();
   };
 
 
@@ -88,14 +58,14 @@ const AccountPage = () => {
             {/* AVATAR */}
             <div className="relative rounded-full overflow-hidden flex">
               <Image
-                src={avatarImgs[2]}
+                src={userData.profilePictureUrl}
                 alt="avatar"
                 width={128}
                 height={128}
                 className="w-32 h-32 rounded-full object-cover z-0"
               />
               <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
-                <svg
+              <svg
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"
@@ -110,7 +80,6 @@ const AccountPage = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-
                 <span className="mt-1 text-xs">Change Image</span>
               </div>
               <input
@@ -147,7 +116,7 @@ const AccountPage = () => {
                  value={userData.email}
                  onChange={handleChange}
                  placeholder="example@gmail.com"
-                 required
+                 disabled
                 />
               </div>
             </div>
@@ -163,15 +132,14 @@ const AccountPage = () => {
                   className="!rounded-l-none"
                   type="date"
                   name="dateOfBirth"
-                  value={userData.dateOfBirth}
+                  value={userData.dateOfBirth ? new Date(userData.dateOfBirth).toISOString().split('T')[0] : ""}
                   onChange={handleChange}
-                  required
                 />
               </div>
             </div>
             {/* ---- */}
             <div>
-              <Label>Addess</Label>
+              <Label>Address</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
@@ -182,22 +150,8 @@ const AccountPage = () => {
                   value={userData.address}
                   onChange={handleChange}
                   placeholder="Address"
-                  required
                 />
               </div>
-            </div>
-
-            {/* ---- */}
-            <div>
-              <Label>Gender</Label>
-              <Select className="mt-1.5"
-                  name="gender"
-                  value={userData.gender}
-                  onChange={handleChange}>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Select>
             </div>
 
             {/* ---- */}
@@ -211,18 +165,8 @@ const AccountPage = () => {
                     name="phoneNumber"
                     value={userData.phoneNumber}
                     onChange={handleChange}
-                    placeholder="Phone Number" 
-                    required/>
+                    placeholder="Phone Number"/>
               </div>
-            </div>
-            {/* ---- */}
-            <div>
-              <Label>About you</Label>
-              <Textarea className="mt-1.5"
-                  name="about"
-                  value={userData.about}
-                  onChange={handleChange}
-                  placeholder="About you" />
             </div>
             <div className="pt-2">
               <ButtonPrimary>Update account</ButtonPrimary>
