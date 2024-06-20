@@ -28,7 +28,7 @@ const PageOurServices = ({ }) => {
         </div>
         <div className="relative py-16">
           <FrameFeatures />
-          <BackgroundSection zIndex={-1} />
+          {/* <BackgroundSection zIndex={-1} className="z-index-minus"/> */}
         </div>
         <div className="relative py-32">
         <SalesPromo />
