@@ -79,22 +79,22 @@ const PageLogin = () => {
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Password
-                <Link href="/forgot-pass" className="text-sm text-green-600">
+                {/* <Link href="/forgot-pass" className="text-sm text-green-600">
                   Forgot password?
-                </Link>
+                </Link> */}
               </span>
               <Input type="password" className="mt-1" />
             </label>
-            <ButtonPrimary type="submit">Continue</ButtonPrimary>
+            <ButtonPrimary disabled type="submit">Continue</ButtonPrimary>
           </form>
 
           {/* ==== */}
-          <span className="block text-center text-neutral-700 dark:text-neutral-300">
+          {/* <span className="block text-center text-neutral-700 dark:text-neutral-300">
             New user? {` `}
             <Link className="text-green-600" href="/login">
               Create an account
             </Link>
-          </span>
+          </span> */}
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ export default function AvatarDropdown() {
   const handleLogout = () => {
     googleLogout();
     sessionStorage.removeItem("accessToken");
+    window.location.href = "/login";
     return true;
   };
 
