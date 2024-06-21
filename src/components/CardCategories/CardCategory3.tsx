@@ -47,7 +47,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
           <div className="absolute inset-5 sm:inset-8 flex flex-col">
             <div className="max-w-xs">
               <span className={`block mb-2 text-sm text-slate-700`}>
-                {name}
+                {t(name?? "")}
               </span>
               {desc && (
                 <h2

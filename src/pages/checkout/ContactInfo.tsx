@@ -4,6 +4,7 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Checkbox from "../../shared/Checkbox/Checkbox";
 import Input from "../../shared/Input/Input";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isActive: boolean;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
+  const { t } = useTranslation();
+  
   const renderAccount = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden z-0">
@@ -85,7 +88,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             <span className="block text-sm my-1 md:my-0">
               Do not have an account?{` `}
               <a href="/login" className="text-primary-500 font-medium">
-                Log in
+            {t("Log in")}
               </a>
             </span>
           </div>

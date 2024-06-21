@@ -9,6 +9,7 @@ import TabFilters from "./TabFilters";
 import { Transition } from "../headlessui";
 import { Category } from "../enums/Category";
 import { useFilter } from "../contexts/FilterContext";
+import { useTranslation } from "react-i18next";
 
 export interface HeaderFilterSearchPageProps {
   className?: string;
@@ -27,6 +28,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
     { key: Category.ArtStyles, value: "Art Styles" },
     { key: Category.FamousPaintersCategory, value: "Famous Painters" }
   ];
+  const { t } = useTranslation();
 
   return (
     <div className={`flex flex-col relative ${className}`}>
@@ -45,7 +47,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
                   setFilterChanged(prev=>!prev);
                 }}
               >
-                {item.value}
+                {t(item.value)}
               </NavItem>
             )
           )}
@@ -87,7 +89,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
               />
             </svg>
 
-            <span className="block truncate ml-2.5">Filter</span>
+            <span className="block truncate ml-2.5">{t("Filter")}</span>
             <span className="absolute top-1/2 -translate-y-1/2 right-5">
               <ChevronDownIcon
                 className={`w-4 h-4 sm:w-5 sm:h-5 ${

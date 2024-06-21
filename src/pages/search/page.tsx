@@ -11,12 +11,14 @@ import { useFilter } from "../../contexts/FilterContext";
 import { useLocation } from "react-router-dom";
 import { useRef } from "react";
 import { CatalogTags } from "../../enums/CatalogTags";
+import { useTranslation } from "react-i18next";
 
 
 const PageSearch = () => {
 
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const { t } = useTranslation();
 
   const location = useLocation();
   const pageInitiated = useRef(false);
@@ -134,7 +136,7 @@ const PageSearch = () => {
                 className="shadow-lg border-0 dark:border"
                 id="search-input"
                 type="search"
-                placeholder="Type your keywords"
+                placeholder={t("Type your keywords")}
                 sizeClass="pl-14 py-5 pr-5 md:pl-16"
                 rounded="rounded-full"
                 value={searchText}

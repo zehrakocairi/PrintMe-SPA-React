@@ -23,7 +23,7 @@ const MENU_TREE_DATA = new Map<string, MenuItemType[]>();
 MENU_TREE_DATA.set("Nature", [
   {
     id: 1,
-    name: "Nature Prints",
+    name: "Nature prints",
     desc: "Nature",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/Tree.webp',
     svgBg: explore1Svg,
@@ -53,7 +53,7 @@ MENU_TREE_DATA.set("Nature", [
   },
   {
     id: 4,
-    name: "Space and Astronomy",
+    name: "Space and astronomy",
     desc: "Nature",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/modern.webp',
     svgBg: explore1Svg,
@@ -63,7 +63,7 @@ MENU_TREE_DATA.set("Nature", [
   },
   {
     id: 5,
-    name: "Maps and Cities",
+    name: "Maps and cities",
     desc: "Nature",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/city.webp',
     svgBg: explore2Svg,
@@ -76,7 +76,7 @@ MENU_TREE_DATA.set("Nature", [
 MENU_TREE_DATA.set("Vintage and Retro", [
   {
     id: 1,
-    name: "Retro and Vintage",
+    name: "Retro and vintage",
     desc: "Vintage & Retro",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/Tree.webp',
     svgBg: explore1Svg,
@@ -86,7 +86,7 @@ MENU_TREE_DATA.set("Vintage and Retro", [
   },
   {
     id: 2,
-    name: "Black and White",
+    name: "Black and white",
     desc: "Vintage & Retro",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/plant.webp',
     svgBg: explore2Svg,
@@ -96,7 +96,7 @@ MENU_TREE_DATA.set("Vintage and Retro", [
   },
   {
     id: 3,
-    name: "Gold and Silver",
+    name: "Gold and silver",
     desc: "Vintage & Retro",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/photo.webp',
     svgBg: explore3Svg,
@@ -106,7 +106,7 @@ MENU_TREE_DATA.set("Vintage and Retro", [
   },
   {
     id: 4,
-    name: "Historical Prints",
+    name: "Historical prints",
     desc: "Vintage & Retro",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/modern.webp',
     svgBg: explore1Svg,
@@ -116,7 +116,7 @@ MENU_TREE_DATA.set("Vintage and Retro", [
   },
   {
     id: 5,
-    name: "Classic Posters",
+    name: "Classic posters",
     desc: "Vintage & Retro",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/city.webp',
     svgBg: explore2Svg,
@@ -149,7 +149,7 @@ MENU_TREE_DATA.set("Art Styles", [
   },
   {
     id: 3,
-    name: "Art Prints",
+    name: "Art prints",
     desc: "Art Styles",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/photo.webp',
     svgBg: explore3Svg,
@@ -159,7 +159,7 @@ MENU_TREE_DATA.set("Art Styles", [
   },
   {
     id: 4,
-    name: "Text Posters",
+    name: "Text posters",
     desc: "Art Styles",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/modern.webp',
     svgBg: explore9Svg,
@@ -182,7 +182,7 @@ MENU_TREE_DATA.set("Art Styles", [
 MENU_TREE_DATA.set("Famous Painters", [
   {
     id: 1,
-    name: "Famous Painters",
+    name: "Famous painters",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/Tree.webp',
     svgBg: explore1Svg,
@@ -192,7 +192,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 2,
-    name: "Iconic Photos",
+    name: "Iconic photos",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/plant.webp',
     svgBg: explore2Svg,
@@ -202,7 +202,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 3,
-    name: "Studio Collections",
+    name: "Studio collections",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/photo.webp',
     svgBg: explore3Svg,
@@ -212,7 +212,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 4,
-    name: "Modern Artists",
+    name: "Modern artists",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/modern.webp',
     svgBg: explore9Svg,
@@ -222,7 +222,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 5,
-    name: "Abstract Art",
+    name: "Abstract art",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/city.webp',
     svgBg: explore6Svg,

@@ -2,6 +2,7 @@ import Logo from "../Logo/Logo";
 import SocialsList1 from "../SocialsList1/SocialsList1";
 import { CustomLink } from "../../data/types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface WidgetFooterMenu {
   id: string;
@@ -42,7 +43,7 @@ const widgetMenus: WidgetFooterMenu[] = [
   },
   {
     id: "4",
-    title: "Art Styles",
+    title: "Art styles",
     menus: [
       { href: "/search?category=illustrations", label: "Illustrations" },
       { href: "/search?category=photographs", label: "Photographs" },
@@ -54,10 +55,11 @@ const widgetMenus: WidgetFooterMenu[] = [
 
 const Footer: React.FC = () => {
   const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
+    const { t } = useTranslation();
     return (
       <div key={index} className="text-sm">
         <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
-          {menu.title}
+          {t(menu.title)}
         </h2>
         <ul className="mt-5 space-y-4">
           {menu.menus.map((item, index) => (
@@ -68,7 +70,7 @@ const Footer: React.FC = () => {
                 href={item.href}
                 rel="noopener noreferrer"
               >
-                {item.label}
+                {t(item.label)}
               </a>
             </li>
           ))}
