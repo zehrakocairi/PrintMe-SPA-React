@@ -42,7 +42,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
             <NcImage
               alt=""
               src={featuredImage}
-              containerClassName={`w-20 h-20 rounded-full overflow-hidden z-0 ${color}`}
+              containerClassName={`w-32 h-32 rounded-full overflow-hidden z-0 ${color}`}
               width={80}
               height={80}
             />
