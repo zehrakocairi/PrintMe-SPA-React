@@ -12,8 +12,9 @@ import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
 import { useTranslation } from "react-i18next";
+import { CatalogTags } from "../enums/CatalogTags";
 
-const DATA_categories = [
+export const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
   { name: "Animal Art", value: Category.AnimalArt },
   { name: "Art Prints", value: Category.ArtPrints },
@@ -38,6 +39,13 @@ const DATA_categories = [
   { name: "Sports Posters", value: Category.SportsPosters },
   { name: "Text Posters", value: Category.TextPosters },
   { name: "Kids' Wall Art", value: Category.KidsWallArt },
+];
+
+export const DATA_catalog_tags = [
+  { name: "Featured Products", value: CatalogTags.Featured },
+  { name: "On Sale", value: CatalogTags.OnSale },
+  { name: "Our Picks", value: CatalogTags.OurPick },
+  { name: "Top Sellers", value: CatalogTags.TopSellers },
 ];
 
 
@@ -86,7 +94,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsCategories = () => {
     return (
       <Popover className="relative">
@@ -221,7 +228,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsSortOrder = () => {
     return (
       <Popover className="relative">
