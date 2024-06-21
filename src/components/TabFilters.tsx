@@ -502,7 +502,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}$`}</span>
+              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}€`}</span>
               {filter.rangePrices[0] === PRICE_RANGE[0] &&
                 filter.rangePrices[1] === PRICE_RANGE[1] ? null : (
                 <span onClick={() => updateRangePrices(PRICE_RANGE)}>

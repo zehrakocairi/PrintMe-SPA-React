@@ -72,15 +72,15 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     }, []);
 
     const setAuthenticationMethod = (method: 'google') => {
-        sessionStorage.setItem("authenticationMethod", 'google');
+        localStorage.setItem("authenticationMethod", 'google');
     };
 
     const isAuthenticatedWith = (method: 'google'):boolean => {
-        return sessionStorage.getItem("authenticationMethod") === method && sessionStorage.getItem("accessToken") !== null;
+        return localStorage.getItem("authenticationMethod") === method && localStorage.getItem("accessToken") !== null;
     };
 
     const isAuthenticated = ():boolean => {
-        return sessionStorage.getItem("accessToken") !== null;
+        return localStorage.getItem("accessToken") !== null;
     }
 
     const isAdmin = ():boolean => {
@@ -89,7 +89,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
 
     const handleGoogleSuccess = ({credential}:any) => {
         console.log("Google login successful:", credential);
-        sessionStorage.setItem("accessToken", credential);
+        localStorage.setItem("accessToken", credential);
         setAuthenticationMethod('google');
         fetchCurrentUser();
         tryCreateUser();
@@ -97,8 +97,8 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     };
 
     const getToken = async () => {
-        const cachedToken = sessionStorage.getItem("accessToken");
-        const tokenExpiry = sessionStorage.getItem("tokenExpiry");
+        const cachedToken = localStorage.getItem("accessToken");
+        const tokenExpiry = localStorage.getItem("tokenExpiry");
         
         if ((cachedToken && isAuthenticatedWith('google')) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
             return cachedToken;

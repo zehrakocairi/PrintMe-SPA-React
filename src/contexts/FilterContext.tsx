@@ -36,7 +36,7 @@ interface FilterProviderProps {
 export const FilterProvider: React.FC<FilterProviderProps> = ({ children }): any => {
     const [filter, setFilter] = useState<FilterState>({
         isOnSale: undefined,
-        rangePrices: [10, 500],
+        rangePrices: [0, 500],
         categoryState: undefined,
         sizeState: undefined,
         sortOrderStates: "",
