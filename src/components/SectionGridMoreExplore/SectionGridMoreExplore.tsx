@@ -19,8 +19,8 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   boxCard = "box4",
   gridClassName = "grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
 }) => {
-  const [tabActive, setTabActive] = useState("Nature");
-  const [data, setData] = useState(MENU_TREE_DATA.get("Nature"));
+  const [tabActive, setTabActive] = useState("Nature & Landscapes");
+  const [data, setData] = useState(MENU_TREE_DATA.get("Nature & Landscapes"));
   const {t} = useTranslation();
 
   useEffect(() => {

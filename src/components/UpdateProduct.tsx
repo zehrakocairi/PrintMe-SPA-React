@@ -41,6 +41,7 @@ const UpdateProduct = ({ productId }: any) => {
     const handleChange = (e: ChangeEvent<any>) => {
         const { name, value } = e.target;
         setProductData({ ...productData, [name]: value });
+        window.location.reload();
     };
 
     const handleCategoryChange = (isChecked: boolean, cat?: Category) => {
