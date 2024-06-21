@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Heading from "../../components/Heading/Heading";
+import { useTranslation } from "react-i18next";
 
 export interface Statistic {
   id: string;
@@ -32,6 +33,7 @@ export interface SectionStatisticProps {
 }
 
 const SectionStatistic: FC<SectionStatisticProps> = ({ className = "" }) => {
+  const { t } = useTranslation();
   return (
     <div className={`nc-SectionStatistic relative ${className}`}>
       <Heading
@@ -47,10 +49,10 @@ const SectionStatistic: FC<SectionStatisticProps> = ({ className = "" }) => {
             className="p-6 bg-neutral-50 dark:bg-neutral-800 rounded-2xl dark:border-neutral-800"
           >
             <h3 className="text-2xl font-semibold leading-none text-neutral-900 md:text-3xl dark:text-neutral-200">
-              {item.heading}
+              {t(item.heading)}
             </h3>
             <span className="block text-sm text-neutral-500 mt-3 sm:text-base dark:text-neutral-400">
-              {item.subHeading}
+              {t(item.subHeading)}
             </span>
           </div>
         ))}

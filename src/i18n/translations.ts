@@ -114,6 +114,17 @@ export const resources = {
       "Let's see what people think of PrintMe Art": "Let's see what people think of PrintMe Art",
       "Fast Facts": "Fast Facts",
       "We’re impartial and independent, and every day we create distinctive, world-class programmes and content": "We’re impartial and independent, and every day we create distinctive, world-class programmes and content", 
+      "High-Quality Prints": "High-Quality Prints",
+      "Crafted with care and top-notch Giclée technology": "Crafted with care and top-notch Giclée technology",
+      "Engineers Turned Artists": "Engineers Turned Artists",
+      "Family-owned business led by two passionate engineers": "Family-owned business led by two passionate engineers",
+      "Custom Options": "Custom Options",
+      "Choose from a variety of sizes, frames, and finishes": "Choose from a variety of sizes, frames, and finishes",
+      "Don't miss out on special offers": "Don't miss out on special offers",
+      "Register to receive news about our latest deals, exclusive offers, and discount codes!": "Register to receive news about our latest deals, exclusive offers, and discount codes!",
+      "Free Shipping": "Free Shipping",
+      "Premium Quality": "Premium Quality",
+      "Enter your email": "Enter your email",
     }
   },
   "nl": {
@@ -230,6 +241,17 @@ export const resources = {
       "Let's see what people think of PrintMe Art": "Laten we eens kijken wat mensen van PrintMe Art vinden",
       "Fast Facts": "Snelle Feiten",
       "We’re impartial and independent, and every day we create distinctive, world-class programmes and content": "We zijn onpartijdig en onafhankelijk, en elke dag creëren we onderscheidende, wereldklasse programma's en inhoud", 
+      "High-Quality Prints": "Hoogwaardige Afdrukken",
+      "Crafted with care and top-notch Giclée technology": "Met zorg vervaardigd en top-notch Giclée-technologie",  
+      "Engineers Turned Artists": "Ingenieurs werden kunstenaars",
+      "Family-owned business led by two passionate engineers": "Familiebedrijf geleid door twee gepassioneerde ingenieurs",
+      "Custom Options": "Aangepaste Opties",
+      "Choose from a variety of sizes, frames, and finishes": "Kies uit een verscheidenheid aan maten, lijsten en afwerkingen",
+      "Don't miss out on special offers": "Mis geen speciale aanbiedingen",
+      "Register to receive news about our latest deals, exclusive offers, and discount codes!": "Registreer om nieuws te ontvangen over onze nieuwste deals, exclusieve aanbiedingen en kortingscodes!",  
+      "Free Shipping": "Gratis Verzending",
+      "Premium Quality": "Premium Kwaliteit",
+      "Enter your email": "Voer uw e-mailadres in",
     }
   }
 }
