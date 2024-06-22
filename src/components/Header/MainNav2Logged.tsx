@@ -9,6 +9,7 @@ import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
 import LangDropdown from "./LangDropdown";
+import { useTranslation } from "react-i18next";
 
 
 export interface MainNav2LoggedProps {}
@@ -17,6 +18,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const inputRef = createRef<HTMLInputElement>();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const renderMagnifyingGlassIcon = () => {
     return (
@@ -60,7 +62,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Type and press enter"
+            placeholder={t("Type and press enter")}
             className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
             autoFocus
           />
