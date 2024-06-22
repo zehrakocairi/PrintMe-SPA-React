@@ -1,6 +1,7 @@
 import Heading from "../../components/Heading/Heading";
 import React from "react";
 import NcImage from "../../shared/NcImage/NcImage";
+import { useTranslation } from "react-i18next";
 
 export interface People {
   id: string;
@@ -27,12 +28,14 @@ const FOUNDER_DEMO: People[] = [
 ];
 
 const SectionFounder = () => {
+  const { t } = useTranslation();
+  
   return (
     <div className="nc-SectionFounder relative">
       <Heading
-        desc="PrintMeArt was founded by our passionate family, dedicated to bringing your cherished memories to life through beautiful, high-quality prints."
+        desc={t("PrintMeArt was founded by our passionate family, dedicated to bringing your cherished memories to life through beautiful, high-quality prints.")}
       >
-        ⛱ Founders
+        ⛱ {t("Founders")}
       </Heading>
       <div className="grid sm:grid-cols-2 gap-x-5 gap-y-8 lg:grid-cols-4 xl:gap-x-8">
         {FOUNDER_DEMO.map((item) => (
@@ -49,7 +52,7 @@ const SectionFounder = () => {
               {item.name}
             </h3>
             <span className="block text-sm text-neutral-500 sm:text-base dark:text-neutral-400">
-              {item.job}
+              {t(item.job)}
             </span>
           </div>
         ))}

@@ -8,10 +8,12 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import { CATS_DISCOVER } from "./CardCategories/data";
 import { useTranslation } from "react-i18next";
 
+
 const DiscoverMoreSlider = () => {
   const sliderRef = useRef(null);
   const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
+  
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {

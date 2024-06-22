@@ -6,6 +6,7 @@ import Avatar from "../../shared/Avatar/Avatar";
 import Link from "../../shared/Link";
 import { googleLogout } from "@react-oauth/google";
 import { useApplication } from "../../contexts/ApplicationContext";
+import { useTranslation } from "react-i18next";
 
 export default function AvatarDropdown() {
 
@@ -20,6 +21,8 @@ export default function AvatarDropdown() {
     window.location.href = "/login";
     return true;
   };
+  
+  const { t } = useTranslation();
 
   return (
     <div className="AvatarDropdown ">
@@ -105,7 +108,7 @@ export default function AvatarDropdown() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <p className="text-sm font-medium ">{"Log in"}</p>
+                            <p className="text-sm font-medium ">{t("Log in")}</p>
                           </div>
                         </Link>
                       </div>

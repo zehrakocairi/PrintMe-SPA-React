@@ -20,7 +20,7 @@ export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
     image: image2,
     heading: "Custom Prints Made Just for You",
-    subHeading: "Print, frame, and ship with care. 🚀",
+    subHeading: "Print, frame, and ship with care.🚀",
     btnText: "Customize Now",
     btnLink: "/search",
   },

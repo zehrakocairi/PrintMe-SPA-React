@@ -55,9 +55,9 @@ const CardCategory4: FC<CardCategory4Props> = ({
             <span
               className={`block mb-2 text-sm text-slate-500 dark:text-slate-400`}
             >
-              {desc}
+              {t(desc)}
             </span>
-            <h2 className={`text-2xl sm:text-3xl font-semibold`}>{name}</h2>
+            <h2 className={`text-2xl sm:text-3xl font-semibold`}>{t(name)}</h2>
           </div>
 
           <Link

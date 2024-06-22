@@ -6,6 +6,7 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Input from "../../shared/Input/Input";
 import Radio from "../../shared/Radio/Radio";
+import { t } from "i18next";
 
 interface Props {
   isActive: boolean;
@@ -377,7 +378,7 @@ const PaymentMethod: FC<Props> = ({
           </span>
           <div className="sm:ml-8">
             <h3 className=" text-slate-700 dark:text-slate-400 flex ">
-              <span className="uppercase tracking-tight">PAYMENT METHOD</span>
+              <span className="uppercase tracking-tight">{t("PAYMENT METHOD")}</span>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -393,7 +394,7 @@ const PaymentMethod: FC<Props> = ({
               </svg>
             </h3>
             <div className="font-semibold mt-1 text-sm">
-              <span className="">Google / Apple Wallet</span>
+              <span className="">{t("Google / Apple Wallet")}</span>
               <span className="ml-3">xxx-xxx-xx55</span>
             </div>
           </div>
@@ -401,7 +402,7 @@ const PaymentMethod: FC<Props> = ({
             className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0 sm:ml-auto text-sm font-medium rounded-lg"
             onClick={onOpenActive}
           >
-            Change
+            {t("Change")}
           </button>
         </div>
 
@@ -424,10 +425,10 @@ const PaymentMethod: FC<Props> = ({
               className="w-full max-w-[240px]"
               onClick={onCloseActive}
             >
-              Confirm order
+             {t("Confirm order")}  
             </ButtonPrimary>
             <ButtonSecondary className="ml-3" onClick={onCloseActive}>
-              Cancel
+              {t("Cancel")}
             </ButtonSecondary>
           </div>
         </div>

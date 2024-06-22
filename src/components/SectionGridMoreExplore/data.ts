@@ -22,7 +22,7 @@ const MENU_TREE_DATA = new Map<string, MenuItemType[]>();
 MENU_TREE_DATA.set("Nature & Landscapes", [
   {
     id: 1,
-    name: "Nature Prints",
+    name: "Nature prints",
     desc: "Nature & Landscapes",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/Tree.webp',
     svgBg: explore1Svg,
@@ -32,7 +32,7 @@ MENU_TREE_DATA.set("Nature & Landscapes", [
   },
   {
     id: 2,
-    name: "Botanical Art",
+    name: "Botanical art",
     desc: "Nature & Landscapes",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/plant.webp',
     svgBg: explore2Svg,
@@ -42,7 +42,7 @@ MENU_TREE_DATA.set("Nature & Landscapes", [
   },
   {
     id: 3,
-    name: "Animal Art",
+    name: "Animal art",
     desc: "Nature & Landscapes",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/animal.jpeg',
     svgBg: explore3Svg,
@@ -52,7 +52,7 @@ MENU_TREE_DATA.set("Nature & Landscapes", [
   },
   {
     id: 4,
-    name: "Space and Astronomy",
+    name: "Space and astronomy",
     desc: "Nature & Landscapes",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/space.jpeg',
     svgBg: explore3Svg,
@@ -62,7 +62,7 @@ MENU_TREE_DATA.set("Nature & Landscapes", [
   },
   {
     id: 5,
-    name: "Maps and Cities",
+    name: "Maps and cities",
     desc: "Nature & Landscapes",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/city.webp',
     svgBg: explore1Svg,
@@ -85,7 +85,7 @@ MENU_TREE_DATA.set("Nature & Landscapes", [
 MENU_TREE_DATA.set("Famous Painters", [
   {
     id: 1,
-    name: "Art Prints",
+    name: "Art prints",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/art.jpeg',
     svgBg: explore1Svg,
@@ -95,7 +95,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 2,
-    name: "Renaissance Masters",
+    name: "Renaissance masters",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/renaissance.jpeg',
     svgBg: explore2Svg,
@@ -105,7 +105,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 3,
-    name: "Dutch Masters",
+    name: "Dutch masters",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/dutch.jpeg',
     svgBg: explore3Svg,
@@ -115,7 +115,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 4,
-    name: "Modern Masters",
+    name: "Modern masters",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/modern.jpeg',
     svgBg: explore9Svg,
@@ -125,7 +125,7 @@ MENU_TREE_DATA.set("Famous Painters", [
   },
   {
     id: 5,
-    name: "Abstract Art",
+    name: "Abstract art",
     desc: "Famous Painters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/abstract.jpeg',
     svgBg: explore6Svg,
@@ -138,7 +138,7 @@ MENU_TREE_DATA.set("Famous Painters", [
 MENU_TREE_DATA.set("Posters", [
   {
     id: 1,
-    name: "Retro and Vintage",
+    name: "Retro and vintage",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/retro.jpeg',
     svgBg: explore1Svg,
@@ -148,7 +148,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 2,
-    name: "Black and White",
+    name: "Black and white",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/black-white.jpeg',
     svgBg: explore2Svg,
@@ -158,7 +158,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 3,
-    name: "Historical Posters",
+    name: "Historical posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/historical.jpeg',
     svgBg: explore3Svg,
@@ -168,7 +168,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 4,
-    name: "Classic Posters",
+    name: "Classic posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/classic.jpeg',
     svgBg: explore1Svg,
@@ -178,7 +178,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 5,
-    name: "Text Posters",
+    name: "Text posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/text.jpeg',
     svgBg: explore2Svg,
@@ -188,7 +188,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 6,
-    name: "Movies & Games Posters",
+    name: "Movies & Games posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/movies.jpeg',
     svgBg: explore6Svg,
@@ -198,7 +198,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 7,
-    name: "Music Posters",
+    name: "Music posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/music.jpeg',
     svgBg: explore9Svg,
@@ -208,7 +208,7 @@ MENU_TREE_DATA.set("Posters", [
   },
   {
     id: 8,
-    name: "Sports Posters",
+    name: "Sports posters",
     desc: "Posters",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/sport.jpeg',
     svgBg: explore6Svg,
@@ -241,7 +241,7 @@ MENU_TREE_DATA.set("Art Styles", [
   },
   {
     id: 3,
-    name: "Iconic Photos",
+    name: "Iconic photos",
     desc: "Art Styles",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/iconic.jpeg',
     svgBg: explore3Svg,
@@ -251,7 +251,7 @@ MENU_TREE_DATA.set("Art Styles", [
   },
   {
     id: 4,
-    name: "General Posters",
+    name: "General posters",
     desc: "Art Styles",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/general.jpeg',
     svgBg: explore9Svg,
@@ -261,7 +261,7 @@ MENU_TREE_DATA.set("Art Styles", [
   },
   {
     id: 5,
-    name: "Kids' Wall Art",
+    name: "Kids' wall art",
     desc: "Art Styles",
     image: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/kids.jpeg',
     svgBg: explore6Svg,

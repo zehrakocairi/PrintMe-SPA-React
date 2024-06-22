@@ -7,6 +7,7 @@ import HIW4img from "../../data/images/HIW4img.jpeg";
 import VectorImg from "../../data/images/VectorHIW.svg";
 import Badge from "../../shared/Badge/Badge";
 import Image from "../../shared/Image";
+import { useTranslation } from "react-i18next";
 
 export interface SectionHowItWorkProps {
   className?: string;
@@ -48,6 +49,9 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
   className = "",
   data = DEMO_DATA,
 }) => {
+
+  const { t } = useTranslation();
+
   return (
     <div className={`nc-SectionHowItWork ${className}`}>
       <div className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16 xl:gap-20">
@@ -70,7 +74,7 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
             />
             <div className="text-center mt-auto space-y-5">
               <Badge
-                name={`Step ${index + 1}`}
+                name={`${t('Step')} ${index + 1}`}
                 color={
                   !index
                     ? "red"
@@ -81,9 +85,9 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
                     : "purple"
                 }
               />
-              <h3 className="text-base font-semibold">{item.title}</h3>
+              <h3 className="text-base font-semibold">{t(item.title)}</h3>
               <span className="block text-slate-600 dark:text-slate-400 text-sm leading-6">
-                {item.desc}
+                {t(item.desc)}
               </span>
             </div>
           </div>
