@@ -277,7 +277,7 @@ const ProductCard: FC<ProductCardProps> = ({
           {/* {sizes ? renderSizeList() : renderGroupButtons()} */}
         </div>
 
-        <div className="space-y-4 px-2.5 pt-5 pb-2.5">
+        <div className="space-y-4 px-0 pt-5 pb-2.5">
           {/* {renderVariants()} */}
           <div>
             <div className="flex justify-between items-end ">

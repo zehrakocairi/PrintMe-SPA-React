@@ -7,6 +7,8 @@ interface ApplicationContextProps {
     sizes: Size[];
     getToken: () => Promise<string | undefined>;
     handleGoogleSuccess: (credential: any) => void;
+    isAuthenticated: () => boolean;
+    isAdmin: () => boolean;
     currentUser:any;
 }
 
@@ -20,7 +22,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
 
     const [frames, setFrames] = useState<Frame[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
-    const [currentUser, setcCurrentUser] = useState<any>([]);
+    const [currentUser, setcCurrentUser] = useState<any>({});
 
     const fetchFrames = async () => {
         const url = `/bootstrap/frames`;
@@ -48,8 +50,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
             const response = await fetchWithAuth(url, await getToken());
             setcCurrentUser(response);
         } catch (error) {
-            console.error(`Error fetching frames:`, error);
-            throw error;
+            console.error(`Error fetching current user:`, error);
         }
     };
     const tryCreateUser = async () => {
@@ -65,19 +66,30 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     useEffect(() => {
         fetchFrames();
         fetchSizes();
-        fetchCurrentUser()
+        if(isAuthenticatedWith('google')){
+            fetchCurrentUser();
+        }
     }, []);
 
     const setAuthenticationMethod = (method: 'google') => {
-        sessionStorage.setItem("authenticationMethod", 'google');
+        localStorage.setItem("authenticationMethod", 'google');
     };
+
     const isAuthenticatedWith = (method: 'google'):boolean => {
-        return sessionStorage.getItem("authenticationMethod") === method;
+        return localStorage.getItem("authenticationMethod") === method && localStorage.getItem("accessToken") !== null;
     };
+
+    const isAuthenticated = ():boolean => {
+        return localStorage.getItem("accessToken") !== null;
+    }
+
+    const isAdmin = ():boolean => {
+        return currentUser.isAdmin ?? false;
+    }
 
     const handleGoogleSuccess = ({credential}:any) => {
         console.log("Google login successful:", credential);
-        sessionStorage.setItem("accessToken", credential);
+        localStorage.setItem("accessToken", credential);
         setAuthenticationMethod('google');
         fetchCurrentUser();
         tryCreateUser();
@@ -85,8 +97,8 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     };
 
     const getToken = async () => {
-        const cachedToken = sessionStorage.getItem("accessToken");
-        const tokenExpiry = sessionStorage.getItem("tokenExpiry");
+        const cachedToken = localStorage.getItem("accessToken");
+        const tokenExpiry = localStorage.getItem("tokenExpiry");
         
         if ((cachedToken && isAuthenticatedWith('google')) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
             return cachedToken;
@@ -95,7 +107,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     
 
     return (
-        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser }}>
+        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser, isAuthenticated, isAdmin }}>
             {children}
         </ApplicationContext.Provider>
     );

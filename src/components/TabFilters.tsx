@@ -12,29 +12,42 @@ import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
 import { useTranslation } from "react-i18next";
+import { CatalogTags } from "../enums/CatalogTags";
 
-const DATA_categories = [
-  { name: "Abstract art", value: Category.AbstractArt },
-  { name: "Animals", value: Category.Animals },
-  { name: "Art prints", value: Category.ArtPrints },
-  { name: "Black and white", value: Category.BlackAndWhite },
-  { name: "Botanical", value: Category.Botanical },
-  { name: "Classic posters", value: Category.ClassicPosters },
-  { name: "Famous painters", value: Category.FamousPainters },
-  { name: "Gold and silver", value: Category.GoldAndSilver },
-  { name: "Graphical", value: Category.Graphical },
-  { name: "Historical prints", value: Category.HistoricalPrints },
-  { name: "Iconic photos", value: Category.IconicPhotos },
+export const DATA_categories = [
+  { name: "Abstract Art", value: Category.AbstractArt },
+  { name: "Animal Art", value: Category.AnimalArt },
+  { name: "Art Prints", value: Category.ArtPrints },
+  { name: "Black And White", value: Category.BlackAndWhite },
+  { name: "Botanical Art", value: Category.BotanicalArt },
+  { name: "Classic Posters", value: Category.ClassicPosters },
+  { name: "Dutch Masters", value: Category.DutchMasters },
+  { name: "Famous Painters", value: Category.FamousPainters },
+  { name: "Historical Posters", value: Category.HistoricalPosters },
+  { name: "Iconic Photos", value: Category.IconicPhotos },
   { name: "Illustrations", value: Category.Illustrations },
-  { name: "Maps and cities", value: Category.MapsAndCities },
-  { name: "Modern artists", value: Category.ModernArtists },
-  { name: "Nature prints", value: Category.NaturePrints },
+  { name: "Landscapes", value: Category.Landscapes },
+  { name: "Maps And Cities", value: Category.MapsAndCities },
+  { name: "Modern Masters", value: Category.ModernMasters },
+  { name: "Movies & Games Posters", value: Category.MoviesAndGamesPosters },
+  { name: "Music Posters", value: Category.MusicPosters },
+  { name: "Nature Prints", value: Category.NaturePrints },
   { name: "Photographs", value: Category.Photographs },
-  { name: "Retro and vintage", value: Category.RetroAndVintage },
-  { name: "Space and astronomy", value: Category.SpaceAndAstronomy },
-  { name: "Studio collections", value: Category.StudioCollections },
-  { name: "Text posters", value: Category.TextPosters },
+  { name: "Renaissance Masters", value: Category.RenaissanceMasters },
+  { name: "Retro And Vintage", value: Category.RetroAndVintage },
+  { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
+  { name: "Sports Posters", value: Category.SportsPosters },
+  { name: "Text Posters", value: Category.TextPosters },
+  { name: "Kids' Wall Art", value: Category.KidsWallArt },
 ];
+
+export const DATA_catalog_tags = [
+  { name: "Featured Products", value: CatalogTags.Featured },
+  { name: "On Sale", value: CatalogTags.OnSale },
+  { name: "Our Picks", value: CatalogTags.OurPick },
+  { name: "Top Sellers", value: CatalogTags.TopSellers },
+];
+
 
 const DATA_sortOrderRadios = [
   { name: "Most Popular", id: "Most-Popular" },
@@ -81,7 +94,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsCategories = () => {
     return (
       <Popover className="relative">
@@ -216,7 +228,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsSortOrder = () => {
     return (
       <Popover className="relative">
@@ -491,7 +502,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}$`}</span>
+              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}€`}</span>
               {filter.rangePrices[0] === PRICE_RANGE[0] &&
                 filter.rangePrices[1] === PRICE_RANGE[1] ? null : (
                 <span onClick={() => updateRangePrices(PRICE_RANGE)}>

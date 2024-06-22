@@ -11,13 +11,13 @@ import { useTranslation } from "react-i18next";
 export default function AvatarDropdown() {
 
   const isAuthenticated = ()=>{
-    return sessionStorage.getItem("accessToken") !== null;
+    return localStorage.getItem("accessToken") !== null;
   }
   const {currentUser} = useApplication();
 
   const handleLogout = () => {
     googleLogout();
-    sessionStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
     window.location.href = "/login";
     return true;
   };
