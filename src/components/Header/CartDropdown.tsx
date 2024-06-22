@@ -180,7 +180,7 @@ export default function CartDropdown() {
                         onClick={close}
                         className="flex-1"
                       >
-                       {t(" Check out")}
+                       {t("Check out")}
                       </ButtonPrimary>
                     </div>
                   </div>

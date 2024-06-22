@@ -7,6 +7,7 @@ import Textarea from "../../../shared/Textarea/Textarea";
 import Image from "../../../shared/Image";
 import { useApplication } from "../../../contexts/ApplicationContext";
 import { fetchWithAuth, getPostOptions, getPutOptions } from "../../../fetch/fetchWrapper";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -24,6 +25,7 @@ const AccountPage = () => {
     phoneNumber: "",
     profilePictureUrl: "https://genstorageaccount3116.blob.core.windows.net/printme-images/profile.svg",
   });
+  const { t } = useTranslation();
 
   const fetchUserData = async () => {
     var data = await fetchWithAuth(`/customer`, await getToken());
@@ -51,7 +53,7 @@ const AccountPage = () => {
       <div className="space-y-10 sm:space-y-12">
         {/* HEADING */}
         <h2 className="text-2xl sm:text-3xl font-semibold">
-          Account infomation
+          {t("Account infomation")}
         </h2>
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 flex items-start">
@@ -80,7 +82,7 @@ const AccountPage = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-                <span className="mt-1 text-xs">Change Image</span>
+                <span className="mt-1 text-xs">{t("Change Image")}</span>
               </div>
               <input
                 type="file"
@@ -139,7 +141,7 @@ const AccountPage = () => {
             </div>
             {/* ---- */}
             <div>
-              <Label>Address</Label>
+              <Label>{t("Address")}</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
@@ -156,7 +158,7 @@ const AccountPage = () => {
 
             {/* ---- */}
             <div>
-              <Label>Phone number</Label>
+              <Label>{t("Phone number")}</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
@@ -169,7 +171,7 @@ const AccountPage = () => {
               </div>
             </div>
             <div className="pt-2">
-              <ButtonPrimary>Update account</ButtonPrimary>
+              <ButtonPrimary>{t("Update account")}</ButtonPrimary>
             </div>
             </form>
           </div>
