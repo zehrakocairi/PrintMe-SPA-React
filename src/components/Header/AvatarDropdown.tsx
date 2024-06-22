@@ -1,24 +1,28 @@
 "use client";
 
 import { Popover, Transition } from "../../headlessui";
-import { avatarImgs } from "../../contains/fakeData";
 import { Fragment } from "react";
 import Avatar from "../../shared/Avatar/Avatar";
 import Link from "../../shared/Link";
-import { useMsal, useIsAuthenticated } from '@azure/msal-react';
-import { loginRequest, tokenRequest } from '../../authConfig';
+import { googleLogout } from "@react-oauth/google";
+import { useApplication } from "../../contexts/ApplicationContext";
+import { useTranslation } from "react-i18next";
 
 export default function AvatarDropdown() {
 
-  const { instance } = useMsal();
-  const isAuthenticated = useIsAuthenticated();
+  const isAuthenticated = ()=>{
+    return localStorage.getItem("accessToken") !== null;
+  }
+  const {currentUser} = useApplication();
 
   const handleLogout = () => {
-    instance.logout().catch((e) => {
-      console.error(e);
-    });
+    googleLogout();
+    localStorage.removeItem("accessToken");
+    window.location.href = "/login";
     return true;
   };
+  
+  const { t } = useTranslation();
 
   return (
     <div className="AvatarDropdown ">
@@ -27,6 +31,7 @@ export default function AvatarDropdown() {
           <>
             <Popover.Button
               className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none flex items-center justify-center`}
+              aria-label="User Avatar"
             >
               <svg
                 className=" w-6 h-6"
@@ -62,7 +67,7 @@ export default function AvatarDropdown() {
               <Popover.Panel className="absolute z-10 w-screen max-w-[260px] px-4 mt-3.5 -right-10 sm:right-0 sm:px-0">
                 <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-black ring-opacity-5">
                   {
-                    !isAuthenticated ?
+                    !isAuthenticated() ?
                       <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                         {/* Unauthenticated User */}
                         {/* ------------------ 2 --------------------- */}
@@ -103,7 +108,7 @@ export default function AvatarDropdown() {
                             </svg>
                           </div>
                           <div className="ml-4">
-                            <p className="text-sm font-medium ">{"Log in"}</p>
+                            <p className="text-sm font-medium ">{t("Log in")}</p>
                           </div>
                         </Link>
                       </div>
@@ -111,11 +116,11 @@ export default function AvatarDropdown() {
                       <div className="relative grid grid-cols-1 gap-6 bg-white dark:bg-neutral-800 py-7 px-6">
                         {/* Authenticated User */}
                         <div className="flex items-center space-x-3">
-                          <Avatar imgUrl={avatarImgs[7]} sizeClass="w-12 h-12" />
+                          <Avatar imgUrl={currentUser?.profilePictureUrl } sizeClass="w-12 h-12" />
 
                           <div className="flex-grow">
-                            <h4 className="font-semibold">Eden Smith</h4>
-                            <p className="text-xs mt-0.5">Los Angeles, CA</p>
+                            <h4 className="font-semibold">{currentUser?.userName}</h4>
+                            <p className="text-xs mt-0.5">From Earth</p>
                           </div>
                         </div>
 
@@ -123,7 +128,7 @@ export default function AvatarDropdown() {
 
                         {/* ------------------ 1 --------------------- */}
                         <Link
-                          href={"/account"}
+                          href={"/account/account-details"}
                           className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                           onClick={() => close()}
                         >
@@ -208,74 +213,9 @@ export default function AvatarDropdown() {
                           </div>
                         </Link>
 
-                        {/* ------------------ 2 --------------------- */}
-                        <Link
-                          href={"/account-savelists"}
-                          className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
-                          onClick={() => close()}
-                        >
-                          <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                            <svg
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <path
-                                d="M12.62 20.81C12.28 20.93 11.72 20.93 11.38 20.81C8.48 19.82 2 15.69 2 8.68998C2 5.59998 4.49 3.09998 7.56 3.09998C9.38 3.09998 10.99 3.97998 12 5.33998C13.01 3.97998 14.63 3.09998 16.44 3.09998C19.51 3.09998 22 5.59998 22 8.68998C22 15.69 15.52 19.82 12.62 20.81Z"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm font-medium ">{"Wishlist"}</p>
-                          </div>
-                        </Link>
 
                         <div className="w-full border-b border-neutral-200 dark:border-neutral-700" />
 
-                        {/* ------------------ 2 --------------------- */}
-                        <div className="flex items-center justify-between p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50">
-                          <div className="flex items-center">
-                            <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
-                              <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M12.0001 7.88989L10.9301 9.74989C10.6901 10.1599 10.8901 10.4999 11.3601 10.4999H12.6301C13.1101 10.4999 13.3001 10.8399 13.0601 11.2499L12.0001 13.1099"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M8.30011 18.0399V16.8799C6.00011 15.4899 4.11011 12.7799 4.11011 9.89993C4.11011 4.94993 8.66011 1.06993 13.8001 2.18993C16.0601 2.68993 18.0401 4.18993 19.0701 6.25993C21.1601 10.4599 18.9601 14.9199 15.7301 16.8699V18.0299C15.7301 18.3199 15.8401 18.9899 14.7701 18.9899H9.26011C8.16011 18.9999 8.30011 18.5699 8.30011 18.0399Z"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                                <path
-                                  d="M8.5 22C10.79 21.35 13.21 21.35 15.5 22"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                />
-                              </svg>
-                            </div>
-                            <div className="ml-4">
-                              <p className="text-sm font-medium ">{"Dark theme"}</p>
-                            </div>
-                          </div>
-                        </div>
 
                         {/* ------------------ 2 --------------------- */}
                         <Link

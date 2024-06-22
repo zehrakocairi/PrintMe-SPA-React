@@ -1,16 +1,11 @@
 import { fetchWithAuth } from "../fetch/fetchWrapper";
-import { IPublicClientApplication } from "@azure/msal-browser";
-import { tokenRequest } from "../authConfig";
-import { getPutOptions , getPostOptions} from "../fetch/fetchWrapper";
+import { getPutOptions } from "../fetch/fetchWrapper";
 import { CartItem } from "../models/CartItem";
 
 
-export const getCart = async (accessToken: string|null) => {
+export const getCart = async (accessToken: string|undefined|null) => {
   const url = `/basket`;
   try {
-    if(accessToken!==null && accessToken !== ''){
-      const res=await fetchWithAuth('/catalog/test', accessToken);
-    }
     const response = await fetchWithAuth(url, accessToken);
     return response;
   } catch (error) {
@@ -19,7 +14,7 @@ export const getCart = async (accessToken: string|null) => {
   }
 };
 
-export const updateCart = async (accessToken: string|null, cartItems: CartItem[]) => {
+export const updateCart = async (accessToken: string|null|undefined, cartItems: CartItem[]) => {
   const url = `/basket`;
   try {
     const response = await fetchWithAuth(url, accessToken, getPutOptions(cartItems));

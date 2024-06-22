@@ -1,33 +1,73 @@
 import Label from "../../../components/Label/Label";
-import React, { FC } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import ButtonPrimary from "../../../shared/Button/ButtonPrimary";
 import Input from "../../../shared/Input/Input";
 import Select from "../../../shared/Select/Select";
 import Textarea from "../../../shared/Textarea/Textarea";
-import { avatarImgs } from "../../../contains/fakeData";
 import Image from "../../../shared/Image";
+import { useApplication } from "../../../contexts/ApplicationContext";
+import { fetchWithAuth, getPostOptions, getPutOptions } from "../../../fetch/fetchWrapper";
+import { useTranslation } from "react-i18next";
 
+
+
+
+// TODOS:
+// 3. Handle user data (Client side validation)
 const AccountPage = () => {
+  const {currentUser, getToken} = useApplication();
+  const [userData, setUserData] = useState({
+    id: "",
+    fullName: "",
+    email: "",
+    dateOfBirth: undefined,
+    address: "",
+    phoneNumber: "",
+    profilePictureUrl: "https://genstorageaccount3116.blob.core.windows.net/printme-images/profile.svg",
+  });
+  const { t } = useTranslation();
+
+  const fetchUserData = async () => {
+    var data = await fetchWithAuth(`/customer`, await getToken());
+    setUserData(data);
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const handleChange = (e: ChangeEvent<any>) => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    await fetchWithAuth(`/customer/${currentUser.id}`, await getToken(),  getPutOptions(userData));
+    await fetchUserData();
+  };
+
+
   return (
     <div className={`nc-AccountPage `}>
       <div className="space-y-10 sm:space-y-12">
         {/* HEADING */}
         <h2 className="text-2xl sm:text-3xl font-semibold">
-          Account infomation
+          {t("Account infomation")}
         </h2>
         <div className="flex flex-col md:flex-row">
           <div className="flex-shrink-0 flex items-start">
             {/* AVATAR */}
             <div className="relative rounded-full overflow-hidden flex">
               <Image
-                src={avatarImgs[2]}
+                src={userData.profilePictureUrl}
                 alt="avatar"
                 width={128}
                 height={128}
                 className="w-32 h-32 rounded-full object-cover z-0"
               />
               <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-neutral-50 cursor-pointer">
-                <svg
+              <svg
                   width="30"
                   height="30"
                   viewBox="0 0 30 30"
@@ -42,8 +82,7 @@ const AccountPage = () => {
                     strokeLinejoin="round"
                   />
                 </svg>
-
-                <span className="mt-1 text-xs">Change Image</span>
+                <span className="mt-1 text-xs">{t("Change Image")}</span>
               </div>
               <input
                 type="file"
@@ -52,9 +91,16 @@ const AccountPage = () => {
             </div>
           </div>
           <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+          <form onSubmit={handleSubmit}>
             <div>
               <Label>Full name</Label>
-              <Input className="mt-1.5" defaultValue="Enrico Cole" />
+              <Input className="mt-1.5" 
+                  name="fullName"
+                  value={userData.fullName}
+                  onChange={handleChange}
+                  placeholder="Full Name" 
+                  required
+                  />
             </div>
 
             {/* ---- */}
@@ -67,8 +113,12 @@ const AccountPage = () => {
                   <i className="text-2xl las la-envelope"></i>
                 </span>
                 <Input
-                  className="!rounded-l-none"
-                  placeholder="example@email.com"
+                 className="!rounded-l-none"
+                 name="email"
+                 value={userData.email}
+                 onChange={handleChange}
+                 placeholder="example@gmail.com"
+                 disabled
                 />
               </div>
             </div>
@@ -83,52 +133,47 @@ const AccountPage = () => {
                 <Input
                   className="!rounded-l-none"
                   type="date"
-                  defaultValue="1990-07-22"
+                  name="dateOfBirth"
+                  value={userData.dateOfBirth ? new Date(userData.dateOfBirth).toISOString().split('T')[0] : ""}
+                  onChange={handleChange}
                 />
               </div>
             </div>
             {/* ---- */}
             <div>
-              <Label>Addess</Label>
+              <Label>{t("Address")}</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-map-signs"></i>
                 </span>
                 <Input
                   className="!rounded-l-none"
-                  defaultValue="New york, USA"
+                  name="address"
+                  value={userData.address}
+                  onChange={handleChange}
+                  placeholder="Address"
                 />
               </div>
             </div>
 
             {/* ---- */}
             <div>
-              <Label>Gender</Label>
-              <Select className="mt-1.5">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-              </Select>
-            </div>
-
-            {/* ---- */}
-            <div>
-              <Label>Phone number</Label>
+              <Label>{t("Phone number")}</Label>
               <div className="mt-1.5 flex">
                 <span className="inline-flex items-center px-2.5 rounded-l-2xl border border-r-0 border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400 text-sm">
                   <i className="text-2xl las la-phone-volume"></i>
                 </span>
-                <Input className="!rounded-l-none" defaultValue="003 888 232" />
+                <Input className="!rounded-l-none"
+                    name="phoneNumber"
+                    value={userData.phoneNumber}
+                    onChange={handleChange}
+                    placeholder="Phone Number"/>
               </div>
             </div>
-            {/* ---- */}
-            <div>
-              <Label>About you</Label>
-              <Textarea className="mt-1.5" defaultValue="..." />
-            </div>
             <div className="pt-2">
-              <ButtonPrimary>Update account</ButtonPrimary>
+              <ButtonPrimary>{t("Update account")}</ButtonPrimary>
             </div>
+            </form>
           </div>
         </div>
       </div>

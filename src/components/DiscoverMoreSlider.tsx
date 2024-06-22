@@ -1,16 +1,19 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Heading from "./Heading/Heading";
 import CardCategory3 from "./CardCategories/CardCategory3";
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";
 import { CATS_DISCOVER } from "./CardCategories/data";
+import { useTranslation } from "react-i18next";
+
 
 const DiscoverMoreSlider = () => {
   const sliderRef = useRef(null);
-
+  const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
+  
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
@@ -61,10 +64,10 @@ const DiscoverMoreSlider = () => {
       <Heading
         className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
         desc=""
-        rightDescText="Handcrafted art, beautiful and unique"
+        rightDescText={t("handcraftedArt")}
         hasNextPrev
       >
-        Prints with Passion
+        {t("printsWithPassion")}
       </Heading>
       <div className="" data-glide-el="track">
         <ul className="glide__slides">

@@ -2,62 +2,82 @@ import Logo from "../Logo/Logo";
 import SocialsList1 from "../SocialsList1/SocialsList1";
 import { CustomLink } from "../../data/types";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface WidgetFooterMenu {
   id: string;
   title: string;
   menus: CustomLink[];
 }
-
 const widgetMenus: WidgetFooterMenu[] = [
   {
-    id: "5",
-    title: "Getting started",
-    menus: [
-      { href: "/", label: "Release Notes" },
-      { href: "/", label: "Upgrade Guide" },
-      { href: "/", label: "Browser Support" },
-      { href: "/", label: "Dark Mode" },
-    ],
-  },
-  {
     id: "1",
-    title: "Explore",
+    title: "Navigation",
     menus: [
-      { href: "/", label: "Prototyping" },
-      { href: "/", label: "Design systems" },
-      { href: "/", label: "Pricing" },
-      { href: "/", label: "Security" },
+      { href: "/search", label: "Prints" },
+      { href: "/our-services", label: "Frames" },
+      { href: "/about", label: "About Us" },
+      { href: "/search?tags=1", label: "Bestsellers" },
     ],
   },
   {
     id: "2",
-    title: "Resources",
+    title: "Nature & Landscapes",
     menus: [
-      { href: "/", label: "Best practices" },
-      { href: "/", label: "Support" },
-      { href: "/", label: "Developers" },
-      { href: "/", label: "Learn design" },
+      { href: "/search?category=nature-prints", label: "Nature prints" },
+      { href: "/search?category=botanical-art", label: "Botanical art" },
+      { href: "/search?category=animal-art", label: "Animal art" },
+      { href: "/search?category=space-and-astronomy", label: "Space and astronomy" },
+      { href: "/search?category=maps-and-cities", label: "Maps and cities" },
+      { href: "/search?category=landscapes", label: "Landscapes" },
+    ],
+  },
+  {
+    id: "3",
+    title: "Famous Painters",
+    menus: [
+      { href: "/search?category=art-prints", label: "Art prints" },
+      { href: "/search?category=renaissance-masters", label: "Renaissance Masters" },
+      { href: "/search?category=dutch-masters", label: "Dutch masters" },
+      { href: "/search?category=modern-masters", label: "Modern masters" },
+      { href: "/search?category=abstract-art", label: "Abstract art" },
     ],
   },
   {
     id: "4",
-    title: "Community",
+    title: "Posters",
     menus: [
-      { href: "/", label: "Discussion Forums" },
-      { href: "/", label: "Code of Conduct" },
-      { href: "/", label: "Contributing" },
-      { href: "/", label: "API Reference" },
+      { href: "/search?category=retro-and-vintage", label: "Retro and vintage" },
+      { href: "/search?category=black-and-white", label: "Black and white" },
+      { href: "/search?category=historical-posters", label: "Historical posters" },
+      { href: "/search?category=classic-posters", label: "Classic posters" },
+      { href: "/search?category=text-posters", label: "Text posters" },
+      { href: "/search?category=movies-and-games-posters", label: "Movies & Games posters" },
+      { href: "/search?category=music-posters", label: "Music posters" },
+      { href: "/search?category=sports-posters", label: "Sports posters" },
+    ],
+  },
+  {
+    id: "5",
+    title: "Art Styles",
+    menus: [
+      { href: "/search?category=illustrations", label: "Illustrations" },
+      { href: "/search?category=photographs", label: "Photographs" },
+      { href: "/search?category=iconic-photos", label: "Iconic photos" },
+      { href: "/search?category=general-posters", label: "General posters" },
+      { href: "/search?category=kids-wall-art", label: "Kids' Wall Art" },
     ],
   },
 ];
 
+
 const Footer: React.FC = () => {
   const renderWidgetMenuItem = (menu: WidgetFooterMenu, index: number) => {
+    const { t } = useTranslation();
     return (
       <div key={index} className="text-sm">
         <h2 className="font-semibold text-neutral-700 dark:text-neutral-200">
-          {menu.title}
+          {t(menu.title)}
         </h2>
         <ul className="mt-5 space-y-4">
           {menu.menus.map((item, index) => (
@@ -66,10 +86,9 @@ const Footer: React.FC = () => {
                 key={index}
                 className="text-neutral-6000 dark:text-neutral-300 hover:text-black dark:hover:text-white"
                 href={item.href}
-                target="_blank"
                 rel="noopener noreferrer"
               >
-                {item.label}
+                {t(item.label)}
               </a>
             </li>
           ))}

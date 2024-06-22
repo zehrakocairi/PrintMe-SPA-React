@@ -3,59 +3,37 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@azure/msal-browser": "^3.15.0",
-    "@azure/msal-react": "^2.0.17",
     "@glidejs/glide": "^3.6.1",
     "@headlessui/react": "^2.0.4",
-    "@heroicons/react": "^2.1.3",
+    "@heroicons/react": "^2.1.4",
+    "@microsoft/applicationinsights-react-js": "^17.2.0",
+    "@microsoft/applicationinsights-web": "^3.2.2",
     "@react-oauth/google": "^0.12.1",
-    "@reduxjs/toolkit": "^2.2.5",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "@types/glidejs__glide": "^3.6.5",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.97",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "framer-motion": "^11.2.10",
+    "i18next": "^23.11.5",
     "rc-slider": "^10.6.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hooks-global-state": "^2.1.0",
     "react-hot-toast": "^2.4.1",
+    "react-i18next": "^14.1.2",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "react-swipeable": "^7.0.1",
     "react-use": "^17.5.0",
-    "react-use-keypress": "^1.3.1",
-    "sass": "^1.77.4",
+    "sass": "^1.77.6",
     "typescript": "^4.9.5",
-    "uuid": "^9.0.1",
-    "web-vitals": "^2.1.4"
+    "uuid": "^10.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "rules": {
-      "max-len": [
-        "off",
-        {
-          "code": 400
-        }
-      ]
-    }
+    "build": "cross-env CI=false react-scripts build"
   },
   "prettier": {
     "printWidth": 400
@@ -75,7 +53,7 @@
   "devDependencies": {
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.3"
+    "cross-env": "^7.0.3",
+    "tailwindcss": "^3.4.4"
   }
 }

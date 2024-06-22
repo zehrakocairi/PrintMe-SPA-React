@@ -7,10 +7,13 @@ import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
 import { useState } from "react";
+import { Sizes } from "../../data/types";
+import { useTranslation } from "react-i18next";
 
 const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
   const [shippingPrice, setShippingPrice] = useState(5);
+  const { t } = useTranslation();
 
  const renderStatusSoldout = () => {
     return (
@@ -31,7 +34,7 @@ const CartPage = () => {
   };
 
   const renderProduct = (item: CartItem, index: number) => {
-    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId } = item;
+    let { productId, pictureUrl, unitPrice, productName, quantity, size, frameId, frameName } = item;
     
   const setQuantity = (value: number) => {
     addItemToCart({...item, quantity: (value - quantity)});
@@ -104,7 +107,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`Black`}</span>
+                    <span>{frameName}</span>
                   </div>
                   <span className="mx-4 border-l border-slate-200 dark:border-slate-700 "></span>
                   <div className="flex items-center space-x-1.5">
@@ -139,7 +142,7 @@ const CartPage = () => {
                       />
                     </svg>
 
-                    <span>{`2XL`}</span>
+                    <span>{Sizes[size]}</span>
                   </div>
                 </div>
 
@@ -187,18 +190,18 @@ const CartPage = () => {
       <main className="container py-16 lg:pb-28 lg:pt-20 ">
         <div className="mb-12 sm:mb-16">
           <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">
-            Shopping Cart
+          {t("Shopping Cart")}
           </h2>
           <div className="block mt-3 sm:mt-5 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-400">
             <Link href={"/"} className="">
-              Homepage
+             {t("Homepage")}
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
             <Link href={"/collection"} className="">
-              Clothing Categories
+              {t("Clothing Categories")}
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
-            <span className="underline">Shopping Cart</span>
+            <span className="underline"> {t("Shopping Cart")}</span>
           </div>
         </div>
 
@@ -211,33 +214,33 @@ const CartPage = () => {
           <div className="border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-700 my-10 lg:my-0 lg:mx-10 xl:mx-16 2xl:mx-20 flex-shrink-0"></div>
           <div className="flex-1">
             <div className="sticky top-28">
-              <h3 className="text-lg font-semibold ">Order Summary</h3>
+              <h3 className="text-lg font-semibold ">{t("Order Summary")}</h3>
               <div className="mt-7 text-sm text-slate-500 dark:text-slate-400 divide-y divide-slate-200/70 dark:divide-slate-700/80">
                 <div className="flex justify-between pb-4">
-                  <span>Subtotal</span>
+                  <span>{t("Subtotal")}</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                  {cartTotal}
+                  €{cartTotal}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
-                  <span>Shipping estimate</span>
+                  <span>{t("Shipping estimate")}</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${shippingPrice}
+                    €{shippingPrice}
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
                   <span>Tax estimate</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
-                    ${taxTotal.toFixed(2)}
+                    €{taxTotal.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
-                  <span>Order total</span>
-                  <span>{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
+                  <span>{t("Order total")}</span>
+                  <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2) }</span>
                 </div>
               </div>
               <ButtonPrimary href="/checkout" className="mt-8 w-full">
-                Checkout
+               {t("Check out")}
               </ButtonPrimary>
               <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">
                 <p className="block relative pl-5">
@@ -268,27 +271,25 @@ const CartPage = () => {
                       strokeLinejoin="round"
                     />
                   </svg>
-                  Learn more{` `}
+                 {t("Learn more ")}
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="##"
                     className="text-slate-900 dark:text-slate-200 underline font-medium"
                   >
-                    Taxes
+                    {t("Taxes")}
                   </a>
                   <span>
-                    {` `}and{` `}
+                    {t(" and ")}  
                   </span>
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="##"
                     className="text-slate-900 dark:text-slate-200 underline font-medium"
                   >
-                    Shipping
+                   {t("Shipping ")}
                   </a>
-                  {` `} infomation
+                  {t("infomation")} 
                 </p>
               </div>
             </div>

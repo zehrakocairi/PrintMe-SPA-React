@@ -2,7 +2,8 @@ import Heading from "../components/Heading/Heading";
 import { useLocation, useNavigate } from "react-router-dom";
 import NcImage from "../shared/NcImage/NcImage";
 import ListingImageGallery from "../components/listing-image-gallery/ListingImageGallery";
-import { FC, useState } from "react";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export interface Frame {
   id: string;
@@ -85,6 +86,7 @@ const FramesCatalog = () => {
   const thisPathname = useLocation();
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
+  const { t } = useTranslation();
 
   const [selectedFrameIndex, setSelectedFrameIndex] = useState<number>(0);
 
@@ -97,14 +99,15 @@ const FramesCatalog = () => {
     params.delete("modal");
     navigate(`${thisPathname.pathname}?${params.toString()}`);
   };
+
   return (
     <div className="nc-SectionFounder relative">
       <Heading
         className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 "
-        desc="PrintMeArt was founded by our passionate family, dedicated to bringing your cherished memories to life through beautiful, high-quality prints"
-        rightDescText="Explore Our Exquisite Frame Collection"
+        desc={t("PrintMeArt was founded by our passionate family, dedicated to bringing your cherished memories to life through beautiful, high-quality prints")}
+        rightDescText={t("Explore Our Exquisite Frame Collection")}
       >
-        Frames
+       {t("Frames")}
       </Heading>
       <div className="grid sm:grid-cols-2 gap-x-5 gap-y-14 lg:grid-cols-4 xl:gap-x-8">
         {/*  */}

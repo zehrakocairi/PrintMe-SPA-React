@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -13,7 +13,6 @@ import ReviewItem from "../../components/ReviewItem";
 import detail21JPG from "../../data/images/products/detail3-1.webp";
 import detail22JPG from "../../data/images/products/detail3-2.webp";
 import detail23JPG from "../../data/images/products/detail3-3.webp";
-import detail24JPG from "../../data/images/products/detail3-4.webp";
 import IconDiscount from "../../components/IconDiscount";
 import NcInputNumber from "../../components/NcInputNumber";
 import BagIcon from "../../components/BagIcon";
@@ -27,25 +26,14 @@ import Policy from "./Policy";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ListingImageGallery from "../../components/listing-image-gallery/ListingImageGallery";
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useMsal } from "@azure/msal-react";
 import { getCatalogItem } from "../../services/catalogService";
 import { Product, Size } from "../../models/ProductModels";
-import {Sizes} from '../../data/types';
-import {getFeaturedItems} from '../../services/catalogService';
+import { Sizes } from '../../data/types';
+import { getFeaturedItems } from '../../services/catalogService';
 import { useCart } from "../../contexts/CartContext";
-import {CartItem} from '../../models/CartItem';
+import { CartItem } from '../../models/CartItem';
 import { useApplication } from "../../contexts/ApplicationContext";
-
-const LIST_IMAGES_GALLERY_DEMO: (string)[] = [
-  detail24JPG,
-  "https://images.pexels.com/photos/3812433/pexels-photo-3812433.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1127000/pexels-photo-1127000.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/292999/pexels-photo-292999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1778412/pexels-photo-1778412.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/871494/pexels-photo-871494.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/2850487/pexels-photo-2850487.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-];
+import UpdateProduct from "../../components/UpdateProduct";
 
 const ProductDetailPage = ({ }) => {
 
@@ -56,21 +44,18 @@ const ProductDetailPage = ({ }) => {
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
 
-
-  const { instance, accounts } = useMsal();
-
   const fetchFeaturedtems = async () => {
-    const data = await getFeaturedItems(instance, accounts);
+    const { data } = await getFeaturedItems();
     setCustomersAlsoPurchesed(data);
   };
 
   const fetchProduct = async () => {
-    const product = await getCatalogItem(+(id ?? "0"), instance, accounts);
+    const product = await getCatalogItem(+(id ?? "0"),);
     setProduct(product);
   };
 
-  const {addItemToCart} = useCart();
-  const {frames,sizes} = useApplication();
+  const { addItemToCart } = useCart();
+  const { frames, sizes, isAdmin } = useApplication();
 
   useEffect(() => {
     fetchProduct();
@@ -82,8 +67,8 @@ const ProductDetailPage = ({ }) => {
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
 
-  function getAllImages() : string[] {
-    return [product?.image, product?.image2,  product?.image3, product?.image4, detail21JPG, 
+  function getAllImages(): string[] {
+    return [product?.image, product?.image2, product?.image3, product?.image4, detail21JPG,
       detail23JPG, detail22JPG];
   }
 
@@ -230,16 +215,16 @@ const ProductDetailPage = ({ }) => {
 
     return (
       <div>
-       <div className="flex justify-between font-medium text-sm">
-        <label className="rtl:text-right block" htmlFor="">
-          <span className="text-sm font-medium">
-            Color:
-            <span className="ms-1 font-semibold">
-              {frames[selectedFrameIndex].name}
+        <div className="flex justify-between font-medium text-sm">
+          <label className="rtl:text-right block" htmlFor="">
+            <span className="text-sm font-medium">
+              Color:
+              <span className="ms-1 font-semibold">
+                {frames[selectedFrameIndex].name}
+              </span>
             </span>
-          </span>
-        </label>
-        <a
+          </label>
+          <a
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-6000 hover:text-primary-500"
@@ -251,14 +236,13 @@ const ProductDetailPage = ({ }) => {
         <div className="grid grid-cols-6 gap-2 mt-3">
           {frames.map((frame, index) => (
             <div
-              title= {frame.name}
+              title={frame.name}
               key={index}
               onClick={() => setSelectedFrameIndex(index)}
-              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${
-                selectedFrameIndex === index
+              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${selectedFrameIndex === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
-              }`}
+                }`}
             >
               <div
                 className="absolute inset-0.5 rounded-lg overflow-hidden z-0 bg-no-repeat bg-center bg-cover"
@@ -374,7 +358,7 @@ const ProductDetailPage = ({ }) => {
                 <span>New</span>
                 <span className="mx-1.5">·</span>
                 <span className="text-slate-700 dark:text-slate-400 underline">
-                {product?.numberOfReviews} reviews
+                  {product?.numberOfReviews} reviews
                 </span>
               </span>
             </a>
@@ -392,7 +376,7 @@ const ProductDetailPage = ({ }) => {
         {/*  */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/*  */}
-        <AccordionInfo data={[{name: "Title", content: product.motto ?? ""}, {name: "Description", content: product.description}]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
+        <AccordionInfo data={[{ name: "Title", content: product.motto ?? "" }, { name: "Description", content: product.description }]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
       </div>
     );
   };
@@ -404,13 +388,13 @@ const ProductDetailPage = ({ }) => {
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
           <p>
-          Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 180 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
+            Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 180 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
           </p>
           <ul>
             <li>High-quality 180 g/m² fine art paper (matte)</li>
             <li>Giclée printing for vibrant, accurate colors</li>
             <li>
-            3.0 cm blank borders for easy framing
+              3.0 cm blank borders for easy framing
             </li>
             <li>50+ year color guarantee</li>
           </ul>
@@ -461,7 +445,7 @@ const ProductDetailPage = ({ }) => {
                 starPoint: 5,
               }}
             />
-          </div> 
+          </div>
 
           <ButtonSecondary
             onClick={() => setIsOpenModalViewAllReviews(true)}
@@ -579,6 +563,19 @@ const ProductDetailPage = ({ }) => {
           </div>
         </div>
       </main>
+
+      {
+      isAdmin() && (
+      <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+        <div className="flex-grow">
+          <div className="hidden lg:block sticky top-28">
+            <UpdateProduct productId={id}></UpdateProduct>
+          </div>
+        </div>
+      </main>
+      )
+      }
+
 
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">

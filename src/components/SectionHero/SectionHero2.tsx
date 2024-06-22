@@ -9,6 +9,7 @@ import useInterval from "react-use/lib/useInterval";
 import useBoolean from "react-use/lib/useBoolean";
 import Image from "../../shared/Image";
 import { HERO2_DEMO_DATA as DATA } from "./data";
+import { useTranslation } from "react-i18next";
 
 export interface SectionHero2Props {
   className?: string;
@@ -19,13 +20,15 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
   const [indexActive, setIndexActive] = useState(0);
-  const [isRunning, toggleIsRunning] = useBoolean(true);
+  const [isRunning, toggleIsRunning] = useBoolean(false);
+  const { t } = useTranslation();
 
   useInterval(
     () => {
+      toggleIsRunning(true);
       handleAutoNext();
     },
-    isRunning ? 5500 : null
+    isRunning ? 5500 : 10000
   );
   //
 
@@ -138,10 +141,10 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
           >
             <div className="space-y-5 sm:space-y-6">
               <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
-                {item.subHeading}
+              {t(item.subHeading)}
               </span>
               <h2 className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
-                {item.heading}
+              {t(item.heading)}
               </h2>
             </div>
             <ButtonPrimary
@@ -149,7 +152,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               sizeClass="py-3 px-6 sm:py-5 sm:px-9"
               href={item.btnLink}
             >
-              <span>{item.btnText}</span>
+              <span>{t(item.btnText)}</span>
               <span>
                 <svg className="w-5 h-5 ms-2.5" viewBox="0 0 24 24" fill="none">
                   <path
@@ -175,8 +178,9 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="w-full h-full object-contain object-right-bottom pr-16 nc-SectionHero2Item__image carousel-image-container"
-              src={item.image}
-              alt={item.heading}
+              src=  {item.image}
+              alt={t(item.heading)}
+              showMobileImage={true}
               priority
             />
           </div>

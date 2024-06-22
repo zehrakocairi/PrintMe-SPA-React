@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Heading from "../../components/Heading/Heading";
+import { useTranslation } from "react-i18next";
 
 export interface Statistic {
   id: string;
@@ -32,13 +33,13 @@ export interface SectionStatisticProps {
 }
 
 const SectionStatistic: FC<SectionStatisticProps> = ({ className = "" }) => {
+  const { t } = useTranslation();
   return (
     <div className={`nc-SectionStatistic relative ${className}`}>
       <Heading
-        desc=" We’re impartial and independent, and every day we create distinctive,
-          world-class programmes and content"
+        desc={t("We’re impartial and independent, and every day we create distinctive, world-class programmes and content")}
       >
-        🚀 Fast Facts
+        🚀 {t("Fast Facts")}
       </Heading>
       <div className="grid md:grid-cols-2 gap-6 lg:grid-cols-3 xl:gap-8">
         {FOUNDER_DEMO.map((item) => (

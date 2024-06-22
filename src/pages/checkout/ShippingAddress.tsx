@@ -7,6 +7,7 @@ import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Input from "../../shared/Input/Input";
 import Radio from "../../shared/Radio/Radio";
 import Select from "../../shared/Select/Select";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isActive: boolean;
@@ -19,6 +20,7 @@ const ShippingAddress: FC<Props> = ({
   onCloseActive,
   onOpenActive,
 }) => {
+  const { t } = useTranslation();
   const renderShippingAddress = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl ">
@@ -70,7 +72,7 @@ const ShippingAddress: FC<Props> = ({
 
           <div className="sm:ml-8">
             <h3 className=" text-slate-700 dark:text-slate-300 flex ">
-              <span className="uppercase">SHIPPING ADDRESS</span>
+              <span className="uppercase">{t("SHIPPING ADDRESS")}</span>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -95,7 +97,7 @@ const ShippingAddress: FC<Props> = ({
             className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0 sm:ml-auto text-sm font-medium rounded-lg"
             onClick={onOpenActive}
           >
-            Change
+            {t("Change")}
           </button>
         </div>
         <div
@@ -106,11 +108,11 @@ const ShippingAddress: FC<Props> = ({
           {/* ============ */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
-              <Label className="text-sm">First name</Label>
+              <Label className="text-sm">{t("First name")}</Label>
               <Input className="mt-1.5" defaultValue="Cole" />
             </div>
             <div>
-              <Label className="text-sm">Last name</Label>
+              <Label className="text-sm">{t("Last name")}</Label>
               <Input className="mt-1.5" defaultValue="Enrico " />
             </div>
           </div>
@@ -127,7 +129,7 @@ const ShippingAddress: FC<Props> = ({
               />
             </div>
             <div className="sm:w-1/3">
-              <Label className="text-sm">Apt, Suite *</Label>
+              <Label className="text-sm">{t("Apt, Suite *")}</Label>
               <Input className="mt-1.5" defaultValue="55U - DD5 " />
             </div>
           </div>
@@ -135,11 +137,11 @@ const ShippingAddress: FC<Props> = ({
           {/* ============ */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
-              <Label className="text-sm">City</Label>
+              <Label className="text-sm">{t("City")}</Label>
               <Input className="mt-1.5" defaultValue="Norris" />
             </div>
             <div>
-              <Label className="text-sm">Country</Label>
+              <Label className="text-sm">{t("Country")}</Label>
               <Select className="mt-1.5" defaultValue="United States ">
                 <option value="United States">United States</option>
                 <option value="United States">Canada</option>
@@ -156,18 +158,18 @@ const ShippingAddress: FC<Props> = ({
           {/* ============ */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-3">
             <div>
-              <Label className="text-sm">State/Province</Label>
+              <Label className="text-sm">{t("State/Province")}</Label>
               <Input className="mt-1.5" defaultValue="Texas" />
             </div>
             <div>
-              <Label className="text-sm">Postal code</Label>
+              <Label className="text-sm">{t("Postal code")}</Label>
               <Input className="mt-1.5" defaultValue="2500 " />
             </div>
           </div>
 
           {/* ============ */}
           <div>
-            <Label className="text-sm">Address type</Label>
+            <Label className="text-sm">{t("Address type")}</Label>
             <div className="mt-1.5 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
               <Radio
                 label={`<span class="text-sm font-medium">Home <span class="font-light">(All Day Delivery)</span></span>`}
@@ -188,18 +190,17 @@ const ShippingAddress: FC<Props> = ({
             <ButtonPrimary
               className="sm:!px-7 shadow-none"
               onClick={ ()=>{
-                alert("We're sorry! We're currently experiencing issues with our payment methods. Please try again later. Thank you for your patience.");
-                // onCloseActive();
+                onCloseActive();
               }}
             >
-              Save and next to Payment
+              {t("Save and next to Payment")}
             </ButtonPrimary>
             <ButtonSecondary
             disabled
               className="mt-3 sm:mt-0 sm:ml-3"
               onClick={onCloseActive}
             >
-              Cancel
+              {t("Cancel")}
             </ButtonSecondary>
           </div>
         </div>

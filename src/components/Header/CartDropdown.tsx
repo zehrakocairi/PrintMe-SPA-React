@@ -9,10 +9,13 @@ import Image from "../../shared/Image";
 import Link from "../../shared/Link";
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from "../../models/CartItem";
+import { Sizes } from "../../data/types";
+import { useTranslation } from "react-i18next";
 
 export default function CartDropdown() {
 
   const { cart, removeItemFromCart } = useCart();
+  const { t } = useTranslation();
 
   const [cartSum, setCartSum] = useState<number>(0);
   const [cartItemsCount, setCartItemsCount] = useState<number>(0);
@@ -23,7 +26,7 @@ export default function CartDropdown() {
   }, [cart]);
 
   const renderProduct = (item: CartItem, index: number, close: () => void) => {
-    const { productName, unitPrice, pictureUrl, quantity, size, frameId } = item;
+    const { productName, unitPrice, pictureUrl, quantity, size, frameId, frameName, productId } = item;
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
@@ -36,7 +39,7 @@ export default function CartDropdown() {
           <Link
             onClick={close}
             className="absolute inset-0"
-            href={"/product-detail"}
+            href={`/product-detail/${productId}`}
           />
         </div>
 
@@ -45,14 +48,14 @@ export default function CartDropdown() {
             <div className="flex justify-between ">
               <div>
                 <h3 className="text-base font-medium ">
-                  <Link onClick={close} href={"/product-detail"}>
+                  <Link onClick={close} href={`/product-detail/${productId}`}>
                     {productName}
                   </Link>
                 </h3>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  <span>{`Natural`}</span>
+                  <span>{frameName}</span>
                   <span className="mx-2 border-l border-slate-200 dark:border-slate-700 h-4"></span>
-                  <span>{"XL"}</span>
+                  <span>{Sizes[size]}</span>
                 </p>
               </div>
               <Prices price={unitPrice * quantity} className="mt-0.5" />
@@ -130,7 +133,7 @@ export default function CartDropdown() {
               />
             </svg>
 
-            <Link className="block md:hidden absolute inset-0" href={"/cart"} />
+            <Link className="block md:hidden absolute inset-0" aria-label="Go To Cart" href={"/cart"} />
           </Popover.Button>
           <Transition
             as={Fragment}
@@ -145,7 +148,7 @@ export default function CartDropdown() {
               <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-black/5 dark:ring-white/10">
                 <div className="relative bg-white dark:bg-neutral-800">
                   <div className="max-h-[60vh] p-5 overflow-y-auto hiddenScrollbar">
-                    <h3 className="text-xl font-semibold">Shopping cart</h3>
+                    <h3 className="text-xl font-semibold">{t("Shopping cart")}</h3>
                     <div className="divide-y divide-slate-100 dark:divide-slate-700">
                       {
                       cart?.map(
@@ -156,27 +159,28 @@ export default function CartDropdown() {
                   <div className="bg-neutral-50 dark:bg-slate-900 p-5">
                     <p className="flex justify-between font-semibold text-slate-900 dark:text-slate-100">
                       <span>
-                        <span>Subtotal</span>
+                        <span>{t("Subtotal")}</span>
                         <span className="block text-sm text-slate-500 dark:text-slate-400 font-normal">
-                          Shipping and taxes calculated at checkout.
+                        {t("Shipping and taxes calculated at checkout.")}
                         </span>
                       </span>
-                      <span className="">${cartSum}</span>
+                      <span className="">€{cartSum}</span>
                     </p>
                     <div className="flex space-x-2 mt-5">
                       <ButtonSecondary
                         href="/cart"
                         className="flex-1 border border-slate-200 dark:border-slate-700"
                         onClick={close}
+                        aria-label="View cart quick action"
                       >
-                        View cart
+                        {t("View cart")}
                       </ButtonSecondary>
                       <ButtonPrimary
                         href="/checkout"
                         onClick={close}
                         className="flex-1"
                       >
-                        Check out
+                       {t("Check out")}
                       </ButtonPrimary>
                     </div>
                   </div>

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Link from "../../shared/Link";
 import Image from "../../shared/Image";
+import { useTranslation } from "react-i18next";
 
 export interface CardCategory3Props {
   className?: string;
@@ -19,11 +20,14 @@ const CardCategory3: FC<CardCategory3Props> = ({
   desc ,
   color,
   href = '/search'
-}) => {
+}) => 
+  {
+    const { t } = useTranslation();
   return (
     <Link
       href={href}
       className={`nc-CardCategory3 block ${className}`}
+      aria-label={name}
     >
       <div
         className={`relative w-full aspect-w-16 aspect-h-11 sm:aspect-h-9 h-0 rounded-2xl overflow-hidden group ${color}`}
@@ -43,12 +47,12 @@ const CardCategory3: FC<CardCategory3Props> = ({
           <div className="absolute inset-5 sm:inset-8 flex flex-col">
             <div className="max-w-xs">
               <span className={`block mb-2 text-sm text-slate-700`}>
-                {name}
+                {t(name?? "")}
               </span>
               {desc && (
                 <h2
                   className={`text-xl md:text-2xl text-slate-900 font-semibold`}
-                  dangerouslySetInnerHTML={{ __html: desc }}
+                  dangerouslySetInnerHTML={{ __html:t(desc)  }}
                 ></h2>
               )}
             </div>
@@ -58,8 +62,8 @@ const CardCategory3: FC<CardCategory3Props> = ({
                 fontSize="text-sm font-medium"
                 className="nc-shadow-lg"
               >
-                Show me all
-              </ButtonSecondary>
+                {t('Show me all')}
+            </ButtonSecondary>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import Nav from "../shared/Nav/Nav";
 import NavItem from "../shared/NavItem/NavItem";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
@@ -9,6 +9,7 @@ import TabFilters from "./TabFilters";
 import { Transition } from "../headlessui";
 import { Category } from "../enums/Category";
 import { useFilter } from "../contexts/FilterContext";
+import { useTranslation } from "react-i18next";
 
 export interface HeaderFilterSearchPageProps {
   className?: string;
@@ -19,14 +20,15 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(true);  
   
-  const {updatecategoryState, filter, setFilterChanged} = useFilter()
+  const {updateCategoryState, filter, setFilterChanged} = useFilter()
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: "All Items" },
-    { key: Category.Nature, value: "Nature" },
-    { key: Category.VintageAndRetro, value: "Vintage and Retro" },
+    { key: Category.NatureAndLandscapes, value: "Nature and Landscapes" },
+    { key: Category.Posters, value: "Posters" },
     { key: Category.ArtStyles, value: "Art Styles" },
-    { key: Category.FamousPaintersCategory, value: "Famous Painters" }
+    { key: Category.FamousPainters, value: "Famous Painters" }
   ];
+  const { t } = useTranslation();
 
   return (
     <div className={`flex flex-col relative ${className}`}>
@@ -39,13 +41,13 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
             (item) => (
               <NavItem
                 key={item.key}
-                isActive={filter.categoryState === item.key || filter.categoryState === undefined && item.key === Category.None}
+                isActive={(filter.categoryState === item.key || filter.categoryState === undefined) && item.key === Category.None}
                 onClick={() => {
-                  updatecategoryState(item.key);
+                  updateCategoryState(item.key);
                   setFilterChanged(prev=>!prev);
                 }}
               >
-                {item.value}
+                {t(item.value)}
               </NavItem>
             )
           )}
@@ -87,7 +89,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
               />
             </svg>
 
-            <span className="block truncate ml-2.5">Filter</span>
+            <span className="block truncate ml-2.5">{t("Filter")}</span>
             <span className="absolute top-1/2 -translate-y-1/2 right-5">
               <ChevronDownIcon
                 className={`w-4 h-4 sm:w-5 sm:h-5 ${

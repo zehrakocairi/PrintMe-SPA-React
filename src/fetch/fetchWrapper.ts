@@ -1,11 +1,9 @@
-import { tokenRequest, msalInstance } from "../authConfig";
-
-export const fetchWithAuth = async (url: string, token: string|null, options: any = {}) => {
+export const fetchWithAuth = async (url: string, token: string|null|undefined, options: any = {}) => {
   const headers = {
     "Content-Type": "application/json",
-    ...(options.headers || {})
+    ...(options.headers || {}),
   };
-  
+
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
@@ -17,14 +15,18 @@ export const fetchWithAuth = async (url: string, token: string|null, options: an
   const fetchResponse = await fetch(url, {
     ...options,
     headers,
-    credentials: "include"
+    credentials: "include",
   });
 
   if (fetchResponse.status >= 300) {
     throw new Error("Network response was not ok");
   }
 
-  return await fetchResponse.json();
+  const responseText = await fetchResponse.text();
+
+  if (!responseText) return;
+
+  return JSON.parse(responseText);
 };
 
 export const getPostOptions = (body: any):any => {

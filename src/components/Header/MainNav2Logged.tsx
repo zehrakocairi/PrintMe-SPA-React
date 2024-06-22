@@ -8,6 +8,8 @@ import Navigation from "../../shared/Navigation/Navigation";
 import CartDropdown from "./CartDropdown";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useNavigate } from 'react-router-dom';
+import LangDropdown from "./LangDropdown";
+import { useTranslation } from "react-i18next";
 
 
 export interface MainNav2LoggedProps {}
@@ -16,6 +18,7 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const inputRef = createRef<HTMLInputElement>();
   const [showSearchForm, setShowSearchForm] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const renderMagnifyingGlassIcon = () => {
     return (
@@ -59,11 +62,11 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
           <input
             ref={inputRef}
             type="text"
-            placeholder="Type and press enter"
+            placeholder={t("Type and press enter")}
             className="border-none bg-transparent focus:outline-none focus:ring-0 w-full text-base"
             autoFocus
           />
-          <button type="button" onClick={() => setShowSearchForm(false)}>
+          <button type="button" aria-label="Hide Search Bar" onClick={() => setShowSearchForm(false)}>
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
@@ -90,12 +93,14 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
         <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
           {!showSearchForm && (
             <button
+              aria-label="Search"
               className="hidden lg:flex w-10 h-10 sm:w-12 sm:h-12 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none items-center justify-center"
               onClick={() => setShowSearchForm(!showSearchForm)}
             >
               {renderMagnifyingGlassIcon()}
             </button>
           )}
+          <LangDropdown />
           <AvatarDropdown />
           <CartDropdown />
         </div>

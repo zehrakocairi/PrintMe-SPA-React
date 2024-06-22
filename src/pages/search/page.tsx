@@ -1,5 +1,4 @@
 import Pagination from "../../shared/Pagination/Pagination";
-import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import SectionPromo1 from "../../components/SectionPromo1";
 import HeaderFilterSearchPage from "../../components/HeaderFilterSearchPage";
 import Input from "../../shared/Input/Input";
@@ -7,44 +6,39 @@ import ButtonCircle from "../../shared/Button/ButtonCircle";
 import ProductCard from "../../components/ProductCard";
 import { useEffect, useState } from "react";
 import { getFilteredPaginatedItems } from "../../services/catalogService";
-import { useMsal } from "@azure/msal-react";
 import { Category } from "../../enums/Category";
 import { useFilter } from "../../contexts/FilterContext";
-import { useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useRef } from "react";
+import { CatalogTags } from "../../enums/CatalogTags";
+import { useTranslation } from "react-i18next";
 
 
-const PageSearch = ({}) => {
+const PageSearch = () => {
 
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const { instance, accounts } = useMsal();
+  const { t } = useTranslation();
 
   const location = useLocation();
+  const pageInitiated = useRef(false);
 
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updatecategoryState, isLoading, setPageSize} = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, updateTagState, isLoading, setPageSize, setTotalPages } = useFilter();
 
-  const fetchItems = async (searchTerm:string = "") => {
+  const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
     setIsLoading(true);
 
-    const categoryFromUrl = getCategoryFromUrl();
-    // searchTerm = searchTerm.trim() === "" 
-    // ? new URLSearchParams(location.search).get('searchTerm') ?? ""
-    // : searchTerm;
-    
-    setSearchText(searchTerm);
-
-    let categoryState = filter.categoryState == undefined
-        ? categoryFromUrl
-        : filter.categoryState;
+    let categoryState = category;
 
     if (searchTerm.trim() !== "") {
       categoryState = Category.None;
     }
-    else {
-      updatecategoryState(categoryState);
+    if (categoryState != Category.None) {
+      updateTagState(undefined);
     }
 
-    const data = await getFilteredPaginatedItems(instance, accounts, {...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    const {data, totalPages} = await getFilteredPaginatedItems({ ...filter, categoryState }, pageSize, pageIndex, searchTerm);
+    setTotalPages(totalPages ?? 1);
     setProducts(data);
 
     setIsLoading(false);
@@ -57,23 +51,43 @@ const PageSearch = ({}) => {
     }, 80);
   };
 
-  useEffect(() => {
-    fetchItems();
-  }, [filterChanged, pageIndex, pageSize]);
 
   useEffect(() => {
-    fetchItems(new URLSearchParams(location.search).get('searchTerm') ?? "");
-    if(location.hash !== ""){
+    if(!pageInitiated.current) {
+      return;
+    }
+    if (location.hash !== "") {
       handleScrollToEl(location.hash.split("#")[1])
-    }else{
+    } else {
       handleScrollToEl('root')
     }
-  }, [location.search]);
+    
+    fetchItems(filter.categoryState, filter.searchTerm);
+
+  }, [filterChanged, pageIndex, pageSize]);
 
 
   useEffect(() => {
-    setSearchText(new URLSearchParams(location.search).get('searchTerm') ?? "");
-  }, []);
+    const searchTerm = getSearchTermFromUrl();
+    const tag = getCatalogTagFromUrl();
+    const newCategory = getCategoryFromUrl() ?? Category.None;
+
+    if (searchTerm !== "") {
+      updateSearchTextState(searchTerm);
+      updateTagState(undefined);
+    }
+    else if (tag !== "") {
+      updateCategoryState(Category.None);
+      updateTagState(tag ===  '4' ? CatalogTags.TopSellers : tag === '8' ? CatalogTags.OurPick : undefined);
+      
+    }
+    else if (newCategory !== Category.None) {
+      updateCategoryState(newCategory);
+      updateTagState(undefined);
+    }
+    pageInitiated.current = true;
+    setFilterChanged((prev) => !prev);
+  }, [location.search]);
 
   function getCategoryFromUrl(): Category {
     let newCategory = Category.None;
@@ -85,16 +99,25 @@ const PageSearch = ({}) => {
     return newCategory;
   }
 
+  function getSearchTermFromUrl(): string {
+    return new URLSearchParams(location.search).get('searchTerm') ?? "";
+  }
+  function getCatalogTagFromUrl(): string {
+    return new URLSearchParams(location.search).get('tag') ?? "";
+  }
+
   function getCategoryKeyInsensitive(category: string): string | undefined {
     const lowerCaseCategory = category.toLowerCase().replaceAll("-", "");
     const categoryKeys = Object.keys(Category).filter(key => isNaN(Number(key))); // Get only string keys
     return categoryKeys.find(key => key.toLowerCase() === lowerCaseCategory);
-}
+  }
 
-function search(){
-  updatecategoryState(Category.None);
-  fetchItems(searchText)
-}
+  function search() {
+    updateCategoryState(Category.None);
+    updateTagState(undefined);
+    setSearchText(searchText.trim());
+    fetchItems(Category.None, searchText);
+  }
 
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
@@ -113,7 +136,7 @@ function search(){
                 className="shadow-lg border-0 dark:border"
                 id="search-input"
                 type="search"
-                placeholder="Type your keywords"
+                placeholder={t("Type your keywords")}
                 sizeClass="pl-14 py-5 pr-5 md:pl-16"
                 rounded="rounded-full"
                 value={searchText}
@@ -170,16 +193,10 @@ function search(){
           {/* PAGINATION */}
           <div className="flex flex-col mt-12 lg:mt-16 space-y-5 sm:space-y-0 sm:space-x-3 sm:flex-row sm:justify-between sm:items-center">
             <Pagination />
-            <ButtonPrimary loading={isLoading} onClick={()=>{
-              setPageSize((prev)=> prev + 10);
-              setFilterChanged((prev)=> !prev);
-            }
-
-        }>Show me more</ButtonPrimary>
           </div>
         </main>
 
-  
+
         <hr className="border-slate-200 dark:border-slate-700" />
 
         {/* SUBCRIBES */}

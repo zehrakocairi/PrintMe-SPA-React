@@ -11,58 +11,43 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import MySwitch from "./MySwitch";
 import { useFilter } from "../contexts/FilterContext";
 import { Category } from "../enums/Category";
-import { PrintSize } from "../enums/PrintSize";
+import { useTranslation } from "react-i18next";
+import { CatalogTags } from "../enums/CatalogTags";
 
-// DEMO DATA
-const DATA_categories = [
+export const DATA_categories = [
   { name: "Abstract Art", value: Category.AbstractArt },
-  { name: "Animals", value: Category.Animals },
+  { name: "Animal Art", value: Category.AnimalArt },
   { name: "Art Prints", value: Category.ArtPrints },
   { name: "Black And White", value: Category.BlackAndWhite },
-  { name: "Botanical", value: Category.Botanical },
+  { name: "Botanical Art", value: Category.BotanicalArt },
   { name: "Classic Posters", value: Category.ClassicPosters },
+  { name: "Dutch Masters", value: Category.DutchMasters },
   { name: "Famous Painters", value: Category.FamousPainters },
-  { name: "Gold And Silver", value: Category.GoldAndSilver },
-  { name: "Graphical", value: Category.Graphical },
-  { name: "Historical Prints", value: Category.HistoricalPrints },
+  { name: "Historical Posters", value: Category.HistoricalPosters },
   { name: "Iconic Photos", value: Category.IconicPhotos },
   { name: "Illustrations", value: Category.Illustrations },
+  { name: "Landscapes", value: Category.Landscapes },
   { name: "Maps And Cities", value: Category.MapsAndCities },
-  { name: "Modern Artists", value: Category.ModernArtists },
+  { name: "Modern Masters", value: Category.ModernMasters },
+  { name: "Movies & Games Posters", value: Category.MoviesAndGamesPosters },
+  { name: "Music Posters", value: Category.MusicPosters },
   { name: "Nature Prints", value: Category.NaturePrints },
   { name: "Photographs", value: Category.Photographs },
+  { name: "Renaissance Masters", value: Category.RenaissanceMasters },
   { name: "Retro And Vintage", value: Category.RetroAndVintage },
   { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
-  { name: "Studio Collections", value: Category.StudioCollections },
+  { name: "Sports Posters", value: Category.SportsPosters },
   { name: "Text Posters", value: Category.TextPosters },
+  { name: "Kids' Wall Art", value: Category.KidsWallArt },
 ];
 
-// const DATA_sizes = [
-//   {
-//     name: "Size13x18",
-//     value: PrintSize.Size13x18
-//   },
-//   {
-//     name: "Size21x30",
-//     value: PrintSize.Size21x30
-//   },
-//   {
-//     name: "Size30x40",
-//     value: PrintSize.Size30x40
-//   },
-//   {
-//     name: "Size40x50",
-//     value: PrintSize.Size40x50
-//   },
-//   {
-//     name: "Size50x50",
-//     value: PrintSize.Size50x50
-//   },
-//   {
-//     name: "Size70x100",
-//     value: PrintSize.Size70x100
-//   },
-// ];
+export const DATA_catalog_tags = [
+  { name: "Featured Products", value: CatalogTags.Featured },
+  { name: "On Sale", value: CatalogTags.OnSale },
+  { name: "Our Picks", value: CatalogTags.OurPick },
+  { name: "Top Sellers", value: CatalogTags.TopSellers },
+];
+
 
 const DATA_sortOrderRadios = [
   { name: "Most Popular", id: "Most-Popular" },
@@ -77,7 +62,8 @@ const PRICE_RANGE = [1, 500];
 const TabFilters = () => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
-  const { filter, updateIsOnSale, updateRangePrices, updatecategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const {t} = useTranslation();
 
   const closeModalMoreFilter = () => setisOpenMoreFilter(false);
   const openModalMoreFilter = () => setisOpenMoreFilter(true);
@@ -86,15 +72,8 @@ const TabFilters = () => {
     let newState = checked
       ? (filter.categoryState ?? cat) | cat
       : (filter.categoryState ?? cat) & ~cat;
-    updatecategoryState(newState);
+    updateCategoryState(newState);
   };
-
-  // const handleChangeSizes = (checked: boolean, size: PrintSize) => {
-  //   let newState = checked
-  //     ? (filter.sizeState ?? size) | size
-  //     : (filter.sizeState ?? size) & ~size;
-  //   updatesizeState(newState);
-  // };
 
   const renderXClear = () => {
     return (
@@ -115,7 +94,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsCategories = () => {
     return (
       <Popover className="relative">
@@ -181,11 +159,16 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2">Categories</span>
+              <span className="ml-2">{t('Categories')}</span>
               {(filter.categoryState ?? Category.None) == Category.None  ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
               ) : (
-                <span onClick={() => handleChangeCategories(false, Category.None)}>
+                <span onClick={(e) => {
+                  e.preventDefault();
+                  updateCategoryState(Category.None);
+                  setFilterChanged(!filterChanged);
+                  e.preventDefault();
+                  }}>
                   {renderXClear()}
                 </span>
               )}
@@ -219,12 +202,12 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         close();
-                        updatecategoryState(Category.None);
+                        updateCategoryState(Category.None);
                         setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -233,7 +216,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -245,7 +228,6 @@ const TabFilters = () => {
     );
   };
 
-  // OK
   const renderTabsSortOrder = () => {
     return (
       <Popover className="relative">
@@ -307,7 +289,7 @@ const TabFilters = () => {
                   ? DATA_sortOrderRadios.filter(
                     (i) => i.id === filter.sortOrderStates
                   )[0].name
-                  : "Sort order"}
+                  : t('Sort order')}
               </span>
               {!filter.sortOrderStates.length ? (
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
@@ -349,7 +331,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear1
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -358,7 +340,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -425,7 +407,7 @@ const TabFilters = () => {
   //             {(filter.sizeState ?? PrintSize.None) === PrintSize.None  ? (
   //               <ChevronDownIcon className="w-4 h-4 ml-3" />
   //             ) : (
-  //               <span onClick={() => updatesizeState(undefined)}>{renderXClear()}</span>
+  //               <span onClick={() => updateSizeState(undefined)}>{renderXClear()}</span>
   //             )}
   //           </Popover.Button>
   //           {/* <Transition
@@ -457,7 +439,7 @@ const TabFilters = () => {
   //                   <ButtonThird
   //                     onClick={() => {
   //                       close();
-  //                       updatesizeState(undefined);
+  //                       updateSizeState(undefined);
   //                     }}
   //                     sizeClass="px-4 py-2 sm:px-5"
   //                   >
@@ -520,7 +502,7 @@ const TabFilters = () => {
                 />
               </svg>
 
-              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}$`}</span>
+              <span className="ml-2 min-w-[90px]">{`${filter.rangePrices[0]}$ - ${filter.rangePrices[1]}€`}</span>
               {filter.rangePrices[0] === PRICE_RANGE[0] &&
                 filter.rangePrices[1] === PRICE_RANGE[1] ? null : (
                 <span onClick={() => updateRangePrices(PRICE_RANGE)}>
@@ -561,11 +543,11 @@ const TabFilters = () => {
                           htmlFor="minPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Min price
+                          {t('Min price')}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
-                            $
+                            €
                           </span>
                           <input
                             type="text"
@@ -582,11 +564,11 @@ const TabFilters = () => {
                           htmlFor="maxPrice"
                           className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                         >
-                          Max price
+                          {t('Max price')}
                         </label>
                         <div className="mt-1 relative rounded-md">
                           <span className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-neutral-500 sm:text-sm">
-                            $
+                            €
                           </span>
                           <input
                             type="text"
@@ -609,7 +591,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={() => {
@@ -618,7 +600,7 @@ const TabFilters = () => {
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>
@@ -676,7 +658,7 @@ const TabFilters = () => {
           />
         </svg>
 
-        <span className="line-clamp-1 ml-2">On sale</span>
+        <span className="line-clamp-1 ml-2">{t('On sale')}</span>
         {filter.isOnSale && renderXClear()}
       </div>
     );
@@ -784,7 +766,7 @@ const TabFilters = () => {
             />
           </svg>
 
-          <span className="ml-2">Products filters (3)</span>
+          <span className="ml-2">{t('Products filters')} (3)</span>
           {renderXClear()}
         </div>
 
@@ -829,7 +811,7 @@ const TabFilters = () => {
                       as="h3"
                       className="text-lg font-medium leading-6 text-gray-900"
                     >
-                      Products filters
+                      {t('Products filters')}
                     </Dialog.Title>
                     <span className="absolute left-3 top-3">
                       <ButtonClose onClick={closeModalMoreFilter} />
@@ -880,12 +862,12 @@ const TabFilters = () => {
                                   htmlFor="minPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Min price
+                                  {t('Min price')}
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      $
+                                      €
                                     </span>
                                   </div>
                                   <input
@@ -903,12 +885,12 @@ const TabFilters = () => {
                                   htmlFor="maxPrice"
                                   className="block text-sm font-medium text-neutral-700 dark:text-neutral-300"
                                 >
-                                  Max price
+                                  {t('Max price')}
                                 </label>
                                 <div className="mt-1 relative rounded-md">
                                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span className="text-neutral-500 sm:text-sm">
-                                      $
+                                      €
                                     </span>
                                   </div>
                                   <input
@@ -929,7 +911,7 @@ const TabFilters = () => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">Sort Order</h3>
+                        <h3 className="text-xl font-medium">{t('Sort order')}</h3>
                         <div className="mt-6 relative ">
                           <div className="relative flex flex-col space-y-5">
                             {DATA_sortOrderRadios.map((item) => (
@@ -949,11 +931,11 @@ const TabFilters = () => {
                       {/* --------- */}
                       {/* ---- */}
                       <div className="py-7">
-                        <h3 className="text-xl font-medium">On sale!</h3>
+                        <h3 className="text-xl font-medium">{t('On sale')+"!"}</h3>
                         <div className="mt-6 relative ">
                           <MySwitch
-                            label="On sale!"
-                            desc="Products currently on sale"
+                            label={t('On sale')+"!"}
+                            desc={t('Products currently on sale')}
                             enabled={filter.isOnSale}
                             onChange={updateIsOnSale}
                           />
@@ -966,21 +948,21 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         updateRangePrices(PRICE_RANGE);
-                        updatecategoryState(undefined);
-                        // updatesizeState(undefined);
+                        updateCategoryState(undefined);
+                        // updateSizeState(undefined);
                         updateSortOrderStates("");
                         closeModalMoreFilter();
                         setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Clear
+                      {t('Clear')}
                     </ButtonThird>
                     <ButtonPrimary
                       onClick={closeModalMoreFilter}
                       sizeClass="px-4 py-2 sm:px-5"
                     >
-                      Apply
+                      {t('Apply')}
                     </ButtonPrimary>
                   </div>
                 </div>

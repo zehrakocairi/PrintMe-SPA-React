@@ -5,12 +5,8 @@ import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
 import { PRODUCTS } from "../data/data";
-import { StarIcon } from "@heroicons/react/24/solid";
-import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
-import BagIcon from "./BagIcon";
-import { Toaster, toast } from 'react-hot-toast';
-import { Transition } from "../headlessui";
+import { toast } from 'react-hot-toast';
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
 import Image from "../shared/Image";
@@ -23,6 +19,7 @@ import { Product } from "../models/ProductModels";
 import NotifyAddTocart from "./NotifyAddTocart";
 import { Size } from "../models/ProductModels";
 import { useApplication } from "../contexts/ApplicationContext";
+import { useTranslation } from "react-i18next";
 
 export interface ProductCardProps {
   className?: string;
@@ -42,10 +39,7 @@ const ProductCard: FC<ProductCardProps> = ({
     description,
     variantType,
     status,
-    images,
-    rating,
     id,
-    numberOfReviews,
   } = data;
 
   const [variantActive, setVariantActive] = useState(0);
@@ -53,6 +47,8 @@ const ProductCard: FC<ProductCardProps> = ({
   const navigate = useNavigate();
   const {addItemToCart} = useCart();
   const {sizes, frames} = useApplication();
+
+  const { t } = useTranslation();
 
   const notifyAddTocart = (sizeIndex: number, frameId: number) => {
     addItemToCart(new CartItem(id, name, price, 1, data.imageThumbnail, sizes[sizeIndex].id, frameId, 0, "No Frame"));
@@ -78,6 +74,7 @@ const ProductCard: FC<ProductCardProps> = ({
             height={96}
             src={data.image2}
             alt={name}
+            showMobileImage={true}
             className="absolute object-cover object-center"
           />
         </div>
@@ -216,7 +213,7 @@ const ProductCard: FC<ProductCardProps> = ({
           onClick={() => setShowModalQuickView(true)}
         >
           <ArrowsPointingOutIcon className="w-3.5 h-3.5" />
-          <span className="ms-1">Quick view</span>
+          <span className="ms-1">{t('Quick view')}</span>
         </ButtonSecondary>
       </div>
     );
@@ -260,6 +257,7 @@ const ProductCard: FC<ProductCardProps> = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
+              showMobileImage={true}
             />
 
             {/* Hover View Image */}
@@ -270,6 +268,7 @@ const ProductCard: FC<ProductCardProps> = ({
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
               alt="product"
+              showMobileImage={true}
             />
           </Link>
           <ProductStatus status={status} />
@@ -278,7 +277,7 @@ const ProductCard: FC<ProductCardProps> = ({
           {/* {sizes ? renderSizeList() : renderGroupButtons()} */}
         </div>
 
-        <div className="space-y-4 px-2.5 pt-5 pb-2.5">
+        <div className="space-y-4 px-0 pt-5 pb-2.5">
           {/* {renderVariants()} */}
           <div>
             <div className="flex justify-between items-end ">

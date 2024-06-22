@@ -4,6 +4,7 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import Checkbox from "../../shared/Checkbox/Checkbox";
 import Input from "../../shared/Input/Input";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   isActive: boolean;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
+  const { t } = useTranslation();
+  
   const renderAccount = () => {
     return (
       <div className="border border-slate-200 dark:border-slate-700 rounded-xl overflow-hidden z-0">
@@ -48,7 +51,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
           </span>
           <div className="sm:ml-8">
             <h3 className=" text-slate-700 dark:text-slate-300 flex ">
-              <span className="uppercase tracking-tight">CONTACT INFO</span>
+              <span className="uppercase tracking-tight">{t("CONTACT INFO")}</span>
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
@@ -72,7 +75,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             className="py-2 px-4 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 mt-5 sm:mt-0 sm:ml-auto text-sm font-medium rounded-lg"
             onClick={() => onOpenActive()}
           >
-            Change
+            {t("Change")}
           </button>
         </div>
         <div
@@ -85,7 +88,7 @@ const ContactInfo: FC<Props> = ({ isActive, onCloseActive, onOpenActive }) => {
             <span className="block text-sm my-1 md:my-0">
               Do not have an account?{` `}
               <a href="/login" className="text-primary-500 font-medium">
-                Log in
+            {t("Log in")}
               </a>
             </span>
           </div>
