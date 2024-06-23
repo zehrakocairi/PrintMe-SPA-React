@@ -24,6 +24,7 @@ export class Product {
   status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
   rating?: string;
   numberOfReviews?: number;
+  isMatIncluded?: boolean;
 
   constructor(data: Partial<Product>) {
     this.id = data.id || 0;
@@ -42,6 +43,7 @@ export class Product {
     this.status = data.status;
     this.rating = data.rating;
     this.numberOfReviews = data.numberOfReviews;
+    this.isMatIncluded = data.isMatIncluded;
   }
 
   get image(): string {
@@ -93,6 +95,8 @@ export class Product {
     description: string;
     price: number;
     thumbnail: string;
+    image: string;
+    allImages: string[];
   }
   export interface Size {
     id: number;

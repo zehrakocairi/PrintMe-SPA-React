@@ -34,9 +34,13 @@ import { useCart } from "../../contexts/CartContext";
 import { CartItem } from '../../models/CartItem';
 import { useApplication } from "../../contexts/ApplicationContext";
 import UpdateProduct from "../../components/UpdateProduct";
+import { useTranslation } from "react-i18next";
+import {PlusIcon} from "@heroicons/react/24/outline";
+import ModalPreviewDesign from "../../components/ModalPreviewDesign";
 
 const ProductDetailPage = ({ }) => {
 
+  const { t } = useTranslation();
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -76,18 +80,22 @@ const ProductDetailPage = ({ }) => {
   const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
   const [calculatedPrice, setCalculatedPrice] = useState(product?.price ?? 0);
   const [quantity, setQuantity] = useState(1);
+  const [isMatIncluded, setIsMatIncluded] = useState(false);
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
     useState(false);
 
   useEffect(() => {
     if (product?.price && frames && sizes) {
-      const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (sizeSelected?.multiplier ?? 1);
+      const properSize = isMatIncluded ? sizes[Math.min(sizes.length-1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
+      const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
       setCalculatedPrice(Math.floor(newPrice));
     }
   }, [
     product,
     sizeSelected,
     selectedFrameIndex,
+    isMatIncluded
   ]);
 
   useEffect(() => {
@@ -129,7 +137,7 @@ const ProductDetailPage = ({ }) => {
         <div className="flex justify-between font-medium text-sm">
           <label htmlFor="">
             <span className="">
-              Size:
+              Image Size:
               <span className="ml-1 font-semibold">{sizeSelected?.name}</span>
             </span>
           </label>
@@ -289,10 +297,35 @@ const ProductDetailPage = ({ }) => {
             <div className="mt-6 space-y-7 lg:space-y-8">
               <div className="">{renderFrames()}</div>
             </div>
+            {/* ---------- MAT OPTION ----------  */}
+            <div className="mt-6 space-y-7 lg:space-y-8">
+              <div className="">
+                <div
+                  className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isMatIncluded
+                    ? "border-primary-500 bg-primary-50 text-primary-900"
+                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
+                    }`}
+                  onClick={() => setIsMatIncluded(!isMatIncluded)}
+                >
+                  <PlusIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+
+                  <span className="line-clamp-1 ml-2">{t('Include Mat')}</span>
+                </div>
+              </div>
+            </div>
             {/* ---------- SIZE LIST ----------  */}
             <div className="mt-6 space-y-7 lg:space-y-8">
               <div className="">{renderSizeList()}</div>
             </div>
+          </div>
+          {/*  ---------- PREVIEW BUTTON */}
+          <div className="flex space-x-3.5">
+            <ButtonPrimary
+              className="flex-1 flex-shrink-0 bg-[#517BDE]"
+              onClick={()=> setShowPreviewModal(true)}
+            >
+              <span className="ml-3">Preview Your Design</span>
+            </ButtonPrimary>
           </div>
           {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
           <div className="flex space-x-3.5">
@@ -600,6 +633,14 @@ const ProductDetailPage = ({ }) => {
       <ModalViewAllReviews
         show={isOpenModalViewAllReviews}
         onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
+      />
+      <ModalPreviewDesign
+        show={showPreviewModal}
+        onCloseModal={() => setShowPreviewModal(false)}
+        image={product.image}
+        isMatIncluded={isMatIncluded}
+        sizeName={sizeSelected?.name ?? "1x1"}
+        frame={frames[selectedFrameIndex]}
       />
 
       <ListingImageGallery

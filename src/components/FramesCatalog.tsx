@@ -4,76 +4,86 @@ import NcImage from "../shared/NcImage/NcImage";
 import ListingImageGallery from "../components/listing-image-gallery/ListingImageGallery";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Frame } from "../models/ProductModels";
 
-export interface Frame {
-  id: string;
-  name: string;
-  desc: string;
-  image: string;
-  allImages: string[];
-}
 
 const FRAMES: Frame[] = [
   {
-    id: "1",
+    id: 1,
     name: `Oak Picture Frame`,
-    desc: "A classic oak frame that adds rustic charm to your photos.",
+    description: "A classic oak frame that adds rustic charm to your photos.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251233_pe924195_s5.jpg?f=xxs",
-    allImages: ["https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs, https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251233_pe924195_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1298269_pe936170_s5.jpg?f=u", "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1298259_pe936159_s5.jpg?f=u", "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1298276_pe936177_s5.jpg?f=u"],
+    allImages: ["https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs"],
   },
   {
-    id: "2",
+    id: 2,
     name: `Black Picture Frame`,
-    desc: "A sleek black frame perfect for a modern look.",
+    description: "A sleek black frame perfect for a modern look.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661047_pe711292_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661045_pe711296_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661047_pe711292_s5.jpg?f=xxs"],
   },
   {
-    id: "3",
+    id: 3,
     name: `Wood Frame Light`,
-    desc: "A light wood frame that highlights your photos beautifully.",
+    description: "A light wood frame that highlights your photos beautifully.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0638227_pe698778_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0902941_pe661098_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0638227_pe698778_s5.jpg?f=xxs"],
   },
   {
-    id: "4",
+    id: 4,
     name: `Dark Oak Frame`,
-    desc: "A dark oak frame that adds elegance to your artwork.",
+    description: "A dark oak frame that adds elegance to your artwork.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0638101_pe698706_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0902161_pe597470_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0638101_pe698706_s5.jpg?f=xxs"],
   },
   {
-    id: "1",
+    id: 5,
     name: `Oak Picture Frame`,
-    desc: "A classic oak frame that adds rustic charm to your photos.",
+    description: "A classic oak frame that adds rustic charm to your photos.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251233_pe924195_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs, https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251233_pe924195_s5.jpg?f=xxs"],
   },
   {
-    id: "2",
+    id: 6,
     name: `Black Picture Frame`,
-    desc: "A sleek black frame perfect for a modern look.",
+    description: "A sleek black frame perfect for a modern look.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661047_pe711292_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661045_pe711296_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661047_pe711292_s5.jpg?f=xxs"],
   },
   {
-    id: "3",
+    id: 7,
     name: `Wood Frame Light`,
-    desc: "A light wood frame that highlights your photos beautifully.",
+    description: "A light wood frame that highlights your photos beautifully.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0638227_pe698778_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0902941_pe661098_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/lomviken-frame-black__0638227_pe698778_s5.jpg?f=xxs"],
   },
   {
-    id: "4",
+    id: 8,
     name: `Dark Oak Frame`,
-    desc: "A dark oak frame that adds elegance to your artwork.",
+    description: "A dark oak frame that adds elegance to your artwork.",
+    thumbnail: "https://www.ikea.com/nl/en/images/products/rodalm-frame-black__1251232_pe924196_s5.jpg?f=xxs",
+    price: 6,
     image:
       "https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0638101_pe698706_s5.jpg?f=xxs",
     allImages: ["https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0902161_pe597470_s5.jpg?f=xxs","https://www.ikea.com/nl/en/images/products/fiskbo-frame-black__0638101_pe698706_s5.jpg?f=xxs"],
@@ -166,7 +176,7 @@ const FramesCatalog = () => {
                 {item.name}
               </h3>
               <span className="block text-md text-neutral-600 dark:text-neutral-400">
-                {item.desc}
+                {item.description}
               </span>
             </div>
           )

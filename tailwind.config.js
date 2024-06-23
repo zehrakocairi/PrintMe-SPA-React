@@ -65,6 +65,9 @@ module.exports = {
           900: customColors("--c-neutral-900"),
         },
       },
+      scale: {
+        '70': '0.7',
+      }
     },
   },
   variants: {
