@@ -56,18 +56,7 @@ const widgetMenus: WidgetFooterMenu[] = [
       { href: "/search?category=music-posters", label: "Music posters" },
       { href: "/search?category=sports-posters", label: "Sports posters" },
     ],
-  },
-  {
-    id: "5",
-    title: "Art Styles",
-    menus: [
-      { href: "/search?category=illustrations", label: "Illustrations" },
-      { href: "/search?category=photographs", label: "Photographs" },
-      { href: "/search?category=iconic-photos", label: "Iconic photos" },
-      { href: "/search?category=general-posters", label: "General posters" },
-      { href: "/search?category=kids-wall-art", label: "Kids' Wall Art" },
-    ],
-  },
+  }
 ];
 
 

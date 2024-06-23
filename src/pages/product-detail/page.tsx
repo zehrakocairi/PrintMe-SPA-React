@@ -10,9 +10,6 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import NcImage from "../../shared/NcImage/NcImage";
 import ReviewItem from "../../components/ReviewItem";
-import detail21JPG from "../../data/images/products/detail3-1.webp";
-import detail22JPG from "../../data/images/products/detail3-2.webp";
-import detail23JPG from "../../data/images/products/detail3-3.webp";
 import IconDiscount from "../../components/IconDiscount";
 import NcInputNumber from "../../components/NcInputNumber";
 import BagIcon from "../../components/BagIcon";
@@ -61,19 +58,27 @@ const ProductDetailPage = ({ }) => {
   const { addItemToCart } = useCart();
   const { frames, sizes, isAdmin } = useApplication();
 
+  const handleScrollToEl = (id: string) => {
+    const element = document.getElementById(id);
+    setTimeout(() => {
+      element?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
+  };
+
   useEffect(() => {
     fetchProduct();
     fetchFeaturedtems();
+    handleScrollToEl('root');
   }, [id]);
 
 
   const status = "New in"; // TODO : Complete here by the category of the product
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
+  const frameGuideImage = "https://genstorageaccount3116.blob.core.windows.net/printme-images/frame-guide.avif";
 
   function getAllImages(): string[] {
-    return [product?.image, product?.image2, product?.image3, product?.image4, detail21JPG,
-      detail23JPG, detail22JPG];
+    return [product?.image, product?.image2, product?.image3, product?.image4, frameGuideImage, "https://genstorageaccount3116.blob.core.windows.net/printme-images/amy-humphries-yu9_c1mt_c4-unsplash.jpeg"];
   }
 
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
@@ -321,7 +326,7 @@ const ProductDetailPage = ({ }) => {
           {/*  ---------- PREVIEW BUTTON */}
           <div className="flex space-x-3.5">
             <ButtonPrimary
-              className="flex-1 flex-shrink-0 bg-[#517BDE]"
+              className="flex-1 flex-shrink-0 !bg-[#517BDE]"
               onClick={()=> setShowPreviewModal(true)}
             >
               <span className="ml-3">Preview Your Design</span>

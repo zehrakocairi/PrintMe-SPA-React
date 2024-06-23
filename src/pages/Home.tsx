@@ -12,6 +12,7 @@ import SectionPromo1 from "../components/SectionPromo1";
 import { Category } from "../enums/Category";
 import { useTranslation } from "react-i18next";
 import { useRef } from "react";
+import ServiceSummaryHero from "./ServiceSummaryHero";
 
 const Home: FC<any> = ({ }) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
@@ -26,14 +27,21 @@ const Home: FC<any> = ({ }) => {
 
   const fetchTrendingItems = async () => {
     setIsLoading(true);
-    const {data} = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
+    const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
     setTrendingItems(data);
     setIsLoading(false);
   };
 
   const fetchFeaturedItems = async () => {
-    const {data} = await getFeaturedItems();
+    const { data } = await getFeaturedItems();
     setFeaturedItems(data);
+  };
+
+  const handleScrollToEl = (id: string) => {
+    const element = document.getElementById(id);
+    setTimeout(() => {
+      element?.scrollIntoView({ behavior: "smooth" });
+    }, 80);
   };
 
   useEffect(() => {
@@ -42,6 +50,7 @@ const Home: FC<any> = ({ }) => {
     setInitialRenderCompleted(true);
     setFilterChanged(prev => !prev);
     fetchFeaturedItems();
+    handleScrollToEl('root');
   }, []);
 
   useEffect(() => {
@@ -97,7 +106,11 @@ const Home: FC<any> = ({ }) => {
         <DiscoverMoreSlider />
       </div>
 
+
+
       <div ref={sliderRef} className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32" >
+      <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
+
         {
           featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
             heading={t("Art Lovers Also Bought")}
@@ -107,6 +120,12 @@ const Home: FC<any> = ({ }) => {
             data={featuredItems}
           /> : <></>
         }
+        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
+
+        <div className="mb-20">
+          <ServiceSummaryHero />
+        </div>
+        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
         <div ref={catalogRef}>
           {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}

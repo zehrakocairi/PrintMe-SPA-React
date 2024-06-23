@@ -31,10 +31,10 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
                   See your custom framed artwork come to life!
                 </p>
                 <ul>
-                  <li>Selected Options: This preview shows your chosen frame, mat, and picture</li>
-                  <li>Mat Effect: The mat adds a decorative border between the picture and frame, enhancing the look</li>
+                  <li><strong>Selected Options</strong>: This preview shows your chosen frame, mat, and picture</li>
+                  <li><strong>Mat Effect</strong>: The mat adds a decorative border between the picture and frame, enhancing the look</li>
                   <li>
-                    Size Impact: A mat affects the overall frame size. For example, a 50x70 picture fits a 50x70 frame without a mat, but with a mat, it might require a 69x91 frame
+                    <strong>Size Impact</strong>: A mat affects the overall frame size. For example, a 50x70 picture fits a 50x70 frame without a mat, but with a mat, it might require a 69x91 frame
                   </li>
                 </ul>
               </div>
