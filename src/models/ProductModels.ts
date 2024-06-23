@@ -98,6 +98,7 @@ export class Product {
     image: string;
     allImages: string[];
     mask: string;
+    maskWithoutMat: string;
   }
   export interface Size {
     id: number;
