@@ -97,6 +97,7 @@ export class Product {
     thumbnail: string;
     image: string;
     allImages: string[];
+    mask: string;
   }
   export interface Size {
     id: number;

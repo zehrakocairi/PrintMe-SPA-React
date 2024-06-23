@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { Frame, Size } from "../models/ProductModels";
 import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
+import { FRAMES} from "../data/data";
 
 interface ApplicationContextProps {
     frames: Frame[];
@@ -25,6 +26,9 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     const [currentUser, setcCurrentUser] = useState<any>({});
 
     const fetchFrames = async () => {
+        setFrames(FRAMES);
+        return;
+   
         const url = `/bootstrap/frames`;
         try {
             const response = await fetchWithAuth(url, '');

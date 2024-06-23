@@ -56,7 +56,7 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
           <div className="relative overflow-hidden">
             <div className="relative z-10" >
               <Image
-                src={"https://genstorageaccount3116.blob.core.windows.net/printme-images/frame1.png"}
+                src={frame?.mask ?? ""}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full object-cover"
