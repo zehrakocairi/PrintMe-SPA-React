@@ -104,7 +104,7 @@ export const FRAMES: Frame[] = [
     thumbnail: "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661072_pe711302_s5.jpg?f=xxs",
     price: 6,
     mask: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/frame3-lomviken-mat.png',
-    maskWithoutMat: "",
+    maskWithoutMat: "https://genstorageaccount3116.blob.core.windows.net/printme-images/frame3-lomviken.png",
     image:
       "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661072_pe711302_s5.jpg?f=s",
     allImages: ["https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661070_pe711317_s5.jpg?f=s","https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0902049_pe731149_s5.jpg?f=s","https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661072_pe711302_s5.jpg?f=s", "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__0661071_pe711318_s5.jpg?f=s", "https://www.ikea.com/nl/en/images/products/lomviken-frame-gold-colour__1171372_pe893053_s5.jpg?f=s"],
