@@ -13,8 +13,10 @@ export interface PreviewDesignProps {
 }
 
 const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, sizeName, className = "" }) => {
-  const ratioX = sizeName ? +sizeName.toLowerCase().split("x")[0] : 1;
-  const ratioY = sizeName ? +sizeName.toLowerCase().split("x")[1] : 1;
+  // const ratioX = sizeName ? +sizeName.toLowerCase().split("x")[0] : 1;
+  // const ratioY = sizeName ? +sizeName.toLowerCase().split("x")[1] : 1;
+  const ratioX = 5, ratioY = 7;
+  const paddingClass = isMatIncluded ? "p-[12%]" : "p-[3%]";
   const renderSectionContent = () => {
     return (
       <div className="space-y-8">
@@ -56,19 +58,19 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
           <div className="relative overflow-hidden">
             <div className="relative z-10" >
               <Image
-                src={frame?.mask ?? ""}
+                src={(isMatIncluded ? frame?.mask : frame?.maskWithoutMat) ?? ""}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full object-cover"
                 alt="product preview"
               />
             </div>
-            <div style={{ aspectRatio: `${ratioX} / ${ratioY}` }} className="absolute top-[0]">
+            <div style={{ aspectRatio: `${ratioX} / ${ratioY}` }} className={`absolute inset-0 h-full mx-auto ${paddingClass}`}>
               <Image
                 src={image}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="w-full object-cover scale-70"
+                className="w-full object-cover"
                 alt="product preview"
               />
             </div>
