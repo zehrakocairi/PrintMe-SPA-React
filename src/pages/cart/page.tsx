@@ -271,6 +271,7 @@ const CartPage = () => {
                   </svg>
                  {t("Learn more ")}
                   <a
+                    aria-label="Learn More about PrintMe"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-900 dark:text-slate-200 underline font-medium"
