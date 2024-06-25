@@ -340,7 +340,7 @@ export const resources = {
       "Shopping cart": "Winkelwagen",
       "Subtotal": "Subtotaal",
       "Shipping and taxes calculated at checkout.": "Verzendkosten en belastingen worden berekend bij het afrekenen.",
-      "View cart": "Bekijk winkelwagen",
+      "View cart": "Winkelwagen",
       "Check out": "Afrekenen",
       "Shopping Cart": "Winkelwagen",
       "Clothing Categories": "Kledingcategorieën",

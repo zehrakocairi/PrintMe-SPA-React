@@ -91,7 +91,7 @@ const FramesCatalog = () => {
               <h3 className="text-lg font-semibold text-neutral-900 mt-5 md:text-l dark:text-neutral-200">
                 {item.name}
               </h3>
-              <span className="block text-md text-neutral-600 dark:text-neutral-400">
+              <span className="block text-sm text-neutral-600 dark:text-neutral-400">
                 {item.description}
               </span>
             </div>

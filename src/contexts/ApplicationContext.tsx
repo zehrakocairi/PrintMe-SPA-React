@@ -26,8 +26,8 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     const [currentUser, setcCurrentUser] = useState<any>({});
 
     const fetchFrames = async () => {
-        setFrames(FRAMES);
-        return;
+        // setFrames(FRAMES);
+        // return;
    
         const url = `/bootstrap/frames`;
         try {
@@ -52,6 +52,9 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         const url = `/bootstrap/currentUser`;
         try {
             const response = await fetchWithAuth(url, await getToken());
+            if(response.userName === 'Guest'){
+                localStorage.removeItem("accessToken");
+            }
             setcCurrentUser(response);
         } catch (error) {
             console.error(`Error fetching current user:`, error);

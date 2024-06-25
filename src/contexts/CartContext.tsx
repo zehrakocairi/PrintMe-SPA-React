@@ -29,7 +29,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     useEffect(() => {
         const newCartTotal = cart.reduce((acc, item) => acc + item.unitPrice * item.quantity, 0);
         setCartTotal(newCartTotal);
-        setTaxTotal(newCartTotal * 0.08);
+        setTaxTotal(newCartTotal * 0.21);
     }, [cart]);
 
     useEffect(() => {

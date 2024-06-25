@@ -28,8 +28,14 @@ const AccountPage = () => {
   const { t } = useTranslation();
 
   const fetchUserData = async () => {
-    var data = await fetchWithAuth(`/customer`, await getToken());
-    setUserData(data);
+    try{
+      var data = await fetchWithAuth(`/customer`, await getToken());
+      setUserData(data);
+    }
+    catch(error){
+      console.error("Error fetching user data: ", error);
+    }
+    
   };
 
   useEffect(() => {

@@ -279,7 +279,7 @@ const ProductDetailPage = ({ }) => {
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
               <div className="flex text-2xl font-semibold">
-                ${calculatedPrice?.toFixed(0)}
+                €{calculatedPrice?.toFixed(0)}
               </div>
 
               <a
@@ -354,22 +354,22 @@ const ProductDetailPage = ({ }) => {
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">
-                  <span>{`$${calculatedPrice?.toFixed(2)}  `}</span>
+                  <span>{`€${calculatedPrice?.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
                   <span>{`${quantity} `}</span>
                 </span>
 
-                <span>{`$${(calculatedPrice * quantity).toFixed(2)}`}</span>
+                <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
-                <span>$0</span>
+                <span>€{calculatedPrice * 0.21}</span>
               </div>
             </div>
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
               <span>Total</span>
-              <span>{`$${(calculatedPrice * quantity).toFixed(2)}`}</span>
+              <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
             </div>
           </div>
         </div>

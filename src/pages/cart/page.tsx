@@ -169,9 +169,7 @@ const CartPage = () => {
           </div>
 
           <div className="flex mt-auto pt-4 items-end justify-between text-sm">
-            {Math.random() > 0.6
-              ? renderStatusSoldout()
-              : renderStatusInstock()}
+            {renderStatusInstock()}
 
             <a
               href="##"
@@ -197,7 +195,7 @@ const CartPage = () => {
              {t("Homepage")}
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
-            <Link href={"/collection"} className="">
+            <Link href={"/search"} className="">
               {t("Clothing Categories")}
             </Link>
             <span className="text-xs mx-1 sm:mx-1.5">/</span>
