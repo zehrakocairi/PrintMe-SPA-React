@@ -8,10 +8,10 @@ const appInsights = new ApplicationInsights({
     extensions: [reactPlugin],
     enableAutoRouteTracking: true,
     disableAjaxTracking: false,
-    autoTrackPageVisitTime: true,
+    autoTrackPageVisitTime: false,
     enableCorsCorrelation: false,
-    enableRequestHeaderTracking: true,
-    enableResponseHeaderTracking: true,
+    enableRequestHeaderTracking: false,
+    enableResponseHeaderTracking: false,
   }
 });
 appInsights.loadAppInsights();
