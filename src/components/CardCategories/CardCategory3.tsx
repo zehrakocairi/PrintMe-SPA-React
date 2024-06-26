@@ -35,6 +35,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
         <div>
           <div className="absolute inset-5 sm:inset-8">
             <Image
+              defer
               alt=""
               src={featuredImage || ""}
               className="absolute end-0 w-1/2 max-w-[260px] h-full object-contain drop-shadow-xl"
