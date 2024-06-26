@@ -17,6 +17,7 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
   // const ratioY = sizeName ? +sizeName.toLowerCase().split("x")[1] : 1;
   const ratioX = 5, ratioY = 7;
   const paddingClass = isMatIncluded ? "p-[12%]" : "p-[3%]";
+
   const renderSectionContent = () => {
     return (
       <div className="space-y-8">
@@ -43,47 +44,65 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
             </div>
           </div>
         </div>
-
       </div>
     );
   };
 
-  return (
-    <div className={`nc-ProductQuickView ${className}`}>
-      {/* MAIN */}
-      <div className="lg:flex">
-        {/* CONTENT */}
-        <div className="w-full">
-          {/* HEADING */}
-          <div className="relative overflow-hidden">
-            <div className="relative z-10" >
+  return <div className={`nc-ProductQuickView ${className}`}>
+  {/* MAIN */}
+  <div className="lg:flex">
+    {/* CONTENT */}
+    <div className="w-full">
+      {/* HEADING */}
+      <div className="relative overflow-hidden">
+        {frame?.name == "Rolled-up" ? (
+          <div
+            style={{ aspectRatio: `${ratioX} / ${ratioY}` }}
+            className={`relative inset-0 h-full mx-auto ${paddingClass}`}
+          >
+            <Image
+              src={image}
+              layout="fill"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="w-full object-cover"
+              alt="product preview"
+            />
+          </div>
+        ) : (
+          <>
+            <div className="relative z-10">
               <Image
                 src={(isMatIncluded ? frame?.mask : frame?.maskWithoutMat) ?? ""}
-                fill
+                 layout="fill"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full object-cover"
                 alt="product preview"
               />
             </div>
-            <div style={{ aspectRatio: `${ratioX} / ${ratioY}` }} className={`absolute inset-0 h-full mx-auto ${paddingClass}`}>
+            <div
+              style={{ aspectRatio: `${ratioX} / ${ratioY}` }}
+              className={`absolute inset-0 h-full mx-auto ${paddingClass}`}
+            >
               <Image
                 src={image}
-                fill
+                layout="fill"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full object-cover"
                 alt="product preview"
               />
             </div>
-          </div>
-        </div>
-
-        {/* SIDEBAR */}
-        <div className="w-full pt-6 lg:pt-0 lg:ps-7 xl:ps-8">
-          {renderSectionContent()}
-        </div>
+          </>
+        )}
       </div>
     </div>
-  );
+
+    {/* SIDEBAR */}
+    <div className="w-full pt-6 lg:pt-0 lg:ps-7 xl:ps-8">
+      {renderSectionContent()}
+    </div>
+  </div>
+</div>
+
 };
 
 export default PreviewDesign;
