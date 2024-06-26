@@ -193,6 +193,7 @@ export const resources = {
       "Dutch masters": "Dutch masters",
       "Modern masters": "Modern masters",
       "Nature & Landscapes": "Nature & Landscapes",
+      "From": "From"
      }
   },
  "nl": {
@@ -388,6 +389,7 @@ export const resources = {
       "Dutch masters": "Nederlandse meesters",
       "Modern masters": "Moderne meesters",
       "Nature & Landscapes": "Natuur & Landschappen",
+      "From": "Vanaf"
     }
   }
 }

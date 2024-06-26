@@ -363,7 +363,7 @@ const ProductDetailPage = ({ }) => {
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span>Tax estimate</span>
-                <span>€{calculatedPrice * 0.21}</span>
+                <span>€{calculatedPrice * quantity * 0.21}</span>
               </div>
             </div>
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
