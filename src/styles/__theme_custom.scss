@@ -1,6 +1,12 @@
 .root {
   overflow: hidden;
 }
+#root {
+  transform: scale(0.9); /* Adjust the scale value as needed */
+  transform-origin: top left; /* Adjust the origin as needed */
+  width: 111.11%; /* Adjust width to compensate for scaling */
+  height: 111.11%; /* Adjust height to compensate for scaling */
+}
 
 .z-max {
   z-index: 999999;

@@ -33,7 +33,7 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({}) => {
       </div>
     </div>
 
-    <div className="w-full flex gap-10 mt-10 -translate-x-20">
+    <div className="hidden md:flex w-full gap-10 mt-10 -translate-x-20">
       <div className="self-start">
       <Image className="w-full h-auto object-cover rounded-lg box-with-shadow self-start" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-3.webp'} alt="" priority />
 
