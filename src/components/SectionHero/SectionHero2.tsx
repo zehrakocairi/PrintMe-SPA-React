@@ -5,11 +5,11 @@ import backgroundLineSvg from "../../data/images/Moon.svg";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import Next from "../../shared/NextPrev/Next";
 import Prev from "../../shared/NextPrev/Prev";
-import useInterval from "react-use/lib/useInterval";
-import useBoolean from "react-use/lib/useBoolean";
 import Image from "../../shared/Image";
 import { HERO2_DEMO_DATA as DATA } from "./data";
 import { useTranslation } from "react-i18next";
+import useBoolean from "../../hooks/useBoolean";
+import useInterval from "../../hooks/useInterval";
 
 export interface SectionHero2Props {
   className?: string;
@@ -20,12 +20,12 @@ let TIME_OUT: NodeJS.Timeout | null = null;
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   // =================
   const [indexActive, setIndexActive] = useState(0);
-  const [isRunning, toggleIsRunning] = useBoolean(false);
+  const [isRunning, { toggle: toggleIsRunning, setFalse, setTrue }] = useBoolean(false);
   const { t } = useTranslation();
 
   useInterval(
     () => {
-      toggleIsRunning(true);
+      setTrue();
       handleAutoNext();
     },
     isRunning ? 5500 : 10000
@@ -62,12 +62,12 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   };
 
   const handleAfterClick = () => {
-    toggleIsRunning(false);
+    setFalse();
     if (TIME_OUT) {
       clearTimeout(TIME_OUT);
     }
     TIME_OUT = setTimeout(() => {
-      toggleIsRunning(true);
+      setTrue();
     }, 1000);
   };
   // =================
