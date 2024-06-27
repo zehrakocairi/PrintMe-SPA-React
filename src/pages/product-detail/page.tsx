@@ -252,7 +252,7 @@ const ProductDetailPage = ({ }) => {
               title={frame.name}
               key={index}
               onClick={() => setSelectedFrameIndex(index)}
-              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${selectedFrameIndex === index
+              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer max-w-[50px] ${selectedFrameIndex === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
                 }`}
