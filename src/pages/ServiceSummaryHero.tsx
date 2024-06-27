@@ -29,21 +29,21 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({}) => {
         </span>
       </div>
       <div className="w-full lg:w-1/2">
-        <Image className="w-full h-auto object-cover rounded-lg box-with-shadow" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-1.jpeg'} alt="" priority />
+        <Image className="w-full h-auto object-cover rounded-lg box-with-shadow" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-1.webp'} alt="" priority />
       </div>
     </div>
 
     <div className="w-full flex gap-10 mt-10 -translate-x-20">
       <div className="self-start">
-      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow self-start" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-3.jpeg'} alt="" priority />
+      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow self-start" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-3.webp'} alt="" priority />
 
       </div>
       <div>
-      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow self-start" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-2.jpeg'} alt="" priority />
+      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow self-start" src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-2.webp'} alt="" priority />
 
       </div>
       <div className="self-end">
-      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow " src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-4.jpeg'} alt="" priority />
+      <Image className="w-full h-auto object-cover rounded-lg box-with-shadow " src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-4.webp'} alt="" priority />
 
       </div>
       </div>
