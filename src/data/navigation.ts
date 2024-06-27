@@ -76,8 +76,8 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/",
-    name: "Your Design",
+    href: "/search",
+    name: "Our Catalog",
   },
   {
     id: ncNanoId(),
