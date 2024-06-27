@@ -4,7 +4,7 @@ import NcImage from "../shared/NcImage/NcImage";
 import ListingImageGallery from "../components/listing-image-gallery/ListingImageGallery";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FRAMES } from "../data/data";
+import { useApplication } from "../contexts/ApplicationContext";
 
 
 const FramesCatalog = () => {
@@ -13,6 +13,7 @@ const FramesCatalog = () => {
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
   const { t } = useTranslation();
+  const {frames} = useApplication();
 
   const [selectedFrameIndex, setSelectedFrameIndex] = useState<number>(0);
 
@@ -37,7 +38,7 @@ const FramesCatalog = () => {
       </Heading>
       <div className="grid sm:grid-cols-2 gap-x-5 gap-y-14 lg:grid-cols-4 xl:gap-x-8">
         {/*  */}
-        {FRAMES.map(
+        {frames.filter(x=>x.id !== 0).map(
           (item, index) => (
             <div key={index}>
               <div
@@ -101,7 +102,7 @@ const FramesCatalog = () => {
       <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}
-        images={FRAMES[selectedFrameIndex].allImages.map((image, index) => {
+        images={frames[selectedFrameIndex].allImages.map((image, index) => {
           return {
             id: index,
             url: image,
