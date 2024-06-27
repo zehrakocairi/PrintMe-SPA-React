@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { FC, memo } from "react";
 import Image from "../shared/Image";
 import { useTranslation } from "react-i18next";
 
@@ -51,4 +51,4 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({}) => {
   );
 };
 
-export default ServiceSummaryHero;
+export default memo(ServiceSummaryHero);

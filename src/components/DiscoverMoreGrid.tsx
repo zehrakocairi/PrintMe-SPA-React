@@ -1,4 +1,3 @@
-import React from "react";
 import CardCategory2 from "./CardCategories/CardCategory2";
 import Heading from "./Heading/Heading";
 import img1 from "../../data/images/discover-more-1.png";

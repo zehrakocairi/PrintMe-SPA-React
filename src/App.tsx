@@ -1,4 +1,3 @@
-import React from "react";
 import SiteHeader from "./components/SiteHeader";
 import Footer from "./shared/Footer/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";

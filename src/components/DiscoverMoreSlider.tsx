@@ -8,16 +8,13 @@ import Glide from "@glidejs/glide/dist/glide.esm";
 import { CATS_DISCOVER } from "./CardCategories/data";
 import { useTranslation } from "react-i18next";
 
-
-const DiscoverMoreSlider = () => {
+const DiscoverMoreSlider = React.memo(() => {
   const sliderRef = useRef(null);
   const { t } = useTranslation();
   const [isShow, setIsShow] = useState(false);
-  
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
-      // direction: document.querySelector("html")?.getAttribute("dir") || "ltr",
       perView: 3.2,
       gap: 32,
       bound: true,
@@ -44,15 +41,17 @@ const DiscoverMoreSlider = () => {
         },
       },
     };
+
     if (!sliderRef.current) return;
 
-    let slider = new Glide(sliderRef.current, OPTIONS);
+    const slider = new Glide(sliderRef.current, OPTIONS);
     slider.mount();
     setIsShow(true);
+
     return () => {
       slider.destroy();
     };
-  }, [sliderRef]);
+  }, []);
 
   return (
     <div
@@ -87,6 +86,6 @@ const DiscoverMoreSlider = () => {
       </div>
     </div>
   );
-};
+});
 
 export default DiscoverMoreSlider;

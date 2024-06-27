@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState, memo } from "react";
 import CardCategory4 from "../CardCategories/CardCategory4";
 import Heading from "../Heading/Heading";
 import NavItem2 from "../NavItem2";
@@ -120,4 +120,5 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   );
 };
 
-export default SectionGridMoreExplore;
+
+export default memo(SectionGridMoreExplore);

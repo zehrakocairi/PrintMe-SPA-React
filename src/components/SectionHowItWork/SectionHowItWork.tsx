@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import NcImage from "../../shared/NcImage/NcImage";
 import HIW1img from "../../data/images/HIW1img.jpeg";
 import HIW2img from "../../data/images/HIW2img.jpeg";
@@ -97,4 +97,4 @@ const SectionHowItWork: FC<SectionHowItWorkProps> = ({
   );
 };
 
-export default SectionHowItWork;
+export default memo(SectionHowItWork);
