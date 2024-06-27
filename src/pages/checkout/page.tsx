@@ -292,7 +292,7 @@ const CheckoutPage = () => {
               </div>
               <div className="flex justify-between font-semibold text-slate-900 dark:text-slate-200 text-base pt-4">
                 <span>{t("Order total")}</span>
-                <span>€{(taxTotal + shippingPrice + cartTotal).toFixed(2)}</span>
+                <span>€{(shippingPrice + cartTotal).toFixed(2)}</span>
               </div>
             </div>
             <ButtonPrimary disabled className="mt-8 w-full">{t("Confirm order")}</ButtonPrimary>
