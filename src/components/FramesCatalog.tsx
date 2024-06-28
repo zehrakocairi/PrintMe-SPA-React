@@ -99,16 +99,17 @@ const FramesCatalog = () => {
           )
         )}
       </div>
-      <ListingImageGallery
-        isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
-        onClose={handleCloseModalImageGallery}
-        images={frames[selectedFrameIndex].allImages.map((image, index) => {
-          return {
-            id: index,
-            url: image,
-          };
-        })}
-      />
+      {(frames.length > 0) && (
+        <ListingImageGallery
+          isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
+          onClose={handleCloseModalImageGallery}
+          images={frames[selectedFrameIndex].allImages.map((image, index) => {
+            return {
+              id: index,
+              url: image,
+            };
+          })}
+        />)}
     </div>
   );
 };
