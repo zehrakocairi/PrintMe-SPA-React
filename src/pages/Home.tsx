@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import SectionHowItWork from "../components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "../components/BackgroundSection/BackgroundSection";
 import SectionHero2 from "../components/SectionHero/SectionHero2";
@@ -13,6 +13,7 @@ import { Category } from "../enums/Category";
 import { useTranslation } from "react-i18next";
 import { useRef } from "react";
 import ServiceSummaryHero from "./ServiceSummaryHero";
+import { memo } from "react";
 
 const Home: FC<any> = ({ }) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
@@ -161,4 +162,4 @@ const Home: FC<any> = ({ }) => {
   );
 }
 
-export default Home;
+export default memo(Home);

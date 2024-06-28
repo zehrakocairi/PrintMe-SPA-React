@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { Frame, Size } from "../models/ProductModels";
 import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
-import { FRAMES} from "../data/data";
+import i18n from "../i18n/i18n";
 
 interface ApplicationContextProps {
     frames: Frame[];
@@ -24,11 +24,9 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     const [frames, setFrames] = useState<Frame[]>([]);
     const [sizes, setSizes] = useState<Size[]>([]);
     const [currentUser, setcCurrentUser] = useState<any>({});
+    const language = new URLSearchParams(window.location.search)?.get("lang");
 
     const fetchFrames = async () => {
-        // setFrames(FRAMES);
-        // return;
-   
         const url = `/bootstrap/frames`;
         try {
             const response = await fetchWithAuth(url, '');
@@ -75,6 +73,11 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
         fetchSizes();
         if(isAuthenticatedWith('google')){
             fetchCurrentUser();
+        }
+        if (language && localStorage.getItem("lang") !== language) {
+            localStorage.setItem("lang", language ?? 'nl');
+            i18n.changeLanguage(language);
+
         }
     }, []);
 

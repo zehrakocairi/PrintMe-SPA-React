@@ -33,17 +33,17 @@ export const getFeaturedItems = async () => {
 };
 
 export const getTrendingItems = async () => {
-  const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.TopSellers}`;
+  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.TopSellers}`;
   return fetchCatalogItems(url);
 };
 
 export const getOnSaleItems = async (accessToken:string) => {
-  const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.OnSale}`;
+  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.OnSale}`;
   return fetchCatalogItems(url);
 };
 
 export const getOurPickItems = async () => {
-  const url = `/catalog/search?pageSize=4&catalogType=${CatalogType.Print}&tags=${CatalogTags.OurPick}`;
+  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.OurPick}`;
   return fetchCatalogItems(url);
 };
 

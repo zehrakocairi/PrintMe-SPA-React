@@ -36,7 +36,7 @@ function classNames(...classes: any) {
 const LangDropdown: FC<LangDropdownProps> = ({ panelClassName = "" }) => {
   
   useEffect(() => {
-    const lang = localStorage.getItem("lang") ?? 'en';
+    const lang = localStorage.getItem("lang") ?? 'nl';
     setLanguage(headerLanguage.find((item) => item.languageCode === lang));
   }, []);
 
