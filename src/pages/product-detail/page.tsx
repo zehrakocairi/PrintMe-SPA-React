@@ -34,6 +34,7 @@ import UpdateProduct from "../../components/UpdateProduct";
 import { useTranslation } from "react-i18next";
 import {PlusIcon} from "@heroicons/react/24/outline";
 import ModalPreviewDesign from "../../components/ModalPreviewDesign";
+import { Helmet } from "react-helmet";
 
 const ProductDetailPage = ({ }) => {
 
@@ -273,6 +274,10 @@ const ProductDetailPage = ({ }) => {
   const renderSectionSidebar = () => {
     return (
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
+         <Helmet>
+        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <link rel="canonical" href="/product-details" />
+      </Helmet>
         <div className="space-y-7 lg:space-y-8">
           {/* PRICE */}
           <div className="">

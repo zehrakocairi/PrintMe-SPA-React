@@ -4,10 +4,15 @@ import SectionHero from "./SectionHero";
 import FramesCatalog from "../../components/FramesCatalog";
 import FrameFeatures from "../../components/FrameFeatures";
 import SalesPromo from "../../components/SalesPromo";
+import { Helmet } from "react-helmet";
 
 const PageOurServices = ({ }) => {
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
+       <Helmet>
+        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <link rel="canonical" href="/our-services" />
+      </Helmet>
       {/* ======== BG GLASS ======== */}
       <BgGlassmorphism />
 

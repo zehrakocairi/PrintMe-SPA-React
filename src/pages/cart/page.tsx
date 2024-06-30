@@ -9,6 +9,7 @@ import { CartItem } from "../../models/CartItem";
 import { useState } from "react";
 import { Sizes } from "../../data/types";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
@@ -185,6 +186,10 @@ const CartPage = () => {
 
   return (
     <div className="nc-CartPage">
+       <Helmet>
+        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <link rel="canonical" href="/cart" />
+      </Helmet>
       <main className="container py-16 lg:pb-28 lg:pt-20 ">
         <div className="mb-12 sm:mb-16">
           <h2 className="block text-2xl sm:text-3xl lg:text-4xl font-semibold ">

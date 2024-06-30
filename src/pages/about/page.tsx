@@ -8,11 +8,16 @@ import SectionHero from "./SectionHero";
 import SectionClientSay from "../../components/SectionClientSay/SectionClientSay";
 import SectionPromo3 from "../../components/SectionPromo3";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const PageAbout = ({ }) => {
   const { t } = useTranslation();
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
+       <Helmet>
+        <title>PrintMeArt - About us</title>
+        <link rel="canonical" href="/about" />
+      </Helmet>
       {/* ======== BG GLASS ======== */}
       <BgGlassmorphism />
 

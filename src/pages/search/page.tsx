@@ -12,6 +12,7 @@ import { useLocation } from "react-router-dom";
 import { useRef } from "react";
 import { CatalogTags } from "../../enums/CatalogTags";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 
 const PageSearch = () => {
@@ -121,6 +122,10 @@ const PageSearch = () => {
 
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
+       <Helmet>
+        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <link rel="canonical" href="/search" />
+      </Helmet>
       <div
         className={`nc-HeadBackgroundCommon h-24 2xl:h-28 top-0 left-0 right-0 w-full bg-primary-50 dark:bg-neutral-800/20 `}
       />
