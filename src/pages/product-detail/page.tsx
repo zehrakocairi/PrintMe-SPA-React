@@ -274,10 +274,10 @@ const ProductDetailPage = ({ }) => {
   const renderSectionSidebar = () => {
     return (
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
-         <Helmet>
-        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
-        <link rel="canonical" href="/product-details" />
-      </Helmet>
+        <Helmet>
+          <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+          <link rel="canonical" href={"/product-details/" + product?.id} />
+        </Helmet>
         <div className="space-y-7 lg:space-y-8">
           {/* PRICE */}
           <div className="">
