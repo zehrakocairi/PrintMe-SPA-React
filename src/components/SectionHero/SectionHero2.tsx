@@ -137,13 +137,13 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
         <div className="relative container pb-0 pt-14 sm:pt-20 lg:py-44">
           <div
-            className={`relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
+            className={`relative z-[1] w-full max-w-2xl md:max-w-lg xl:max-w-2xl  space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
           >
             <div className="space-y-5 sm:space-y-6">
-              <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
+              <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-custom-1 font-medium">
               {t(item.subHeading)}
               </span>
-              <h2 className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
+              <h2 className="nc-SectionHero2Item__heading font-semibold text-4xl sm:text-4xl md:text-4xl xl:text-5xl !leading-[114%] text-slate-900">
               {t(item.heading)}
               </h2>
             </div>
@@ -177,7 +177,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
             <Image
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="w-full h-full object-contain object-right-bottom pr-16 nc-SectionHero2Item__image carousel-image-container"
+              className="ml-auto md:m-auto  w-half md:w-full h-full object-contain object-right-bottom pr-0 md:pr-16 nc-SectionHero2Item__image carousel-image-container"
               src=  {item.image}
               alt={t(item.heading)}
               showMobileImage={true}

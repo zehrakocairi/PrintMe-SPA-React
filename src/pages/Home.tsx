@@ -103,14 +103,14 @@ const Home: FC<any> = ({ }) => {
   return (
     <div className="nc-PageHome relative overflow-hidden">
       <SectionHero2 />
-      <div className="mt-24 lg:mt-32">
+      <div className="mt-12 md:mt-24 lg:mt-32">
         <DiscoverMoreSlider />
       </div>
 
 
 
-      <div ref={sliderRef} className="container relative space-y-24 my-24 lg:space-y-32 lg:my-32" >
-      <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
+      <div ref={sliderRef} className="container relative space-y-12 md:space-y-24 my-8 md:my-24 lg:space-y-32 lg:my-32" >
+        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
         {
           featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
@@ -123,23 +123,24 @@ const Home: FC<any> = ({ }) => {
         }
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
-        <div className="mb-20">
+        <div className="mb-10 md:mb-20">
           <ServiceSummaryHero />
         </div>
-        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
-        <div ref={catalogRef}>
+        <div className="relative py-12 md:py-24 lg:py-32">
+          <BackgroundSection />
+          <SectionGridMoreExplore />
+        </div>
+
+        <hr className="mt-10 border-slate-200 dark:border-slate-700 hidden md:block"></hr>
+
+        <div ref={catalogRef} className="hidden md:block">
           {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}
         </div>
 
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
-        </div>
-
-        <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionGridMoreExplore />
         </div>
 
         {/* Uncomment and localize as needed */}

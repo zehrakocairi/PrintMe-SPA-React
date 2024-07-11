@@ -17,7 +17,7 @@ export interface SectionGridMoreExploreProps {
 const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   className = "",
   boxCard = "box4",
-  gridClassName = "grid-cols-1 md:grid-cols-2 xl:grid-cols-3",
+  gridClassName = "grid-cols-2 md:grid-cols-2 xl:grid-cols-3",
 }) => {
   const [tabActive, setTabActive] = useState("Nature & Landscapes");
   const [data, setData] = useState(MENU_TREE_DATA.get("Nature & Landscapes"));
@@ -111,7 +111,7 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   };
 
   return (
-    <div className={`nc-SectionGridMoreExplore relative ${className}`}>
+    <div className={`nc-SectionGridMoreExplore relative ${className} px-[24px]`}>
       {renderHeading()}
       <div className={`grid gap-4 md:gap-7 ${gridClassName}`}>
         {data?.map((item) => renderCard(item))}

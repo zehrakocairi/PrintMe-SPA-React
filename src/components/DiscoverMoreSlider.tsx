@@ -33,11 +33,11 @@ const DiscoverMoreSlider = React.memo(() => {
         },
         768: {
           gap: 20,
-          perView: 1.2,
+          perView: 1.4,
         },
         500: {
           gap: 20,
-          perView: 1,
+          perView: 1.25,
         },
       },
     };
@@ -61,7 +61,7 @@ const DiscoverMoreSlider = React.memo(() => {
       }`}
     >
       <Heading
-        className="mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container "
+        className="mb-8 md:mb-12 lg:mb-14 text-neutral-900 dark:text-neutral-50 nc-p-r-container"
         desc=""
         rightDescText={t("handcraftedArt")}
         hasNextPrev

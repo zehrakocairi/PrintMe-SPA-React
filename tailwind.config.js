@@ -64,6 +64,9 @@ module.exports = {
           800: customColors("--c-neutral-800"),
           900: customColors("--c-neutral-900"),
         },
+        custom: {
+          1: customColors("--c-custom-1")
+        },
       },
       scale: {
         '70': '0.7',

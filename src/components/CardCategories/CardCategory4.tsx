@@ -33,7 +33,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
       className={`nc-CardCategory4 relative w-full aspect-w-12 aspect-h-11 h-0 rounded-3xl overflow-hidden bg-white dark:bg-neutral-900 group hover:nc-shadow-lg transition-shadow ${className}`}
     >
       <div>
-        <div className="absolute bottom-0 right-0 max-w-[280px] opacity-80">
+        <div className="absolute bottom-0 right-0 max-w-[280px] opacity-80 hidden md:block ">
           <Image width="200" height="200" src={bgSVG} alt="" />
         </div>
 
@@ -42,7 +42,7 @@ const CardCategory4: FC<CardCategory4Props> = ({
             <NcImage
               alt=""
               src={featuredImage}
-              containerClassName={`w-32 h-32 rounded-full overflow-hidden z-0 ${color}`}
+              containerClassName={`w-14 h-14 md:w-32 md:h-32 rounded-full overflow-hidden z-0 ${color}`}
               width={80}
               height={80}
             />
@@ -53,16 +53,16 @@ const CardCategory4: FC<CardCategory4Props> = ({
 
           <div className="">
             <span
-              className={`block mb-2 text-sm text-slate-500 dark:text-slate-400`}
+              className={`block mb-2 text-xs md:text-sm text-slate-500 dark:text-slate-400`}
             >
               {t(desc)}
             </span>
-            <h2 className={`text-2xl sm:text-3xl font-semibold`}>{t(name)}</h2>
+            <h2 className={`text-md md:text-3xl font-semibold`}>{t(name)}</h2>
           </div>
 
           <Link
             href={"/search"}
-            className="flex items-center text-sm font-medium group-hover:text-primary-500 transition-colors"
+            className="flex items-center text-xs md:text-sm group-hover:text-primary-500 transition-colors"
           >
             <span>{t('See Prints')}</span>
             <ArrowRightIcon className="w-4 h-4 ml-2.5" />

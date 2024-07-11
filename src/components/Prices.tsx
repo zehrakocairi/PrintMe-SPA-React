@@ -14,7 +14,7 @@ const Prices: FC<PricesProps> = ({
 }) => {
   const {t} = useTranslation()
   return (
-    <div className={`min-w-[120px] float-right flex justify-end mb-auto ${className}`}>
+    <div className={`min-w-[130px] float-right flex justify-end mb-auto ${className}`}>
       <div
         className={`flex items-center  border-natural-900 rounded-md ${contentClass}`}
       >
