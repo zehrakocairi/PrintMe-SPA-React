@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { FC, useEffect, useState, memo } from "react";
 import CardCategory4 from "../CardCategories/CardCategory4";
@@ -19,8 +19,8 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
   boxCard = "box4",
   gridClassName = "grid-cols-2 md:grid-cols-2 xl:grid-cols-3",
 }) => {
-  const [tabActive, setTabActive] = useState("Nature & Landscapes");
-  const [data, setData] = useState(MENU_TREE_DATA.get("Nature & Landscapes"));
+  const [tabActive, setTabActive] = useState("Posters");
+  const [data, setData] = useState(MENU_TREE_DATA.get("Posters"));
   const {t} = useTranslation();
 
   useEffect(() => {
@@ -121,4 +121,4 @@ const SectionGridMoreExplore: FC<SectionGridMoreExploreProps> = ({
 };
 
 
-export default memo(SectionGridMoreExplore);
+export default SectionGridMoreExplore;

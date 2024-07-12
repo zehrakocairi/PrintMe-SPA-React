@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { FC, useState } from "react";
 import NcDropDown, { NcDropDownItem } from "../shared/NcDropDown/NcDropDown";

@@ -24,7 +24,7 @@ const PageSearch = () => {
   const location = useLocation();
   const pageInitiated = useRef(false);
 
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, updateTagState, isLoading, setPageSize, setTotalPages } = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, updateTagState, isLoading, setPageSize, setTotalPages, setPageIndex } = useFilter();
 
   const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
     setIsLoading(true);
@@ -80,13 +80,18 @@ const PageSearch = () => {
     else if (tag !== "") {
       updateCategoryState(Category.None);
       updateTagState(tag ===  '4' ? CatalogTags.TopSellers : tag === '8' ? CatalogTags.OurPick : undefined);
-      
     }
     else if (newCategory !== Category.None) {
       updateCategoryState(newCategory);
       updateTagState(undefined);
     }
+    else if (filter.tag !== undefined && tag == "") {
+      updateTagState(undefined);
+    }
+
     pageInitiated.current = true;
+    setPageSize(12);
+    setPageIndex(0);
     setFilterChanged((prev) => !prev);
   }, [location.search]);
 

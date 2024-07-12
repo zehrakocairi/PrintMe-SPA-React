@@ -1,4 +1,4 @@
-"use client";
+
 import React, { FC, useEffect, useState } from "react";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import LikeButton from "./LikeButton";

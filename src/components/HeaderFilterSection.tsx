@@ -1,5 +1,3 @@
-"use client";
-
 import React, { FC, useState } from "react";
 import Heading from "../shared/Heading/Heading";
 import Nav from "../shared/Nav/Nav";
@@ -10,7 +8,6 @@ import TabFilters from "./TabFilters";
 import { Transition } from "../headlessui";
 import { Category } from "../enums/Category";
 import { useFilter } from "../contexts/FilterContext";
-import { hasFlag } from "../utils/enumHelper";
 import { useTranslation } from "react-i18next"; // Import useTranslation
 
 export interface HeaderFilterSectionProps {
@@ -24,7 +21,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
 
   const [isOpen, setIsOpen] = useState(true);
   
-  const { updateCategoryState, filter, setFilterChanged } = useFilter();
+  const { updateCategoryState, filter, setFilterChanged, setPageIndex } = useFilter();
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: t('All Items') },
     { key: Category.NatureAndLandscapes, value: t('Nature and Landscapes') },
@@ -48,6 +45,7 @@ const HeaderFilterSection: FC<HeaderFilterSectionProps> = ({
                 isActive={(filter.categoryState === item.key || filter.categoryState === undefined) && item.key === Category.None}
                 onClick={() => {
                   updateCategoryState(item.key);
+                  setPageIndex(0);
                   setFilterChanged(prev=>!prev);
                 }}
               >

@@ -1,4 +1,4 @@
-"use client";
+
 
 import { FC, useState } from "react";
 import Nav from "../shared/Nav/Nav";
@@ -20,7 +20,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(true);  
   
-  const {updateCategoryState, filter, setFilterChanged} = useFilter()
+  const {updateCategoryState, filter, setFilterChanged, setPageIndex} = useFilter()
   const mainCategories: { key: Category, value: string }[] = [
     { key: Category.None, value: "All Items" },
     { key: Category.NatureAndLandscapes, value: "Nature and Landscapes" },
@@ -44,6 +44,7 @@ const HeaderFilterSearchPage: FC<HeaderFilterSearchPageProps> = ({
                 isActive={(filter.categoryState === item.key || filter.categoryState === undefined) && item.key === Category.None}
                 onClick={() => {
                   updateCategoryState(item.key);
+                  setPageIndex(0);
                   setFilterChanged(prev=>!prev);
                 }}
               >

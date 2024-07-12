@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { createRef, FC, useState } from "react";
 import Logo from "../../shared/Logo/Logo";

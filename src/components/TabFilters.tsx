@@ -15,29 +15,29 @@ import { useTranslation } from "react-i18next";
 import { CatalogTags } from "../enums/CatalogTags";
 
 export const DATA_categories = [
-  { name: "Abstract Art", value: Category.AbstractArt },
-  { name: "Animal Art", value: Category.AnimalArt },
-  { name: "Art Prints", value: Category.ArtPrints },
-  { name: "Black And White", value: Category.BlackAndWhite },
+  { name: "Nature Prints", value: Category.NaturePrints },
   { name: "Botanical Art", value: Category.BotanicalArt },
-  { name: "Classic Posters", value: Category.ClassicPosters },
-  { name: "Dutch Masters", value: Category.DutchMasters },
-  { name: "Famous Painters", value: Category.FamousPainters },
-  { name: "Historical Posters", value: Category.HistoricalPosters },
-  { name: "Iconic Photos", value: Category.IconicPhotos },
-  { name: "Illustrations", value: Category.Illustrations },
-  { name: "Landscapes", value: Category.Landscapes },
+  { name: "Animal Art", value: Category.AnimalArt },
+  { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
   { name: "Maps And Cities", value: Category.MapsAndCities },
+  { name: "Landscapes", value: Category.Landscapes },
+  { name: "Art Prints", value: Category.ArtPrints },
+  { name: "Renaissance Masters", value: Category.RenaissanceMasters },
+  { name: "Dutch Masters", value: Category.DutchMasters },
   { name: "Modern Masters", value: Category.ModernMasters },
+  { name: "Abstract Art", value: Category.AbstractArt },
+  { name: "Retro And Vintage", value: Category.RetroAndVintage },
+  { name: "Black And White", value: Category.BlackAndWhite },
+  { name: "Historical Posters", value: Category.HistoricalPosters },
+  { name: "Classic Posters", value: Category.ClassicPosters },
+  { name: "Text Posters", value: Category.TextPosters },
   { name: "Movies & Games Posters", value: Category.MoviesAndGamesPosters },
   { name: "Music Posters", value: Category.MusicPosters },
-  { name: "Nature Prints", value: Category.NaturePrints },
-  { name: "Photographs", value: Category.Photographs },
-  { name: "Renaissance Masters", value: Category.RenaissanceMasters },
-  { name: "Retro And Vintage", value: Category.RetroAndVintage },
-  { name: "Space And Astronomy", value: Category.SpaceAndAstronomy },
   { name: "Sports Posters", value: Category.SportsPosters },
-  { name: "Text Posters", value: Category.TextPosters },
+  { name: "Illustrations", value: Category.Illustrations },
+  { name: "Photographs", value: Category.Photographs },
+  { name: "Iconic Photos", value: Category.IconicPhotos },
+  { name: "General Posters", value: Category.GeneralPosters },
   { name: "Kids' Wall Art", value: Category.KidsWallArt },
 ];
 
@@ -62,7 +62,7 @@ const PRICE_RANGE = [1, 500];
 const TabFilters = () => {
   const [isOpenMoreFilter, setisOpenMoreFilter] = useState(false);
 
-  const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged} = useFilter();
+  const { filter, updateIsOnSale, updateRangePrices, updateCategoryState, updateSortOrderStates, setFilterChanged , filterChanged, setPageIndex} = useFilter();
   const {t} = useTranslation();
 
   const closeModalMoreFilter = () => setisOpenMoreFilter(false);
@@ -164,10 +164,10 @@ const TabFilters = () => {
                 <ChevronDownIcon className="w-4 h-4 ml-3" />
               ) : (
                 <span onClick={(e) => {
-                  e.preventDefault();
-                  updateCategoryState(Category.None);
-                  setFilterChanged(!filterChanged);
-                  e.preventDefault();
+                    e.preventDefault();
+                    updateCategoryState(Category.None);
+                    setPageIndex(0);
+                    setFilterChanged(!filterChanged);
                   }}>
                   {renderXClear()}
                 </span>
@@ -202,6 +202,7 @@ const TabFilters = () => {
                     <ButtonThird
                       onClick={() => {
                         close();
+                        setPageIndex(0);
                         updateCategoryState(Category.None);
                         setFilterChanged(!filterChanged);
                       }}
@@ -212,6 +213,7 @@ const TabFilters = () => {
                     <ButtonPrimary
                       onClick={() => {
                         close();
+                        setPageIndex(0);
                         setFilterChanged(!filterChanged);
                       }}
                       sizeClass="px-4 py-2 sm:px-5"

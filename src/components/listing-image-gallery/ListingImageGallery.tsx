@@ -1,4 +1,4 @@
-"use client";
+
 
 import "./styles/index.css";
 import Image from "../../shared/Image";

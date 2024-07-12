@@ -1,4 +1,4 @@
-"use client";
+
 
 import Label from "../../components/Label/Label";
 import NcInputNumber from "../../components/NcInputNumber";

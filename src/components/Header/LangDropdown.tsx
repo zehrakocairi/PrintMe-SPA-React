@@ -1,4 +1,4 @@
-"use client";
+
 
 import { Popover, Tab, Transition } from "../../headlessui";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";

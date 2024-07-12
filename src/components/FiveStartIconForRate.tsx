@@ -1,4 +1,4 @@
-"use client";
+
 import { StarIcon } from "@heroicons/react/24/solid";
 import { FC, useEffect } from "react";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-"use client";
+
 
 // @ts-ignore
 import Glide from "@glidejs/glide/dist/glide.esm";

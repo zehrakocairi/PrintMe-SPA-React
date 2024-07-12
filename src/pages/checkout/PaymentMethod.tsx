@@ -1,4 +1,4 @@
-"use client";
+
 
 import Label from "../../components/Label/Label";
 import React, { FC, useState } from "react";

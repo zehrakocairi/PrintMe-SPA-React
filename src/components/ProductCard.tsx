@@ -1,4 +1,4 @@
-"use client";
+
 
 import React, { FC, useState } from "react";
 import LikeButton from "./LikeButton";
