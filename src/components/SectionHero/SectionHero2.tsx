@@ -177,7 +177,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
             <Image
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="ml-auto md:m-auto  w-half md:w-full h-full object-contain object-right-bottom pr-0 md:pr-16 nc-SectionHero2Item__image carousel-image-container"
+              className="mx-auto md:m-auto  w-half md:w-full h-full object-contain object-right-bottom pr-0 md:pr-16 nc-SectionHero2Item__image carousel-image-container"
               src=  {item.image}
               alt={t(item.heading)}
               showMobileImage={true}

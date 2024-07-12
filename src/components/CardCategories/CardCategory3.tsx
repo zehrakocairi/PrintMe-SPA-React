@@ -52,7 +52,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
               </span>
               {desc && (
                 <h2
-                  className={`text-xl md:text-2xl text-slate-900 font-semibold`}
+                  className={`text-xl md:text-4xl text-slate-900 font-semibold`}
                   dangerouslySetInnerHTML={{ __html:t(desc)  }}
                 ></h2>
               )}
