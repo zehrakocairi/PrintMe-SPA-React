@@ -12,11 +12,13 @@ import { Helmet } from "react-helmet";
 
 const PageAbout = ({ }) => {
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
        <Helmet>
         <title>PrintMeArt - About us</title>
-        <link rel="canonical" href="/about" />
+        <link rel="canonical" href={'/about?lang='+i18n.language} />
+
       </Helmet>
       {/* ======== BG GLASS ======== */}
       <BgGlassmorphism />

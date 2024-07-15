@@ -14,6 +14,8 @@ import { useTranslation } from "react-i18next";
 import { useRef } from "react";
 import ServiceSummaryHero from "./ServiceSummaryHero";
 import { memo } from "react";
+import { Helmet } from "react-helmet";
+
 
 const Home: FC<any> = ({ }) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
@@ -25,7 +27,7 @@ const Home: FC<any> = ({ }) => {
   const catalogRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isCatalogVisible, setIsCatalogVisible] = useState(false);
-
+  const { i18n } = useTranslation();
   const fetchTrendingItems = async () => {
     setIsLoading(true);
     const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
@@ -102,6 +104,10 @@ const Home: FC<any> = ({ }) => {
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
+       <Helmet>
+        <title>PrintMeArt - About us</title>
+        <link rel="canonical" href={'/?lang='+i18n.language} />
+      </Helmet>
       <SectionHero2 />
       <div className="mt-12 md:mt-24 lg:mt-32">
         <DiscoverMoreSlider />

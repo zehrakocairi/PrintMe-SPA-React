@@ -15,6 +15,7 @@ const CartPage = () => {
   const { cart, removeItemFromCart, cartTotal, taxTotal, addItemToCart} = useCart();
   const [shippingPrice, setShippingPrice] = useState(5);
   const { t } = useTranslation();
+  const { i18n } = useTranslation();
 
  const renderStatusSoldout = () => {
     return (
@@ -188,7 +189,7 @@ const CartPage = () => {
     <div className="nc-CartPage">
        <Helmet>
         <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
-        <link rel="canonical" href="/cart" />
+        <link rel="canonical" href={'/cart?lang='+i18n.language} />
       </Helmet>
       <main className="container py-16 lg:pb-28 lg:pt-20 ">
         <div className="mb-12 sm:mb-16">

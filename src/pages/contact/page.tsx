@@ -26,12 +26,12 @@ const info = [
 
 const PageContact = ({}) => {
   const { t } = useTranslation();
-  
+  const { i18n } = useTranslation();
   return (
     <div className={`nc-PageContact overflow-hidden`}>
        <Helmet>
         <title>PrintMeArt - Cart</title>
-        <link rel="canonical" href="/contact" />
+        <link rel="canonical" href={'/contact?lang='+i18n.language} />
       </Helmet>
       <div className="">
         <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">

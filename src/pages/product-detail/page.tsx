@@ -45,6 +45,7 @@ const ProductDetailPage = ({ }) => {
   const thisPathname = useLocation();
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
+  const { i18n } = useTranslation();
 
   const fetchFeaturedtems = async () => {
     const { data } = await getFeaturedItems();
@@ -276,7 +277,7 @@ const ProductDetailPage = ({ }) => {
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
         <Helmet>
           <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
-          <link rel="canonical" href={"/product-details/" + product?.id} />
+          <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
         </Helmet>
         <div className="space-y-7 lg:space-y-8">
           {/* PRICE */}

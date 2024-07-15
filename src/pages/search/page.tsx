@@ -20,6 +20,7 @@ const PageSearch = () => {
   const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const { t } = useTranslation();
+  const {i18n} = useTranslation();
 
   const location = useLocation();
   const pageInitiated = useRef(false);
@@ -129,7 +130,7 @@ const PageSearch = () => {
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
        <Helmet>
         <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
-        <link rel="canonical" href="/search" />
+        <link rel="canonical" href={"/search" + i18n.language} />
       </Helmet>
       <div
         className={`nc-HeadBackgroundCommon h-24 2xl:h-28 top-0 left-0 right-0 w-full bg-primary-50 dark:bg-neutral-800/20 `}
