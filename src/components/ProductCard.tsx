@@ -59,6 +59,7 @@ const ProductCard: FC<ProductCardProps> = ({
           qualitySelected={1}
           show={t.visible}
           sizeSelected={sizes[0]}
+          calculatedPrice={price}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }

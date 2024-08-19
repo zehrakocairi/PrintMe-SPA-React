@@ -10,9 +10,10 @@ export interface PreviewDesignProps {
   isMatIncluded: boolean;
   sizeName: string;
   frame?: Frame;
+  showDescription?: boolean;
 }
 
-const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, sizeName, className = "" }) => {
+const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, sizeName, className = "", showDescription = true }) => {
   // const ratioX = sizeName ? +sizeName.toLowerCase().split("x")[0] : 1;
   // const ratioY = sizeName ? +sizeName.toLowerCase().split("x")[1] : 1;
   const ratioX = 5, ratioY = 7;
@@ -97,9 +98,15 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
     </div>
 
     {/* SIDEBAR */}
-    <div className="w-full pt-6 lg:pt-0 lg:ps-7 xl:ps-8">
-      {renderSectionContent()}
-    </div>
+    {
+      showDescription && 
+      (
+          <div className="w-full pt-6 lg:pt-0 lg:ps-7 xl:ps-8">
+            {renderSectionContent()}
+          </div>
+      )
+    }
+   
   </div>
 </div>
 

@@ -67,6 +67,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
           qualitySelected={qualitySelected}
           show={t.visible}
           sizeSelected={sizes[selectedSizeIndex]}
+          calculatedPrice={calculatedPrice}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }

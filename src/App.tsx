@@ -20,6 +20,7 @@ import CommonLayout from "./pages/(accounts)/layout";
 
 // Lazy load route components
 const PageAbout = lazy(() => import("./pages/about/page"));
+const PageYourDesign = lazy(() => import("./pages/your-design/page"));
 const CartPage = lazy(() => import('./pages/cart/page'));
 const CheckoutPage = lazy(() => import('./pages/checkout/page'));
 const PageContact = lazy(() => import('./pages/contact/page'));
@@ -44,6 +45,7 @@ function App() {
                     <Routes>
                       <Route path="/" element={<Home />} />
                       <Route path="/about" element={<PageAbout />} />
+                      <Route path="/your-design" element={<PageYourDesign />} />
                       <Route path="/cart" element={<CartPage />} />
                       <Route path="/checkout" element={<CheckoutPage />} />
                       <Route path="/search" element={<PageSearch />} />

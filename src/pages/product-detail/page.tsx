@@ -25,16 +25,15 @@ import ListingImageGallery from "../../components/listing-image-gallery/ListingI
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getCatalogItem } from "../../services/catalogService";
 import { Product, Size } from "../../models/ProductModels";
-import { Sizes } from '../../data/types';
 import { getFeaturedItems } from '../../services/catalogService';
 import { useCart } from "../../contexts/CartContext";
 import { CartItem } from '../../models/CartItem';
 import { useApplication } from "../../contexts/ApplicationContext";
 import UpdateProduct from "../../components/UpdateProduct";
 import { useTranslation } from "react-i18next";
-import {PlusIcon} from "@heroicons/react/24/outline";
 import ModalPreviewDesign from "../../components/ModalPreviewDesign";
 import { Helmet } from "react-helmet";
+import Options from "../../components/Options";
 
 const ProductDetailPage = ({ }) => {
 
@@ -128,7 +127,8 @@ const ProductDetailPage = ({ }) => {
           product={product}
           qualitySelected={quantity}
           show={t.visible}
-          sizeSelected={{} as Size}
+          sizeSelected={sizeSelected}
+          calculatedPrice={calculatedPrice}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
@@ -136,7 +136,7 @@ const ProductDetailPage = ({ }) => {
   };
 
   const renderSizeList = () => {
-    if (!Sizes || !Sizes.length) {
+    if (!sizes || !sizes.length) {
       return null;
     }
     return (
@@ -304,30 +304,16 @@ const ProductDetailPage = ({ }) => {
                 </span>
               </a>
             </div>
-            {/* ---------- FRAMES ----------  */}
-            <div className="mt-6 space-y-7 lg:space-y-8">
-              <div className="">{renderFrames()}</div>
-            </div>
-            {/* ---------- MAT OPTION ----------  */}
-            <div className="mt-6 space-y-7 lg:space-y-8">
-              <div className="">
-                <div
-                  className={`flex items-center justify-center px-4 py-2 text-sm rounded-full border focus:outline-none cursor-pointer select-none ${isMatIncluded
-                    ? "border-primary-500 bg-primary-50 text-primary-900"
-                    : "border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:border-neutral-400 dark:hover:border-neutral-500"
-                    }`}
-                  onClick={() => setIsMatIncluded(!isMatIncluded)}
-                >
-                  <PlusIcon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
-
-                  <span className="line-clamp-1 ml-2">{t('Include Mat')}</span>
-                </div>
-              </div>
-            </div>
-            {/* ---------- SIZE LIST ----------  */}
-            <div className="mt-6 space-y-7 lg:space-y-8">
-              <div className="">{renderSizeList()}</div>
-            </div>
+            <Options
+            frames={frames}
+            sizes={sizes}
+            selectedFrameIndex={selectedFrameIndex}
+            sizeSelected={sizeSelected}
+            isMatIncluded={isMatIncluded}
+            onFrameSelect={setSelectedFrameIndex}
+            onSizeSelect={setSizeSelected}
+            onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
+        />
           </div>
           {/*  ---------- PREVIEW BUTTON */}
           <div className="flex space-x-3.5">

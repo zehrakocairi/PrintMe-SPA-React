@@ -194,7 +194,17 @@ export const resources = {
       "Dutch masters": "Dutch masters",
       "Modern masters": "Modern masters",
       "Nature & Landscapes": "Nature & Landscapes",
-      "From": "From"
+      "From": "From",
+      "Turn Your Photos into Art": "Turn Your Photos into Art",
+      "Upload your favorite image, customize your design, and let our designer ensure a stunning framed print, approved by you before we print.": "Upload your favorite image, customize your design, and let our designer ensure a stunning framed print, approved by you before we print.",
+      "Upload Your Image": "Upload Your Image",
+      "Simply upload your favorite photo or artwork. We accept PNG, JPG, and GIF files up to 10MB.": "Simply upload your favorite photo or artwork. We accept PNG, JPG, and GIF files up to 10MB.",
+      "Customize Your Design": "Customize Your Design",
+      "Choose from a variety of frames, sizes, and mats. Visualize your design instantly before finalizing your order.": "Choose from a variety of frames, sizes, and mats. Visualize your design instantly before finalizing your order.",
+      "Professional Review": "Professional Review",
+      "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.": "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.",
+      "Order with Confidence": "Order with Confidence",
+      "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.": "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.",
      }
   },
  "nl": {
@@ -391,8 +401,18 @@ export const resources = {
       "Dutch masters": "Nederlandse meesters",
       "Modern masters": "Moderne meesters",
       "Nature & Landscapes": "Natuur & Landschappen",
-      "From": "Vanaf"
-    }
+      "From": "Vanaf",
+      "Turn Your Photos into Art": "Verander je foto's in kunst",
+      "Upload your favorite image, customize your design, and let our designer ensure a stunning framed print, approved by you before we print.": "Upload je favoriete afbeelding, pas je ontwerp aan, en laat onze ontwerper zorgen voor een verbluffende ingelijste print, goedgekeurd door jou voordat we het afdrukken.",
+      "Upload Your Image": "Upload je afbeelding",
+      "Simply upload your favorite photo or artwork. We accept PNG, JPG, and GIF files up to 10MB.": "Upload eenvoudig je favoriete foto of kunstwerk. We accepteren PNG-, JPG- en GIF-bestanden tot 10MB.",
+      "Customize Your Design": "Pas je ontwerp aan",
+      "Choose from a variety of frames, sizes, and mats. Visualize your design instantly before finalizing your order.": "Kies uit verschillende lijsten, maten en passe-partouts. Visualiseer je ontwerp direct voordat je je bestelling afrondt.",
+      "Professional Review": "Professionele beoordeling",
+      "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.": "Onze ervaren ontwerper beoordeelt je ontwerp, maakt de nodige aanpassingen en stuurt het naar je ter goedkeuring voordat we gaan afdrukken.",
+      "Order with Confidence": "Bestel met vertrouwen",
+      "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.": "Rond je aankoop af via onze veilige betaalomgeving. Je aangepaste kunstwerk wordt professioneel afgedrukt en bij je thuis bezorgd."
+     }
   }
 }
 
