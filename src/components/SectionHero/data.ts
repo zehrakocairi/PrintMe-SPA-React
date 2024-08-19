@@ -12,23 +12,23 @@ const image3 = 'https://genstorageaccount3116.blob.core.windows.net/printme-imag
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
     image: image1,
-    heading: "High-Quality Art Prints for Your Home",
-    subHeading: "Stunning prints with various frames",
-    btnText: "Explore now",
+    heading: "Affordable High-Quality Art Prints & Framed Wall Art",
+    subHeading: "Shop Stunning Prints & Frames for Your Home Decor",
+    btnText: "Explore Art Prints",
     btnLink: "/search",
   },
   {
     image: image2,
-    heading: "Custom Prints Made Just for You, by You",
-    subHeading: "Print, frame, and ship with care🚀",
-    btnText: "Customize Now",
+    heading: "Custom Photo Prints & Framed Art",
+    subHeading: "Upload, Customize, and Order Your Own Design🚀",
+    btnText: "Create Your Custom Print",
     btnLink: "/your-design",
   },
   {
     image: image3,
     heading: "Expert Giclée Printing Service",
-    subHeading: "Superior reproduction for art and photos",
-    btnText: "What is Giclée?",
+    subHeading: "Superior Quality Prints with Archival Inks & Paper",
+    btnText: "Learn About Giclée Printing",
     btnLink: "/",
   },
 ];

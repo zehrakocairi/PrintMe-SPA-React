@@ -122,8 +122,9 @@ const Home: FC<any> = ({ }) => {
           featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
             heading={t("Art Lovers Also Bought")}
             subHeading={t("Popular Picks for You")}
+            motto={t('Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space')}
             headingFontClassName="text-2xl font-semibold"
-            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
+            headingClassName="mb-2 text-neutral-900 dark:text-neutral-50"
             data={featuredItems}
           /> : <></>
         }

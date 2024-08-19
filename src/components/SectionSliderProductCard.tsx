@@ -15,6 +15,7 @@ export interface SectionSliderProductCardProps {
   headingClassName?: string;
   subHeading?: string;
   data?: Product[];
+  motto?: string;
 }
 
 const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
@@ -23,8 +24,9 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   headingFontClassName,
   headingClassName,
   heading,
-  subHeading = "REY backpacks & bags",
+  subHeading = "",
   data = [],
+  motto = "",
 }) => {
   const sliderRef = useRef(null);
 
@@ -79,6 +81,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         >
           {heading || `New Arrivals`}
         </Heading>
+        <h3 className={`mb-4 lg:mb-8 text-neutral-400 ${motto.length>0 ? '': 'hidden'}`}>{motto}</h3>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {data.map((item, index) => (

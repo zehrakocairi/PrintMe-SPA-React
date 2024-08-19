@@ -176,6 +176,7 @@ export default function CartDropdown() {
                         {t("View cart")}
                       </ButtonSecondary>
                       <ButtonPrimary
+                        disabled={cartItemsCount === 0}
                         href="/checkout"
                         onClick={close}
                         className="flex-1"

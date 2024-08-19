@@ -244,7 +244,7 @@ const CartPage = () => {
                   <span>€{(shippingPrice + cartTotal).toFixed(2)}</span>
                 </div>
               </div>
-              <ButtonPrimary href="/checkout" className="mt-8 w-full">
+              <ButtonPrimary href={cart.length == 0 ? "" :"/checkout"} disabled={cart.length == 0} className="mt-8 w-full">
                 {t("Check out")}
               </ButtonPrimary>
               <div className="mt-5 text-sm text-slate-500 dark:text-slate-400 flex items-center justify-center">

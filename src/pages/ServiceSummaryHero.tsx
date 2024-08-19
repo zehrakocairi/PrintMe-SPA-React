@@ -51,4 +51,4 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({}) => {
   );
 };
 
-export default memo(ServiceSummaryHero);
+export default ServiceSummaryHero;
