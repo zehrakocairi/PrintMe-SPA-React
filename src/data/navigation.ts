@@ -71,6 +71,11 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   },
   {
     id: ncNanoId(),
+    href: "/your-design",
+    name: "Your Design",
+  },
+  {
+    id: ncNanoId(),
     href: "/search?tag=4",
     name: "Bestsellers",
   },
@@ -84,11 +89,11 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
     href: "/about",
     name: "About Us",
   },
-  {
-    id: ncNanoId(),
-    href: "/contact",
-    name: "Contact Us",
-  },
+  // {
+  //   id: ncNanoId(),
+  //   href: "/contact",
+  //   name: "Contact Us",
+  // },
   // {
   //   id: ncNanoId(),
   //   href: "/search",
