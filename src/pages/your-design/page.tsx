@@ -1,15 +1,13 @@
 import BgGlassmorphism from "../../components/BgGlassmorphism/BgGlassmorphism";
-import BackgroundSection from "../../components/BackgroundSection/BackgroundSection";
 import SectionHero from "./SectionHero";
-import SectionClientSay from "../../components/SectionClientSay/SectionClientSay";
-import SectionPromo3 from "../../components/SectionPromo3";
+
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import CustomDesign from "./CustomDesign";
 
 const PageYourDesign = ({ }) => {
-  const { t } = useTranslation();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+   
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
        <Helmet>
