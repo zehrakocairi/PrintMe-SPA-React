@@ -127,7 +127,8 @@ const ProductDetailPage = ({ }) => {
           product={product}
           qualitySelected={quantity}
           show={t.visible}
-          sizeSelected={{} as Size}
+          sizeSelected={sizeSelected}
+          calculatedPrice={calculatedPrice}
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }

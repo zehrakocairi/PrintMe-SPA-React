@@ -2,6 +2,18 @@ import React, { FC, useState, useEffect } from "react";
 import PreviewDesign from "../../components/PreviewDesign";
 import { useApplication } from "../../contexts/ApplicationContext";
 import Options from "../../components/Options";
+import { useCart } from "../../contexts/CartContext";
+import { CartItem } from '../../models/CartItem';
+import toast from "react-hot-toast";
+import NotifyAddTocart from "../../components/NotifyAddTocart";
+import { Product, Size } from "../../models/ProductModels";
+import ButtonPrimary from "../../shared/Button/ButtonPrimary";
+import BagIcon from "../../components/BagIcon";
+import { getCustomCatalogItem, uploadCustomerImage } from "../../services/catalogService";
+import NcInputNumber from "../../components/NcInputNumber";
+import { PhotoIcon} from "@heroicons/react/24/solid";
+
+
 
 export interface CustomDesignProps {
   className?: string;
@@ -15,7 +27,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
   const { frames, sizes } = useApplication();
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
   const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
-  const [isMatIncluded, setIsMatIncluded] = useState(false);
+  const [isMatIncluded, setIsMatIncluded] = useState(false);  
+  const [product, setProduct] = useState({} as Product);
+  const [calculatedPrice, setCalculatedPrice] = useState(product?.price ?? 0);
+  const [quantity, setQuantity] = useState(1);
+  
+  const { addItemToCart } = useCart();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -23,6 +40,33 @@ const CustomDesign: FC<CustomDesignProps> = ({
       setSelectedFile(file);
       setImage(URL.createObjectURL(file));  // Generate and set the image URL
     }
+  };
+
+  const fetchProduct = async () => {
+    const product = await getCustomCatalogItem();
+    setProduct(product);
+  };
+
+  const persistImage = async (): Promise<string> => {
+    if(selectedFile === null) return Promise.resolve("");
+    return uploadCustomerImage(selectedFile);
+  };
+
+  const notifyAndAddTocart = async () => {
+    var imageUrl = await persistImage();
+    addItemToCart(new CartItem(product.id, product.name, calculatedPrice, quantity, imageUrl, sizeSelected?.id, frames[selectedFrameIndex].id, undefined, frames[selectedFrameIndex].name));
+    toast.custom(
+      (t) => (
+        <NotifyAddTocart
+          product={{...product, imageThumbnail: imageUrl} as Product}
+          qualitySelected={quantity}
+          show={t.visible}
+          sizeSelected={sizeSelected}
+          calculatedPrice={calculatedPrice}
+        />
+      ),
+      { position: "top-right", id: "nc-product-notify", duration: 3000 }
+    );
   };
 
   useEffect(() => {
@@ -33,6 +77,23 @@ const CustomDesign: FC<CustomDesignProps> = ({
       }
     };
   }, [image]);
+
+  useEffect(() => {
+    if (product?.price && frames && sizes) {
+      const properSize = isMatIncluded ? sizes[Math.min(sizes.length-1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
+      const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
+      setCalculatedPrice(Math.floor(newPrice));
+    }
+  }, [
+    product,
+    sizeSelected,
+    selectedFrameIndex,
+    isMatIncluded
+  ]);
+
+  useEffect(() => {
+    fetchProduct();
+  }, []);
 
   return (
     <div
@@ -52,7 +113,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
                     htmlFor="file-upload"
                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                   >
-                    <span>Upload a file</span>
+                    <span><PhotoIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" /> Upload a file</span>
                     <input
                       id="file-upload"
                       name="file-upload"
@@ -99,6 +160,46 @@ const CustomDesign: FC<CustomDesignProps> = ({
         onSizeSelect={setSizeSelected}
         onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
       />
+        <div className="flex space-x-3.5">
+          <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
+            <NcInputNumber
+              defaultValue={quantity}
+              onChange={setQuantity}
+            />
+          </div>
+          <ButtonPrimary
+            className="flex-1 flex-shrink-0"
+            onClick={notifyAndAddTocart}
+            disabled={!selectedFile}
+          >
+            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+            <span className="ml-3">Add to cart</span>
+          </ButtonPrimary>
+        </div>
+         {/* SUM */}
+         <div className="hidden sm:flex flex-col mt-8 space-y-4 ">
+            <div className="space-y-2.5">
+              <div className="flex justify-between text-slate-600 dark:text-slate-300">
+                <span className="flex">
+                  <span>{`€${calculatedPrice?.toFixed(2)}  `}</span>
+                  <span className="mx-2">x</span>
+                  <span>{`${quantity} `}</span>
+                </span>
+
+                <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
+              </div>
+              <div className="flex justify-between text-slate-600 dark:text-slate-300">
+                <span>Tax estimate</span>
+                <span>€{calculatedPrice * quantity * 0.21}</span>
+              </div>
+            </div>
+            <div className="border-b border-slate-200 dark:border-slate-700"></div>
+            <div className="flex justify-between font-semibold">
+              <span>Total</span>
+              <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
+            </div>
+          </div>
+
       </div>
 
     </div>

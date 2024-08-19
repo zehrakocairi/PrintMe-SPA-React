@@ -1,4 +1,4 @@
-import { fetchWithAuth } from "../fetch/fetchWrapper";
+import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
 import { CatalogType } from "../enums/CatalogType";
 import { Category } from "../enums/Category";
 import { CatalogTags } from "../enums/CatalogTags";
@@ -20,6 +20,15 @@ const fetchCatalogItems = async (url: string) => {
 export const getCatalogItem = async (id: number) => {
   try {
     const data = await fetchWithAuth(`/catalog/${id}`, localStorage.getItem("accessToken"));
+    return new Product(data)
+  } catch (error) {
+    console.error(`Error fetching catalog items:`, error);
+    throw error;
+  }
+};
+export const getCustomCatalogItem = async () => {
+  try {
+    const data = await fetchWithAuth(`/catalog/custom-product`, localStorage.getItem("accessToken"));
     return new Product(data)
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
@@ -60,6 +69,24 @@ export const getFilteredPaginatedItems = async (filter: FilterState, pageSize: n
   return fetchCatalogItems(url);
 };
 
+export const uploadCustomerImage = async (file: File) : Promise<string> => {
+  try {
+    const dto = new FormData();
+    dto.append('image', file);
+
+    const response = await fetchWithAuth("/catalog/custom-product/upload-image", localStorage.getItem("accessToken"), {
+      method: "POST",
+      body: dto,
+      headers: {
+        'Accept': 'application/json',
+      }
+    });
+    return response;
+  } catch (error) {
+    console.error(`Error fetching catalog items:`, error);
+    throw error;
+  }
+};
 
 function toQueryString(filter: FilterState) {
   let query = "";

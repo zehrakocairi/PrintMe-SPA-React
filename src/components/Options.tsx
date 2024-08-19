@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon } from "@heroicons/react/24/outline"; 
 import { Frame, Size } from "../models/ProductModels";
-
 
 export interface OptionsProps {
     className?: string;

@@ -73,7 +73,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     };
 
     const addItemToCart = async (item: CartItem) => {
-
         trackEvent('Add to Cart', `Product: ${item.productName}, Size: ${item.size}, Frame: ${item.frameName}, Quantity: ${item.quantity}`);
         let updatedCart = [...cart];
 

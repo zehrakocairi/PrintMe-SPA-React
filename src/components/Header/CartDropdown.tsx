@@ -58,7 +58,7 @@ export default function CartDropdown() {
                   <span>{Sizes[size]}</span>
                 </p>
               </div>
-              <Prices price={unitPrice * quantity} className="mt-0.5" />
+              <Prices price={unitPrice * quantity} hideFromLabel={true} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">

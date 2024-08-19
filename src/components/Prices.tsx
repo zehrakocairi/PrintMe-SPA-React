@@ -5,12 +5,14 @@ export interface PricesProps {
   className?: string;
   price?: number;
   contentClass?: string;
+  hideFromLabel?: boolean;
 }
 
 const Prices: FC<PricesProps> = ({
   className = "",
   price = 33,
   contentClass = "py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium",
+  hideFromLabel = false,
 }) => {
   const {t} = useTranslation()
   return (
@@ -18,7 +20,7 @@ const Prices: FC<PricesProps> = ({
       <div
         className={`flex items-center  border-natural-900 rounded-md ${contentClass}`}
       >
-        <span className="text-lg text-gray-900 font-serif  !leading-none"><span className="inline-block text-primary-50 bg-primary-6000 text-sm font-medium px-2.5 py-0.5 rounded-full">{t('From')}</span> €{price.toFixed(2)}</span>
+        <span className="text-lg text-gray-900 font-serif  !leading-none"><span className={`inline-block text-primary-50 bg-primary-6000 text-sm font-medium px-2.5 py-0.5 rounded-full ${hideFromLabel ? 'hidden': ''}`}>{t('From')}</span> €{price.toFixed(2)}</span>
       </div>
     </div>
   );

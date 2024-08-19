@@ -11,6 +11,7 @@ interface Props {
   product: Product;
   sizeSelected: Size;
   qualitySelected: number;
+  calculatedPrice: number;
 }
 
 const NotifyAddTocart: FC<Props> = ({
@@ -18,6 +19,7 @@ const NotifyAddTocart: FC<Props> = ({
   product,
   qualitySelected,
   sizeSelected,
+  calculatedPrice,
 }) => {
   const navigate = useNavigate();
   const { name: productName, price, imageThumbnail: productImage, motto } = product;
@@ -44,7 +46,7 @@ const NotifyAddTocart: FC<Props> = ({
                   <span>{sizeSelected?.name || "NO SIZE"}</span>
                 </p>
               </div>
-              <Prices price={price} className="mt-0.5" />
+              <Prices price={calculatedPrice} hideFromLabel={true} className="mt-0.5" />
             </div>
           </div>
           <div className="flex flex-1 items-end justify-between text-sm">

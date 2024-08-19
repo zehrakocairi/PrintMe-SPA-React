@@ -1,9 +1,7 @@
 export const fetchWithAuth = async (url: string, token: string|null|undefined, options: any = {}) => {
   const headers = {
-    "Content-Type": "application/json",
     ...(options.headers || {}),
   };
-
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
