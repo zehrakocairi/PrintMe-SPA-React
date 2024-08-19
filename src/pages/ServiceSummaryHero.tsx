@@ -18,7 +18,7 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({}) => {
         {t('Gallery-Quality Art & Photography')}
         </h4>
         <span className="block text-base xl:text-lg text-neutral-600 dark:text-neutral-400">
-        {t("Elevate your home with museum-grade art prints and stunning photography. Our curated collection offers exceptional clarity and vibrant color. Discover beautiful posters, elegant art prints, and captivating photographs to transform any space, with custom framing options at affordable prices.")}
+        {t("Elevate your home with museum-grade...")}
         </span>
         <span className="block text-base xl:text-lg text-neutral-600 dark:text-neutral-400">
           <span className="text-xl">{t('We Print')} </span> 

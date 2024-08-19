@@ -12,8 +12,7 @@ import BagIcon from "../../components/BagIcon";
 import { getCustomCatalogItem, uploadCustomerImage } from "../../services/catalogService";
 import NcInputNumber from "../../components/NcInputNumber";
 import { PhotoIcon} from "@heroicons/react/24/solid";
-
-
+import { useTranslation } from "react-i18next";
 
 export interface CustomDesignProps {
   className?: string;
@@ -34,6 +33,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
   
   const { addItemToCart } = useCart();
 
+  const { t } = useTranslation();
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
@@ -104,7 +104,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-4 items-center relative text-center lg:text-left mb-8">
           <div className="w-screen max-w-full xl:max-w-3xl space-y-5">
             <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-              Your Image
+              {t('Upload Your Image')}
             </label>
             <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
               <div className="text-center">
@@ -113,7 +113,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
                     htmlFor="file-upload"
                     className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                   >
-                    <span><PhotoIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" /> Upload a file</span>
+                    <span><PhotoIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" /> {t('Upload a file')}</span>
                     <input
                       id="file-upload"
                       name="file-upload"
@@ -122,12 +122,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
                       onChange={handleFileChange}
                     />
                   </label>
-                  <p className="pl-1">or drag and drop</p>
+                  <p className="pl-1"> {t('or drag and drop')}</p>
                 </div>
                 <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                 {selectedFile && (
                   <p className="text-sm leading-5 text-gray-900 mt-2">
-                    Selected file size: {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
+                    {t('Selected file size')}: {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 )}
               </div>
@@ -189,13 +189,13 @@ const CustomDesign: FC<CustomDesignProps> = ({
                 <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>Tax estimate</span>
+                <span>{t("Tax estimate")}</span>
                 <span>€{calculatedPrice * quantity * 0.21}</span>
               </div>
             </div>
             <div className="border-b border-slate-200 dark:border-slate-700"></div>
             <div className="flex justify-between font-semibold">
-              <span>Total</span>
+              <span>{t("Total")}</span>
               <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
             </div>
           </div>

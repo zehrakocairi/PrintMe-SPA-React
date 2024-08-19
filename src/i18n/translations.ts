@@ -69,7 +69,7 @@ export const resources = {
       "Fast Shipping" : "Fast Shipping",
       "Enjoy Your Art": "Enjoy Your Art",
       "Stunning prints with various frames.": "Stunning prints with various frames.",
-      "Custom Prints Made Just for You": "Custom Prints Made Just for You",
+      "Custom Prints Made Just for You, by You": "Custom Prints Made Just for You, by You",
       "Expert Giclée Printing Service": "Expert Giclée Printing Service",
       "Print, frame, and ship with care.🚀": "Print, frame, and ship with care.🚀",
       "Superior reproduction for art and photos.": "Superior reproduction for art and photos.",
@@ -205,7 +205,19 @@ export const resources = {
       "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.": "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.",
       "Order with Confidence": "Order with Confidence",
       "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.": "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.",
-     }
+      "Upload a file": "Upload a file",
+      "or drag and drop": "or drag and drop",
+      "Selected file size": "Selected file size",
+      "Total": "Total",
+      "Include Mat": "Include Mat",
+      "Image Size": "Image Size",
+      "See sizing chart": "See sizing chart",
+      "See frame details": "See frame details",
+      "We Print & Frame": "We Print & Frame",
+      "Gallery-Quality Art & Photography": "Gallery-Quality Art & Photography",
+      "We Print": "We Print",
+      "Elevate your home with museum-grade...": "Elevate your home with museum-grade art prints and stunning photography. Our curated collection offers exceptional clarity and vibrant color. Discover beautiful posters, elegant art prints, and captivating photographs to transform any space, with custom framing options at affordable prices."
+    }
   },
  "nl": {
     "translation": {
@@ -277,7 +289,7 @@ export const resources = {
       "Fast Shipping": "Snelle Verzending",
       "Enjoy Your Art": "Geniet van Uw Kunst",
       "Stunning prints with various frames.": "Prachtige afdrukken met verschillende lijsten.",
-      "Custom Prints Made Just for You": "Aangepaste Afdrukken Speciaal voor U Gemaakt",
+      "Custom Prints Made Just for You, by You": "Aangepaste Afdrukken Speciaal voor U Gemaakt",
       "Expert Giclée Printing Service": "Expert Giclée Drukservice",
       "Print, frame, and ship with care.🚀": "Afdrukken, inlijsten en verzenden met zorg.🚀",
       "Superior reproduction for art and photos.": "Superieure reproductie voor kunst en foto's.",
@@ -411,8 +423,20 @@ export const resources = {
       "Professional Review": "Professionele beoordeling",
       "Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.": "Onze ervaren ontwerper beoordeelt je ontwerp, maakt de nodige aanpassingen en stuurt het naar je ter goedkeuring voordat we gaan afdrukken.",
       "Order with Confidence": "Bestel met vertrouwen",
-      "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.": "Rond je aankoop af via onze veilige betaalomgeving. Je aangepaste kunstwerk wordt professioneel afgedrukt en bij je thuis bezorgd."
-     }
+      "Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.": "Rond je aankoop af via onze veilige betaalomgeving. Je aangepaste kunstwerk wordt professioneel afgedrukt en bij je thuis bezorgd.",
+      "Upload a file": "Upload een bestand",
+      "or drag and drop" : "of sleep en zet neer",
+      "Selected file size": "Geselecteerde bestandsgrootte",
+      "Total": "Totaal",
+      "Include Mat": "Inclusief Mat",
+      "Image Size": "Afbeeldingsgrootte",
+      "See sizing chart": "Zie maattabel",
+      "See frame details": "Zie lijstdetails",
+      "We Print & Frame": "Wij Printen & Lijsten",
+      "Gallery-Quality Art & Photography": "Kunst & Fotografie van Galerijkwaliteit",
+      "We Print": "Wij Printen",
+      "Elevate your home with museum-grade...": "Verhoog de uitstraling van je huis met museumwaardige kunstprints en verbluffende fotografie. Onze zorgvuldig samengestelde collectie biedt uitzonderlijke helderheid en levendige kleuren. Ontdek prachtige posters, elegante kunstprints en boeiende foto's om elke ruimte te transformeren, met maatwerk inlijstmogelijkheden tegen betaalbare prijzen."
+    }
   }
 }
 

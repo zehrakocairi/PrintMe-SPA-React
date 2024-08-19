@@ -234,7 +234,7 @@ const CartPage = () => {
                   </span>
                 </div>
                 <div className="flex justify-between py-4">
-                  <span>Tax estimate</span>
+                  <span>{t("Tax estimate")}</span>
                   <span className="font-semibold text-slate-900 dark:text-slate-200">
                     €{taxTotal.toFixed(2)}
                   </span>

@@ -144,7 +144,7 @@ const ProductDetailPage = ({ }) => {
         <div className="flex justify-between font-medium text-sm">
           <label htmlFor="">
             <span className="">
-              Image Size:
+              {t('Image Size')}:
               <span className="ml-1 font-semibold">{sizeSelected?.name}</span>
             </span>
           </label>
@@ -154,7 +154,7 @@ const ProductDetailPage = ({ }) => {
             // href=""
             className="text-primary-6000 hover:text-primary-500"
           >
-            See sizing chart
+            {t('See sizing chart')}
           </a>
         </div>
         <div className="grid grid-cols-4 gap-2 mt-3">
@@ -245,7 +245,7 @@ const ProductDetailPage = ({ }) => {
             className="text-primary-6000 hover:text-primary-500"
             href="/our-services"
           >
-            See frame details
+            {t('See frame details')}
           </a>
         </div>
         <div className="grid grid-cols-6 gap-2 mt-3">
@@ -354,7 +354,7 @@ const ProductDetailPage = ({ }) => {
                 <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>Tax estimate</span>
+                <span>{t("Tax estimate")}</span>
                 <span>€{calculatedPrice * quantity * 0.21}</span>
               </div>
             </div>

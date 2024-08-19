@@ -22,6 +22,7 @@ import { CartItem } from "../models/CartItem";
 import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useApplication } from "../contexts/ApplicationContext";
+import { useTranslation } from "react-i18next";
 
 export interface ProductQuickViewProps {
   className?: string;
@@ -41,6 +42,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
     numberOfReviews,
   } = item;
 
+  const { t } = useTranslation();
   const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
   const [calculatedPrice, setCalculatedPrice] = useState(price);
 
@@ -96,7 +98,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             className="text-primary-6000 hover:text-primary-500"
             href="/our-services"
           >
-            See frame details
+            {t('See frame details')}
           </a>
         </div>
         <div className="grid grid-cols-6 gap-2 mt-3">
@@ -142,7 +144,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             rel="noopener noreferrer"
             className="text-primary-6000 hover:text-primary-500"
           >
-            See sizing chart
+            {t('See sizing chart')}
           </a>
         </div>
         <div className="grid grid-cols-5 sm:grid-cols-7 gap-2 mt-2.5">
