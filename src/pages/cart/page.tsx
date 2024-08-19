@@ -189,7 +189,7 @@ const CartPage = () => {
   return (
     <div className="nc-CartPage">
       <Helmet>
-        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <title>PrintMeArt - Cart</title>
         <link rel="canonical" href={'/cart?lang=' + i18n.language} />
       </Helmet>
       <main className="container py-16 lg:pb-28 lg:pt-20 ">

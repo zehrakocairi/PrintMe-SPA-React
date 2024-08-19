@@ -276,7 +276,7 @@ const ProductDetailPage = ({ }) => {
     return (
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
         <Helmet>
-          <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+          <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
           <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
         </Helmet>
         <div className="space-y-7 lg:space-y-8">

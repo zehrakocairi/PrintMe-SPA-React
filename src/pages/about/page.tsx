@@ -16,7 +16,7 @@ const PageAbout = ({ }) => {
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
        <Helmet>
-        <title>PrintMeArt - About us</title>
+        <title>PrintMeArt - {t('About us')}</title>
         <link rel="canonical" href={'/about?lang='+i18n.language} />
 
       </Helmet>

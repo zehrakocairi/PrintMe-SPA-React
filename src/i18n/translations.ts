@@ -71,7 +71,7 @@ export const resources = {
       "Shop Stunning Prints & Frames for Your Home Decor.": "Shop Stunning Prints & Frames for Your Home Decor.",
       "Custom Photo Prints & Framed Art": "Custom Photo Prints & Framed Art",
       "Learn About Giclée Printing": "Learn About Giclée Printing",
-      "Upload, Customize, and Order Your Own Design.🚀": "Upload, Customize, and Order Your Own Design.🚀",
+      "Upload, Customize, and Order Your Own Design.": "Upload, Customize, and Order Your Own Design.",
       "Superior Quality Prints with Archival Inks & Paper.": "Superior Quality Prints with Archival Inks & Paper.",
       "Affordable High-Quality Art Prints & Framed Wall Art": "Affordable High-Quality Art Prints & Framed Wall Art",
       "Easily explore our wide range of art prints and find your perfect piece": "Easily explore our wide range of art prints and find your perfect piece",
@@ -218,6 +218,7 @@ export const resources = {
       "We Print": "We Print",
       "Elevate your home with museum-grade...": "Transform your home with museum-quality art prints and striking photography. Our carefully curated collection showcases vivid colors and fine details. Explore beautiful posters, elegant prints, and captivating photos, all with custom framing options to enhance any space at affordable prices.",
       "Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space": "Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space",
+      "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home": "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home",
     }
   },
  "nl": {
@@ -438,6 +439,9 @@ export const resources = {
       "We Print": "Wij Printen",
       "Elevate your home with museum-grade...": "Transformeer je huis met museumwaardige kunstafdrukken en opvallende fotografie. Onze zorgvuldig samengestelde collectie biedt levendige kleuren en fijne details. Ontdek mooie posters, elegante afdrukken en betoverende foto’s, allemaal met op maat gemaakte lijstopties om elke ruimte te verfraaien tegen betaalbare prijzen.",
       "Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space": "Ontdek onze best verkochte kunstafdrukken, posters en foto's. Vind topkeuzes die kunstliefhebbers en decorliefhebbers aanbidden voor elke ruimte",
+      "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home": "Hoogwaardige kunstafdrukken, posters, aangepaste lijsten en prachtige fotografie voor uw huis",
+      "About us": "Over ons",
+      "Printed Art, Posters, and Photos": "Gedrukte kunst, posters en foto's",
     }
   }
 }

@@ -129,7 +129,7 @@ const PageSearch = () => {
   return (
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
        <Helmet>
-        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
         <link rel="canonical" href={"/search" + i18n.language} />
       </Helmet>
       <div

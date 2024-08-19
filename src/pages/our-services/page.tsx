@@ -8,11 +8,11 @@ import { Helmet } from "react-helmet";
 import { useTranslation } from "react-i18next";
 
 const PageOurServices = ({ }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
        <Helmet>
-        <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
+        <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
         <link rel="canonical" href={'/our-services?lang='+i18n.language} />
       </Helmet>
       {/* ======== BG GLASS ======== */}
@@ -21,7 +21,7 @@ const PageOurServices = ({ }) => {
       <div className="container py-16 lg:py-28 space-y-16 lg:space-y-28">
         <SectionHero
           rightImg={'https://genstorageaccount3116.blob.core.windows.net/printme-images/colorfull-frames.webp'}
-          heading="👋 Test."
+          heading="Our Services"
           btnText=""
           subHeading="Welcome to PrintMeArt! We're a family-run business turning your favorite memories and artworks into stunning prints. Using top-notch Giclée printing, we ensure vibrant colors and fine detail in every piece.</br>
 
