@@ -4,7 +4,7 @@ import { Dialog, Transition } from "../headlessui";
 import React, { FC, Fragment, useRef } from "react";
 import ButtonClose from "../shared/ButtonClose/ButtonClose";
 import ProductQuickView from "./ProductQuickView";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Product } from "../models/ProductModels";
 
 export interface ModalQuickViewProps {
@@ -36,7 +36,7 @@ const ModalQuickView: FC<ModalQuickViewProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <motion.div
+          <m.div
             ref={overlayRef}
             key="backdrop"
             className="fixed inset-0 bg-black/40 dark:bg-black/70"

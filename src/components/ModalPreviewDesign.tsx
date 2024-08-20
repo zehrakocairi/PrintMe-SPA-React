@@ -3,7 +3,7 @@
 import { Dialog, Transition } from "../headlessui";
 import React, { FC, Fragment, useRef } from "react";
 import ButtonClose from "../shared/ButtonClose/ButtonClose";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import PreviewDesign from "./PreviewDesign";
 import { Frame} from "../models/ProductModels"
 
@@ -43,7 +43,7 @@ const ModalPreviewDesign: FC<ModalPreviewDesignProps> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <motion.div
+            <m.div
               ref={overlayRef}
               key="backdrop"
               className="fixed inset-0 bg-black/40 dark:bg-black/70"

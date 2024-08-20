@@ -1,12 +1,12 @@
 
 
 import { Dialog } from "@headlessui/react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useRef, useState } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
-import SharedModal from "./SharedModal";
+// import SharedModal from "./SharedModal";
 
 export default function Modal({
   images,
@@ -60,7 +60,7 @@ export default function Modal({
         initialFocus={overlayRef}
         className="fixed inset-0 z-50 flex items-center justify-center"
       >
-        <motion.div
+        <m.div
           ref={overlayRef}
           key="backdrop"
           className="fixed inset-0 z-30 bg-black bg-opacity-50"
@@ -68,14 +68,14 @@ export default function Modal({
           animate={{ opacity: 1 }}
           onClick={handleClose}
         />
-        <SharedModal
+        {/* <SharedModal
           index={curIndex}
           direction={direction}
           images={images}
           changePhotoId={changePhotoId}
           closeModal={handleClose}
           navigation={true}
-        />
+        /> */}
       </Dialog>
     </>
   );

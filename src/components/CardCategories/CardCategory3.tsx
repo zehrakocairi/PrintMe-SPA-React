@@ -63,7 +63,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
                 fontSize="text-sm font-medium"
                 className="nc-shadow-lg"
               >
-                <Link href={'/search'} className="">{t('Show me all')}</Link>
+               {t('Show me all')}
             </ButtonSecondary>
             </div>
           </div>

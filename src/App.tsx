@@ -5,8 +5,8 @@ import { FilterProvider } from "./contexts/FilterContext";
 import { ApplicationProvider } from "./contexts/ApplicationContext";
 import { CartProvider } from "./contexts/CartContext";
 import CommonClient from "./pages/CommonClient";
-import { AppInsightsContext } from "@microsoft/applicationinsights-react-js";
-import { reactPlugin } from "./services/applicationInsightService";
+// import { AppInsightsContext } from "@microsoft/applicationinsights-react-js";
+// import { reactPlugin } from "./services/applicationInsightService";
 import { I18nextProvider } from "react-i18next";
 import i18n from "./i18n/i18n";
 import { Suspense, lazy } from "react";
@@ -29,17 +29,19 @@ const PageLogin = lazy(() => import('./pages/login/page'));
 // const Home =lazy(() => import( "./pages/Home"));
 // const PageSearch =lazy(() => import( "./pages/search/page"));
 // const ProductDetailPage =lazy(() => import( "./pages/product-detail/page"));
+import { LazyMotion, domAnimation } from "framer-motion"
+
 
 function App() {
   return (
-    <AppInsightsContext.Provider value={reactPlugin}>
-      <ApplicationProvider>
-        <CartProvider>
-          <I18nextProvider i18n={i18n}>
+    // <AppInsightsContext.Provider value={reactPlugin}>
+    <ApplicationProvider>
+      <CartProvider>
+        <I18nextProvider i18n={i18n}>
+          <LazyMotion features={domAnimation}>
             <Router>
               <SiteHeader />
               <div className="content-container">
-
                 <FilterProvider>
                   <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
@@ -65,10 +67,11 @@ function App() {
                 </FilterProvider>
               </div>
             </Router>
-          </I18nextProvider>
-        </CartProvider>
-      </ApplicationProvider>
-    </AppInsightsContext.Provider>
+          </LazyMotion>
+        </I18nextProvider>
+      </CartProvider>
+    </ApplicationProvider>
+    // </AppInsightsContext.Provider>
   );
 }
 
