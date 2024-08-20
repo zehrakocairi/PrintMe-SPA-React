@@ -128,13 +128,14 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
 
         {/* BG */}
         <div className="absolute inset-0 bg-[#F7FFE8]">
-          <Image
+        {!isMobile && (<Image
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            className="absolute w-full h-full object-contain"
+            className="absolute w-full h-full object-contain hidden md:block"
             src={backgroundLineSvg}
             alt="hero"
-          />
+          />)}
+          
         </div>
 
         <div className="relative container pb-0 pt-14 sm:pt-20 lg:py-44">
@@ -176,15 +177,16 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
             </ButtonPrimary>
           </div>
           <div className="mt-10 lg:mt-0 lg:absolute end-0 rtl:-end-28 bottom-0 top-0 w-full max-w-2xl xl:max-w-3xl 2xl:max-w-4xl">
-            <Image
+            {!isMobile && (<Image
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="mx-auto md:m-auto  w-half md:w-full h-full object-contain object-right-bottom pr-0 md:pr-16 nc-SectionHero2Item__image carousel-image-container"
+              className="mx-auto md:m-auto  w-half md:w-full h-full object-contain object-right-bottom pr-0 md:pr-16 nc-SectionHero2Item__image carousel-image-container hidden md:block"
               src=  {item.image}
               alt={t(item.heading)}
               showMobileImage={true}
               priority
-            />
+            />)}
+            
           </div>
         </div>
       </div>
