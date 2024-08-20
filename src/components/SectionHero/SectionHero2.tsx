@@ -23,6 +23,8 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
   const [isRunning, { toggle: toggleIsRunning, setFalse, setTrue }] = useBoolean(false);
   const { t } = useTranslation();
 
+  const isMobile = window.innerWidth <= 768;
+
   useInterval(
     () => {
       setTrue();
