@@ -113,6 +113,9 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
           })}
         </div>
 
+
+        {isMobile && (<div className="mb-12"></div>)}
+
         <Prev
           className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
           btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
@@ -186,7 +189,6 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
               showMobileImage={true}
               priority
             />)}
-            
           </div>
         </div>
       </div>

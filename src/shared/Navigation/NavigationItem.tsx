@@ -43,6 +43,7 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
     if (!menu.children) {
       return null;
     }
+    const isMobile = window.innerWidth < 768;
     return (
       <li
         className={`menu-item flex-shrink-0 menu-megamenu menu-megamenu--large`}
@@ -65,10 +66,11 @@ const NavigationItem: FC<NavigationItemProps> = ({ menuItem }) => {
                   ))}
                 </div>
                 <div className="w-[40%] xl:w-[35%]">
-                  <CardCategory3  
+                  {!isMobile && (<CardCategory3  
                   name={t('Visit Our Space')}
                   desc={t('Pick up prints,<br />enjoy coffee')}
-                 featuredImage="https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.webp"/>
+                 featuredImage="https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.webp"/>)}
+                  
                 </div>
               </div>
             </div>
