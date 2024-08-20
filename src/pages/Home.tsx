@@ -108,64 +108,14 @@ const Home: FC<any> = ({ }) => {
         <title>PrintMeArt - {t('High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home')}</title>
         <link rel="canonical" href={'/?lang='+i18n.language} />
       </Helmet>
-      <SectionHero2 />
+      {/* <SectionHero2 /> */}
       <div className="mt-12 md:mt-24 lg:mt-32">
-        <DiscoverMoreSlider />
+        {/* <DiscoverMoreSlider /> */}
       </div>
 
 
 
-      <div ref={sliderRef} className="container relative space-y-12 md:space-y-24 my-8 md:my-24 lg:space-y-32 lg:my-32" >
-        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
-
-        {
-          featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
-            heading={t("Art Lovers Also Bought")}
-            subHeading={t("Popular Picks for You")}
-            motto={t('Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space')}
-            headingFontClassName="text-2xl font-semibold"
-            headingClassName="mb-2 text-neutral-900 dark:text-neutral-50"
-            data={featuredItems}
-          /> : <></>
-        }
-        <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
-
-        <div className="mb-10 md:mb-20">
-          <ServiceSummaryHero />
-        </div>
-
-        <div className="relative py-12 md:py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionGridMoreExplore />
-        </div>
-
-        <hr className="mt-10 border-slate-200 dark:border-slate-700 hidden md:block"></hr>
-
-        <div ref={catalogRef} className="hidden md:block">
-          {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}
-        </div>
-
-
-        <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
-          <SectionHowItWork />
-        </div>
-
-        {/* Uncomment and localize as needed */}
-        {/* <div className="relative py-24 lg:py-32">
-          <BackgroundSection />
-          <div>
-            <Heading rightDescText={t("From the Ciseco blog")}>
-              {t("The latest news")}
-            </Heading>
-            <SectionMagazine5 />
-            <div className="flex mt-16 justify-center">
-              <ButtonSecondary>{t("Show all blog articles")}</ButtonSecondary>
-            </div>
-          </div>
-        </div> */}
-        {/* <SectionClientSay /> */}
-        <SectionPromo1 />
-      </div>
+      
     </div>
   );
 }
