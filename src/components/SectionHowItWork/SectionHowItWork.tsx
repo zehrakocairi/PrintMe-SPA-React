@@ -6,7 +6,6 @@ import HIW3img from "../../data/images/HIW3img.jpeg";
 import HIW4img from "../../data/images/HIW4img.jpeg";
 import VectorImg from "../../data/images/VectorHIW.svg";
 import Badge from "../../shared/Badge/Badge";
-import Image from "../../shared/Image";
 import { useTranslation } from "react-i18next";
 
 export interface SectionHowItWorkProps {
