@@ -270,7 +270,7 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
             onClick={notifyAddTocart}
           >
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
-            <span className="ms-3">Add to cart</span>
+            <span className="ms-3">{t('Add to cart')}</span>
           </ButtonPrimary>
         </div>
 

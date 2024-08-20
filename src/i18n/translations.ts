@@ -219,6 +219,7 @@ export const resources = {
       "Elevate your home with museum-grade...": "Transform your home with museum-quality art prints and striking photography. Our carefully curated collection showcases vivid colors and fine details. Explore beautiful posters, elegant prints, and captivating photos, all with custom framing options to enhance any space at affordable prices.",
       "Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space": "Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space",
       "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home": "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home",
+      "Print Quality & Care": "Print Quality & Care",
     }
   },
  "nl": {
@@ -442,6 +443,20 @@ export const resources = {
       "High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home": "Hoogwaardige kunstafdrukken, posters, aangepaste lijsten en prachtige fotografie voor uw huis",
       "About us": "Over ons",
       "Printed Art, Posters, and Photos": "Gedrukte kunst, posters en foto's",
+      "Print Quality & Care": "Afdrukkwaliteit & Zorg",
+      "Sympathize with Our Services": "Leef mee met onze diensten",
+      "Vibrant Colors & Versatile Sizes": "Levendige kleuren & veelzijdige maten",
+      "FAQ": "FAQ",
+      "Preview Your Design": "Voorbeeld van uw ontwerp",
+      "Product details": "Productdetails",
+      "Free shipping": "Gratis verzending",
+      "Free shipping on all orders above €50 within the Netherlands.": "Gratis verzending op alle bestellingen boven €50 binnen Nederland.",
+      "Nationwide Delivery": "Landelijke Levering",
+      "Fast delivery nationwide.": "Snelle levering in heel Nederland.",
+      "Very easy to return": "Zeer gemakkelijk te retourneren",
+      "Just phone number.": "Alleen telefoonnummer.",
+      "Refunds policy": "Restitutiebeleid",
+      "30 days return for any reason": "30 dagen retourneren om welke reden dan ook",
     }
   }
 }

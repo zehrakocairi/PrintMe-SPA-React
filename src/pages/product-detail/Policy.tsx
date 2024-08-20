@@ -1,4 +1,3 @@
-import React from "react";
 const A_FEATURES = [
   {
     color: "bg-red-50",
@@ -60,7 +59,9 @@ const A_FEATURES = [
   },
 ];
 
+import { useTranslation } from "react-i18next";
 const Policy = () => {
+  const { t } = useTranslation();
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 relative">
       {A_FEATURES.map((item, index) => {
@@ -71,8 +72,8 @@ const Policy = () => {
           >
             <div dangerouslySetInnerHTML={{ __html: item.svg }}></div>
             <div className="mt-2.5">
-              <p className="font-semibold text-slate-900">{item.name}</p>
-              <p className="text-slate-500 mt-0.5 text-sm">{item.desc}</p>
+              <p className="font-semibold text-slate-900">{t(item.name)}</p>
+              <p className="text-slate-500 mt-0.5 text-sm">{t(item.desc)}</p>
             </div>
           </div>
         );

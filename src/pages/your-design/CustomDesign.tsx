@@ -173,7 +173,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
             disabled={!selectedFile}
           >
             <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
-            <span className="ml-3">Add to cart</span>
+            <span className="ml-3">{t('Add to cart')}</span>
           </ButtonPrimary>
         </div>
          {/* SUM */}

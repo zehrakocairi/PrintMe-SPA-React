@@ -321,7 +321,7 @@ const ProductDetailPage = ({ }) => {
               className="flex-1 flex-shrink-0 !bg-[#517BDE]"
               onClick={()=> setShowPreviewModal(true)}
             >
-              <span className="ml-3">Preview Your Design</span>
+              <span className="ml-3">{t('Preview Your Design')}</span>
             </ButtonPrimary>
           </div>
           {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
@@ -337,7 +337,7 @@ const ProductDetailPage = ({ }) => {
               onClick={notifyAddTocart}
             >
               <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
-              <span className="ml-3">Add to cart</span>
+              <span className="ml-3">{t('Add to cart')}</span>
             </ButtonPrimary>
           </div>
 
@@ -414,7 +414,7 @@ const ProductDetailPage = ({ }) => {
   const renderSection2 = () => {
     return (
       <div className="listingSection__wrap !border-b-0 !pb-0">
-        <h2 className="text-2xl font-semibold">Product details</h2>
+        <h2 className="text-2xl font-semibold">{t('Product details')}</h2>
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
           <p>
