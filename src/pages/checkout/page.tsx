@@ -148,6 +148,7 @@ const CheckoutPage = () => {
                 <div className="mt-3 flex justify-between w-full sm:hidden relative">
                   <Prices
                     contentClass="py-1 px-2 md:py-1.5 md:px-2.5 text-sm font-medium h-full"
+                    hideFromLabel={true}
                     price={unitPrice * quantity}
                   />
                 </div>
@@ -171,7 +172,7 @@ const CheckoutPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span onClick={() => { removeItemFromCart(productId, frameId, size) }}>Remove</span>
+              <span onClick={() => { removeItemFromCart(productId, frameId, size, pictureUrl) }}>Remove</span>
             </a>
           </div>
         </div>

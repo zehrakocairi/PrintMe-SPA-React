@@ -354,6 +354,8 @@ export const resources = {
       "Vintage, <br />modern, nature,<br />abstract prints.": "Vintage, <br />modern, natuur,<br />abstracte afdrukken.",
       "Pick up prints,<br />enjoy coffee.": "Haal afdrukken op,<br />geniet van koffie.",
       "Up to <br /> 80% off selected art": "Tot <br /> 80% korting op geselecteerde kunst",
+      "Upload your design, We Print": "Upload uw ontwerp, Wij Printen & Lijsten",
+      "Upload your image, and<br /> get the perfect print delivered.": "Upload uw afbeelding, en<br /> krijg de perfecte afdruk geleverd.",
       "Type your keywords": "Typ uw zoekwoorden",
       "SOCIALS": "SOCIALS",
       "Full name": "Volledige naam",
@@ -457,6 +459,7 @@ export const resources = {
       "Just phone number.": "Alleen telefoonnummer.",
       "Refunds policy": "Restitutiebeleid",
       "30 days return for any reason": "30 dagen retourneren om welke reden dan ook",
+      "Upload now": "Upload nu",
     }
   }
 }

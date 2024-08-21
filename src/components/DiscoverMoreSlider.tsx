@@ -79,6 +79,7 @@ const DiscoverMoreSlider = React.memo(() => {
                 color={item.color}
                 className={item.className}
                 href={item.href}
+                buttonText={item.buttonText}
               />
             </li>
           ))}

@@ -178,7 +178,7 @@ const CartPage = () => {
               href="##"
               className="relative z-10 flex items-center mt-3 font-medium text-primary-6000 hover:text-primary-500 text-sm "
             >
-              <span onClick={() => { removeItemFromCart(productId, frameId, size) }}>Remove</span>
+              <span onClick={() => { removeItemFromCart(productId, frameId, size, pictureUrl) }}>Remove</span>
             </a>
           </div>
         </div>

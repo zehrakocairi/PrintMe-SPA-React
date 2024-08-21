@@ -11,6 +11,7 @@ export interface CardCategory3Props {
   desc?: string;
   color?: string;
   href?: string;
+  buttonText?: string;
 }
 
 const CardCategory3: FC<CardCategory3Props> = ({
@@ -19,7 +20,8 @@ const CardCategory3: FC<CardCategory3Props> = ({
   name,
   desc ,
   color,
-  href = '/search'
+  href = '/search',
+  buttonText = "Show me all"
 }) => 
   {
     const { t } = useTranslation();
@@ -63,7 +65,7 @@ const CardCategory3: FC<CardCategory3Props> = ({
                 fontSize="text-sm font-medium"
                 className="nc-shadow-lg"
               >
-               {t('Show me all')}
+               {t(buttonText)}
             </ButtonSecondary>
             </div>
           </div>

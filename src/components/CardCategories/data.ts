@@ -8,6 +8,14 @@ export const CATS_DISCOVER: CardCategory3Props[] = [
     color: "bg-yellow-50",
   },
   {
+    name: "Upload your design, We Print",
+    desc: "Upload your image, and<br /> get the perfect print delivered.",
+    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/sales-1.webp',
+    color: "bg-green-50",
+    href: "/your-design",
+    buttonText: "Upload now",
+  },
+  {
     name: "Quality You Can Feel",
     desc: "Experience our<br /> premium Giclée<br /> prints",
     featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/epson-printer.webp',
@@ -19,11 +27,6 @@ export const CATS_DISCOVER: CardCategory3Props[] = [
     featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/coffee-invitation.webp',
     color: "bg-blue-50",
     href: "/about",
-  },
-  {
-    name: "Exclusive Discounts",
-    desc: "Up to <br /> 80% off selected art",
-    featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/sales-1.webp',
-    color: "bg-green-50",
+    buttonText: "Visit Us",
   },
 ];

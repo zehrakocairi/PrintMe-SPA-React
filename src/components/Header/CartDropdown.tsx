@@ -69,7 +69,7 @@ export default function CartDropdown() {
                 type="button"
                 className="font-medium text-primary-6000 dark:text-primary-500 "
                 onClick={() => {
-                  removeItemFromCart(item.productId, frameId, size);
+                  removeItemFromCart(item.productId, frameId, size, pictureUrl);
                 }}
               >
                 Remove

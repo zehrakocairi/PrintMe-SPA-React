@@ -9,7 +9,7 @@ import { trackEvent } from '../services/applicationInsightService';
 interface CartContextProps {
     cart: CartItem[];
     addItemToCart: (item: CartItem) => Promise<void>;
-    removeItemFromCart: (productId: number, frameId: number, size: PrintSize) => Promise<void>;
+    removeItemFromCart: (productId: number, frameId: number, size: PrintSize, pictureUrl: string) => Promise<void>;
     cartTotal: number;
     taxTotal: number;
 }
@@ -76,7 +76,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         trackEvent('Add to Cart', `Product: ${item.productName}, Size: ${item.size}, Frame: ${item.frameName}, Quantity: ${item.quantity}`);
         let updatedCart = [...cart];
 
-        const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId && cartItem.size === item.size && cartItem.frameId === item.frameId);
+        const existingItem = updatedCart.find(cartItem => cartItem.productId === item.productId && cartItem.size === item.size && cartItem.frameId === item.frameId && item.pictureUrl === cartItem.pictureUrl);
 
         if (existingItem) {
             existingItem.quantity += item.quantity;
@@ -90,8 +90,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
         await updateCart(await getToken(), updatedCart);
     };
 
-    const removeItemFromCart = async (productId: number, frameId: number, size: PrintSize) => {
-        const updatedCart = cart.filter(item => item.productId !== productId || item.size !== size || item.frameId !== frameId);
+    const removeItemFromCart = async (productId: number, frameId: number, size: PrintSize, pictureUrl: string) => {
+        const updatedCart = cart.filter(item => item.productId !== productId || item.size !== size || item.frameId !== frameId || item.pictureUrl !== pictureUrl);
         setCart(updatedCart ?? []);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
 
