@@ -78,19 +78,19 @@ const MainNav2Logged: FC<MainNav2LoggedProps> = () => {
   const renderContent = () => {
     return (
       <div className="h-20 flex justify-between">
-        <div className="flex items-center lg:hidden flex-1">
+        <div className="flex flex-1 lg:hidden items-center">
           <MenuBar />
         </div>
 
-        <div className="lg:flex-1 flex items-center">
+        <div className="flex flex-1 lg:flex-1 items-center">
           <Logo className="flex-shrink-0" />
         </div>
 
-        <div className="flex-[2] hidden lg:flex justify-center mx-4">
+        <div className="hidden lg:flex flex-2 lg:flex-7  justify-center mx-4">
           {showSearchForm ? renderSearchForm() : <Navigation />}
         </div>
 
-        <div className="flex-1 flex items-center justify-end text-slate-700 dark:text-slate-100">
+        <div className="flex flex-1 lg:flex-4 items-center justify-end text-slate-700 dark:text-slate-100">
           {!showSearchForm && (
             <button
               aria-label="Search"
