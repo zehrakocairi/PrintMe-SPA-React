@@ -115,7 +115,7 @@ const Home: FC<any> = ({ }) => {
 
 
 
-      <div ref={sliderRef} className="container relative space-y-12 md:space-y-24 my-8 md:my-24 lg:space-y-32 lg:my-32" >
+      <div ref={sliderRef} className="container relative space-y-12 md:space-y-20 my-8 md:my-20 " >
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
         {
@@ -134,7 +134,7 @@ const Home: FC<any> = ({ }) => {
           <ServiceSummaryHero />
         </div>
 
-        <div className="relative py-12 md:py-24 lg:py-32">
+        <div id="explore" className="relative py-12 md:py-24 lg:py-32">
           <BackgroundSection />
           <SectionGridMoreExplore />
         </div>

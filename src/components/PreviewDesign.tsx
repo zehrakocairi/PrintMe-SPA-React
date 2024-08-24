@@ -11,9 +11,10 @@ export interface PreviewDesignProps {
   sizeName: string;
   frame?: Frame;
   showDescription?: boolean;
+  isVertical?: boolean;
 }
 
-const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, sizeName, className = "", showDescription = true }) => {
+const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, sizeName, className = "", showDescription = true, isVertical = true }) => {
   // const ratioX = sizeName ? +sizeName.toLowerCase().split("x")[0] : 1;
   // const ratioY = sizeName ? +sizeName.toLowerCase().split("x")[1] : 1;
   const ratioX = 5, ratioY = 7;
@@ -74,21 +75,21 @@ const PreviewDesign: FC<PreviewDesignProps> = ({ image, isMatIncluded, frame, si
             <div className="relative z-10">
               <Image
                 src={(isMatIncluded ? frame?.mask : frame?.maskWithoutMat) ?? ""}
-                 layout="fill"
+                layout="fill"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="w-full object-cover"
                 alt="product preview"
               />
             </div>
             <div
-              style={{ aspectRatio: `${ratioX} / ${ratioY}` }}
+              
               className={`absolute inset-0 h-full mx-auto ${paddingClass}`}
             >
               <Image
                 src={image}
                 layout="fill"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="w-full object-cover"
+                className="h-full object-cover"
                 alt="product preview"
               />
             </div>

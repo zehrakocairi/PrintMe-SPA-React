@@ -12,6 +12,7 @@ import BagIcon from "../../components/BagIcon";
 import { getCustomCatalogItem, uploadCustomerImage } from "../../services/catalogService";
 import NcInputNumber from "../../components/NcInputNumber";
 import { PhotoIcon} from "@heroicons/react/24/solid";
+import { ExclamationTriangleIcon} from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
 export interface CustomDesignProps {
@@ -23,6 +24,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
 }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [isVertical, setIsVertical] = useState<boolean>(true);
   const { frames, sizes } = useApplication();
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
   const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
@@ -101,7 +103,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
       data-nc-id="SectionHero"
     >
       <div className="w-full md:w-8/12">
-        <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-4 items-center relative text-center lg:text-left mb-8">
+        <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-4 items-center relative text-center lg:text-left mb-4">
           <div className="w-screen max-w-full xl:max-w-3xl space-y-5">
             <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
               {t('Upload Your Image')}
@@ -135,6 +137,20 @@ const CustomDesign: FC<CustomDesignProps> = ({
           </div>
         </div>
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-10 items-center relative text-center lg:text-left">
+          {image && (
+            <div className="w-screen max-w-full xl:max-w-3xl space-y-5 fit-disclaimer p-2 mb-3">
+
+              <div className="mb-4 mx-auto max-w-2xl lg:text-center">
+                <p className="text-base font-semibold leading-7 text-pink-600"><ExclamationTriangleIcon className="hidden sm:inline-block w-5 h-5 mb-0.5 mr-1" />{t('Perfect Fit Guarantee')}</p>
+                <p className=" text-sm leading-6 text-gray-600">
+                  {t("Our professional designers ensure every image, even horizontal ones, is perfectly tailored to fit your frame. We'll send you the final design for your approval, giving you the last say.")}
+                </p>
+              </div>
+
+            </div>
+          )}
+        </div>
+        <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-10 items-center relative text-center lg:text-left">
           <div className="w-screen max-w-full xl:max-w-3xl space-y-5">
             {image && (
               <PreviewDesign
@@ -143,6 +159,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
                 isMatIncluded={isMatIncluded}
                 image={image}
                 showDescription={false}
+                isVertical={isVertical}
               />
             )}
           </div>

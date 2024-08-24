@@ -460,6 +460,8 @@ export const resources = {
       "Refunds policy": "Restitutiebeleid",
       "30 days return for any reason": "30 dagen retourneren om welke reden dan ook",
       "Upload now": "Upload nu",
+      "Perfect Fit Guarantee": "Perfecte Pasvorm Garantie",
+      "Our professional designers ensure every image, even horizontal ones, is perfectly tailored to fit your frame. We'll send you the final design for your approval, giving you the last say.": "Onze professionele ontwerpers zorgen ervoor dat elke afbeelding, zelfs horizontale, perfect op maat wordt gemaakt voor uw lijst. We sturen u het definitieve ontwerp ter goedkeuring, zodat u het laatste woord heeft.",
     }
   }
 }
