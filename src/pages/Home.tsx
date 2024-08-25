@@ -15,6 +15,7 @@ import { useRef } from "react";
 import ServiceSummaryHero from "./ServiceSummaryHero";
 import { memo } from "react";
 import { Helmet } from "react-helmet";
+import SectionHeroForKeywords from "./SectionHeroForKeywords";
 
 
 const Home: FC<any> = ({ }) => {
@@ -165,6 +166,7 @@ const Home: FC<any> = ({ }) => {
         </div> */}
         {/* <SectionClientSay /> */}
         <SectionPromo1 />
+        <SectionHeroForKeywords className="mt-12" />
       </div>
     </div>
   );
