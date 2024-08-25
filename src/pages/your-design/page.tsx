@@ -3,6 +3,7 @@ import SectionHero from "./SectionHero";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet";
 import CustomDesign from "./CustomDesign";
+import SectionHeroBottom from "./SectionHeroBottom";
 
 const PageYourDesign = ({ }) => {
   const { t, i18n } = useTranslation();
@@ -10,7 +11,7 @@ const PageYourDesign = ({ }) => {
   return (
     <div className={`nc-PageAbout overflow-hidden relative`}>
        <Helmet>
-        <title>PrintMeArt - Design Your Art - Poster</title>
+        <title>PrintMeArt - {t('Design Your Poster - Art - Photo')}</title>
         <link rel="canonical" href={'/your-design?lang='+i18n.language} />
 
       </Helmet>
@@ -20,6 +21,10 @@ const PageYourDesign = ({ }) => {
       </div>
       <div className="container py-8 lg:py-12 space-y-12 lg:space-y-12">
         <CustomDesign />
+      </div>
+
+      <div className="container py-16 lg:pt-28 space-y-16 lg:space-y-28">
+        <SectionHeroBottom/>
       </div>
     </div>
   );

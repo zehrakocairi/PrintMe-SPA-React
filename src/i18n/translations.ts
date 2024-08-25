@@ -454,7 +454,7 @@ export const resources = {
       "Free shipping": "Gratis verzending",
       "Free shipping on all orders above €50 within the Netherlands.": "Gratis verzending op alle bestellingen boven €50 binnen Nederland.",
       "Nationwide Delivery": "Landelijke Levering",
-      "Fast delivery nationwide.": "Snelle levering in heel Nederland.",
+      "Fast delivery nationwide.": "Snelle levering in heel Nederland over 2 dagen.",
       "Very easy to return": "Zeer gemakkelijk te retourneren",
       "Just phone number.": "Alleen telefoonnummer.",
       "Refunds policy": "Restitutiebeleid",
@@ -462,6 +462,20 @@ export const resources = {
       "Upload now": "Upload nu",
       "Perfect Fit Guarantee": "Perfecte Pasvorm Garantie",
       "Our professional designers ensure every image, even horizontal ones, is perfectly tailored to fit your frame. We'll send you the final design for your approval, giving you the last say.": "Onze professionele ontwerpers zorgen ervoor dat elke afbeelding, zelfs horizontale, perfect op maat wordt gemaakt voor uw lijst. We sturen u het definitieve ontwerp ter goedkeuring, zodat u het laatste woord heeft.",
+      "Print Your Design": "Print Uw Ontwerp",
+      "Bring Your Vision to Life with High-Quality Custom Prints": "Breng Uw Visie tot Leven met Hoogwaardige Aangepaste Afdrukken",
+      "Turn your photos and designs into stunning, high-quality custom art prints that elevate any space. Whether you’re looking for personalized wall art, custom posters, or framed prints, we deliver exceptional results across the Netherlands, Germany, and all of Europe.": "Verander uw foto's en ontwerpen in prachtige, hoogwaardige aangepaste kunstafdrukken die elke ruimte verheffen. Of u nu op zoek bent naar gepersonaliseerde wandkunst, aangepaste posters of ingelijste afdrukken, wij leveren uitzonderlijke resultaten in heel Nederland, Duitsland en heel Europa.",
+      "Premium Quality Custom Posters": "Hoogwaardige Aangepaste Posters",
+      "From personal photos to unique artwork, our custom art prints are crafted with care, ensuring vibrant colors and long-lasting quality. Perfect for European homes, our prints bring your vision to life.": "Van persoonlijke foto's tot unieke kunstwerken, onze aangepaste kunstafdrukken zijn met zorg vervaardigd, met levendige kleuren en een langdurige kwaliteit. Perfect voor Europese huizen, onze afdrukken brengen uw visie tot leven.",
+      "Personalized Framed Prints": "Gepersonaliseerde Ingelijste Afdrukken",
+      "Choose from a variety of elegant poster frames, sizes, and mats to create a custom framed print that fits your style. Each print is delivered ready to hang, making it easy to transform your space.": "Kies uit een verscheidenheid aan elegante posterlijsten, maten en passe-partouts om een aangepaste ingelijste afdruk te maken die bij uw stijl past. Elke afdruk wordt geleverd klaar om op te hangen, waardoor het gemakkelijk is om uw ruimte te transformeren.",
+      "Fast & Reliable European Shipping": "Snelle & Betrouwbare Europese Verzending",
+      "We understand the importance of speed. That’s why we offer fast delivery custom photo prints across Europe, including the Netherlands, ensuring your artwork arrives quickly and in perfect condition.": "We begrijpen het belang van snelheid. Daarom bieden wij snelle levering van aangepaste fotoprints in heel Europa, inclusief Nederland, zodat uw kunstwerk snel en in perfecte staat aankomt.",
+      "Upload and Print Your Own Designs": "Upload en Print Uw Eigen Ontwerpen",
+      "Simply upload your design or photo, and we’ll handle the rest. Our expert team ensures that your high-quality custom poster is printed and framed to perfection, with fast shipping guaranteed.": "Upload eenvoudig uw ontwerp of foto, en wij regelen de rest. Ons deskundige team zorgt ervoor dat uw hoogwaardige aangepaste poster perfect wordt afgedrukt en ingelijst, met gegarandeerde snelle verzending.",
+      "From Amsterdam to Berlin, our European poster printing service ensures that your custom art prints and personalized gifts are delivered with Dutch quality and reliability. Order today and experience the difference!": "Van Amsterdam tot Berlijn, onze Europese posterprintservice zorgt ervoor dat uw aangepaste kunstafdrukken en gepersonaliseerde geschenken worden geleverd met Nederlandse kwaliteit en betrouwbaarheid. Bestel vandaag en ervaar het verschil!",
+      "Design Your Poster - Art - Photo": "Ontwerp Uw Poster - Kunst - Foto",
+
     }
   }
 }

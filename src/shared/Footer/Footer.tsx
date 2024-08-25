@@ -60,7 +60,7 @@ const widgetMenus: WidgetFooterMenu[] = [
   }
 ];
 
-const WidgetMenuItem: React.FC<{ menu: WidgetFooterMenu }> = React.memo(({ menu }) => {
+const WidgetMenuItem: React.FC<{ menu: WidgetFooterMenu }> = ({ menu }) => {
   const { t } = useTranslation();
   return (
     <div className="text-sm">
@@ -82,9 +82,9 @@ const WidgetMenuItem: React.FC<{ menu: WidgetFooterMenu }> = React.memo(({ menu 
       </ul>
     </div>
   );
-});
+};
 
-const Footer: React.FC = React.memo(() => {
+const Footer: React.FC = () => {
   return (
     <div className="nc-Footer relative py-20 lg:pt-28 lg:pb-24 border-t border-neutral-200 dark:border-neutral-700">
       <div className="container grid grid-cols-2 gap-y-10 gap-x-5 sm:gap-x-8 md:grid-cols-4 lg:grid-cols-5 lg:gap-x-10">
@@ -102,6 +102,6 @@ const Footer: React.FC = React.memo(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Footer;

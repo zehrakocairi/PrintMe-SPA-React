@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import React, { FC } from "react";
 import NcImage from "../shared/NcImage/NcImage";
 import ButtonPrimary from "../shared/Button/ButtonPrimary";
 import Logo from "../shared/Logo/Logo";
@@ -58,4 +58,4 @@ const SectionPromo1: FC<SectionPromo1Props> = ({ className = "" }) => {
   );
 };
 
-export default memo(SectionPromo1);
+export default SectionPromo1;

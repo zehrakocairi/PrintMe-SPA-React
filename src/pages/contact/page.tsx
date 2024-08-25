@@ -30,7 +30,7 @@ const PageContact = ({}) => {
   return (
     <div className={`nc-PageContact overflow-hidden`}>
        <Helmet>
-        <title>PrintMeArt - Cart</title>
+        <title>PrintMeArt - {t('Contact Us')}</title>
         <link rel="canonical" href={'/contact?lang='+i18n.language} />
       </Helmet>
       <div className="">
