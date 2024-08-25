@@ -166,7 +166,9 @@ const Home: FC<any> = ({ }) => {
         </div> */}
         {/* <SectionClientSay /> */}
         <SectionPromo1 />
-        <SectionHeroForKeywords className="mt-12" />
+        <div className="py-24 lg:py-32 border-t">
+          <SectionHeroForKeywords />
+        </div>
       </div>
     </div>
   );
