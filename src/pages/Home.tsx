@@ -16,6 +16,7 @@ import ServiceSummaryHero from "./ServiceSummaryHero";
 import { memo } from "react";
 import { Helmet } from "react-helmet";
 import SectionHeroForKeywords from "./SectionHeroForKeywords";
+import Loading from "../components/Loading";
 
 
 const Home: FC<any> = ({ }) => {
@@ -23,22 +24,27 @@ const Home: FC<any> = ({ }) => {
   const [featuredItems, setFeaturedItems] = useState<any[]>([]); // Adjust type if necessary
   const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
   const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
-  const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateTagState } = useFilter();
+  const { filter, filterChanged, setFilterChanged, setIsLoading, isLoading, pageIndex, pageSize, updateCategoryState, updateTagState } = useFilter();
   const sliderRef = useRef<HTMLDivElement>(null);
   const catalogRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isCatalogVisible, setIsCatalogVisible] = useState(false);
   const { i18n } = useTranslation();
   const fetchTrendingItems = async () => {
-    setIsLoading(true);
     const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
     setTrendingItems(data);
-    setIsLoading(false);
   };
 
   const fetchFeaturedItems = async () => {
-    const { data } = await getFeaturedItems();
-    setFeaturedItems(data);
+    try {
+      setIsLoading(true);
+      const { data } = await getFeaturedItems();
+      setFeaturedItems(data);
+      setIsLoading(false);
+    }
+    finally {
+      setIsLoading(false);
+    }
   };
 
   const handleScrollToEl = (id: string) => {
@@ -118,16 +124,21 @@ const Home: FC<any> = ({ }) => {
 
       <div ref={sliderRef} className="container relative space-y-12 md:space-y-20 my-8 md:my-20 " >
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
-
         {
-          featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
-            heading={t("Art Lovers Also Bought")}
-            subHeading={t("Popular Picks for You")}
-            motto={t('Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space')}
-            headingFontClassName="text-2xl font-semibold"
-            headingClassName="mb-2 text-neutral-900 dark:text-neutral-50"
-            data={featuredItems}
-          /> : <></>
+          isLoading ? (
+            <div role="status" className="text-center w-full my-48">
+              <Loading className="w-24 h-24"></Loading>
+            </div>
+          ) : (
+            featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
+              heading={t("Art Lovers Also Bought")}
+              subHeading={t("Popular Picks for You")}
+              motto={t('Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space')}
+              headingFontClassName="text-2xl font-semibold"
+              headingClassName="mb-2 text-neutral-900 dark:text-neutral-50"
+              data={featuredItems}
+            /> : <></>
+          )
         }
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 

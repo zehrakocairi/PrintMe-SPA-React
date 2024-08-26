@@ -6,6 +6,8 @@ import Heading from "./Heading/Heading";
 import Glide from "@glidejs/glide/dist/glide.esm";
 import ProductCard from "./ProductCard";
 import { Product } from "../models/ProductModels";
+import { useFilter } from "../contexts/FilterContext";
+import Loading from "./Loading";
 
 export interface SectionSliderProductCardProps {
   className?: string;
@@ -29,9 +31,8 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
   motto = "",
 }) => {
   const sliderRef = useRef(null);
-
-  //
   const [isShow, setIsShow] = useState(false);
+  const { isLoading } = useFilter();
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
@@ -81,7 +82,7 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
         >
           {heading || `New Arrivals`}
         </Heading>
-        <h3 className={`mb-4 lg:mb-8 text-neutral-400 ${motto.length>0 ? '': 'hidden'}`}>{motto}</h3>
+        <h3 className={`mb-4 lg:mb-8 text-neutral-400 ${motto.length > 0 ? '' : 'hidden'}`}>{motto}</h3>
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">
             {data.map((item, index) => (
