@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import PreviewDesign from "../../components/PreviewDesign";
 import { useApplication } from "../../contexts/ApplicationContext";
 import Options from "../../components/Options";
@@ -11,8 +11,8 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import BagIcon from "../../components/BagIcon";
 import { getCustomCatalogItem, uploadCustomerImage } from "../../services/catalogService";
 import NcInputNumber from "../../components/NcInputNumber";
-import { PhotoIcon} from "@heroicons/react/24/solid";
-import { ExclamationTriangleIcon} from "@heroicons/react/24/outline";
+import { ArrowUpIcon, PhotoIcon} from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon, ExclamationTriangleIcon} from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
 export interface CustomDesignProps {
@@ -32,6 +32,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
   const [product, setProduct] = useState({} as Product);
   const [calculatedPrice, setCalculatedPrice] = useState(product?.price ?? 0);
   const [quantity, setQuantity] = useState(1);
+  const fileInputRef = useRef<any>(null);
   
   const { addItemToCart } = useCart();
 
@@ -69,6 +70,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
     );
+  };
+
+  const handleOpenFileDialog = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   useEffect(() => {
@@ -121,6 +128,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
                       name="file-upload"
                       type="file"
                       className="sr-only"
+                      ref={fileInputRef}
                       onChange={handleFileChange}
                     />
                   </label>
@@ -137,7 +145,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
           </div>
         </div>
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-10 items-center relative text-center lg:text-left">
-          {image && (
+          {image ? (
             <div className="w-screen max-w-full xl:max-w-3xl space-y-5 fit-disclaimer p-2 mb-3">
 
               <div className="mb-4 mx-auto max-w-2xl lg:text-center">
@@ -147,6 +155,11 @@ const CustomDesign: FC<CustomDesignProps> = ({
                 </p>
               </div>
 
+            </div>
+          ) :(
+            <div className="flex items-center justify-center w-full rounded-lg border border-dashed border-gray-900/25 mx-6 py-10 max-w-full xl:max-w-3xl min-h-[60vh] cursor-pointer"
+            onClick={handleOpenFileDialog}>
+              <CloudArrowUpIcon className="text-gray-200 max-w-[60%]"/>
             </div>
           )}
         </div>

@@ -18,7 +18,6 @@ export interface SectionHero2Props {
 let TIME_OUT: NodeJS.Timeout | null = null;
 
 const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
-  // =================
   const [indexActive, setIndexActive] = useState(0);
   const [isRunning, { toggle: toggleIsRunning, setFalse, setTrue }] = useBoolean(false);
   const { t } = useTranslation();
@@ -32,7 +31,6 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
     },
     isRunning ? 5500 : 10000
   );
-  //
 
   const handleAutoNext = () => {
     setIndexActive((state) => {

@@ -29,22 +29,27 @@ const PageSearch = () => {
   const { filter, filterChanged, setFilterChanged, setIsLoading, pageIndex, pageSize, updateCategoryState, updateSearchTextState, updateTagState, isLoading, setPageSize, setTotalPages, setPageIndex } = useFilter();
 
   const fetchItems = async (category: Category = Category.None, searchTerm: string = "") => {
-    setIsLoading(true);
+    try {
+      setIsLoading(true);
 
-    let categoryState = category;
+      let categoryState = category;
 
-    if (searchTerm.trim() !== "") {
-      categoryState = Category.None;
+      if (searchTerm.trim() !== "") {
+        categoryState = Category.None;
+      }
+      if (categoryState != Category.None) {
+        updateTagState(undefined);
+      }
+
+      const { data, totalPages } = await getFilteredPaginatedItems({ ...filter, categoryState }, pageSize, pageIndex, searchTerm);
+      setTotalPages(totalPages ?? 1);
+      setProducts(data);
+
     }
-    if (categoryState != Category.None) {
-      updateTagState(undefined);
+    finally {
+      setIsLoading(false);
     }
 
-    const {data, totalPages} = await getFilteredPaginatedItems({ ...filter, categoryState }, pageSize, pageIndex, searchTerm);
-    setTotalPages(totalPages ?? 1);
-    setProducts(data);
-
-    setIsLoading(false);
   };
 
   const handleScrollToEl = (id: string) => {

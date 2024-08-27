@@ -12,7 +12,7 @@ const image3 = 'https://genstorageaccount3116.blob.core.windows.net/printme-imag
 export const HERO2_DEMO_DATA: Hero2DataType[] = [
   {
     image: image1,
-    heading: "Affordable High-Quality Art Prints & Framed Wall Art",
+    heading: "Affordable High-Quality Art Prints",
     subHeading: "Shop Stunning Prints & Frames for Your Home Decor.",
     btnText: "Explore Art Prints",
     btnLink: "/search",
