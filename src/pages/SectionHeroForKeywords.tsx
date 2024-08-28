@@ -17,25 +17,25 @@ const SectionHeroForKeywords: FC<SectionHeroForKeywordsProps> = ({
       name: 'Wide Selection of Art & Posters',
       description:
         'Explore our extensive collection of art prints, custom posters, and photography. From modern designs to classic pieces, our catalog offers something for everyone.',
-      icon: (<BuildingLibraryIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<BuildingLibraryIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Upload and Print Your Own Designs',
       description:
         'Have a unique vision? Easily upload your own designs, photos, or artwork, and we’ll transform them into beautiful prints. Perfect for personalizing your space or creating unique personalized gifts in the Netherlands.',
-      icon: (<AdjustmentsHorizontalIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<AdjustmentsHorizontalIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'High-Quality Prints',
       description:
         'Our prints are made using the finest materials, ensuring vibrant colors and sharp details. Whether you’re decorating your home or surprising a loved one, our high-quality posters are designed to impress.',
-      icon: (<BoltIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<BoltIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Custom Print Posters and Photo Printing',
       description:
         'Complete your artwork with our stylish framing options, available in various sizes and finishes. Our frames are designed to complement your prints, making them ready to hang and adding elegance to any room.',
-      icon: (<ArrowUpOnSquareIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<ArrowUpOnSquareIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
   ]
   const { t } = useTranslation();

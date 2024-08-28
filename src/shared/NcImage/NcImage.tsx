@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import Image, { ImageProps } from "../../shared/Image";
 
 export interface NcImageProps extends Omit<ImageProps, "alt"> {
@@ -19,4 +19,4 @@ const NcImage: FC<NcImageProps> = ({
   );
 };
 
-export default NcImage;
+export default memo(NcImage);

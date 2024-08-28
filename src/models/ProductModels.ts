@@ -19,7 +19,7 @@ export class Product {
   link: string = "/product-detail/";
   variants?: ProductVariant[];
   variantType?: "color" | "image";
-  sizes?: string[];
+  size: number;
   allOfSizes?: string[];
   status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
   rating?: string;
@@ -38,7 +38,7 @@ export class Product {
     this.link = data.link || "/product-detail/";
     this.variants = data.variants;
     this.variantType = data.variantType;
-    this.sizes = data.sizes;
+    this.size = data.size || 0;
     this.allOfSizes = data.allOfSizes;
     this.status = data.status;
     this.rating = data.rating;

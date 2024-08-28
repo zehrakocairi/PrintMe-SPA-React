@@ -17,25 +17,25 @@ const SectionHeroBottom: FC<SectionHeroBottomProps> = ({
       name: 'Premium Quality Custom Posters',
       description:
         'From personal photos to unique artwork, our custom art prints are crafted with care, ensuring vibrant colors and long-lasting quality. Perfect for European homes, our prints bring your vision to life.',
-      icon: (<BuildingLibraryIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<BuildingLibraryIcon className="inline-block text-white w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Personalized Framed Prints',
       description:
         'Choose from a variety of elegant poster frames, sizes, and mats to create a custom framed print that fits your style. Each print is delivered ready to hang, making it easy to transform your space.',
-      icon: (<AdjustmentsHorizontalIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<AdjustmentsHorizontalIcon className="inline-block text-white w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Fast & Reliable European Shipping',
       description:
         'We understand the importance of speed. That’s why we offer fast delivery custom photo prints across Europe, including the Netherlands, ensuring your artwork arrives quickly and in perfect condition.',
-      icon: (<BoltIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<BoltIcon className="inline-block text-white w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Upload and Print Your Own Designs',
       description:
         'Simply upload your design or photo, and we’ll handle the rest. Our expert team ensures that your high-quality custom poster is printed and framed to perfection, with fast shipping guaranteed.',
-      icon: (<ArrowUpOnSquareIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<ArrowUpOnSquareIcon className="inline-block text-white w-5 h-5 mb-0.5" />),
     },
   ]
   const { t } = useTranslation();

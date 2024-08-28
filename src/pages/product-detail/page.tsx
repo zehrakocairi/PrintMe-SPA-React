@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   NoSymbolIcon,
   ClockIcon,
@@ -34,6 +34,8 @@ import { useTranslation } from "react-i18next";
 import ModalPreviewDesign from "../../components/ModalPreviewDesign";
 import { Helmet } from "react-helmet";
 import Options from "../../components/Options";
+import { useFilter } from "../../contexts/FilterContext";
+import Loading from "../../components/Loading";
 
 const ProductDetailPage = ({ }) => {
 
@@ -45,6 +47,7 @@ const ProductDetailPage = ({ }) => {
   const searchParams = new URLSearchParams(thisPathname.search);
   const modal = searchParams?.get("modal");
   const { i18n } = useTranslation();
+  const { isLoading, setIsLoading } = useFilter();
 
   const fetchFeaturedtems = async () => {
     const { data } = await getFeaturedItems();
@@ -66,10 +69,16 @@ const ProductDetailPage = ({ }) => {
     }, 80);
   };
 
-  useEffect(() => {
-    fetchProduct();
-    fetchFeaturedtems();
+  const initialize = async () => {
+    setIsLoading(true);
+    await fetchProduct();
+    await fetchFeaturedtems();
     handleScrollToEl('root');
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    initialize();
   }, [id]);
 
 
@@ -93,7 +102,7 @@ const ProductDetailPage = ({ }) => {
 
   useEffect(() => {
     if (product?.price && frames && sizes) {
-      const properSize = isMatIncluded ? sizes[Math.min(sizes.length-1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
+      const properSize = isMatIncluded ? sizes[Math.min(sizes.length - 1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
       const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
       setCalculatedPrice(Math.floor(newPrice));
     }
@@ -132,53 +141,6 @@ const ProductDetailPage = ({ }) => {
         />
       ),
       { position: "top-right", id: "nc-product-notify", duration: 3000 }
-    );
-  };
-
-  const renderSizeList = () => {
-    if (!sizes || !sizes.length) {
-      return null;
-    }
-    return (
-      <div>
-        <div className="flex justify-between font-medium text-sm">
-          <label htmlFor="">
-            <span className="">
-              {t('Image Size')}:
-              <span className="ml-1 font-semibold">{sizeSelected?.name}</span>
-            </span>
-          </label>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            // href=""
-            className="text-primary-6000 hover:text-primary-500"
-          >
-            {t('See sizing chart')}
-          </a>
-        </div>
-        <div className="grid grid-cols-4 gap-2 mt-3">
-          {sizes.map((size, index) => {
-            const isActive = size.id === sizeSelected?.id;
-            return (
-              <div
-                key={index}
-                className={`relative h-10 sm:h-11 rounded-2xl border flex items-center justify-center 
-                text-sm sm:text-base uppercase font-semibold select-none overflow-hidden z-0 "cursor-pointer"
-                  } ${isActive
-                    ? "bg-primary-6000 border-primary-6000 text-white hover:bg-primary-6000"
-                    : "border-slate-300 dark:border-slate-600 text-slate-900 dark:text-slate-200 hover:bg-neutral-50 dark:hover:bg-neutral-700"
-                  }`}
-                onClick={() => {
-                  setSizeSelected(size);
-                }}
-              >
-                {size?.name}
-              </div>
-            );
-          })}
-        </div>
-      </div>
     );
   };
 
@@ -223,62 +185,9 @@ const ProductDetailPage = ({ }) => {
     return null;
   };
 
-  const renderFrames = () => {
-    if (!frames || !frames.length) {
-      return null;
-    }
-
-    return (
-      <div>
-        <div className="flex justify-between font-medium text-sm">
-          <label className="rtl:text-right block" htmlFor="">
-            <span className="text-sm font-medium">
-              Color:
-              <span className="ms-1 font-semibold">
-                {frames[selectedFrameIndex].name}
-              </span>
-            </span>
-          </label>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary-6000 hover:text-primary-500"
-            href="/our-services"
-          >
-            {t('See frame details')}
-          </a>
-        </div>
-        <div className="grid grid-cols-6 gap-2 mt-3">
-          {frames.map((frame, index) => (
-            <div
-              title={frame.name}
-              key={index}
-              onClick={() => setSelectedFrameIndex(index)}
-              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer max-w-[50px] ${selectedFrameIndex === index
-                  ? "border-primary-6000 dark:border-primary-500"
-                  : "border-transparent"
-                }`}
-            >
-              <div
-                className="absolute inset-0.5 rounded-lg overflow-hidden z-0 bg-no-repeat bg-center bg-cover"
-                style={{
-                  backgroundImage: `url(${frame.thumbnail || ""})`,
-                }}
-              ></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   const renderSectionSidebar = () => {
     return (
       <div className="listingSectionSidebar__wrap lg:shadow-lg">
-        <Helmet>
-          <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
-          <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
-        </Helmet>
         <div className="space-y-7 lg:space-y-8">
           {/* PRICE */}
           <div className="">
@@ -305,21 +214,22 @@ const ProductDetailPage = ({ }) => {
               </a>
             </div>
             <Options
-            frames={frames}
-            sizes={sizes}
-            selectedFrameIndex={selectedFrameIndex}
-            sizeSelected={sizeSelected}
-            isMatIncluded={isMatIncluded}
-            onFrameSelect={setSelectedFrameIndex}
-            onSizeSelect={setSizeSelected}
-            onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
-        />
+              frames={frames}
+              sizes={sizes}
+              selectedFrameIndex={selectedFrameIndex}
+              sizeSelected={sizeSelected}
+              product={product}
+              isMatIncluded={isMatIncluded}
+              onFrameSelect={setSelectedFrameIndex}
+              onSizeSelect={setSizeSelected}
+              onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
+            />
           </div>
           {/*  ---------- PREVIEW BUTTON */}
           <div className="flex space-x-3.5">
             <ButtonPrimary
               className="flex-1 flex-shrink-0 !bg-[#517BDE]"
-              onClick={()=> setShowPreviewModal(true)}
+              onClick={() => setShowPreviewModal(true)}
             >
               <span className="ml-3">{t('Preview Your Design')}</span>
             </ButtonPrimary>
@@ -369,7 +279,7 @@ const ProductDetailPage = ({ }) => {
     );
   };
 
-  const renderSection1 = () => {
+  const renderSection1 = useCallback(() => {
     return (
       <div className="listingSection__wrap !space-y-6">
         <div>
@@ -409,9 +319,9 @@ const ProductDetailPage = ({ }) => {
         <AccordionInfo data={[{ name: "Title", content: product.motto ?? "" }, { name: "Description", content: product.description }]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
       </div>
     );
-  };
+  }, [status, product?.name, product.motto, product.description, product.numberOfReviews]);
 
-  const renderSection2 = () => {
+  const renderSection2 = useCallback(() => {
     return (
       <div className="listingSection__wrap !border-b-0 !pb-0">
         <h2 className="text-2xl font-semibold">{t('Product details')}</h2>
@@ -433,7 +343,7 @@ const ProductDetailPage = ({ }) => {
         <Policy />
       </div>
     );
-  };
+  }, []);
 
   const renderReviews = () => {
     return (
@@ -492,120 +402,38 @@ const ProductDetailPage = ({ }) => {
     <div className={`ListingDetailPage nc-ProductDetailPage2`}>
       <>
         <header className="container mt-8 sm:mt-10">
-          <div className="relative overflow-hidden">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
-              <div
-                className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"
-                onClick={handleOpenModalImageGallery}
-              >
-                <NcImage
-                  alt="firt"
-                  containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
-                  className="object-cover rounded-md sm:rounded-xl max-h-full"
-                  src={product?.image}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  priority
-                />
-                <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
-              </div>
-
-              {/*  */}
-              <div
-                className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer"
-                onClick={handleOpenModalImageGallery}
-              >
-                <NcImage
-                  alt=""
-                  fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  containerClassName="absolute inset-0"
-                  className="object-cover w-full h-full rounded-md sm:rounded-xl"
-                  src={product?.image2}
-                />
-                <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
-              </div>
-
-              {/*  */}
-              {[product?.image3, product?.image4].map(
-                (item, index) => (
-                  <div
-                    key={index}
-                    className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${index >= 2 ? "block" : ""
-                      }`}
-                  >
-                    <NcImage
-                      alt=""
-                      fill
-                      sizes="(max-width: 640px) 100vw, 33vw"
-                      containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
-                      className="object-cover w-full h-full rounded-md sm:rounded-xl "
-                      src={item || ""}
-                    />
-
-                    {/* OVERLAY */}
-                    <div
-                      className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"
-                      onClick={handleOpenModalImageGallery}
-                    />
-                  </div>
-                )
-              )}
+          <Helmet>
+            <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
+            <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
+          </Helmet>
+          {isLoading ? (
+            <div role="status" className="text-center w-full my-48">
+              <Loading className="w-24 h-24"></Loading>
             </div>
-            <div
-              className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
-              onClick={handleOpenModalImageGallery}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                />
-              </svg>
-              <span className="ml-2 text-neutral-800 text-sm font-medium">
-                Show all photos
-              </span>
-            </div>
-          </div>
+          ) : renderHeadSection()
+          }
         </header>
       </>
 
-      {/* MAIn */}
-      <main className="container relative z-10 mt-9 sm:mt-11 flex ">
-        {/* CONTENT */}
-        <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pr-14 lg:space-y-14">
-          {renderSection1()}
-          {renderSection2()}
+      {/* MAIN */}
+      {isLoading ? (
+        <div role="status" className="text-center w-full my-48">
+          <Loading className="w-24 h-24"></Loading>
         </div>
-
-        {/* SIDEBAR */}
-        <div className="flex-grow">
-          <div className="hidden lg:block sticky top-28">
-            {renderSectionSidebar()}
-          </div>
-        </div>
-      </main>
-
-      {
-      isAdmin() && (
-      <main className="container relative z-10 mt-9 sm:mt-11 flex ">
-        <div className="flex-grow">
-          <div className="hidden lg:block sticky top-28">
-            <UpdateProduct productId={id}></UpdateProduct>
-          </div>
-        </div>
-      </main>
-      )
+      ) : renderMainSection()
       }
 
+      {
+        isAdmin() && (
+          <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+            <div className="flex-grow">
+              <div className="hidden lg:block sticky top-28">
+                <UpdateProduct productId={id}></UpdateProduct>
+              </div>
+            </div>
+          </main>
+        )
+      }
 
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
@@ -652,6 +480,108 @@ const ProductDetailPage = ({ }) => {
       />
     </div>
   );
+
+  function renderMainSection() {
+    return <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+      {/* CONTENT */}
+      <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pr-14 lg:space-y-14">
+        {product && (
+          <>
+            {renderSection1()}
+            {renderSection2()}
+          </>
+        )}
+
+      </div>
+
+      {/* SIDEBAR */}
+      <div className="flex-grow">
+        <div className="hidden lg:block sticky top-28">
+          {renderSectionSidebar()}
+        </div>
+      </div>
+    </main>;
+  }
+
+  function renderHeadSection() {
+    return <div className="relative overflow-hidden">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
+        <div
+          className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"
+          onClick={handleOpenModalImageGallery}
+        >
+          <NcImage
+            alt="firt"
+            containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
+            className="object-cover rounded-md sm:rounded-xl max-h-full"
+            src={product?.image}
+            fill
+            sizes="(max-width: 640px) 100vw, 50vw"
+            priority />
+          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
+        </div>
+
+        {/*  */}
+        <div
+          className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer"
+          onClick={handleOpenModalImageGallery}
+        >
+          <NcImage
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, 50vw"
+            containerClassName="absolute inset-0"
+            className="object-cover w-full h-full rounded-md sm:rounded-xl"
+            src={product?.image2} />
+          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
+        </div>
+
+        {/*  */}
+        {[product?.image3, product?.image4].map(
+          (item, index) => (
+            <div
+              key={index}
+              className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${index >= 2 ? "block" : ""}`}
+            >
+              <NcImage
+                alt=""
+                fill
+                sizes="(max-width: 640px) 100vw, 33vw"
+                containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
+                className="object-cover w-full h-full rounded-md sm:rounded-xl "
+                src={item || ""} />
+
+              {/* OVERLAY */}
+              <div
+                className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"
+                onClick={handleOpenModalImageGallery} />
+            </div>
+          )
+        )}
+      </div>
+      <div
+        className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
+        onClick={handleOpenModalImageGallery}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+        </svg>
+        <span className="ml-2 text-neutral-800 text-sm font-medium">
+          Show all photos
+        </span>
+      </div>
+    </div>;
+  }
 };
 
 export default ProductDetailPage;

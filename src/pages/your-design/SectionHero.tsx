@@ -17,27 +17,29 @@ const SectionHero1: FC<SectionHeroProps> = ({
       name: 'Upload Your Image',
       description:
         'Simply upload your favorite photo or artwork. We accept PNG, JPG, and GIF files up to 10MB.',
-      icon: (<PhotoIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<PhotoIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Customize Your Design',
       description:
         'Choose from a variety of frames, sizes, and mats. Visualize your design instantly before finalizing your order.',
-      icon: (<PaintBrushIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<PaintBrushIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Professional Review',
       description:
         'Our expert designer will review your design, make any necessary adjustments, and send it to you for approval before printing.',
-      icon: (<DocumentCheckIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<DocumentCheckIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
     {
       name: 'Order with Confidence',
       description:
         'Complete your purchase with our secure checkout. Your custom art will be professionally printed and delivered to your door.',
-      icon: (<BuildingStorefrontIcon className="hidden text-white sm:inline-block w-5 h-5 mb-0.5" />),
+      icon: (<BuildingStorefrontIcon className="text-white inline-block w-5 h-5 mb-0.5" />),
     },
   ]
+
+  const isMobile = window.innerWidth <= 768;
   const { t } = useTranslation();
 
   return (
@@ -59,9 +61,9 @@ const SectionHero1: FC<SectionHeroProps> = ({
           <div className="mx-auto mt-12 max-w-2xl lg:max-w-4xl">
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-4 lg:max-w-none lg:grid-cols-2 lg:gap-y-8">
               {features.map((feature) => (
-                <div key={t(feature.name)} className="relative pl-16">
+                <div key={t(feature.name)} className="relative pl-0 sm:pl-16">
                   <dt className="text-base font-semibold leading-7 text-gray-900">
-                    <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                    <div className={`absolute top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600 ${(isMobile ?'right-0 -top-4':'left-0 top-0')}`}>
                       {feature.icon}
                     </div>
                     {t(feature.name)}

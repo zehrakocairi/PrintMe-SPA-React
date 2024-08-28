@@ -45,7 +45,6 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({ }) => {
         </div>
         <div className="self-end">
           <Image className="w-full h-auto object-cover rounded-lg box-with-shadow " src={'https://genstorageaccount3116.blob.core.windows.net/printme-images/home-hero-4.webp'} alt="" priority />
-
         </div>
       </div>)}
 

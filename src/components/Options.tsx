@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { PlusIcon } from "@heroicons/react/24/outline"; 
 import { Frame, Size } from "../models/ProductModels";
+import { Product } from "../models/ProductModels";
 
 export interface OptionsProps {
     className?: string;
@@ -9,6 +10,7 @@ export interface OptionsProps {
     sizes: Size[];
     selectedFrameIndex: number;
     sizeSelected: Size;
+    product: Product;
     isMatIncluded: boolean;
     onFrameSelect: (index: number) => void;
     onSizeSelect: (size: Size) => void;
@@ -21,6 +23,7 @@ const Options: FC<OptionsProps> = ({
     sizes,
     selectedFrameIndex,
     sizeSelected,
+    product,
     isMatIncluded,
     onFrameSelect,
     onSizeSelect,
@@ -29,7 +32,7 @@ const Options: FC<OptionsProps> = ({
     const { t } = useTranslation();
 
     const renderFrames = () => {
-        if (!frames || !frames.length) {
+        if (!frames || !frames.length || !sizes || !sizes.length || !product || !sizeSelected) {
             return null;
         }
 
@@ -102,6 +105,7 @@ const Options: FC<OptionsProps> = ({
                 <div className="grid grid-cols-4 gap-2 mt-3">
                     {sizes.map((size, index) => {
                         const isActive = size.id === sizeSelected?.id;
+                        const isDisabled = product.size == 1;
                         return (
                             <div
                                 key={index}
@@ -153,4 +157,4 @@ const Options: FC<OptionsProps> = ({
     );
 };
 
-export default Options;
+export default memo(Options);

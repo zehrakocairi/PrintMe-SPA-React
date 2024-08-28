@@ -17,19 +17,20 @@ import { memo } from "react";
 import { Helmet } from "react-helmet";
 import SectionHeroForKeywords from "./SectionHeroForKeywords";
 import Loading from "../components/Loading";
+import { CatalogTags } from "../enums/CatalogTags";
 
 
 const Home: FC<any> = ({ }) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
   const [featuredItems, setFeaturedItems] = useState<any[]>([]); // Adjust type if necessary
   const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
-  const [initialRenderCompleted, setInitialRenderCompleted] = useState(false);
-  const { filter, filterChanged, setFilterChanged, setIsLoading, isLoading, pageIndex, pageSize, updateCategoryState, updateTagState } = useFilter();
+  const { filter, setIsLoading, isLoading, pageIndex, pageSize, updateCategoryState, updateTagState } = useFilter();
   const sliderRef = useRef<HTMLDivElement>(null);
   const catalogRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isCatalogVisible, setIsCatalogVisible] = useState(false);
   const { i18n } = useTranslation();
+  
   const fetchTrendingItems = async () => {
     const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
     setTrendingItems(data);
@@ -40,7 +41,6 @@ const Home: FC<any> = ({ }) => {
       setIsLoading(true);
       const { data } = await getFeaturedItems();
       setFeaturedItems(data);
-      setIsLoading(false);
     }
     finally {
       setIsLoading(false);
@@ -55,11 +55,13 @@ const Home: FC<any> = ({ }) => {
   };
 
   useEffect(() => {
-    updateCategoryState(Category.None);
-    updateTagState(undefined);
-    setInitialRenderCompleted(true);
-    setFilterChanged(prev => !prev);
-    fetchFeaturedItems();
+    if (filter.categoryState != undefined && filter.categoryState !== Category.None) {
+      updateCategoryState(Category.None);
+    }
+    if (filter.tag != undefined) {
+      updateTagState(undefined);
+    }
+    
     handleScrollToEl('root');
   }, []);
 
@@ -67,6 +69,7 @@ const Home: FC<any> = ({ }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          fetchFeaturedItems();
           setIsVisible(true);
           observer.disconnect();
         }
@@ -87,6 +90,7 @@ const Home: FC<any> = ({ }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          fetchTrendingItems();
           setIsCatalogVisible(true);
           observer.disconnect();
         }
@@ -103,11 +107,6 @@ const Home: FC<any> = ({ }) => {
     };
   }, [catalogRef]);
 
-  useEffect(() => {
-    if (initialRenderCompleted) {
-      fetchTrendingItems();
-    }
-  }, [filterChanged]);
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
@@ -116,7 +115,7 @@ const Home: FC<any> = ({ }) => {
         <link rel="canonical" href={'/?lang='+i18n.language} />
       </Helmet>
       <SectionHero2 />
-      <div className="mt-12 md:mt-24 lg:mt-32">
+      <div className="mt-20 md:mt-24 lg:mt-32">
         <DiscoverMoreSlider />
       </div>
 

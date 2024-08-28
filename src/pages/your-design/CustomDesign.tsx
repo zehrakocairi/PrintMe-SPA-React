@@ -185,6 +185,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
         sizes={sizes}
         selectedFrameIndex={selectedFrameIndex}
         sizeSelected={sizeSelected}
+        product={product}
         isMatIncluded={isMatIncluded}
         onFrameSelect={setSelectedFrameIndex}
         onSizeSelect={setSizeSelected}
@@ -202,12 +203,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
             onClick={notifyAndAddTocart}
             disabled={!selectedFile}
           >
-            <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
+            <BagIcon className="inline-block w-5 h-5 mb-0.5" />
             <span className="ml-3">{t('Add to cart')}</span>
           </ButtonPrimary>
         </div>
          {/* SUM */}
-         <div className="hidden sm:flex flex-col mt-8 space-y-4 ">
+         <div className="flex flex-col mt-8 space-y-4 ">
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">

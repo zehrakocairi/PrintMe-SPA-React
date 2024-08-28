@@ -1,6 +1,5 @@
 import { avatarColors } from "../../contains/contants";
-import React, { FC } from "react";
-import { avatarImgs } from "../../contains/fakeData";
+import { FC } from "react";
 import VerifyIcon from "../../components/VerifyIcon";
 import Image from "../../shared/Image";
 

@@ -61,7 +61,7 @@ export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ childr
     const tryCreateUser = async () => {
         const url = `/customer`;
         try {
-            const response = await fetchWithAuth(url, await getToken(), getPostOptions({}));
+            await fetchWithAuth(url, await getToken(), getPostOptions({}));
         } catch (error) {
             console.error(`Error fetching frames:`, error);
             throw error;

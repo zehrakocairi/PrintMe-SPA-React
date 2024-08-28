@@ -112,7 +112,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
         </div>
 
 
-        {isMobile && (<div className="mb-12"></div>)}
+        {isMobile && (<div className="mt-12 mb-8"></div>)}
 
         <Prev
           className="absolute start-1 sm:start-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
@@ -139,7 +139,7 @@ const SectionHero2: FC<SectionHero2Props> = ({ className = "" }) => {
           
         </div>
 
-        <div className="relative container pb-0 pt-14 sm:pt-20 lg:py-44">
+        <div className="relative container pb-34 sm:pb-0 pt-24 sm:pt-20 lg:py-44">
           <div
             className={`relative z-[1] w-full max-w-2xl md:max-w-lg xl:max-w-2xl  space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
           >
