@@ -10,7 +10,6 @@
     gtag('js', new Date());
 
     gtag('config', 'G-1LMLTH4RW1');
-    <!-- Event snippet for Purchase conversion page -->
     gtag('event', 'conversion', {
         'send_to': 'AW-789184874/Gl4DCPKTj80ZEOqCqPgC',
         'value': 1.0,
@@ -18,26 +17,37 @@
         'transaction_id': ''
     });
   </script>
+  
+  <!-- Meta Tags -->
   <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <meta name="description"
-    content="PrintMeArt - Gedrukte kunst, posters, foto's en meer. Upload je eigen kunstwerken en laat ze afdrukken!" />
+  <meta name="description" content="PrintMeArt - Gedrukte kunst, posters, foto's en meer. Upload je eigen kunstwerken en laat ze afdrukken!" />
   <meta name="keywords" content="PrintMeArt, gedrukte kunst, posters, foto's, afdrukken, kunstwerken, uploaden, muurkunst, kunstafdrukken, persoonlijke posters" />
   <meta name="robots" content="index, follow" />
+
+  <!-- Favicon and Icons -->
+  <link rel="icon" href="%PUBLIC_URL%/favicon.svg" />
   <link rel="apple-touch-icon" href="https://genstorageaccount3116.blob.core.windows.net/printme-images/logo.svg" />
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"> -->
+
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" as="style">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"></noscript>
+
+  <!-- Inline CSS for critical styles -->
   <style>
     body {
       font-family: 'Poppins', sans-serif;
+      font-display: swap;
     }
   </style>
-  <!-- <link rel="preload" as="image"
-    href="https://genstorageaccount3116.blob.core.windows.net/printme-images/main-slider-1-m.webp" /> -->
+
   <title>PrintMeArt - Gedrukte kunst, posters en foto's</title>
 </head>
+
 
 <body class=" body bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
   <noscript>U moet JavaScript inschakelen om deze app te gebruiken.</noscript>
