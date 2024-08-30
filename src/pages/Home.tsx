@@ -115,7 +115,7 @@ const Home: FC<any> = ({ }) => {
         <link rel="canonical" href={'/?lang='+i18n.language} />
       </Helmet>
       <SectionHero2 />
-      <div className="mt-20 md:mt-24 lg:mt-32">
+      <div className="mt-20 sm:mt-12 md:mt-24 lg:mt-32">
         <DiscoverMoreSlider />
       </div>
 

@@ -36,24 +36,24 @@ const SectionSliderProductCard: FC<SectionSliderProductCardProps> = ({
 
   useEffect(() => {
     const OPTIONS: Partial<Glide.Options> = {
-      perView: 4,
+      perView: 5,
       gap: 32,
       bound: true,
       breakpoints: {
         1280: {
-          perView: 4 - 1,
+          perView: 5 - 1,
         },
         1024: {
           gap: 20,
-          perView: 4 - 1,
+          perView: 5 - 1,
         },
         768: {
           gap: 20,
-          perView: 4 - 2,
+          perView: 5 - 2,
         },
         640: {
           gap: 20,
-          perView: 1.75,
+          perView: 2.25,
         },
         500: {
           gap: 20,
