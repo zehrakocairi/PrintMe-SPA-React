@@ -48,3 +48,12 @@ export const getPutOptions = (body: any):any => {
     }
   };
 }
+export const getDeleteOptions = ():any => {
+  return {
+    method: "DELETE",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+}

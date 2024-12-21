@@ -5,7 +5,7 @@ import Input from "../shared/Input/Input";
 import Textarea from "../shared/Textarea/Textarea";
 import Image from "../shared/Image";
 import { useApplication } from "../contexts/ApplicationContext";
-import { fetchWithAuth, getPutOptions } from "../fetch/fetchWrapper";
+import { fetchWithAuth, getDeleteOptions, getPutOptions } from "../fetch/fetchWrapper";
 import { Fragment } from "react";
 import { Popover, Transition } from "../headlessui";
 import Checkbox from "../shared/Checkbox/Checkbox";
@@ -15,6 +15,8 @@ import { Category } from "../enums/Category";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import ButtonThird from "../shared/Button/ButtonThird";
 import { CatalogTags } from "../enums/CatalogTags";
+import ButtonSecondary from "../shared/Button/ButtonSecondary";
+import Button from "../shared/Button/Button";
 
 const UpdateProduct = ({ productId }: any) => {
     const { getToken } = useApplication();
@@ -71,6 +73,16 @@ const UpdateProduct = ({ productId }: any) => {
         e.preventDefault();
         await fetchWithAuth(`/catalog/${productId}`, await getToken(), getPutOptions(productData));
         await fetchProductData();
+        alert("Product updated successfully");
+    };
+
+    const handleDelete = async () => {
+        if (confirm("Are you sure you want to delete this product?")){
+            await fetchWithAuth(`/catalog/${productId}`, await getToken(), getDeleteOptions());
+            alert("Product deleted successfully");
+            window.location.href = "/search";
+
+        }
     };
 
     const renderXClear = () => {
@@ -396,10 +408,19 @@ const UpdateProduct = ({ productId }: any) => {
                                 </div>
                             </div>
 
+                            <div className="flex justify-between">
+                                <div className="pt-4">
+                                    <ButtonPrimary>Update Product</ButtonPrimary>
+                                </div>
+                                <div className="pt-4">
+                                    <Button type="button"
+                                        onClick={handleDelete}
+                                        className={`ttnc-ButtonPrimary disabled:bg-opacity-90 bg-red-600 dark:bg-red-500 hover:bg-red-700 text-white dark:text-slate-100 shadow-xl`}
+                                    >  Delete Product </Button>
 
-                            <div className="pt-4">
-                                <ButtonPrimary>Update Product</ButtonPrimary>
+                                </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
