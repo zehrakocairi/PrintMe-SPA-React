@@ -9,7 +9,7 @@ const DEFAULT_DATA = [
   {
     name: "Print Quality & Care",
     content: `<ul class="list-disc list-inside leading-7">
-    <li>Giclée printed on 180 g/m² fine art paper (matte).</li>
+    <li>Giclée printed on 200 g/m² fine art paper (matte).</li>
     <li>
     Archival quality for long-lasting color and durability
     </li>

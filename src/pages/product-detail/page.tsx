@@ -328,15 +328,15 @@ const ProductDetailPage = ({ }) => {
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
           <p>
-            Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 180 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
+            Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 200 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
           </p>
-          <ul>
-            <li>High-quality 180 g/m² fine art paper (matte)</li>
-            <li>Giclée printing for vibrant, accurate colors</li>
+          <ul className="tracking-wide leading-[29px]">
+            <li>{'>'} High-quality 200 g/m² fine art paper (matte)</li>
+            <li>{'>'} Giclée printing for vibrant, accurate colors</li>
             <li>
-              3.0 cm blank borders for easy framing
+            {'>'} 3.0 cm blank borders for easy framing
             </li>
-            <li>50+ year color guarantee</li>
+            <li>{'>'} 50+ year color guarantee</li>
           </ul>
         </div>
         {/* ---------- 6 ----------  */}

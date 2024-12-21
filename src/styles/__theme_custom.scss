@@ -1,11 +1,21 @@
 .root {
   overflow: hidden;
 }
+
+p {
+  letter-spacing: 0.6px;
+  line-height: 29px;
+}
+
 .content-container1 {
-  transform: scale(0.9); /* Adjust the scale value as needed */
-  transform-origin: top left; /* Adjust the origin as needed */
-  width: 111.11%; /* Adjust width to compensate for scaling */
-  height: 111.11%; /* Adjust height to compensate for scaling */
+  transform: scale(0.9);
+  /* Adjust the scale value as needed */
+  transform-origin: top left;
+  /* Adjust the origin as needed */
+  width: 111.11%;
+  /* Adjust width to compensate for scaling */
+  height: 111.11%;
+  /* Adjust height to compensate for scaling */
   height: calc(100vh / 0.9);
 }
 
@@ -20,11 +30,14 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .hiddenScrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .customScrollBar {
+
   /* width */
   &::-webkit-scrollbar {
     height: 5px;
@@ -53,11 +66,13 @@
 .nc-will-change-top {
   will-change: top;
 }
+
 //
 
 .nc-SectionClientSay .glide__bullet--active {
   @apply bg-neutral-700;
 }
+
 .nc-GallerySlider .glide__bullet--active {
   @apply bg-white w-2 h-2;
 }
@@ -68,12 +83,12 @@
 
 //
 .nc-card-title {
-  @apply transition-colors  hover:text-primary-900 dark:hover:text-primary-300 duration-75;
+  @apply transition-colors hover:text-primary-900 dark:hover:text-primary-300 duration-75;
 }
 
 //
 .menuIsNew_lv1 {
-  > a::before {
+  >a::before {
     content: "New!";
     position: absolute;
     top: -2px;
@@ -88,8 +103,9 @@
     font-weight: normal;
   }
 }
+
 .menuIsNew {
-  > a::after {
+  >a::after {
     content: "New!";
     display: inline-block;
     padding: 0 5px;
@@ -105,7 +121,7 @@
 //
 .nc-PostCardCommentBtn,
 .nc-PostCardLikeAction,
-.nc-CommentCardLikeReply > button {
+.nc-CommentCardLikeReply>button {
   &:hover {
     span {
       color: inherit;
@@ -130,6 +146,7 @@
 .nc-origin-100 {
   transform-origin: 100% 50% 0px;
 }
+
 .nc-origin-50 {
   transform-origin: 50% 50% 0px;
 }
@@ -138,6 +155,7 @@
 .nc-hero-field-padding {
   @apply py-3 px-4 md:py-4 md:px-6 xl:py-6 xl:px-8;
 }
+
 .nc-hero-field-focused {
   @apply shadow-2xl rounded-full dark:bg-white/5;
 }
@@ -145,6 +163,7 @@
 .nc-icon-field {
   @apply w-5 h-5 lg:w-7 lg:h-7;
 }
+
 //
 button.gm-control-active.gm-fullscreen-control {
   @apply rounded-xl #{!important};
@@ -152,15 +171,17 @@ button.gm-control-active.gm-fullscreen-control {
 
 //
 .nc-FiveStartIconForRate {
-  svg:hover ~ svg {
+  svg:hover~svg {
     @apply text-neutral-300;
   }
 }
+
 /* 
  */
 .nc-shadow-lg {
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
 }
+
 .hover\:nc-shadow-lg:hover {
   box-shadow: 2px 8px 40px rgba(0, 0, 0, 0.08);
 }
@@ -168,24 +189,30 @@ button.gm-control-active.gm-fullscreen-control {
 .nc-shadow-sketch {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
+
 .hover\:nc-shadow-sketch:hover {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .nc-p-l-container {
   padding-left: 16px;
+
   @screen sm {
     padding-left: calc((100vw + 32px - 640px) / 2);
   }
+
   @screen md {
     padding-left: calc((100vw + 32px - 768px) / 2);
   }
+
   @screen lg {
     padding-left: calc((100vw + 32px - 1024px) / 2);
   }
+
   @screen xl {
     padding-left: calc((100vw + 80px - 1280px) / 2);
   }
+
   @screen 2xl {
     padding-left: calc((100vw + 256px - 1536px) / 2);
   }
@@ -193,18 +220,23 @@ button.gm-control-active.gm-fullscreen-control {
 
 .nc-p-r-container {
   padding-right: 16px;
+
   @screen sm {
     padding-right: calc((100vw + 32px - 640px) / 2);
   }
+
   @screen md {
     padding-right: calc((100vw + 32px - 768px) / 2);
   }
+
   @screen lg {
     padding-right: calc((100vw + 32px - 1024px) / 2);
   }
+
   @screen xl {
     padding-right: calc((100vw + 80px - 1280px) / 2);
   }
+
   @screen 2xl {
     padding-right: calc((100vw + 256px - 1536px) / 2);
   }
@@ -250,6 +282,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: translateX(200px);
     opacity: 0;
   }
+
   to {
     transform: translateX(0px);
     opacity: 1;
@@ -261,6 +294,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: translateX(0px);
     opacity: 1;
   }
+
   to {
     transform: translateX(200px);
     opacity: 0;
@@ -272,6 +306,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: scale(1.05) translateY(20px);
     opacity: 0;
   }
+
   to {
     transform: scale(1) translateY(0px);
     opacity: 1;
@@ -283,6 +318,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     transform: translateX(-50px);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -293,15 +329,18 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }
 }
+
 @keyframes SectionHero2ItemDot {
   from {
     width: 30px;
     opacity: 0;
   }
+
   to {
     width: 80px;
     opacity: 1;
@@ -333,11 +372,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     animation-duration: 800ms;
     animation-timing-function: ease-in-out;
   }
+
   .nc-SectionHero2Item__heading {
     animation-name: CardLarge1ExampleLeft;
     animation-duration: 600ms;
     animation-timing-function: ease-in-out;
   }
+
   .nc-SectionHero2Item__subheading {
     animation-name: CardLarge1ExampleLeft;
     animation-timing-function: ease-in-out;
@@ -361,38 +402,42 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 
-.promo-image{
+.promo-image {
   border-top-left-radius: 30%;
 }
+
 @media (min-width: 1280px) {
   @media (min-height: 854px) {
-    .promo-image{
+    .promo-image {
       transform: translateX(20%);
     }
   }
 }
 
-.main-logo{
+.main-logo {
   transform: translateY(31px);
 }
 
 .object-fit-none {
   object-fit: none;
 }
-.product-card{
+
+.product-card {
   border-radius: 4px;
-    box-shadow: 1px 2px 9px 3px rgb(137 146 170 / 55%);
+  box-shadow: 1px 2px 9px 3px rgb(137 146 170 / 55%);
 
 }
-.box-with-shadow{
+
+.box-with-shadow {
   filter: drop-shadow(2px 4px 6px black) brightness(0.9);
 }
-.contain-size{
-  contain:size;
+
+.contain-size {
+  contain: size;
   object-fit: contain;
 }
 
-.fit-disclaimer{
+.fit-disclaimer {
   background-color: #f7f8ff;
   border-radius: 10px;
 }
