@@ -3,7 +3,7 @@ import { CardCategory3Props } from "./CardCategory3";
 export const CATS_DISCOVER: CardCategory3Props[] = [
   {
     name: "Upload your design, We Print",
-    desc: "Upload your image,<br /> get the perfect print delivered.",
+    desc: "Upload your image,<br /> get the perfect <br /> print delivered.",
     featuredImage: 'https://genstorageaccount3116.blob.core.windows.net/printme-images/sales-1.webp',
     color: "bg-blue-50",
     href: "/your-design",

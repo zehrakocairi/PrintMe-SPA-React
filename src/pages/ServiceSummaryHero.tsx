@@ -18,11 +18,11 @@ const ServiceSummaryHero: FC<SectionHeroProps> = ({ }) => {
           <h4 className="text-3xl !leading-tight font-semibold text-neutral-900 md:text-4xl xl:text-5xl dark:text-neutral-100">
             {t('Gallery-Quality Art & Photography')}
           </h4>
-          <span className="block text-base xl:text-lg text-neutral-600 dark:text-neutral-400">
+          <span className="block text-base text-sm xl:text-lg text-neutral-600 dark:text-neutral-400">
             {t("Elevate your home with museum-grade...")}
           </span>
           <span className="block text-base xl:text-lg text-neutral-600 dark:text-neutral-400">
-            <span className="text-xl">{t('We Print')} </span>
+            <span className="text-md">{t('We Print')} </span>
             <span className="inline-block text-yellow-800 bg-yellow-100 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">{t("Photographs")}</span>
             <span className="inline-block text-green-800 bg-green-100 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">{t("Artwork")}</span>
             <span className="inline-block bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300">{t("Your Designs")}</span>

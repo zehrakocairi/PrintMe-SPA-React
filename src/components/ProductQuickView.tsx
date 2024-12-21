@@ -107,14 +107,14 @@ const ProductQuickView: FC<ProductQuickViewProps> = ({ item, className = "" }) =
               title= {frame.name}
               key={index}
               onClick={() => setSelectedFrameIndex(index)}
-              className={`relative flex max-w-[75px] h-16 rounded-lg border-2 cursor-pointer ${
+              className={`relative flex max-w-[75px] h-16 rounded-sm md:rounded-lg border-2 cursor-pointer ${
                 selectedFrameIndex === index
                   ? "border-primary-6000 dark:border-primary-500"
                   : "border-transparent"
               }`}
             >
               <div
-                className="absolute inset-0.5 rounded-lg overflow-hidden z-0 bg-no-repeat bg-center bg-cover"
+                className="absolute inset-0.5 rounded-none md:rounded-lg overflow-hidden z-0 bg-no-repeat bg-center bg-cover"
                 style={{
                   backgroundImage: `url(${frame.thumbnail || ""})`,
                 }}

@@ -46,14 +46,14 @@ const CardCategory4: FC<CardCategory4Props> = ({
               width={80}
               height={80}
             />
-            <span className="text-xs text-slate-700 dark:text-neutral-300 font-medium">
+            <span className="text-xs text-slate-700 dark:text-neutral-300 font-medium pl-1 md:ml-0">
               {count} {t('products')} 
             </span>
           </div>
 
           <div className="">
             <span
-              className={`block mb-2 text-xs md:text-sm text-slate-500 dark:text-slate-400`}
+              className={`block mb-2 text-xs md:text-sm text-slate-500 dark:text-slate-400 hidden md:block`}
             >
               {t(desc)}
             </span>

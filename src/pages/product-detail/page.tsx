@@ -194,7 +194,7 @@ const ProductDetailPage = ({ }) => {
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
               <div className="flex text-2xl font-semibold">
-                €{calculatedPrice?.toFixed(0)}
+                €{calculatedPrice.toFixed(0)}
               </div>
 
               <a
@@ -256,7 +256,7 @@ const ProductDetailPage = ({ }) => {
             <div className="space-y-2.5">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
                 <span className="flex">
-                  <span>{`€${calculatedPrice?.toFixed(2)}  `}</span>
+                  <span>{`€${calculatedPrice.toFixed(2)}  `}</span>
                   <span className="mx-2">x</span>
                   <span>{`${quantity} `}</span>
                 </span>
@@ -319,7 +319,7 @@ const ProductDetailPage = ({ }) => {
         <AccordionInfo data={[{ name: "Title", content: product.motto ?? "" }, { name: "Description", content: product.description }]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
       </div>
     );
-  }, [status, product?.name, product.motto, product.description, product.numberOfReviews]);
+  }, [status, product?.name, product.motto, product.description, product.numberOfReviews, calculatedPrice]);
 
   const renderSection2 = useCallback(() => {
     return (
@@ -397,89 +397,6 @@ const ProductDetailPage = ({ }) => {
       </div>
     );
   };
-
-  return (
-    <div className={`ListingDetailPage nc-ProductDetailPage2`}>
-      <>
-        <header className="container mt-8 sm:mt-10">
-          <Helmet>
-            <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
-            <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
-          </Helmet>
-          {isLoading ? (
-            <div role="status" className="text-center w-full my-48">
-              <Loading className="w-24 h-24"></Loading>
-            </div>
-          ) : renderHeadSection()
-          }
-        </header>
-      </>
-
-      {/* MAIN */}
-      {isLoading ? (
-        <div role="status" className="text-center w-full my-48">
-          <Loading className="w-24 h-24"></Loading>
-        </div>
-      ) : renderMainSection()
-      }
-
-      {
-        isAdmin() && (
-          <main className="container relative z-10 mt-9 sm:mt-11 flex ">
-            <div className="flex-grow">
-              <div className="hidden lg:block sticky top-28">
-                <UpdateProduct productId={id}></UpdateProduct>
-              </div>
-            </div>
-          </main>
-        )
-      }
-
-      {/* OTHER SECTION */}
-      <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
-        {/* <hr className="border-slate-200 dark:border-slate-700" /> */}
-
-        {/* {renderReviews()} */}
-
-        <hr className="border-slate-200 dark:border-slate-700" />
-
-        {
-          customerAlsoPurchased.length > 0 ? <SectionSliderProductCard
-            heading="Customers also purchased"
-            subHeading=""
-            headingFontClassName="text-2xl font-semibold"
-            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
-            data={customerAlsoPurchased}
-          /> : <></>
-        }
-      </div>
-
-      {/* MODAL VIEW ALL REVIEW */}
-      <ModalViewAllReviews
-        show={isOpenModalViewAllReviews}
-        onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
-      />
-      <ModalPreviewDesign
-        show={showPreviewModal}
-        onCloseModal={() => setShowPreviewModal(false)}
-        image={product.image}
-        isMatIncluded={isMatIncluded}
-        sizeName={sizeSelected?.name ?? "1x1"}
-        frame={frames[selectedFrameIndex]}
-      />
-
-      <ListingImageGallery
-        isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
-        onClose={handleCloseModalImageGallery}
-        images={getAllImages().map((item, index) => {
-          return {
-            id: index,
-            url: item,
-          };
-        })}
-      />
-    </div>
-  );
 
   function renderMainSection() {
     return <main className="container relative z-10 mt-9 sm:mt-11 flex ">
@@ -582,6 +499,89 @@ const ProductDetailPage = ({ }) => {
       </div>
     </div>;
   }
+
+  return (
+    <div className={`ListingDetailPage nc-ProductDetailPage2`}>
+      <>
+        <header className="container mt-8 sm:mt-10">
+          <Helmet>
+            <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
+            <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
+          </Helmet>
+          {isLoading ? (
+            <div role="status" className="text-center w-full my-48">
+              <Loading className="w-24 h-24"></Loading>
+            </div>
+          ) : renderHeadSection()
+          }
+        </header>
+      </>
+
+      {/* MAIN */}
+      {isLoading ? (
+        <div role="status" className="text-center w-full my-48">
+          <Loading className="w-24 h-24"></Loading>
+        </div>
+      ) : renderMainSection()
+      }
+
+      {
+        isAdmin() && (
+          <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+            <div className="flex-grow">
+              <div className="hidden lg:block sticky top-28">
+                <UpdateProduct productId={id}></UpdateProduct>
+              </div>
+            </div>
+          </main>
+        )
+      }
+
+      {/* OTHER SECTION */}
+      <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
+        {/* <hr className="border-slate-200 dark:border-slate-700" /> */}
+
+        {/* {renderReviews()} */}
+
+        <hr className="border-slate-200 dark:border-slate-700" />
+
+        {
+          customerAlsoPurchased.length > 0 ? <SectionSliderProductCard
+            heading="Customers also purchased"
+            subHeading=""
+            headingFontClassName="text-2xl font-semibold"
+            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
+            data={customerAlsoPurchased}
+          /> : <></>
+        }
+      </div>
+
+      {/* MODAL VIEW ALL REVIEW */}
+      <ModalViewAllReviews
+        show={isOpenModalViewAllReviews}
+        onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
+      />
+      <ModalPreviewDesign
+        show={showPreviewModal}
+        onCloseModal={() => setShowPreviewModal(false)}
+        image={product.image}
+        isMatIncluded={isMatIncluded}
+        sizeName={sizeSelected?.name ?? "1x1"}
+        frame={frames[selectedFrameIndex]}
+      />
+
+      <ListingImageGallery
+        isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
+        onClose={handleCloseModalImageGallery}
+        images={getAllImages().map((item, index) => {
+          return {
+            id: index,
+            url: item,
+          };
+        })}
+      />
+    </div>
+  );
 };
 
 export default ProductDetailPage;

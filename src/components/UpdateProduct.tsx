@@ -68,7 +68,6 @@ const UpdateProduct = ({ productId }: any) => {
     };
 
     const handleSubmit = async (e: FormEvent) => {
-        debugger;
         e.preventDefault();
         await fetchWithAuth(`/catalog/${productId}`, await getToken(), getPutOptions(productData));
         await fetchProductData();

@@ -7,12 +7,13 @@ interface LinkProps {
   className?: string;
   title?: string;
   alt?: string;
+  style?: object;
   onClick?: () => void;
 }
 
-const Link = ({ href, children, className, title, onClick, ...props }: LinkProps) => {
+const Link = ({ href, children, className, title, style, onClick, ...props }: LinkProps) => {
   return (
-    <RouterLink to={href} className={className} title={title ?? ""} {...props} onClick={onClick}>
+    <RouterLink to={href} className={className} title={title ?? ""} style={style} {...props} onClick={onClick}>
       {children}
     </RouterLink>
   );

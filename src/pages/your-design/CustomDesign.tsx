@@ -11,8 +11,8 @@ import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import BagIcon from "../../components/BagIcon";
 import { getCustomCatalogItem, uploadCustomerImage } from "../../services/catalogService";
 import NcInputNumber from "../../components/NcInputNumber";
-import { ArrowUpIcon, PhotoIcon} from "@heroicons/react/24/solid";
-import { CloudArrowUpIcon, ExclamationTriangleIcon} from "@heroicons/react/24/outline";
+import { ArrowUpIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import { CloudArrowUpIcon, ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useTranslation } from "react-i18next";
 
 export interface CustomDesignProps {
@@ -28,12 +28,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
   const { frames, sizes } = useApplication();
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
   const [selectedFrameIndex, setSelectedFrameIndex] = useState(0);
-  const [isMatIncluded, setIsMatIncluded] = useState(false);  
+  const [isMatIncluded, setIsMatIncluded] = useState(false);
   const [product, setProduct] = useState({} as Product);
   const [calculatedPrice, setCalculatedPrice] = useState(product?.price ?? 0);
   const [quantity, setQuantity] = useState(1);
   const fileInputRef = useRef<any>(null);
-  
+
   const { addItemToCart } = useCart();
 
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
   };
 
   const persistImage = async (): Promise<string> => {
-    if(selectedFile === null) return Promise.resolve("");
+    if (selectedFile === null) return Promise.resolve("");
     return uploadCustomerImage(selectedFile);
   };
 
@@ -61,7 +61,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
     toast.custom(
       (t) => (
         <NotifyAddTocart
-          product={{...product, imageThumbnail: imageUrl} as Product}
+          product={{ ...product, imageThumbnail: imageUrl } as Product}
           qualitySelected={quantity}
           show={t.visible}
           sizeSelected={sizeSelected}
@@ -89,7 +89,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
 
   useEffect(() => {
     if (product?.price && frames && sizes) {
-      const properSize = isMatIncluded ? sizes[Math.min(sizes.length-1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
+      const properSize = isMatIncluded ? sizes[Math.min(sizes.length - 1, sizes.indexOf(sizeSelected) + 1)] : sizeSelected;
       const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
       setCalculatedPrice(Math.floor(newPrice));
     }
@@ -103,6 +103,12 @@ const CustomDesign: FC<CustomDesignProps> = ({
   useEffect(() => {
     fetchProduct();
   }, []);
+
+  useEffect(() => {
+    setSizeSelected(sizes[0]);
+  }, [
+    sizes,
+  ]);
 
   return (
     <div
@@ -156,10 +162,10 @@ const CustomDesign: FC<CustomDesignProps> = ({
               </div>
 
             </div>
-          ) :(
+          ) : (
             <div className="flex items-center justify-center w-full rounded-lg border border-dashed border-gray-900/25 mx-6 py-10 max-w-full xl:max-w-3xl min-h-[60vh] cursor-pointer"
-            onClick={handleOpenFileDialog}>
-              <CloudArrowUpIcon className="text-gray-200 max-w-[60%]"/>
+              onClick={handleOpenFileDialog}>
+              <CloudArrowUpIcon className="text-gray-200 max-w-[60%]" />
             </div>
           )}
         </div>
@@ -180,17 +186,17 @@ const CustomDesign: FC<CustomDesignProps> = ({
       </div>
 
       <div className="w-full md:w-4/12">
-      <Options
-        frames={frames}
-        sizes={sizes}
-        selectedFrameIndex={selectedFrameIndex}
-        sizeSelected={sizeSelected}
-        product={product}
-        isMatIncluded={isMatIncluded}
-        onFrameSelect={setSelectedFrameIndex}
-        onSizeSelect={setSizeSelected}
-        onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
-      />
+        <Options
+          frames={frames}
+          sizes={sizes}
+          selectedFrameIndex={selectedFrameIndex}
+          sizeSelected={sizeSelected}
+          product={product}
+          isMatIncluded={isMatIncluded}
+          onFrameSelect={setSelectedFrameIndex}
+          onSizeSelect={setSizeSelected}
+          onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
+        />
         <div className="flex space-x-3.5">
           <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
             <NcInputNumber
@@ -207,29 +213,29 @@ const CustomDesign: FC<CustomDesignProps> = ({
             <span className="ml-3">{t('Add to cart')}</span>
           </ButtonPrimary>
         </div>
-         {/* SUM */}
-         <div className="flex flex-col mt-8 space-y-4 ">
-            <div className="space-y-2.5">
-              <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span className="flex">
-                  <span>{`€${calculatedPrice?.toFixed(2)}  `}</span>
-                  <span className="mx-2">x</span>
-                  <span>{`${quantity} `}</span>
-                </span>
+        {/* SUM */}
+        <div className="flex flex-col mt-8 space-y-4 ">
+          <div className="space-y-2.5">
+            <div className="flex justify-between text-slate-600 dark:text-slate-300">
+              <span className="flex">
+                <span>{`€${calculatedPrice?.toFixed(2)}  `}</span>
+                <span className="mx-2">x</span>
+                <span>{`${quantity} `}</span>
+              </span>
 
-                <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
-              </div>
-              <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>{t("Tax estimate")}</span>
-                <span>€{calculatedPrice * quantity * 0.21}</span>
-              </div>
-            </div>
-            <div className="border-b border-slate-200 dark:border-slate-700"></div>
-            <div className="flex justify-between font-semibold">
-              <span>{t("Total")}</span>
               <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
             </div>
+            <div className="flex justify-between text-slate-600 dark:text-slate-300">
+              <span>{t("Tax estimate")}</span>
+              <span>€{calculatedPrice * quantity * 0.21}</span>
+            </div>
           </div>
+          <div className="border-b border-slate-200 dark:border-slate-700"></div>
+          <div className="flex justify-between font-semibold">
+            <span>{t("Total")}</span>
+            <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
+          </div>
+        </div>
 
       </div>
 

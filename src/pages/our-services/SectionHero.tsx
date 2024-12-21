@@ -27,7 +27,7 @@ const SectionHero: FC<SectionHeroProps> = ({
         <h2 className="text-3xl !leading-tight font-semibold text-neutral-900 md:text-4xl xl:text-5xl dark:text-neutral-100">
         {t('Choose Your Perfect Frame')}
         </h2>
-        <span className="block text-base xl:text-lg text-neutral-600 dark:text-neutral-400">
+        <span className="block text-basexl:text-lg text-neutral-600 dark:text-neutral-400">
         {t("Explore our wide range of frames to find the perfect match for your paintings and photos. Our high-quality framing options ensure durability and style, enhancing the presentation of your artwork. Select from various styles and finishes to suit your preferences and decor.")}
         </span>
         {!!btnText && <ButtonPrimary href="/login">{btnText}</ButtonPrimary>}
