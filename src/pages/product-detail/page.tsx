@@ -86,9 +86,10 @@ const ProductDetailPage = ({ }) => {
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
   const frameGuideImage = "https://genstorageaccount3116.blob.core.windows.net/printme-images/frame-guide.avif";
-
+  const paperImage = "https://genstorageaccount3116.blob.core.windows.net/printme-images/paper.webp";
+  const genericImages = ['https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-1 2.png', 'https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-2 2.png']
   function getAllImages(): string[] {
-    return [product?.image, product?.image2, product?.image3, product?.image4, frameGuideImage, "https://genstorageaccount3116.blob.core.windows.net/printme-images/amy-humphries-yu9_c1mt_c4-unsplash.jpeg"];
+    return [product?.image, product?.image2, product?.image3, product?.image4, frameGuideImage, paperImage, ...genericImages];
   }
 
   const [sizeSelected, setSizeSelected] = useState(sizes[0]);
