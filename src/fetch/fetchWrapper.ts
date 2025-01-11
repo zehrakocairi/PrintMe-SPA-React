@@ -1,4 +1,4 @@
-export const fetchWithAuth = async (url: string, token: string|null|undefined, options: any = {}) => {
+export const fetchWithAuth = async (url: string, token: string | null | undefined, options: any = {}) => {
   const headers = {
     ...(options.headers || {}),
   };
@@ -13,7 +13,7 @@ export const fetchWithAuth = async (url: string, token: string|null|undefined, o
   const fetchResponse = await fetch(url, {
     ...options,
     headers,
-    credentials: "include",
+    // credentials: "include",
   });
 
   if (fetchResponse.status >= 300) {
@@ -27,33 +27,33 @@ export const fetchWithAuth = async (url: string, token: string|null|undefined, o
   return JSON.parse(responseText);
 };
 
-export const getPostOptions = (body: any):any => {
+export const getPostOptions = (body: any): any => {
   return {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   };
-}
+};
 
-export const getPutOptions = (body: any):any => {
+export const getPutOptions = (body: any): any => {
   return {
     method: "PUT",
     body: JSON.stringify(body),
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   };
-}
-export const getDeleteOptions = ():any => {
+};
+export const getDeleteOptions = (): any => {
   return {
     method: "DELETE",
     headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   };
-}
+};

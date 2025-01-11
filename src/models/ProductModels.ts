@@ -1,109 +1,203 @@
+// export interface ProductVariant {
+//     id: number;
+//     name: string;
+//     thumbnail?: string;
+//     color?: string;
+//     featuredImage:string;
+//   }
 
+// export class Product {
+//   id: number;
+//   name: string;
+//   motto?: string;
+//   price: number;
+//   images: ImageDto[];
+//   description: string;
+//   category: string;
+//   tags: string[];
+//   link: string = "/product-detail/";
+//   variants?: ProductVariant[];
+//   variantType?: "color" | "image";
+//   size: number;
+//   allOfSizes?: string[];
+//   status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
+//   rating?: string;
+//   numberOfReviews?: number;
+//   isMatIncluded?: boolean;
+
+//   constructor(data: Partial<Product>) {
+//     this.id = data.id || 0;
+//     this.name = data.name || '';
+//     this.motto = data.motto;
+//     this.price = data.price || 0;
+//     this.images = data.images || [];
+//     this.description = data.description || '';
+//     this.category = data.category || '';
+//     this.tags = data.tags || [];
+//     this.link = data.link || "/product-detail/";
+//     this.variants = data.variants;
+//     this.variantType = data.variantType;
+//     this.size = data.size || 0;
+//     this.allOfSizes = data.allOfSizes;
+//     this.status = data.status;
+//     this.rating = data.rating;
+//     this.numberOfReviews = data.numberOfReviews;
+//     this.isMatIncluded = data.isMatIncluded;
+//   }
+
+//   get image(): string {
+//     return this.images[0]?.image ?? '';
+//   }
+
+//   get imageThumbnail(): string {
+//     return this.images[0]?.thumbnail ?? this.image;
+//   }
+
+//   get image2(): string {
+//     return this.images[1]?.image ?? this.image;
+//   }
+
+//   get image2Thumbnail(): string {
+//     return this.images[1]?.thumbnail ?? this.image2;
+//   }
+
+//   get image3(): string {
+//     return this.images[2]?.image ?? this.image2;
+//   }
+
+//   get image3Thumbnail(): string {
+//     return this.images[2]?.thumbnail ?? this.image3;;
+//   }
+
+//   get image4(): string {
+//     return this.images[3]?.image ?? this.image3;
+//   }
+
+//   get image4Thumbnail(): string {
+//     return this.images[3]?.thumbnail ?? this.image4;;
+//   }
+// }
+
+//   export interface ImageDto {
+//     image: string;
+//     thumbnail: string;
+//     category: number;
+//     // thumbnail: string;
+//     // thumbnailAlternate: string;
+//     // image: string;
+//     // imageAlternate: string;
+//   }
+
+// Updated ImageDto interface
+export interface ImageDto {
+  name: string;
+  thumb: string;
+  small: string;
+  medium: string;
+  large: string;
+  original: string;
+  order: number;
+}
+
+// Updated ProductVariant interface
 export interface ProductVariant {
-    id: number;
-    name: string;
-    thumbnail?: string;
-    color?: string;
-    featuredImage:string;
-  }
+  id: number;
+  name: string;
+  description?: string;
+  price: number;
+  originalPrice: number;
+  discountRate: number;
+  discountAmount: number;
+  availableStock: number;
+  restockThreshold: number;
+  order: number;
+  images: ImageDto[];
+}
 
+// Updated Product class
 export class Product {
   id: number;
   name: string;
-  motto?: string;
-  price: number;
-  images: ImageDto[];
+  title?: string;
   description: string;
   category: string;
   tags: string[];
+  price: number;
+  originalPrice: number;
+  discountRate: number;
+  discountAmount: number;
+  cheapestPrice: number;
+  images: ImageDto[];
+  variants: ProductVariant[];
+  isAvailable: boolean;
   link: string = "/product-detail/";
-  variants?: ProductVariant[];
-  variantType?: "color" | "image";
-  size: number;
-  allOfSizes?: string[];
-  status?: "New in" | "limited edition" | "Sold Out" | "50% Discount";
-  rating?: string;
-  numberOfReviews?: number;
-  isMatIncluded?: boolean;
 
   constructor(data: Partial<Product>) {
     this.id = data.id || 0;
-    this.name = data.name || '';
-    this.motto = data.motto;
-    this.price = data.price || 0;
-    this.images = data.images || [];
-    this.description = data.description || '';
-    this.category = data.category || '';
+    this.name = data.name || "";
+    this.title = data.title;
+    this.description = data.description || "";
+    this.category = data.category || "";
     this.tags = data.tags || [];
+    this.price = data.price || 0;
+    this.originalPrice = data.originalPrice || 0;
+    this.discountRate = data.discountRate || 0;
+    this.discountAmount = data.discountAmount || 0;
+    this.cheapestPrice = data.cheapestPrice || 0;
+    this.images = data.images || [];
+    this.variants = data.variants || [];
+    this.isAvailable = data.isAvailable || false;
     this.link = data.link || "/product-detail/";
-    this.variants = data.variants;
-    this.variantType = data.variantType;
-    this.size = data.size || 0;
-    this.allOfSizes = data.allOfSizes;
-    this.status = data.status;
-    this.rating = data.rating;
-    this.numberOfReviews = data.numberOfReviews;
-    this.isMatIncluded = data.isMatIncluded;
   }
 
+  // Image handling methods
   get image(): string {
-    return this.images[0]?.image ?? '';
+    return this.images[0]?.original ?? "";
   }
 
   get imageThumbnail(): string {
-    return this.images[0]?.thumbnail ?? this.image;
+    return this.images[0]?.thumb ?? this.image;
   }
 
   get image2(): string {
-    return this.images[1]?.image ?? this.image;
+    return this.images[1]?.original ?? this.image;
   }
 
   get image2Thumbnail(): string {
-    return this.images[1]?.thumbnail ?? this.image2;
+    return this.images[1]?.thumb ?? this.image2;
   }
 
   get image3(): string {
-    return this.images[2]?.image ?? this.image2;
+    return this.images[2]?.original ?? this.image2;
   }
 
   get image3Thumbnail(): string {
-    return this.images[2]?.thumbnail ?? this.image3;;
+    return this.images[2]?.thumb ?? this.image3;
   }
 
   get image4(): string {
-    return this.images[3]?.image ?? this.image3;
+    return this.images[3]?.original ?? this.image3;
   }
 
   get image4Thumbnail(): string {
-    return this.images[3]?.thumbnail ?? this.image4;;
+    return this.images[3]?.thumb ?? this.image4;
   }
 }
 
-  export interface ImageDto {
-    image: string;
-    thumbnail: string;
-    category: number;
-    // thumbnail: string;
-    // thumbnailAlternate: string;
-    // image: string;
-    // imageAlternate: string;
-  }
-  
-  export interface Frame {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    thumbnail: string;
-    image: string;
-    allImages: string[];
-    mask: string;
-    maskWithoutMat: string;
-  }
-  export interface Size {
-    id: number;
-    name: string;
-    description: string;
-    multiplier: number;
-  }
-  
+export interface Frame {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  image: string;
+  allImages: string[];
+  mask: string;
+  maskWithoutMat: string;
+}
+export interface Size {
+  id: number;
+  name: string;
+  description: string;
+  multiplier: number;
+}

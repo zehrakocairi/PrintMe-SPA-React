@@ -1,10 +1,10 @@
 import { fetchWithAuth } from "../fetch/fetchWrapper";
 import { getPutOptions } from "../fetch/fetchWrapper";
-import { CartItem } from "../models/CartItem";
+import { CartItem, CustomerCart } from "../models/CartItem";
 
-
-export const getCart = async (accessToken: string|undefined|null) => {
-  const url = `/basket`;
+const baseUrl = "http://13.95.140.222:30003";
+export const getCart = async (accessToken: string | undefined | null) => {
+  const url = `${baseUrl}/basket/v1`;
   try {
     const response = await fetchWithAuth(url, accessToken);
     return response;
@@ -14,8 +14,8 @@ export const getCart = async (accessToken: string|undefined|null) => {
   }
 };
 
-export const updateCart = async (accessToken: string|null|undefined, cartItems: CartItem[]) => {
-  const url = `/basket`;
+export const updateCart = async (accessToken: string | null | undefined, cartItems: CartItem[]) => {
+  const url = `${baseUrl}/basket/v1`;
   try {
     const response = await fetchWithAuth(url, accessToken, getPutOptions(cartItems));
     return response;
@@ -25,8 +25,8 @@ export const updateCart = async (accessToken: string|null|undefined, cartItems: 
   }
 };
 
-export const upsertCartItem = async (accessToken: string|null, cartItem: CartItem) => {
-  const url = `/basket/upsert-item`;
+export const upsertCartItem = async (accessToken: string | null, cartItem: CartItem) => {
+  const url = `${baseUrl}/basket/v1/upsert-item`;
   try {
     const response = await fetchWithAuth(url, accessToken, getPutOptions(cartItem));
     return response;

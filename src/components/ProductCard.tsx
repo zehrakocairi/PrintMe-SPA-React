@@ -30,10 +30,10 @@ const ProductCard: FC<ProductCardProps> = ({
   const {
     name,
     price,
-    motto,
+    title, // aka. motto
     description,
-    variantType,
-    status,
+    // variantType,
+    //status,
     id,
   } = data;
 
@@ -87,7 +87,8 @@ const ProductCard: FC<ProductCardProps> = ({
               showMobileImage={true}
             />
           </Link>
-          <ProductStatus status={status} />
+          {/* TODO : Fix status */}
+          <ProductStatus status={"New In"} /> 
           <LikeButton liked={isLiked} className="absolute top-3 end-3 z-10" />
           {renderGroupButtons()}
           {/* {sizes ? renderSizeList() : renderGroupButtons()} */}
@@ -104,7 +105,7 @@ const ProductCard: FC<ProductCardProps> = ({
             </div>
            
             <p className={` text-slate-500 dark:text-slate-400 mt-1 text-sm `}>
-              { motto || description}
+              { title || description}
             </p>
           </div>
 

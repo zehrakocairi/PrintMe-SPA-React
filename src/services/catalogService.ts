@@ -5,12 +5,12 @@ import { CatalogTags } from "../enums/CatalogTags";
 import { FilterState } from "../models/FilterModels";
 import { Product } from "../models/ProductModels";
 
-
-const fetchCatalogItems = async (url: string) => {
+const baseUrl = "http://13.95.140.222:30001";
+const fetchCatalogItems = async (url: string, body: object) => {
   try {
-    const response = await fetchWithAuth(url, localStorage.getItem("accessToken"));
-    
-    return {data : response.data.map((item:Product)=> new Product(item)), totalPages: response.totalPage};
+    const response = await fetchWithAuth(url, localStorage.getItem("accessToken"), getPostOptions(body));
+
+    return { data: response.data.map((item: Product) => new Product(item)), totalPages: response.totalPage };
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;
@@ -20,7 +20,7 @@ const fetchCatalogItems = async (url: string) => {
 export const getCatalogItem = async (id: number) => {
   try {
     const data = await fetchWithAuth(`/catalog/${id}`, localStorage.getItem("accessToken"));
-    return new Product(data)
+    return new Product(data);
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;
@@ -29,7 +29,7 @@ export const getCatalogItem = async (id: number) => {
 export const getCustomCatalogItem = async () => {
   try {
     const data = await fetchWithAuth(`/catalog/custom-product`, localStorage.getItem("accessToken"));
-    return new Product(data)
+    return new Product(data);
   } catch (error) {
     console.error(`Error fetching catalog items:`, error);
     throw error;
@@ -37,49 +37,78 @@ export const getCustomCatalogItem = async () => {
 };
 
 export const getFeaturedItems = async () => {
-  const url = `/catalog/search?pageSize=6&catalogType=1&tags=2`;
-  return fetchCatalogItems(url);
+  let url = `${baseUrl}/catalog/v1/product/search`;
+
+  var body = new SearchProductQuery();
+  debugger;
+  body.tags = CatalogTags.Featured;
+  return fetchCatalogItems(url, body);
 };
 
 export const getTrendingItems = async () => {
-  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.TopSellers}`;
-  return fetchCatalogItems(url);
+  let url = `${baseUrl}/catalog/v1/product/search`;
+
+  var body = new SearchProductQuery();
+  body.tags = CatalogTags.TopSellers;
+  return fetchCatalogItems(url, body);
 };
 
-export const getOnSaleItems = async (accessToken:string) => {
-  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.OnSale}`;
-  return fetchCatalogItems(url);
+export const getOnSaleItems = async (accessToken: string) => {
+  let url = `${baseUrl}/catalog/v1/product/search`;
+
+  var body = new SearchProductQuery();
+  body.tags = CatalogTags.OnSale;
+  return fetchCatalogItems(url, body);
 };
 
 export const getOurPickItems = async () => {
-  const url = `/catalog/search?pageSize=6&catalogType=${CatalogType.Print}&tags=${CatalogTags.OurPick}`;
-  return fetchCatalogItems(url);
+  let url = `${baseUrl}/catalog/v1/product/search`;
+
+  var body = new SearchProductQuery();
+  body.tags = CatalogTags.OurPick;
+  return fetchCatalogItems(url, body);
 };
 
-export const getPaginatedItems = async (pageSize: number = 12, pageIndex: number = 0, category?: Category,) => {
-  const url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}&catalogType=${CatalogType.Print}`;
-  return fetchCatalogItems(url);
+export const getPaginatedItems = async (pageSize: number = 12, pageIndex: number = 0, category?: Category) => {
+  let url = `${baseUrl}/catalog/v1/product/search`;
+
+  var body = new SearchProductQuery("", pageSize, pageIndex);
+  return fetchCatalogItems(url, body);
 };
 
 export const getFilteredPaginatedItems = async (filter: FilterState, pageSize: number = 12, pageIndex: number = 0, searchText = "") => {
-  let url = `/catalog/search?pageSize=${pageSize}&pageIndex=${pageIndex}${toQueryString(filter)}`;
-  if(searchText !== ""){
-    url += `&searchTerm=${searchText}`;
-  }
-  return fetchCatalogItems(url);
+  let url = `${baseUrl}/catalog/v1/product/search`;
+  var body = new SearchProductQuery(searchText, pageSize, pageIndex);
+  fillBody(filter, body);
+
+  return fetchCatalogItems(url, body);
 };
 
-export const uploadCustomerImage = async (file: File) : Promise<string> => {
+export class PaginationQuery {
+  constructor(public pageSize: number = 10, public pageIndex: number = 1) {}
+}
+
+// SearchProductQuery.ts
+export class SearchProductQuery extends PaginationQuery {
+  constructor(public searchTerm?: string, pageSize: number = 10, pageIndex: number = 1, public categoryId?: number, public priceFrom?: number, public priceTo?: number, public tags?: CatalogTags, public isOnlyAvailableItems: boolean = false) {
+    super(pageSize, pageIndex);
+  }
+}
+
+// TODO : Complete here
+export const uploadCustomerImage = async (file: File): Promise<string> => {
   try {
     const dto = new FormData();
-    dto.append('image', file);
+    dto.append("image", file);
 
-    const response = await fetchWithAuth("/catalog/custom-product/upload-image", localStorage.getItem("accessToken"), {
+    let url = `${baseUrl}/catalog/v1/image/upload}`;
+
+    const response = await fetchWithAuth(url, localStorage.getItem("accessToken"), {
       method: "POST",
       body: dto,
       headers: {
-        'Accept': 'application/json',
-      }
+        Accept: "application/json",
+      },
     });
     return response;
   } catch (error) {
@@ -88,27 +117,27 @@ export const uploadCustomerImage = async (file: File) : Promise<string> => {
   }
 };
 
-function toQueryString(filter: FilterState) {
+function fillBody(filter: FilterState, body: SearchProductQuery) {
   let query = "";
   if (filter.isOnSale === true) {
-    query += `&tags=${CatalogTags.OnSale}`;
+    body.tags = CatalogTags.OnSale;
   } else if (filter.tag) {
-    query += `&tags=${filter.tag}`;
+    body.tags = filter.tag;
   }
   if (filter.rangePrices.length > 0 && filter.rangePrices[0] > 0) {
-    query += `&priceFrom=${filter.rangePrices[0]}`;
+    body.priceFrom = filter.rangePrices[0];
   }
   if (filter.rangePrices.length > 1 && filter.rangePrices[1] > 0) {
-    query += `&priceTo=${filter.rangePrices[1]}`;
+    body.priceTo = filter.rangePrices[1];
   }
   if (filter.categoryState) {
-    query += `&category=${filter.categoryState}`;
+    body.categoryId = filter.categoryState;
   }
-  if (filter.sizeState) {
-    query += `&size=${filter.sizeState}`;
-  }
-  if (filter.sortOrderStates) {
-    query += `&sortOrderStates=${filter.sortOrderStates}`;
-  }
+  // if (filter.sizeState) {
+  //   query += `&size=${filter.sizeState}`;
+  // }
+  // if (filter.sortOrderStates) {
+  //   query += `&sortOrderStates=${filter.sortOrderStates}`;
+  // }
   return query;
 }

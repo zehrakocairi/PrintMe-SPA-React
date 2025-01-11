@@ -22,7 +22,7 @@ const NotifyAddTocart: FC<Props> = ({
   calculatedPrice,
 }) => {
   const navigate = useNavigate();
-  const { name: productName, price, imageThumbnail: productImage, motto } = product;
+  const { name: productName, price, imageThumbnail: productImage, title } = product;
   const renderProductCartOnNotify = () => {
     return (
       <div className="flex ">

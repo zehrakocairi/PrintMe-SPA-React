@@ -26,7 +26,8 @@ export default function CartDropdown() {
   }, [cart]);
 
   const renderProduct = (item: CartItem, index: number, close: () => void) => {
-    const { productName, unitPrice, pictureUrl, quantity, size, frameId, frameName, productId } = item;
+    const { productName, unitPrice, pictureUrl, quantity, productId } = item;
+    const size = 0, frameId = 1, frameName = "Wood"; // TODO :FIx here
     return (
       <div key={index} className="flex py-5 last:pb-0">
         <div className="relative h-24 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">

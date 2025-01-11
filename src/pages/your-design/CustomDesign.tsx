@@ -3,7 +3,7 @@ import PreviewDesign from "../../components/PreviewDesign";
 import { useApplication } from "../../contexts/ApplicationContext";
 import Options from "../../components/Options";
 import { useCart } from "../../contexts/CartContext";
-import { CartItem } from '../../models/CartItem';
+import { CartItem } from "../../models/CartItem";
 import toast from "react-hot-toast";
 import NotifyAddTocart from "../../components/NotifyAddTocart";
 import { Product, Size } from "../../models/ProductModels";
@@ -19,9 +19,7 @@ export interface CustomDesignProps {
   className?: string;
 }
 
-const CustomDesign: FC<CustomDesignProps> = ({
-  className = "",
-}) => {
+const CustomDesign: FC<CustomDesignProps> = ({ className = "" }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const [isVertical, setIsVertical] = useState<boolean>(true);
@@ -41,7 +39,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setSelectedFile(file);
-      setImage(URL.createObjectURL(file));  // Generate and set the image URL
+      setImage(URL.createObjectURL(file)); // Generate and set the image URL
     }
   };
 
@@ -57,19 +55,21 @@ const CustomDesign: FC<CustomDesignProps> = ({
 
   const notifyAndAddTocart = async () => {
     var imageUrl = await persistImage();
-    addItemToCart(new CartItem(product.id, product.name, calculatedPrice, quantity, imageUrl, sizeSelected?.id, frames[selectedFrameIndex].id, undefined, frames[selectedFrameIndex].name));
-    toast.custom(
-      (t) => (
-        <NotifyAddTocart
-          product={{ ...product, imageThumbnail: imageUrl } as Product}
-          qualitySelected={quantity}
-          show={t.visible}
-          sizeSelected={sizeSelected}
-          calculatedPrice={calculatedPrice}
-        />
-      ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
-    );
+
+    let selectedVariant = product.variants[0];
+    var cartItem = new CartItem({});
+    cartItem.productId = product.id;
+    cartItem.variantId = selectedVariant.id;
+    cartItem.productName = product.name;
+    cartItem.unitPrice = selectedVariant.price;
+    cartItem.noDiscountPrice = selectedVariant.price; // TODO :IMplement here
+    cartItem.oldUnitPrice = selectedVariant.price;
+    cartItem.quantity = quantity;
+    cartItem.pictureUrl = imageUrl;
+
+    addItemToCart(cartItem);
+
+    toast.custom((t) => <NotifyAddTocart product={{ ...product, imageThumbnail: imageUrl } as Product} qualitySelected={quantity} show={t.visible} sizeSelected={sizeSelected} calculatedPrice={calculatedPrice} />, { position: "top-right", id: "nc-product-notify", duration: 3000 });
   };
 
   const handleOpenFileDialog = () => {
@@ -93,12 +93,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
       const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
       setCalculatedPrice(Math.floor(newPrice));
     }
-  }, [
-    product,
-    sizeSelected,
-    selectedFrameIndex,
-    isMatIncluded
-  ]);
+  }, [product, sizeSelected, selectedFrameIndex, isMatIncluded]);
 
   useEffect(() => {
     fetchProduct();
@@ -106,44 +101,31 @@ const CustomDesign: FC<CustomDesignProps> = ({
 
   useEffect(() => {
     setSizeSelected(sizes[0]);
-  }, [
-    sizes,
-  ]);
+  }, [sizes]);
 
   return (
-    <div
-      className={`nc-SectionHero flex flex-col-reverse md:flex-row relative ${className}`}
-      data-nc-id="SectionHero"
-    >
+    <div className={`nc-SectionHero flex flex-col-reverse md:flex-row relative ${className}`} data-nc-id="SectionHero">
       <div className="w-full md:w-8/12">
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-4 items-center relative text-center lg:text-left mb-4">
           <div className="w-screen max-w-full xl:max-w-3xl space-y-5">
             <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
-              {t('Upload Your Image')}
+              {t("Upload Your Image")}
             </label>
             <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
               <div className="text-center">
                 <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                  <label
-                    htmlFor="file-upload"
-                    className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                  >
-                    <span><PhotoIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" /> {t('Upload a file')}</span>
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      className="sr-only"
-                      ref={fileInputRef}
-                      onChange={handleFileChange}
-                    />
+                  <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
+                    <span>
+                      <PhotoIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" /> {t("Upload a file")}
+                    </span>
+                    <input id="file-upload" name="file-upload" type="file" className="sr-only" ref={fileInputRef} onChange={handleFileChange} />
                   </label>
-                  <p className="pl-1"> {t('or drag and drop')}</p>
+                  <p className="pl-1"> {t("or drag and drop")}</p>
                 </div>
                 <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                 {selectedFile && (
                   <p className="text-sm leading-5 text-gray-900 mt-2">
-                    {t('Selected file size')}: {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
+                    {t("Selected file size")}: {(selectedFile.size / (1024 * 1024)).toFixed(2)} MB
                   </p>
                 )}
               </div>
@@ -153,64 +135,34 @@ const CustomDesign: FC<CustomDesignProps> = ({
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-10 items-center relative text-center lg:text-left">
           {image ? (
             <div className="w-screen max-w-full xl:max-w-3xl space-y-5 fit-disclaimer p-2 mb-3">
-
               <div className="mb-4 mx-auto max-w-2xl lg:text-center">
-                <p className="text-base font-semibold leading-7 text-pink-600"><ExclamationTriangleIcon className="hidden sm:inline-block w-5 h-5 mb-0.5 mr-1" />{t('Perfect Fit Guarantee')}</p>
-                <p className=" text-sm leading-6 text-gray-600">
-                  {t("Our professional designers ensure every image, even horizontal ones, is perfectly tailored to fit your frame. We'll send you the final design for your approval, giving you the last say.")}
+                <p className="text-base font-semibold leading-7 text-pink-600">
+                  <ExclamationTriangleIcon className="hidden sm:inline-block w-5 h-5 mb-0.5 mr-1" />
+                  {t("Perfect Fit Guarantee")}
                 </p>
+                <p className=" text-sm leading-6 text-gray-600">{t("Our professional designers ensure every image, even horizontal ones, is perfectly tailored to fit your frame. We'll send you the final design for your approval, giving you the last say.")}</p>
               </div>
-
             </div>
           ) : (
-            <div className="flex items-center justify-center w-full rounded-lg border border-dashed border-gray-900/25 mx-6 py-10 max-w-full xl:max-w-3xl min-h-[60vh] cursor-pointer"
-              onClick={handleOpenFileDialog}>
+            <div className="flex items-center justify-center w-full rounded-lg border border-dashed border-gray-900/25 mx-6 py-10 max-w-full xl:max-w-3xl min-h-[60vh] cursor-pointer" onClick={handleOpenFileDialog}>
               <CloudArrowUpIcon className="text-gray-200 max-w-[60%]" />
             </div>
           )}
         </div>
         <div className="flex flex-col lg:flex-col space-y-14 lg:space-y-0 lg:space-x-10 items-center relative text-center lg:text-left">
-          <div className="w-screen max-w-full xl:max-w-3xl space-y-5">
-            {image && (
-              <PreviewDesign
-                frame={frames[selectedFrameIndex]}
-                sizeName={sizeSelected?.name}
-                isMatIncluded={isMatIncluded}
-                image={image}
-                showDescription={false}
-                isVertical={isVertical}
-              />
-            )}
-          </div>
+          <div className="w-screen max-w-full xl:max-w-3xl space-y-5">{image && <PreviewDesign frame={frames[selectedFrameIndex]} sizeName={sizeSelected?.name} isMatIncluded={isMatIncluded} image={image} showDescription={false} isVertical={isVertical} />}</div>
         </div>
       </div>
 
       <div className="w-full md:w-4/12">
-        <Options
-          frames={frames}
-          sizes={sizes}
-          selectedFrameIndex={selectedFrameIndex}
-          sizeSelected={sizeSelected}
-          product={product}
-          isMatIncluded={isMatIncluded}
-          onFrameSelect={setSelectedFrameIndex}
-          onSizeSelect={setSizeSelected}
-          onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
-        />
+        <Options frames={frames} sizes={sizes} selectedFrameIndex={selectedFrameIndex} sizeSelected={sizeSelected} product={product} isMatIncluded={isMatIncluded} onFrameSelect={setSelectedFrameIndex} onSizeSelect={setSizeSelected} onMatToggle={() => setIsMatIncluded(!isMatIncluded)} />
         <div className="flex space-x-3.5">
           <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
-            <NcInputNumber
-              defaultValue={quantity}
-              onChange={setQuantity}
-            />
+            <NcInputNumber defaultValue={quantity} onChange={setQuantity} />
           </div>
-          <ButtonPrimary
-            className="flex-1 flex-shrink-0"
-            onClick={notifyAndAddTocart}
-            disabled={!selectedFile}
-          >
+          <ButtonPrimary className="flex-1 flex-shrink-0" onClick={notifyAndAddTocart} disabled={!selectedFile}>
             <BagIcon className="inline-block w-5 h-5 mb-0.5" />
-            <span className="ml-3">{t('Add to cart')}</span>
+            <span className="ml-3">{t("Add to cart")}</span>
           </ButtonPrimary>
         </div>
         {/* SUM */}
@@ -236,9 +188,7 @@ const CustomDesign: FC<CustomDesignProps> = ({
             <span>{`€${(calculatedPrice * quantity).toFixed(2)}`}</span>
           </div>
         </div>
-
       </div>
-
     </div>
   );
 };
