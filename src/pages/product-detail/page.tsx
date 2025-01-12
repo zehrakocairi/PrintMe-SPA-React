@@ -1,11 +1,5 @@
-
-
 import { useCallback, useEffect, useState } from "react";
-import {
-  NoSymbolIcon,
-  ClockIcon,
-  SparklesIcon,
-} from "@heroicons/react/24/outline";
+import { NoSymbolIcon, ClockIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import ButtonPrimary from "../../shared/Button/ButtonPrimary";
 import ButtonSecondary from "../../shared/Button/ButtonSecondary";
 import NcImage from "../../shared/NcImage/NcImage";
@@ -22,12 +16,12 @@ import AccordionInfo from "../../components/AccordionInfo";
 import Policy from "./Policy";
 import ModalViewAllReviews from "./ModalViewAllReviews";
 import ListingImageGallery from "../../components/listing-image-gallery/ListingImageGallery";
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getCatalogItem } from "../../services/catalogService";
 import { Product, Size } from "../../models/ProductModels";
-import { getFeaturedItems } from '../../services/catalogService';
+import { getFeaturedItems } from "../../services/catalogService";
 import { useCart } from "../../contexts/CartContext";
-import { CartItem } from '../../models/CartItem';
+import { CartItem } from "../../models/CartItem";
 import { useApplication } from "../../contexts/ApplicationContext";
 import UpdateProduct from "../../components/UpdateProduct";
 import { useTranslation } from "react-i18next";
@@ -37,8 +31,7 @@ import Options from "../../components/Options";
 import { useFilter } from "../../contexts/FilterContext";
 import Loading from "../../components/Loading";
 
-const ProductDetailPage = ({ }) => {
-
+const ProductDetailPage = ({}) => {
   const { t } = useTranslation();
   const { id } = useParams();
 
@@ -55,7 +48,7 @@ const ProductDetailPage = ({ }) => {
   };
 
   const fetchProduct = async () => {
-    const product = await getCatalogItem(+(id ?? "0"),);
+    const product = await getCatalogItem(+(id ?? "0"));
     setProduct(product);
   };
 
@@ -73,7 +66,7 @@ const ProductDetailPage = ({ }) => {
     setIsLoading(true);
     await fetchProduct();
     await fetchFeaturedtems();
-    handleScrollToEl('root');
+    handleScrollToEl("root");
     setIsLoading(false);
   };
 
@@ -81,13 +74,12 @@ const ProductDetailPage = ({ }) => {
     initialize();
   }, [id]);
 
-
   const status = "New in"; // TODO : Complete here by the category of the product
   const [product, setProduct] = useState({} as Product);
   const [customerAlsoPurchased, setCustomersAlsoPurchesed] = useState([]);
   const frameGuideImage = "https://genstorageaccount3116.blob.core.windows.net/printme-images/frame-guide.avif";
   const paperImage = "https://genstorageaccount3116.blob.core.windows.net/printme-images/paper.webp";
-  const genericImages = ['https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-1 2.png', 'https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-2 2.png']
+  const genericImages = ["https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-1 2.png", "https://genstorageaccount3116.blob.core.windows.net/printme-images/generic-image-2 2.png"];
   function getAllImages(): string[] {
     return [product?.image, product?.image2, product?.image3, product?.image4, frameGuideImage, paperImage, ...genericImages];
   }
@@ -98,8 +90,7 @@ const ProductDetailPage = ({ }) => {
   const [quantity, setQuantity] = useState(1);
   const [isMatIncluded, setIsMatIncluded] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
-  const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] =
-    useState(false);
+  const [isOpenModalViewAllReviews, setIsOpenModalViewAllReviews] = useState(false);
 
   useEffect(() => {
     if (product?.price && frames && sizes) {
@@ -107,18 +98,11 @@ const ProductDetailPage = ({ }) => {
       const newPrice = ((product.price ?? 0) + frames[selectedFrameIndex].price) * (properSize?.multiplier ?? 1);
       setCalculatedPrice(Math.floor(newPrice));
     }
-  }, [
-    product,
-    sizeSelected,
-    selectedFrameIndex,
-    isMatIncluded
-  ]);
+  }, [product, sizeSelected, selectedFrameIndex, isMatIncluded]);
 
   useEffect(() => {
     setSizeSelected(sizes[0]);
-  }, [
-    sizes,
-  ]);
+  }, [sizes]);
 
   const handleCloseModalImageGallery = () => {
     let params = new URLSearchParams(document.location.search);
@@ -131,26 +115,14 @@ const ProductDetailPage = ({ }) => {
 
   const notifyAddTocart = () => {
     addItemToCart(new CartItem(product.id, product.name, calculatedPrice, quantity, product.imageThumbnail, sizeSelected?.id, frames[selectedFrameIndex].id, undefined, frames[selectedFrameIndex].name));
-    toast.custom(
-      (t) => (
-        <NotifyAddTocart
-          product={product}
-          qualitySelected={quantity}
-          show={t.visible}
-          sizeSelected={sizeSelected}
-          calculatedPrice={calculatedPrice}
-        />
-      ),
-      { position: "top-right", id: "nc-product-notify", duration: 3000 }
-    );
+    toast.custom((t) => <NotifyAddTocart product={product} qualitySelected={quantity} show={t.visible} sizeSelected={sizeSelected} calculatedPrice={calculatedPrice} />, { position: "top-right", id: "nc-product-notify", duration: 3000 });
   };
 
   const renderStatus = () => {
     if (!status) {
       return null;
     }
-    const CLASSES =
-      "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
+    const CLASSES = "text-sm flex items-center text-slate-700 text-slate-900 dark:text-slate-300";
     if (status === "New in") {
       return (
         <div className={CLASSES}>
@@ -194,61 +166,35 @@ const ProductDetailPage = ({ }) => {
           <div className="">
             {/* ---------- 1 HEADING ----------  */}
             <div className="flex items-center justify-between space-x-5">
-              <div className="flex text-2xl font-semibold">
-                €{calculatedPrice.toFixed(0)}
-              </div>
+              <div className="flex text-2xl font-semibold">€{calculatedPrice.toFixed(0)}</div>
 
-              <a
-                href="#reviews"
-                className="flex items-center text-sm font-medium"
-              >
+              <a href="#reviews" className="flex items-center text-sm font-medium">
                 <div className="">
                   <StarIcon className="w-5 h-5 pb-[1px] text-orange-400" />
                 </div>
                 <span className="ml-1.5 flex">
-                  <span>{'New'} </span>
+                  <span>{"New"} </span>
                   <span className="mx-1.5">·</span>
-                  <span className="text-slate-700 dark:text-slate-400 underline">
-                    {product.numberOfReviews} reviews
-                  </span>
+                  <span className="text-slate-700 dark:text-slate-400 underline">{product.numberOfReviews} reviews</span>
                 </span>
               </a>
             </div>
-            <Options
-              frames={frames}
-              sizes={sizes}
-              selectedFrameIndex={selectedFrameIndex}
-              sizeSelected={sizeSelected}
-              product={product}
-              isMatIncluded={isMatIncluded}
-              onFrameSelect={setSelectedFrameIndex}
-              onSizeSelect={setSizeSelected}
-              onMatToggle={() => setIsMatIncluded(!isMatIncluded)}
-            />
+            <Options frames={frames} sizes={sizes} selectedFrameIndex={selectedFrameIndex} sizeSelected={sizeSelected} product={product} isMatIncluded={isMatIncluded} onFrameSelect={setSelectedFrameIndex} onSizeSelect={setSizeSelected} onMatToggle={() => setIsMatIncluded(!isMatIncluded)} />
           </div>
           {/*  ---------- PREVIEW BUTTON */}
           <div className="flex space-x-3.5">
-            <ButtonPrimary
-              className="flex-1 flex-shrink-0 !bg-[#517BDE]"
-              onClick={() => setShowPreviewModal(true)}
-            >
-              <span className="ml-3">{t('Preview Your Design')}</span>
+            <ButtonPrimary className="flex-1 flex-shrink-0 !bg-[#517BDE]" onClick={() => setShowPreviewModal(true)}>
+              <span className="ml-3">{t("Preview Your Design")}</span>
             </ButtonPrimary>
           </div>
           {/*  ---------- 4  QTY AND ADD TO CART BUTTON */}
           <div className="flex space-x-3.5">
             <div className="flex items-center justify-center bg-slate-100/70 dark:bg-slate-800/70 px-2 py-3 sm:p-3.5 rounded-full">
-              <NcInputNumber
-                defaultValue={quantity}
-                onChange={setQuantity}
-              />
+              <NcInputNumber defaultValue={quantity} onChange={setQuantity} />
             </div>
-            <ButtonPrimary
-              className="flex-1 flex-shrink-0"
-              onClick={notifyAddTocart}
-            >
+            <ButtonPrimary className="flex-1 flex-shrink-0" onClick={notifyAddTocart}>
               <BagIcon className="hidden sm:inline-block w-5 h-5 mb-0.5" />
-              <span className="ml-3">{t('Add to cart')}</span>
+              <span className="ml-3">{t("Add to cart")}</span>
             </ButtonPrimary>
           </div>
 
@@ -284,23 +230,16 @@ const ProductDetailPage = ({ }) => {
     return (
       <div className="listingSection__wrap !space-y-6">
         <div>
-          <h2 className="text-2xl md:text-3xl font-semibold">
-            {product?.name}
-          </h2>
+          <h2 className="text-2xl md:text-3xl font-semibold">{product?.name}</h2>
           <div className="flex items-center mt-4 sm:mt-5">
-            <a
-              href="#reviews"
-              className="hidden sm:flex items-center text-sm font-medium "
-            >
+            <a href="#reviews" className="hidden sm:flex items-center text-sm font-medium ">
               <div className="">
                 <StarIcon className="w-5 h-5 pb-[1px] text-slate-800 dark:text-slate-200" />
               </div>
               <span className="ml-1.5">
                 <span>New</span>
                 <span className="mx-1.5">·</span>
-                <span className="text-slate-700 dark:text-slate-400 underline">
-                  {product?.numberOfReviews} reviews
-                </span>
+                <span className="text-slate-700 dark:text-slate-400 underline">{product?.numberOfReviews} reviews</span>
               </span>
             </a>
             <span className="hidden sm:block mx-2.5">·</span>
@@ -317,7 +256,13 @@ const ProductDetailPage = ({ }) => {
         {/*  */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/*  */}
-        <AccordionInfo data={[{ name: "Title", content: product.motto ?? "" }, { name: "Description", content: product.description }]} panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7" />
+        <AccordionInfo
+          data={[
+            { name: "Title", content: product.motto ?? "" },
+            { name: "Description", content: product.description },
+          ]}
+          panelClassName="p-4 pt-3.5 text-slate-600 text-base dark:text-slate-300 leading-7"
+        />
       </div>
     );
   }, [status, product?.name, product.motto, product.description, product.numberOfReviews, calculatedPrice]);
@@ -325,19 +270,18 @@ const ProductDetailPage = ({ }) => {
   const renderSection2 = useCallback(() => {
     return (
       <div className="listingSection__wrap !border-b-0 !pb-0">
-        <h2 className="text-2xl font-semibold">{t('Product details')}</h2>
+        <h2 className="text-2xl font-semibold">{t("Product details")}</h2>
         {/* <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
         <div className="prose prose-sm sm:prose dark:prose-invert sm:max-w-4xl">
           <p>
-            Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 200 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for generations.
+            Our giclée prints are created using cutting-edge technology to ensure exceptional detail and color accuracy. Each print is made with 200 g/m² fine art paper, providing a rich matte finish that enhances the artwork's depth and vibrancy. The added 3.0 cm blank borders allow for easy framing, and our prints come with a 100+ year color guarantee, ensuring that your art remains stunning for
+            generations.
           </p>
           <ul className="tracking-wide leading-[29px]">
-            <li>{'>'} High-quality 200 g/m² fine art paper (matte)</li>
-            <li>{'>'} Giclée printing for vibrant, accurate colors</li>
-            <li>
-            {'>'} 3.0 cm blank borders for easy framing
-            </li>
-            <li>{'>'} 50+ year color guarantee</li>
+            <li>{">"} High-quality 200 g/m² fine art paper (matte)</li>
+            <li>{">"} Giclée printing for vibrant, accurate colors</li>
+            <li>{">"} 3.0 cm blank borders for easy framing</li>
+            <li>{">"} 50+ year color guarantee</li>
           </ul>
         </div>
         {/* ---------- 6 ----------  */}
@@ -388,10 +332,7 @@ const ProductDetailPage = ({ }) => {
             />
           </div>
 
-          <ButtonSecondary
-            onClick={() => setIsOpenModalViewAllReviews(true)}
-            className="mt-10 border border-slate-300 dark:border-slate-700 "
-          >
+          <ButtonSecondary onClick={() => setIsOpenModalViewAllReviews(true)} className="mt-10 border border-slate-300 dark:border-slate-700 ">
             Show me all 142 reviews
           </ButtonSecondary>
         </div>
@@ -400,105 +341,59 @@ const ProductDetailPage = ({ }) => {
   };
 
   function renderMainSection() {
-    return <main className="container relative z-10 mt-9 sm:mt-11 flex ">
-      {/* CONTENT */}
-      <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pr-14 lg:space-y-14">
-        {product && (
-          <>
-            {renderSection1()}
-            {renderSection2()}
-          </>
-        )}
-
-      </div>
-
-      {/* SIDEBAR */}
-      <div className="flex-grow">
-        <div className="hidden lg:block sticky top-28">
-          {renderSectionSidebar()}
+    return (
+      <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+        {/* CONTENT */}
+        <div className="w-full lg:w-3/5 xl:w-2/3 space-y-10 lg:pr-14 lg:space-y-14">
+          {product && (
+            <>
+              {renderSection1()}
+              {renderSection2()}
+            </>
+          )}
         </div>
-      </div>
-    </main>;
+
+        {/* SIDEBAR */}
+        <div className="flex-grow">
+          <div className="hidden lg:block sticky top-28">{renderSectionSidebar()}</div>
+        </div>
+      </main>
+    );
   }
 
   function renderHeadSection() {
-    return <div className="relative overflow-hidden">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
-        <div
-          className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer"
-          onClick={handleOpenModalImageGallery}
-        >
-          <NcImage
-            alt="firt"
-            containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0"
-            className="object-cover rounded-md sm:rounded-xl max-h-full"
-            src={product?.image}
-            fill
-            sizes="(max-width: 640px) 100vw, 50vw"
-            priority />
-          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
-        </div>
+    return (
+      <div className="relative overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-6">
+          <div className="md:h-full col-span-2 md:col-span-1 row-span-2 relative rounded-md sm:rounded-xl cursor-pointer" onClick={handleOpenModalImageGallery}>
+            <NcImage alt="firt" containerClassName="aspect-w-3 aspect-h-4 relative md:aspect-none md:absolute md:inset-0" className="object-cover rounded-md sm:rounded-xl max-h-full" src={product?.image} fill sizes="(max-width: 640px) 100vw, 50vw" priority />
+            <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity rounded-md sm:rounded-xl"></div>
+          </div>
 
-        {/*  */}
-        <div
-          className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer"
-          onClick={handleOpenModalImageGallery}
-        >
-          <NcImage
-            alt=""
-            fill
-            sizes="(max-width: 640px) 100vw, 50vw"
-            containerClassName="absolute inset-0"
-            className="object-cover w-full h-full rounded-md sm:rounded-xl"
-            src={product?.image2} />
-          <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
-        </div>
+          {/*  */}
+          <div className="col-span-1 row-span-2 relative rounded-md sm:rounded-xl overflow-hidden z-0 cursor-pointer" onClick={handleOpenModalImageGallery}>
+            <NcImage alt="" fill sizes="(max-width: 640px) 100vw, 50vw" containerClassName="absolute inset-0" className="object-cover w-full h-full rounded-md sm:rounded-xl" src={product?.image2} />
+            <div className="absolute inset-0 bg-neutral-900/20 opacity-0 hover:opacity-40 transition-opacity"></div>
+          </div>
 
-        {/*  */}
-        {[product?.image3, product?.image4].map(
-          (item, index) => (
-            <div
-              key={index}
-              className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${index >= 2 ? "block" : ""}`}
-            >
-              <NcImage
-                alt=""
-                fill
-                sizes="(max-width: 640px) 100vw, 33vw"
-                containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4"
-                className="object-cover w-full h-full rounded-md sm:rounded-xl "
-                src={item || ""} />
+          {/*  */}
+          {[product?.image3, product?.image4].map((item, index) => (
+            <div key={index} className={`relative rounded-md sm:rounded-xl overflow-hidden z-0 ${index >= 2 ? "block" : ""}`}>
+              <NcImage alt="" fill sizes="(max-width: 640px) 100vw, 33vw" containerClassName="aspect-w-6 aspect-h-5 lg:aspect-h-4" className="object-cover w-full h-full rounded-md sm:rounded-xl " src={item || ""} />
 
               {/* OVERLAY */}
-              <div
-                className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer"
-                onClick={handleOpenModalImageGallery} />
+              <div className="absolute inset-0 bg-slate-900/20 opacity-0 hover:opacity-60 transition-opacity cursor-pointer" onClick={handleOpenModalImageGallery} />
             </div>
-          )
-        )}
+          ))}
+        </div>
+        <div className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10" onClick={handleOpenModalImageGallery}>
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+          </svg>
+          <span className="ml-2 text-neutral-800 text-sm font-medium">Show all photos</span>
+        </div>
       </div>
-      <div
-        className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-white text-slate-500 cursor-pointer hover:bg-slate-200 z-10"
-        onClick={handleOpenModalImageGallery}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={1.5}
-            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-        </svg>
-        <span className="ml-2 text-neutral-800 text-sm font-medium">
-          Show all photos
-        </span>
-      </div>
-    </div>;
+    );
   }
 
   return (
@@ -506,38 +401,35 @@ const ProductDetailPage = ({ }) => {
       <>
         <header className="container mt-8 sm:mt-10">
           <Helmet>
-            <title>PrintMeArt - {t('Printed Art, Posters, and Photos')}</title>
+            <title>PrintMeArt - {t("Printed Art, Posters, and Photos")}</title>
             <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
           </Helmet>
           {isLoading ? (
             <div role="status" className="text-center w-full my-48">
               <Loading className="w-24 h-24"></Loading>
             </div>
-          ) : renderHeadSection()
-          }
+          ) : (
+            renderHeadSection()
+          )}
         </header>
       </>
-
       {/* MAIN */}
       {isLoading ? (
         <div role="status" className="text-center w-full my-48">
           <Loading className="w-24 h-24"></Loading>
         </div>
-      ) : renderMainSection()
-      }
-
-      {
-        isAdmin() && (
-          <main className="container relative z-10 mt-9 sm:mt-11 flex ">
-            <div className="flex-grow">
-              <div className="hidden lg:block sticky top-28">
-                <UpdateProduct productId={id}></UpdateProduct>
-              </div>
+      ) : (
+        renderMainSection()
+      )}
+      {isAdmin() && (
+        <main className="container relative z-10 mt-9 sm:mt-11 flex ">
+          <div className="flex-grow">
+            <div className="hidden lg:block sticky top-28">
+              <UpdateProduct productId={id}></UpdateProduct>
             </div>
-          </main>
-        )
-      }
-
+          </div>
+        </main>
+      )}
       {/* OTHER SECTION */}
       <div className="container pb-24 lg:pb-28 pt-14 space-y-14">
         {/* <hr className="border-slate-200 dark:border-slate-700" /> */}
@@ -546,31 +438,11 @@ const ProductDetailPage = ({ }) => {
 
         <hr className="border-slate-200 dark:border-slate-700" />
 
-        {
-          customerAlsoPurchased.length > 0 ? <SectionSliderProductCard
-            heading="Customers also purchased"
-            subHeading=""
-            headingFontClassName="text-2xl font-semibold"
-            headingClassName="mb-10 text-neutral-900 dark:text-neutral-50"
-            data={customerAlsoPurchased}
-          /> : <></>
-        }
+        {customerAlsoPurchased.length > 0 ? <SectionSliderProductCard heading="Customers also purchased" subHeading="" headingFontClassName="text-2xl font-semibold" headingClassName="mb-10 text-neutral-900 dark:text-neutral-50" data={customerAlsoPurchased} /> : <></>}
       </div>
-
       {/* MODAL VIEW ALL REVIEW */}
-      <ModalViewAllReviews
-        show={isOpenModalViewAllReviews}
-        onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)}
-      />
-      <ModalPreviewDesign
-        show={showPreviewModal}
-        onCloseModal={() => setShowPreviewModal(false)}
-        image={product.image}
-        isMatIncluded={isMatIncluded}
-        sizeName={sizeSelected?.name ?? "1x1"}
-        frame={frames[selectedFrameIndex]}
-      />
-
+      <ModalViewAllReviews show={isOpenModalViewAllReviews} onCloseModalViewAllReviews={() => setIsOpenModalViewAllReviews(false)} />
+      <ModalPreviewDesign show={showPreviewModal} onCloseModal={() => setShowPreviewModal(false)} image={product.image} isMatIncluded={isMatIncluded} sizeName={sizeSelected?.name ?? "1x1"} frame={frames[selectedFrameIndex]} />
       <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}

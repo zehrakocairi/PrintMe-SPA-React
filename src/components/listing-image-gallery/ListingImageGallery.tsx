@@ -1,5 +1,3 @@
-
-
 import "./styles/index.css";
 import Image from "../../shared/Image";
 import { FC, Fragment, useEffect, useRef } from "react";
@@ -9,15 +7,9 @@ import { useLastViewedPhoto } from "./utils/useLastViewedPhoto";
 import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import LikeSaveBtns from "../LikeSaveBtns";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 
-export const getNewParam = ({
-  paramName = "photoId",
-  value,
-}: {
-  paramName?: string;
-  value: string | number;
-}) => {
+export const getNewParam = ({ paramName = "photoId", value }: { paramName?: string; value: string | number }) => {
   let params = new URLSearchParams(document.location.search);
   params.set(paramName, String(value));
   return params.toString();
@@ -61,11 +53,10 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
               setLastViewedPhoto(photoId);
               let params = new URLSearchParams(document.location.search);
               params.delete("photoId");
-              navigate(`${thisPathname}/?${params.toString()}`);
+              navigate(`${thisPathname.replace(/\/+$/, "")}/?${params.toString()}`);
             }}
           />
         )}
-
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
           {images.map(({ id, url }) => (
             <div
@@ -99,42 +90,21 @@ const ListingImageGallery: FC<Props> = ({ images, onClose, isShowModal }) => {
     <>
       <Transition appear show={isShowModal} as="div">
         <Dialog as="div" className="relative z-40" onClose={handleClose}>
-          <Transition.Child
-            as="div"
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+          <Transition.Child as="div" enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
             <div className="fixed inset-0 bg-white" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="sticky z-10 top-0 p-4 xl:px-10 flex items-center justify-between bg-white">
-              <button
-                className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100"
-                onClick={handleClose}
-              >
+              <button className="focus:outline-none focus:ring-0 w-10 h-10 rounded-full flex items-center justify-center hover:bg-neutral-100" onClick={handleClose}>
                 <ArrowSmallLeftIcon className="w-6 h-6" />
               </button>
               <LikeSaveBtns />
             </div>
 
             <div className="flex min-h-full items-center justify-center sm:p-4 pt-0 text-center">
-              <Transition.Child
-                as="div"
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-5"
-                enterTo="opacity-100 translate-y-0"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-5"
-              >
-                <Dialog.Panel className="w-full max-w-screen-lg mx-auto transform p-4 pt-0 text-left transition-all ">
-                  {renderContent()}
-                </Dialog.Panel>
+              <Transition.Child as="div" enter="ease-out duration-300" enterFrom="opacity-0 translate-y-5" enterTo="opacity-100 translate-y-0" leave="ease-in duration-200" leaveFrom="opacity-100 translate-y-0" leaveTo="opacity-0 translate-y-5">
+                <Dialog.Panel className="w-full max-w-screen-lg mx-auto transform p-4 pt-0 text-left transition-all ">{renderContent()}</Dialog.Panel>
               </Transition.Child>
             </div>
           </div>

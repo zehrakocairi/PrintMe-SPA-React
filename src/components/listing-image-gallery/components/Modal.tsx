@@ -1,20 +1,12 @@
-
-
 import { Dialog } from "@headlessui/react";
 import { m } from "framer-motion";
 import { useRef, useState } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
-// import SharedModal from "./SharedModal";
+import SharedModal from "./SharedModal";
 
-export default function Modal({
-  images,
-  onClose,
-}: {
-  images: ListingGalleryImage[];
-  onClose?: () => void;
-}) {
+export default function Modal({ images, onClose }: { images: ListingGalleryImage[]; onClose?: () => void }) {
   let overlayRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const thisPathname = useLocation();
@@ -53,29 +45,9 @@ export default function Modal({
 
   return (
     <>
-      <Dialog
-        static
-        open={true}
-        onClose={handleClose}
-        initialFocus={overlayRef}
-        className="fixed inset-0 z-50 flex items-center justify-center"
-      >
-        <m.div
-          ref={overlayRef}
-          key="backdrop"
-          className="fixed inset-0 z-30 bg-black bg-opacity-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          onClick={handleClose}
-        />
-        {/* <SharedModal
-          index={curIndex}
-          direction={direction}
-          images={images}
-          changePhotoId={changePhotoId}
-          closeModal={handleClose}
-          navigation={true}
-        /> */}
+      <Dialog static open={true} onClose={handleClose} initialFocus={overlayRef} className="fixed inset-0 z-50 flex items-center justify-center">
+        <m.div ref={overlayRef} key="backdrop" className="fixed inset-0 z-30 bg-black bg-opacity-50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} onClick={handleClose} />
+        <SharedModal index={curIndex} direction={direction} images={images} changePhotoId={changePhotoId} closeModal={handleClose} navigation={true} />
       </Dialog>
     </>
   );
