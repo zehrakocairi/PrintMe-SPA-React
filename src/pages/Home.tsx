@@ -19,8 +19,7 @@ import SectionHeroForKeywords from "./SectionHeroForKeywords";
 import Loading from "../components/Loading";
 import { CatalogTags } from "../enums/CatalogTags";
 
-
-const Home: FC<any> = ({ }) => {
+const Home: FC<any> = ({}) => {
   const { t } = useTranslation(); // Initialize useTranslation hook
   const [featuredItems, setFeaturedItems] = useState<any[]>([]); // Adjust type if necessary
   const [trendingItems, setTrendingItems] = useState<any[]>([]); // Adjust type if necessary
@@ -30,7 +29,7 @@ const Home: FC<any> = ({ }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isCatalogVisible, setIsCatalogVisible] = useState(false);
   const { i18n } = useTranslation();
-  
+
   const fetchTrendingItems = async () => {
     const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
     setTrendingItems(data);
@@ -41,8 +40,7 @@ const Home: FC<any> = ({ }) => {
       setIsLoading(true);
       const { data } = await getFeaturedItems();
       setFeaturedItems(data);
-    }
-    finally {
+    } finally {
       setIsLoading(false);
     }
   };
@@ -61,8 +59,8 @@ const Home: FC<any> = ({ }) => {
     if (filter.tag != undefined) {
       updateTagState(undefined);
     }
-    
-    handleScrollToEl('root');
+
+    handleScrollToEl("root");
   }, []);
 
   useEffect(() => {
@@ -107,47 +105,36 @@ const Home: FC<any> = ({ }) => {
     };
   }, [catalogRef]);
 
-
   return (
     <div className="nc-PageHome relative overflow-hidden">
-       <Helmet>
-        <title>PrintMeArt - {t('High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home')}</title>
-        <link rel="canonical" href={'/?lang='+i18n.language} />
+      <Helmet>
+        <title>PrintMeArt - {t("High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home")}</title>
+        <link rel="canonical" href={"/?lang=" + i18n.language} />
       </Helmet>
       <SectionHero2 />
       <div className="mt-20 sm:mt-12 md:mt-24 lg:mt-32">
         <DiscoverMoreSlider />
       </div>
 
-
-
-      <div ref={sliderRef} className="container relative space-y-12 md:space-y-20 my-8 md:my-20 " >
+      <div ref={sliderRef} className="container relative space-y-12 md:space-y-20 my-8 md:my-20 ">
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
-        {
-          isLoading ? (
-            <div role="status" className="text-center w-full my-48">
-              <Loading className="w-24 h-24"></Loading>
-            </div>
-          ) : (
-            featuredItems.length > 0 && isVisible ? <SectionSliderProductCard
-              heading={t("Art Lovers Also Bought")}
-              subHeading={t("Popular Picks for You")}
-              motto={t('Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space')}
-              headingFontClassName="text-2xl font-semibold"
-              headingClassName="mb-2 text-neutral-900 dark:text-neutral-50"
-              data={featuredItems}
-            /> : <></>
-          )
-        }
+        {isLoading ? (
+          <div role="status" className="text-center w-full my-48">
+            <Loading className="w-24 h-24"></Loading>
+          </div>
+        ) : featuredItems.length > 0 && isVisible ? (
+          <SectionSliderProductCard heading={t("Art Lovers Also Bought")} subHeading={t("Popular Picks for You")} motto={t("Discover our best-selling art prints, posters, and photos. Find top picks that art enthusiasts and decor lovers adore for every space")} headingFontClassName="text-2xl font-semibold" headingClassName="mb-2 text-neutral-900 dark:text-neutral-50" data={featuredItems} />
+        ) : (
+          <></>
+        )}
+        <div id="explore" className="relative py-12 md:py-24 lg:py-32">
+          <BackgroundSection />
+          <SectionGridMoreExplore />
+        </div>
         <hr className="mt-10 border-slate-200 dark:border-slate-700"></hr>
 
         <div className="mb-10 md:mb-20">
           <ServiceSummaryHero />
-        </div>
-
-        <div id="explore" className="relative py-12 md:py-24 lg:py-32">
-          <BackgroundSection />
-          <SectionGridMoreExplore />
         </div>
 
         <hr className="mt-10 border-slate-200 dark:border-slate-700 hidden md:block"></hr>
@@ -155,7 +142,6 @@ const Home: FC<any> = ({ }) => {
         <div ref={catalogRef} className="hidden md:block">
           {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}
         </div>
-
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
           <SectionHowItWork />
@@ -182,6 +168,6 @@ const Home: FC<any> = ({ }) => {
       </div>
     </div>
   );
-}
+};
 
 export default memo(Home);
