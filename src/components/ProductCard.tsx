@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import LikeButton from "./LikeButton";
 import Prices from "./Prices";
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/outline";
-import { PRODUCTS } from "../data/data";
 import ButtonSecondary from "../shared/Button/ButtonSecondary";
 import ModalQuickView from "./ModalQuickView";
 import ProductStatus from "./ProductStatus";
@@ -20,7 +19,7 @@ export interface ProductCardProps {
   isLiked?: boolean;
 }
 
-const ProductCard: FC<ProductCardProps> = ({ className = "", data = PRODUCTS[0], isLiked }) => {
+const ProductCard: FC<ProductCardProps> = ({ className = "", data = {} as Product, isLiked }) => {
   const { name, price, motto, description, variantType, status, id } = data;
 
   const [showModalQuickView, setShowModalQuickView] = useState(false);

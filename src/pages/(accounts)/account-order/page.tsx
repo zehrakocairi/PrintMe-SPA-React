@@ -1,21 +1,14 @@
 import Prices from "../../../components/Prices";
-import { PRODUCTS } from "../../../data/data";
 import ButtonSecondary from "../../../shared/Button/ButtonSecondary";
 import Image from "../../../shared/Image";
 
 const AccountOrder = () => {
   const renderProductItem = (product: any, index: number) => {
-    const { image, name } = product ?? {image: 'https://genstorageaccount3116.blob.core.windows.ne…9aa9b4-badf-4bb8-961b-ae03042d5666-thumbnail.jpeg', name: 'test name'};
+    const { image, name } = product ?? { image: "https://genstorageaccount3116.blob.core.windows.ne…9aa9b4-badf-4bb8-961b-ae03042d5666-thumbnail.jpeg", name: "test name" };
     return (
       <div key={index} className="flex py-4 sm:py-7 last:pb-0 first:pt-0">
         <div className="relative h-24 w-16 sm:w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100">
-          <Image
-            fill
-            sizes="100px"
-            src={image}
-            alt={name}
-            className="h-full w-full object-cover object-center"
-          />
+          <Image fill sizes="100px" src={image} alt={name} className="h-full w-full object-cover object-center" />
         </div>
 
         <div className="ml-4 flex flex-1 flex-col">
@@ -40,10 +33,7 @@ const AccountOrder = () => {
             </p>
 
             <div className="flex">
-              <button
-                type="button"
-                className="font-medium text-indigo-600 dark:text-primary-500 "
-              >
+              <button type="button" className="font-medium text-indigo-600 dark:text-primary-500 ">
                 Leave review
               </button>
             </div>
@@ -66,17 +56,12 @@ const AccountOrder = () => {
             </p>
           </div>
           <div className="mt-3 sm:mt-0">
-            <ButtonSecondary
-              sizeClass="py-2.5 px-4 sm:px-6"
-              fontSize="text-sm font-medium"
-            >
+            <ButtonSecondary sizeClass="py-2.5 px-4 sm:px-6" fontSize="text-sm font-medium">
               View Order
             </ButtonSecondary>
           </div>
         </div>
-        <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">
-          {[PRODUCTS[0], PRODUCTS[1], PRODUCTS[2]].map(renderProductItem)}
-        </div>
+        <div className="border-t border-slate-200 dark:border-slate-700 p-2 sm:p-8 divide-y divide-y-slate-200 dark:divide-slate-700">{[].map(renderProductItem)}</div>
       </div>
     );
   };
@@ -87,7 +72,7 @@ const AccountOrder = () => {
       <h2 className="text-2xl sm:text-3xl font-semibold">Order History</h2>
       {/* {renderOrder()}
       {renderOrder()} */}
-       <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
+      <div className="border border-slate-200 dark:border-slate-700 rounded-lg overflow-hidden z-0">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center p-4 sm:p-8 bg-slate-50 dark:bg-slate-500/5">
           <div>
             <p className="text-lg font-semibold">You don't have any order yet</p>

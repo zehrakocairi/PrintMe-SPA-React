@@ -6,7 +6,7 @@ import SectionSliderProductCard from "../components/SectionSliderProductCard";
 import DiscoverMoreSlider from "../components/DiscoverMoreSlider";
 import SectionGridMoreExplore from "../components/SectionGridMoreExplore/SectionGridMoreExplore";
 import SectionGridFeatureItems from "../components/SectionGridFeatureItems";
-import { getFeaturedItems, getFilteredPaginatedItems } from "../services/catalogService";
+import { getFeaturedItems, getOurPickItems } from "../services/catalogService";
 import { useFilter } from "../contexts/FilterContext";
 import SectionPromo1 from "../components/SectionPromo1";
 import { Category } from "../enums/Category";
@@ -31,7 +31,7 @@ const Home: FC<any> = ({}) => {
   const { i18n } = useTranslation();
 
   const fetchTrendingItems = async () => {
-    const { data } = await getFilteredPaginatedItems(filter, pageSize, pageIndex);
+    const { data } = await getOurPickItems();
     setTrendingItems(data);
   };
 
@@ -140,7 +140,7 @@ const Home: FC<any> = ({}) => {
         <hr className="mt-10 border-slate-200 dark:border-slate-700 hidden md:block"></hr>
 
         <div ref={catalogRef} className="hidden md:block">
-          {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} /> : <></>}
+          {isCatalogVisible ? <SectionGridFeatureItems data={trendingItems ?? []} showPagination={false} showFilter={false} /> : <></>}{" "}
         </div>
 
         <div className="py-24 lg:py-32 border-t border-b border-slate-200 dark:border-slate-700">
