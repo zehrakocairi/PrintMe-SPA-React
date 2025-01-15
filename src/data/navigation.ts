@@ -55,7 +55,6 @@ export const MEGAMENU_PRINTS: NavItemType[] = [
   },
 ];
 
-
 export const NAVIGATION_DEMO_2: NavItemType[] = [
   {
     id: ncNanoId(),
@@ -66,8 +65,8 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/our-services",
-    name: "Frames",
+    href: "/search",
+    name: "Our Catalog",
   },
   {
     id: ncNanoId(),
@@ -81,8 +80,8 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
   },
   {
     id: ncNanoId(),
-    href: "/search",
-    name: "Our Catalog",
+    href: "/our-services",
+    name: "Frames",
   },
   {
     id: ncNanoId(),
