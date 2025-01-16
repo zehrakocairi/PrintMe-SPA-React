@@ -107,7 +107,7 @@ function toQueryString(filter: FilterState) {
     query += `&size=${filter.sizeState}`;
   }
   if (filter.sortOrderStates) {
-    query += `&sortOrderStates=${filter.sortOrderStates}`;
+    query += `&orderBy=${filter.sortOrderStates}`;
   }
   return query;
 }

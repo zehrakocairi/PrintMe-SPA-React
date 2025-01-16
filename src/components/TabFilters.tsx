@@ -48,11 +48,12 @@ export const DATA_catalog_tags = [
 ];
 
 const DATA_sortOrderRadios = [
-  { name: "Most Popular", id: "Most-Popular" },
-  { name: "Best Rating", id: "Best-Rating" },
-  { name: "Newest", id: "Newest" },
-  { name: "Price Low - Hight", id: "Price-low-hight" },
-  { name: "Price Hight - Low", id: "Price-hight-low" },
+  { name: "Most Popular", id: "MostPopular" },
+  { name: "Best Rating", id: "BestRating" },
+  { name: "Newest", id: "DateDesc" },
+  { name: "Oldest", id: "DateAsc" },
+  { name: "Price Low - Hight", id: "PriceAsc" },
+  { name: "Price Hight - Low", id: "PriceDesc" },
 ];
 
 const PRICE_RANGE = [1, 500];
