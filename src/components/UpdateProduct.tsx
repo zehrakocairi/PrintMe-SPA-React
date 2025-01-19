@@ -34,7 +34,7 @@ const UpdateProduct = ({ productId }: any) => {
   const { t } = useTranslation();
 
   const fetchProductData = async () => {
-    const data = await fetchWithAuth(`/catalog/${productId}`, await getToken());
+    const data = await fetchWithAuth(`/catalog/${productId}`, getToken());
     setProductData(data);
   };
 
@@ -69,14 +69,14 @@ const UpdateProduct = ({ productId }: any) => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await fetchWithAuth(`/catalog/${productId}`, await getToken(), getPutOptions(productData));
+    await fetchWithAuth(`/catalog/${productId}`, getToken(), getPutOptions(productData));
     await fetchProductData();
     alert("Product updated successfully");
   };
 
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this product?")) {
-      await fetchWithAuth(`/catalog/${productId}`, await getToken(), getDeleteOptions());
+      await fetchWithAuth(`/catalog/${productId}`, getToken(), getDeleteOptions());
       alert("Product deleted successfully");
       window.location.href = "/search";
     }

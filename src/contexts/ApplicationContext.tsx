@@ -4,130 +4,123 @@ import { fetchWithAuth, getPostOptions } from "../fetch/fetchWrapper";
 import i18n from "../i18n/i18n";
 
 interface ApplicationContextProps {
-    frames: Frame[];
-    sizes: Size[];
-    getToken: () => Promise<string | undefined>;
-    handleGoogleSuccess: (credential: any) => void;
-    isAuthenticated: () => boolean;
-    isAdmin: () => boolean;
-    currentUser:any;
+  frames: Frame[];
+  sizes: Size[];
+  getToken: () => string | undefined;
+  handleGoogleSuccess: (credential: any) => void;
+  isAuthenticated: () => boolean;
+  isAdmin: () => boolean;
+  currentUser: any;
 }
 
 const ApplicationContext = createContext<ApplicationContextProps | undefined>(undefined);
 
 interface ApplicationProviderProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export const ApplicationProvider: React.FC<ApplicationProviderProps> = ({ children }): any => {
+  const [frames, setFrames] = useState<Frame[]>([]);
+  const [sizes, setSizes] = useState<Size[]>([]);
+  const [currentUser, setcCurrentUser] = useState<any>({});
+  const language = new URLSearchParams(window.location.search)?.get("lang");
 
-    const [frames, setFrames] = useState<Frame[]>([]);
-    const [sizes, setSizes] = useState<Size[]>([]);
-    const [currentUser, setcCurrentUser] = useState<any>({});
-    const language = new URLSearchParams(window.location.search)?.get("lang");
-
-    const fetchFrames = async () => {
-        const url = `/bootstrap/frames`;
-        try {
-            const response = await fetchWithAuth(url, '');
-            setFrames(response);
-        } catch (error) {
-            console.error(`Error fetching frames:`, error);
-            throw error;
-        }
-    };
-    const fetchSizes = async () => {
-        const url = `/bootstrap/sizes`;
-        try {
-            const response = await fetchWithAuth(url, '');
-            setSizes(response);
-        } catch (error) {
-            console.error(`Error fetching frames:`, error);
-            throw error;
-        }
-    };
-    const fetchCurrentUser = async () => {
-        const url = `/bootstrap/currentUser`;
-        try {
-            const response = await fetchWithAuth(url, await getToken());
-            if(response.userName === 'Guest'){
-                localStorage.removeItem("accessToken");
-            }
-            setcCurrentUser(response);
-        } catch (error) {
-            console.error(`Error fetching current user:`, error);
-        }
-    };
-    const tryCreateUser = async () => {
-        const url = `/customer`;
-        try {
-            await fetchWithAuth(url, await getToken(), getPostOptions({}));
-        } catch (error) {
-            console.error(`Error fetching frames:`, error);
-            throw error;
-        }
-    };
-
-    useEffect(() => {
-        fetchFrames();
-        fetchSizes();
-        if(isAuthenticatedWith('google')){
-            fetchCurrentUser();
-        }
-        if (language && localStorage.getItem("lang") !== language) {
-            localStorage.setItem("lang", language ?? 'nl');
-            i18n.changeLanguage(language);
-
-        }
-    }, []);
-
-    const setAuthenticationMethod = (method: 'google') => {
-        localStorage.setItem("authenticationMethod", 'google');
-    };
-
-    const isAuthenticatedWith = (method: 'google'):boolean => {
-        return localStorage.getItem("authenticationMethod") === method && localStorage.getItem("accessToken") !== null;
-    };
-
-    const isAuthenticated = ():boolean => {
-        return localStorage.getItem("accessToken") !== null;
+  const fetchFrames = async () => {
+    const url = `/bootstrap/frames`;
+    try {
+      const response = await fetchWithAuth(url, "");
+      setFrames(response);
+    } catch (error) {
+      console.error(`Error fetching frames:`, error);
+      throw error;
     }
-
-    const isAdmin = ():boolean => {
-        return currentUser.isAdmin ?? false;
+  };
+  const fetchSizes = async () => {
+    const url = `/bootstrap/sizes`;
+    try {
+      const response = await fetchWithAuth(url, "");
+      setSizes(response);
+    } catch (error) {
+      console.error(`Error fetching frames:`, error);
+      throw error;
     }
+  };
+  const fetchCurrentUser = async () => {
+    const url = `/bootstrap/currentUser`;
+    try {
+      const response = await fetchWithAuth(url, getToken());
+      if (response.userName === "Guest") {
+        localStorage.removeItem("accessToken");
+      }
+      setcCurrentUser(response);
+    } catch (error) {
+      console.error(`Error fetching current user:`, error);
+    }
+  };
+  const tryCreateUser = async () => {
+    const url = `/customer`;
+    try {
+      await fetchWithAuth(url, getToken(), getPostOptions({}));
+    } catch (error) {
+      console.error(`Error fetching frames:`, error);
+      throw error;
+    }
+  };
 
-    const handleGoogleSuccess = ({credential}:any) => {
-        console.log("Google login successful:", credential);
-        localStorage.setItem("accessToken", credential);
-        setAuthenticationMethod('google');
-        fetchCurrentUser();
-        tryCreateUser();
-        window.location.href = "/";
-    };
+  useEffect(() => {
+    fetchFrames();
+    fetchSizes();
+    if (isAuthenticatedWith("google")) {
+      fetchCurrentUser();
+    }
+    if (language && localStorage.getItem("lang") !== language) {
+      localStorage.setItem("lang", language ?? "nl");
+      i18n.changeLanguage(language);
+    }
+  }, []);
 
-    const getToken = async () => {
-        const cachedToken = localStorage.getItem("accessToken");
-        const tokenExpiry = localStorage.getItem("tokenExpiry");
-        
-        if ((cachedToken && isAuthenticatedWith('google')) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
-            return cachedToken;
-        }
-    };
-    
+  const setAuthenticationMethod = (method: "google") => {
+    localStorage.setItem("authenticationMethod", "google");
+  };
 
-    return (
-        <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser, isAuthenticated, isAdmin }}>
-            {children}
-        </ApplicationContext.Provider>
-    );
+  const isAuthenticatedWith = (method: "google"): boolean => {
+    return localStorage.getItem("authenticationMethod") === method && localStorage.getItem("accessToken") !== null;
+  };
+
+  const isAuthenticated = (): boolean => {
+    return localStorage.getItem("accessToken") !== null;
+  };
+
+  const isAdmin = (): boolean => {
+    return currentUser.isAdmin ?? false;
+  };
+
+  const handleGoogleSuccess = ({ credential }: any) => {
+    console.log("Google login successful:", credential);
+    localStorage.setItem("accessToken", credential);
+    setAuthenticationMethod("google");
+    fetchCurrentUser();
+    tryCreateUser();
+    window.location.href = "/";
+  };
+
+  const getToken = () => {
+    const cachedToken = localStorage.getItem("accessToken");
+    const tokenExpiry = localStorage.getItem("tokenExpiry");
+
+    if ((cachedToken && isAuthenticatedWith("google")) || (cachedToken && tokenExpiry && new Date().getTime() < +tokenExpiry)) {
+      return cachedToken;
+    }
+  };
+
+  return <ApplicationContext.Provider value={{ frames, sizes, getToken, handleGoogleSuccess, currentUser, isAuthenticated, isAdmin }}>{children}</ApplicationContext.Provider>;
 };
 
 // Custom hook to access the Application context
 export const useApplication = () => {
-    const context = useContext(ApplicationContext);
-    if (!context) {
-        throw new Error("useApplication must be used within a ApplicationProvider");
-    }
-    return context;
+  const context = useContext(ApplicationContext);
+  if (!context) {
+    throw new Error("useApplication must be used within a ApplicationProvider");
+  }
+  return context;
 };
