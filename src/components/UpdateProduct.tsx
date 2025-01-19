@@ -28,6 +28,7 @@ const UpdateProduct = ({ productId }: any) => {
     itemOrder: 0,
     category: Category.None,
     tags: CatalogTags.Featured,
+    isHorizontal: false,
   });
 
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ const UpdateProduct = ({ productId }: any) => {
     fetchProductData();
   }, [productId]);
 
-  const handleChange = (e: ChangeEvent<any>) => {
+  const handleChange = (e: { target: { name: string; value: any } }) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
   };
@@ -246,6 +247,13 @@ const UpdateProduct = ({ productId }: any) => {
                 <Label>ItemOrder</Label>
                 <Input className="mt-1.5" type="number" name="itemOrder" value={productData.itemOrder} onChange={handleChange} placeholder="Product Order" required />
               </div>
+              <div className="mb-6">
+                <div className="flex items-center space-x-2">
+                  <input className="h-4 w-4 text-primary-600 border-neutral-300 rounded focus:ring-primary-500 focus:ring-opacity-50 dark:border-neutral-700 dark:focus:ring-primary-600 dark:focus:ring-opacity-25" type="checkbox" name="isHorizontal" checked={productData.isHorizontal} onChange={(e) => handleChange({ target: { name: "isHorizontal", value: e.target.checked } })} />
+                  <span className="text-sm text-neutral-700 font-medium text-neutral-700 dark:text-neutral-300">Is Horizontal</span>
+                </div>
+              </div>
+
               <div className="flex">
                 <div className="mb-6">
                   <Label>Categories</Label>
