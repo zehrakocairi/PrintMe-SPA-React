@@ -402,7 +402,7 @@ const ProductDetailPage = ({}) => {
         <header className="container mt-8 sm:mt-10">
           <Helmet>
             <title>PrintMeArt - {t("Printed Art, Posters, and Photos")}</title>
-            <link rel="canonical" href={"/product-details/" + product?.id + i18n.language} />
+            <link rel="canonical" href={`${window.location.origin}/product-details/${product?.id}?lang=${i18n.language}`} />
           </Helmet>
           {isLoading ? (
             <div role="status" className="text-center w-full my-48">

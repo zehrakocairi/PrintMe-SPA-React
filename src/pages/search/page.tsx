@@ -132,7 +132,7 @@ const PageSearch = () => {
     <div className={`nc-PageSearch`} data-nc-id="PageSearch">
       <Helmet>
         <title>PrintMeArt - {t("Printed Art, Posters, and Photos")}</title>
-        <link rel="canonical" href={"/search" + i18n.language} />
+        <link rel="canonical" href={`${window.location.origin}/search?lang=${i18n.language}`} />
       </Helmet>
       <div className={`nc-HeadBackgroundCommon h-24 2xl:h-28 top-0 left-0 right-0 w-full bg-primary-50 dark:bg-neutral-800/20 `} />
       <div className="container">

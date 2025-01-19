@@ -109,7 +109,7 @@ const Home: FC<any> = ({}) => {
     <div className="nc-PageHome relative overflow-hidden">
       <Helmet>
         <title>PrintMeArt - {t("High-Quality Art Prints, Posters, Custom Framing, and Stunning Photography for Your Home")}</title>
-        <link rel="canonical" href={"/?lang=" + i18n.language} />
+        <link rel="canonical" href={`${window.location.origin}/?lang=${i18n.language}`} />
       </Helmet>
       <SectionHero2 />
       <div className="mt-20 sm:mt-12 md:mt-24 lg:mt-32">
