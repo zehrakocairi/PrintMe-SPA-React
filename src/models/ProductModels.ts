@@ -1,11 +1,10 @@
-
 export interface ProductVariant {
-    id: number;
-    name: string;
-    thumbnail?: string;
-    color?: string;
-    featuredImage:string;
-  }
+  id: number;
+  name: string;
+  thumbnail?: string;
+  color?: string;
+  featuredImage: string;
+}
 
 export class Product {
   id: number;
@@ -25,15 +24,16 @@ export class Product {
   rating?: string;
   numberOfReviews?: number;
   isMatIncluded?: boolean;
+  isHorizontal = false;
 
   constructor(data: Partial<Product>) {
     this.id = data.id || 0;
-    this.name = data.name || '';
+    this.name = data.name || "";
     this.motto = data.motto;
     this.price = data.price || 0;
     this.images = data.images || [];
-    this.description = data.description || '';
-    this.category = data.category || '';
+    this.description = data.description || "";
+    this.category = data.category || "";
     this.tags = data.tags || [];
     this.link = data.link || "/product-detail/";
     this.variants = data.variants;
@@ -44,10 +44,11 @@ export class Product {
     this.rating = data.rating;
     this.numberOfReviews = data.numberOfReviews;
     this.isMatIncluded = data.isMatIncluded;
+    this.isHorizontal = data.isHorizontal || false;
   }
 
   get image(): string {
-    return this.images[0]?.image ?? '';
+    return this.images[0]?.image ?? "";
   }
 
   get imageThumbnail(): string {
@@ -67,7 +68,7 @@ export class Product {
   }
 
   get image3Thumbnail(): string {
-    return this.images[2]?.thumbnail ?? this.image3;;
+    return this.images[2]?.thumbnail ?? this.image3;
   }
 
   get image4(): string {
@@ -75,35 +76,34 @@ export class Product {
   }
 
   get image4Thumbnail(): string {
-    return this.images[3]?.thumbnail ?? this.image4;;
+    return this.images[3]?.thumbnail ?? this.image4;
   }
 }
 
-  export interface ImageDto {
-    image: string;
-    thumbnail: string;
-    category: number;
-    // thumbnail: string;
-    // thumbnailAlternate: string;
-    // image: string;
-    // imageAlternate: string;
-  }
-  
-  export interface Frame {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    thumbnail: string;
-    image: string;
-    allImages: string[];
-    mask: string;
-    maskWithoutMat: string;
-  }
-  export interface Size {
-    id: number;
-    name: string;
-    description: string;
-    multiplier: number;
-  }
-  
+export interface ImageDto {
+  image: string;
+  thumbnail: string;
+  category: number;
+  // thumbnail: string;
+  // thumbnailAlternate: string;
+  // image: string;
+  // imageAlternate: string;
+}
+
+export interface Frame {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  thumbnail: string;
+  image: string;
+  allImages: string[];
+  mask: string;
+  maskWithoutMat: string;
+}
+export interface Size {
+  id: number;
+  name: string;
+  description: string;
+  multiplier: number;
+}

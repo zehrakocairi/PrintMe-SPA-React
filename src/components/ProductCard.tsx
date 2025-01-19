@@ -41,15 +41,14 @@ const ProductCard: FC<ProductCardProps> = ({ className = "", data = {} as Produc
     <>
       <div className={`nc-ProductCard relative flex flex-col bg-transparent ${className} mx-2`}>
         <Link href={`/product-detail/${id}`} className="absolute inset-0"></Link>
-
         <div className="relative flex-shrink-0 bg-slate-50 dark:bg-slate-300 rounded-md overflow-hidden z-1 group product-card">
           <Link href={`/product-detail/${id}`} className="block block group relative">
-            <NcImage containerClassName="flex aspect-w-3 aspect-h-4 w-full h-0" src={data.imageThumbnail} className="object-cover w-full h-full drop-shadow-xl group-hover:hidden" fill sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw" alt="product" showMobileImage={true} />
+            <NcImage containerClassName={`flex ${data.isHorizontal ? "aspect-w-8 aspect-h-5" : "aspect-w-3 aspect-h-4"}  w-full h-0`} src={data.imageThumbnail} className="object-cover w-full h-full drop-shadow-xl group-hover:hidden" fill sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw" alt="product" showMobileImage={true} />
 
             {/* Hover View Image */}
             <NcImage
-              containerClassName="flex aspect-w-3 aspect-h-4 w-full h-0 absolute inset-0 product-card"
-              src={data.image2Thumbnail} //data.image2Thumbnail
+              containerClassName={`flex ${data.isHorizontal ? "aspect-w-8 aspect-h-5" : "aspect-w-3 aspect-h-4"} w-full h-0 absolute inset-0 product-card`}
+              src={data.isHorizontal ? data.image3Thumbnail : data.image2Thumbnail} //data.image2Thumbnail
               className="object-cover w-full h-full drop-shadow-xl hidden group-hover:block"
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1200px) 50vw, 40vw"
@@ -62,7 +61,6 @@ const ProductCard: FC<ProductCardProps> = ({ className = "", data = {} as Produc
           {renderGroupButtons()}
           {/* {sizes ? renderSizeList() : renderGroupButtons()} */}
         </div>
-
         <div className="space-y-4 px-0 pt-2.5 pb-2.5">
           {/* {renderVariants()} */}
           <div>
